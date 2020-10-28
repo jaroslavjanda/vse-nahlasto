@@ -1,10 +1,15 @@
 import React from 'react';
 
+import { Link } from 'src/atoms/';
+import { Placeholder } from 'src/templates/Placeholder';
+import { route } from 'src/Routes';
+
 export function PageNotFound() {
   return (
-    <div className="appWrapper">
-      <h1>Error 404:</h1>
-      <p>Page not found</p>
-    </div>
+    <Placeholder title="Error 404">
+      <p>
+        Page not found, please return to <Link to={route.home()}>Home</Link>.
+      </p>
+    </Placeholder>
   );
 }
