@@ -1,5 +1,6 @@
 export const users = async (_, __, { dbConnection }) => {
   const users = await dbConnection.query('SELECT * FROM user');
+
   return users;
 };
 

@@ -27,16 +27,6 @@ export const signup = async (
   },
   { dbConnection },
 ) => {
-  // const userByUserName = (
-  //   await dbConnection.query(`SELECT * FROM user WHERE userName = ?`, [
-  //     userName,
-  //   ])
-  // )[0];
-  //
-  // if (userByUserName) {
-  //   throw new Error('Username already taken');
-  // }
-
   const userByEmail = (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
   )[0];

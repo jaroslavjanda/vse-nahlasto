@@ -3,3 +3,15 @@ export const communities = async (_, __, { dbConnection }) => {
 
   return communities;
 };
+
+export const community = async (_, { name }, { dbConnection }) => {
+  const community = (
+    await dbConnection.query(`SELECT * FROM community WHERE name = ?`, [
+      name,
+    ])
+  ) [0]
+  if (!name) {
+    return null
+  }
+  return community
+}
