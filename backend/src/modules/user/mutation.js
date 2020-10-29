@@ -21,21 +21,21 @@ export const signup = async (
   {
     email,
     password,
-    name,
-    userName,
-    profileImageUrl = 'http://mrmrs.github.io/photos/p/1.jpg',
+    // name,
+    // userName,
+    // profileImageUrl = 'http://mrmrs.github.io/photos/p/1.jpg',
   },
   { dbConnection },
 ) => {
-  const userByUserName = (
-    await dbConnection.query(`SELECT * FROM user WHERE userName = ?`, [
-      userName,
-    ])
-  )[0];
-
-  if (userByUserName) {
-    throw new Error('Username already taken');
-  }
+  // const userByUserName = (
+  //   await dbConnection.query(`SELECT * FROM user WHERE userName = ?`, [
+  //     userName,
+  //   ])
+  // )[0];
+  //
+  // if (userByUserName) {
+  //   throw new Error('Username already taken');
+  // }
 
   const userByEmail = (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
@@ -48,9 +48,9 @@ export const signup = async (
   const passwordHash = await argon2.hash(password);
 
   const dbResponse = await dbConnection.query(
-    `INSERT INTO user (id, email, password, name, userName, profileImageUrl) 
-    VALUES (NULL, ?, ?, ?, ?, ?);`,
-    [email, passwordHash, name, userName, profileImageUrl],
+    `INSERT INTO user (id, email, password)
+    VALUES (NULL, ?, ?);`,
+    [email, passwordHash],
   );
 
   const token = createToken({ id: dbResponse.insertId });
@@ -58,9 +58,6 @@ export const signup = async (
   const userObject = {
     id: dbResponse.insertId,
     email,
-    name: name,
-    userName: userName,
-    profileImageUrl: profileImageUrl,
   };
 
   return { user: userObject, token: token };
