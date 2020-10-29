@@ -9,10 +9,7 @@ const SIGNIN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {
     signin(email: $email, password: $password) {
       user {
-        id
-        name
-        userName
-        profileImageUrl
+        email
       }
       token
     }

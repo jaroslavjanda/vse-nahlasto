@@ -38,8 +38,8 @@ export const signup = async (
   const passwordHash = await argon2.hash(password);
 
   const dbResponse = await dbConnection.query(
-    `INSERT INTO user (id, email, password)
-    VALUES (NULL, ?, ?);`,
+    `INSERT INTO user (email, password)
+    VALUES (?, ?);`,
     [email, passwordHash],
   );
 

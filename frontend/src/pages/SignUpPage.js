@@ -8,21 +8,14 @@ import { useAuth } from 'src/utils/auth';
 const SIGNUP_MUTATION = gql`
   mutation SignUp(
     $email: String!
-    $name: String!
     $password: String!
-    $userName: String!
   ) {
     signup(
       email: $email
-      name: $name
       password: $password
-      userName: $userName
     ) {
       user {
-        id
-        name
-        userName
-        profileImageUrl
+        email
       }
       token
     }
