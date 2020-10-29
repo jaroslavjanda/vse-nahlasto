@@ -1,5 +1,5 @@
 import { createToken } from '../libs/token';
-import { users, quacks } from './mocks';
+import { users } from './mocks';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const MOCK_DATA_DELAY = 300;
@@ -9,9 +9,7 @@ const QUACK_TEXT_LIMIT = 250;
 function getAuthUser(dbUser) {
   return {
     id: dbUser.id,
-    name: dbUser.name,
-    userName: dbUser.userName,
-    profileImageUrl: dbUser.profileImageUrl,
+    email: dbUser.email,
   };
 }
 
@@ -22,17 +20,18 @@ export default {
 
       return users;
     },
-    async user(_, { userName }) {
+    // async user(_, { userName }) {
+    //   await sleep(MOCK_DATA_DELAY);
+    //
+    //   return users.find((user) => user.userName === userName);
+    // },
+    async communities() {
       await sleep(MOCK_DATA_DELAY);
 
-      return users.find((user) => user.userName === userName);
-    },
-    async quacks() {
-      await sleep(MOCK_DATA_DELAY);
-
-      return quacks.slice(0, QUACKS_LIMIT);
+      return communities;
     },
   },
+
   Mutation: {
     async signin() {
       await sleep(MOCK_DATA_DELAY);
@@ -44,37 +43,22 @@ export default {
         token,
       };
     },
-    async signup(_, { email, password, name, userName }) {
+    async signup(_, { email, password }) {
       await sleep(MOCK_DATA_DELAY);
-
-      if (
-        users.find(
-          (user) =>
-            user.userName.toLowerCase() === userName.trim().toLowerCase(),
-        )
-      ) {
-        throw Error('This username is already taken');
-      }
 
       if (
         users.find(
           (user) => user.email.toLowerCase() === email.trim().toLowerCase(),
         )
       ) {
-        throw Error('User with this email is already registered');
+        throw Error('This email has been already used for registration');
       }
 
       const id = users.length + 1;
-      const profileImageUrl = `https://eu.ui-avatars.com/api/?size=128&name=${encodeURIComponent(
-        name.trim(),
-      )}`;
 
       const dbUser = {
         id,
-        name: name.trim(),
-        userName: userName.trim(),
         email: email.trim(),
-        profileImageUrl,
       };
 
       const user = getAuthUser(dbUser);
@@ -84,44 +68,44 @@ export default {
 
       return { user, token };
     },
-    async addQuack(_, { userId, text }) {
+
+    async addCommunity(_, { ownerId, name }) {
       await sleep(MOCK_DATA_DELAY);
 
-      if (!(text || '').trim()) {
+      if (!(name || '').trim()) {
         throw Error('No text provided');
       }
 
-      if (text.trim().length > QUACK_TEXT_LIMIT) {
-        throw Error('Text is too long');
-      }
+      // if (text.trim().length > QUACK_TEXT_LIMIT) {
+      //   throw Error('Text is too long');
+      // }
 
-      const user = users.find((user) => user.id === userId);
+      const user = users.find((user) => user.id === ownerId);
       if (!user) {
         throw Error('User not found');
       }
 
-      const quack = {
-        id: quacks.length + 1,
-        createdAt: new Date().toISOString(),
-        userId,
-        text,
+      const community = {
+        id: communities.length + 1,
+        ownerId,
+        name,
       };
 
-      quacks.splice(0, 0, quack);
+      // quacks.splice(0, 0, quack);
 
-      return quack;
+      return community;
     },
   },
   User: {
-    quacks({ id }) {
-      return quacks
-        .filter((quack) => quack.userId === id)
-        .slice(0, QUACKS_LIMIT);
+    communities({ id }) {
+      return communities
+        .filter((community) => community.ownerId === id)
+        // .slice(0, QUACKS_LIMIT);
     },
   },
-  Quack: {
+  Community: {
     user({ userId }) {
-      return users.find((user) => user.id === userId);
+      return users.find((user) => user.id === ownerId);
     },
   },
 };
