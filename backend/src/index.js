@@ -45,6 +45,8 @@ const typeDefs = gql`
     signin(email: String!, password: String!): AuthInfo!
 
     signup(
+      name: String!
+      surname: String!
       email: String!
       password: String!
     ): AuthInfo!
