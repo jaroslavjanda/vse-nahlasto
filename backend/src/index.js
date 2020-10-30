@@ -25,6 +25,13 @@ const typeDefs = gql`
     ownerId: Int!
   }
 
+  type Ticket {
+    id: Int!
+    content: String!
+    ownerId: Int!
+    communityId: Int!
+  }
+
   type AuthUser {
     email: String!
   }
@@ -39,6 +46,8 @@ const typeDefs = gql`
     user(email: String!): User
     communities: [Community!]!
     community(name: String!): Community
+    tickets(communityId: Int!): [Ticket!]!
+    ticket(communityId: Int!, ticketId:Int!): Ticket
   }
 
   type Mutation {
@@ -52,6 +61,13 @@ const typeDefs = gql`
     ): AuthInfo!
 
     addCommunity(ownerId: Int!, name: String!): Community!
+
+    addTicket(
+      ownerId: Int!,
+      communityId: Int!,
+      content: String!
+      
+      ): Ticket!
   }
 `;
 
