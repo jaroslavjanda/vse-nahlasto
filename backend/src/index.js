@@ -14,22 +14,36 @@ const MOCKS = process.env.MOCKS === 'true';
 
 const typeDefs = gql`
   type User {
+    user_id: Int!
+    name: String!
+    surname: String!
     email: String!
     communities: [Community!]!
   }
 
+  type Membership {
+    community_id: Int!
+    user_id: Int!
+    role_id: Int!
+    accepted: Boolean!
+  }
+
   type Community {
-    id: Int!
+    community_id: Int!
     name: String!
+    description: String!
+    closed: Boolean!
+    user_id: Int!
     owner: User!
-    ownerId: Int!
+    users: [User!]!
+    tickets: [Ticket!]
   }
 
   type Ticket {
-    id: Int!
+    ticket_id: Int!
     content: String!
-    ownerId: Int!
-    communityId: Int!
+    user_id: Int!
+    community_id: Int!
   }
 
   type AuthUser {
@@ -43,9 +57,11 @@ const typeDefs = gql`
 
   type Query {
     users: [User!]!
-    user(email: String!): User
+    user(user_id: Int!): User
     communities: [Community!]!
-    community(name: String!): Community
+    community(communityId: Int!): Community
+    memberships: [Membership!]!
+    membership(communityId: Int!): [Membership!]!
     tickets(communityId: Int!): [Ticket!]!
     ticket(communityId: Int!, ticketId:Int!): Ticket
   }
