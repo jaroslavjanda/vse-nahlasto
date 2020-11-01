@@ -29,13 +29,13 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, ticket.content, ticket.user_id, community_id, 
+        `SELECT ticket.ticket_id, title, ticket.content, ticket.user_id, community_id, 
         COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
         FROM ticket 
         LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
         LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
         WHERE ticket.user_id = ?
-        GROUP BY ticket.ticket_id, ticket.content, ticket.user_id, community_id
+        GROUP BY ticket.ticket_id, title, ticket.content, ticket.user_id, community_id
         `, 
         [
         parent.user_id,
@@ -63,13 +63,13 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, ticket.content, ticket.user_id, community_id, 
+        `SELECT ticket.ticket_id, title, ticket.content, ticket.user_id, community_id, 
         COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
         FROM ticket 
         LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
         LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
         WHERE ticket.community_id = ?
-        GROUP BY ticket.ticket_id, ticket.content, ticket.user_id, community_id
+        GROUP BY ticket.ticket_id, title, ticket.content, ticket.user_id, community_id
         `, 
         [
         parent.community_id,

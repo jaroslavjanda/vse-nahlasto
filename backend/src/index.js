@@ -44,6 +44,8 @@ const typeDefs = gql`
 
   type Ticket {
     ticket_id: Int!
+    title: String!
+    image: String!
     content: String!
     user_id: Int!
     community_id: Int!
