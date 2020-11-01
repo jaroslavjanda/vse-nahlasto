@@ -19,13 +19,7 @@ const typeDefs = gql`
     surname: String!
     email: String!
     communities: [Community!]!
-  }
-
-  type Membership {
-    community_id: Int!
-    user_id: Int!
-    role_id: Int!
-    accepted: Boolean!
+    tickets: [Ticket!]
   }
 
   type Community {
@@ -33,10 +27,19 @@ const typeDefs = gql`
     name: String!
     description: String!
     closed: Boolean!
-    user_id: Int!
-    owner: User!
+    owner: [User]
     users: [User!]!
     tickets: [Ticket!]
+  }
+
+  type Comment {
+    comment_id: Int!
+    date: String!
+    content: String!
+    closed: Boolean!
+    user_id: Int!
+    user: [User!]!
+    ticket_id: Int!
   }
 
   type Ticket {
@@ -44,6 +47,9 @@ const typeDefs = gql`
     content: String!
     user_id: Int!
     community_id: Int!
+    likes_count: Int!
+    comment_count: Int!
+    comments: [Comment!]!
   }
 
   type AuthUser {
@@ -58,12 +64,15 @@ const typeDefs = gql`
   type Query {
     users: [User!]!
     user(user_id: Int!): User
-    communities: [Community!]!
+    communities: [Community]
     community(communityId: Int!): Community
-    memberships: [Membership!]!
-    membership(communityId: Int!): [Membership!]!
-    tickets(communityId: Int!): [Ticket!]!
-    ticket(communityId: Int!, ticketId:Int!): Ticket
+    tickets: [Ticket!]
+    ticket(ticketId:Int!): [Ticket!]
+    communityTickets(communityId: Int!): [Ticket!]
+    communityTicket(communityId: Int!, ticketId:Int!): Ticket
+    comments: [Comment!]
+    comment(commentId:Int!): [Comment!]
+    ticketComments(ticketId: Int!): [Comment!]
   }
 
   type Mutation {
@@ -82,8 +91,7 @@ const typeDefs = gql`
       ownerId: Int!,
       communityId: Int!,
       content: String!
-      
-      ): Ticket!
+    ): Ticket!
   }
 `;
 
