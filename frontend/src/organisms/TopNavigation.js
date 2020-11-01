@@ -1,27 +1,29 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 
-import { AvatarPhoto, Link, NavLink, Button } from 'src/atoms/';
+import { AvatarPhoto, Link, NavLink } from 'src/atoms/';
 import { useAuth } from 'src/utils/auth';
 import { route, PRACTICALS } from 'src/Routes';
+
+import { Nav, Navbar, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function TopNavigation() {
   const { user, signout } = useAuth();
   const history = useHistory();
 
   return (
-    <nav className="flex justify-between bb b--white-10 bg-dark-green white">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Link
         to={route.home()}
         noUnderline
         className="b white flex items-center pv2 ph3"
       >
-        <FontAwesomeIcon icon={faFeatherAlt} className="mr2 f4" />
-        Quacker
+        NahlasTo
       </Link>
-      <div className="flex-grow flex items-center">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+     <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="ml-auto">
         <NavLink exact to={route.home()} className="pa3">
           Home
         </NavLink>
@@ -49,9 +51,7 @@ export function TopNavigation() {
               {user.name}
             </NavLink>
             <Button
-              color="navbar"
-              border
-              narrow
+              variant="secondary"
               onClick={() => {
                 signout();
                 history.push(route.home());
@@ -67,18 +67,16 @@ export function TopNavigation() {
               Sign In
             </NavLink>
             <Button
+            variant="secondary"
               to={route.signUp()}
               as={Link}
-              color="navbar"
-              narrow
-              border
-              noUnderline
             >
               Sign Up
             </Button>
           </>
         )}
-      </div>
-    </nav>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
