@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { AvatarPhoto, Link, NavLink } from 'src/atoms/';
 import { useAuth } from 'src/utils/auth';
-import { route, PRACTICALS } from 'src/Routes';
+import { route } from 'src/Routes';
 
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,62 +19,59 @@ export function TopNavigation() {
         noUnderline
         className="b white flex items-center pv2 ph3"
       >
-        NahlasTo
+        NahlašTo
       </Link>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-     <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+      <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-        <NavLink exact to={route.home()} className="pa3">
-          Home
-        </NavLink>
-        {PRACTICALS.map(({ id }) => (
-          <NavLink to={route.practical(id)} className="pa3" key={id}>
-            {id}
+          <NavLink exact to={route.home()} className="pa3">
+            Home
           </NavLink>
-        ))}
-        <NavLink to={route.about()} className="pa3">
-          About
-        </NavLink>
-        {user ? (
-          <>
-            <NavLink
-              to={route.userDetail(user.userName)}
-              noUnderline
-              className="ph3 pv1 h-100 flex items-center"
-            >
-              <AvatarPhoto
-                className="v-mid dib mr2"
-                src={user.profileImageUrl}
-                alt={user.userName}
-                size={2}
-              />{' '}
-              {user.name}
-            </NavLink>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                signout();
-                history.push(route.home());
-                window.location.reload();
-              }}
-            >
-              Sign Out
-            </Button>
-          </>
-        ) : (
-          <>
-            <NavLink to={route.signIn()} className="pa3">
-              Sign In
-            </NavLink>
-            <Button
-            variant="secondary"
-              to={route.signUp()}
-              as={Link}
-            >
-              Sign Up
-            </Button>
-          </>
-        )}
+          <NavLink to={route.about()} className="pa3">
+            About
+          </NavLink>
+          {user ? (
+            <>
+              <NavLink
+                // TODO navigate nowhere OR to the user profile page
+                exact to={route.home()}
+                noUnderline
+                className="ph3 pv1 h-100 flex items-center"
+              >
+                {/*<AvatarPhoto*/}
+                {/*  className="v-mid dib mr2"*/}
+                {/*  src={user.profileImageUrl}*/}
+                {/*  alt={user.userName}*/}
+                {/*  size={2}*/}
+                {/*/>{' '}*/}
+                {'Logged in as: '}
+                {user.email}
+              </NavLink>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  signout();
+                  history.push(route.home());
+                  window.location.reload();
+                }}
+              >
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <NavLink to={route.signIn()} className="pa3">
+                Sign In
+              </NavLink>
+              <Button
+                variant="secondary"
+                to={route.signUp()}
+                as={Link}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -5,9 +5,19 @@ import { SignInForm, TopNavigation } from 'src/organisms/';
 import { route } from 'src/Routes';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
+
+  if (error) {
+    switch (error.message) {
+      case 'Cannot read property \'password\' of undefined':
+      case 'Cannot return null for non-nullable field Mutation.signin.':
+        error.message = 'Wrong username or password';
+        break;
+    }
+  }
+
   return (
     <>
-      <TopNavigation />
+      <TopNavigation/>
       <MainSection>
         <Heading>Sign In</Heading>
 
