@@ -5,6 +5,7 @@ export function TextInput({ className, error, ...props }) {
   return (
     <input
       type="text"
+      value=""
       className={classNames(
         'border-box input-reset ba pa2 db w-100',
         error ? 'b--red' : 'b--black-20',

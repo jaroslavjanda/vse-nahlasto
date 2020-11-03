@@ -7,10 +7,14 @@ import { useAuth } from 'src/utils/auth';
 
 const SIGNUP_MUTATION = gql`
   mutation SignUp(
+    $name: String!
+    $surname: String!
     $email: String!
     $password: String!
   ) {
     signup(
+      name: $name
+      surname: $surname
       email: $email
       password: $password
     ) {

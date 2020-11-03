@@ -14,15 +14,44 @@ const MOCKS = process.env.MOCKS === 'true';
 
 const typeDefs = gql`
   type User {
+    user_id: Int!
+    name: String!
+    surname: String!
     email: String!
     communities: [Community!]!
+    tickets: [Ticket!]
   }
 
   type Community {
-    id: Int!
+    community_id: Int!
     name: String!
-    owner: User!
-    ownerId: Int!
+    description: String!
+    closed: Boolean!
+    owner: [User]
+    users: [User!]!
+    tickets: [Ticket!]
+  }
+
+  type Comment {
+    comment_id: Int!
+    date: String!
+    content: String!
+    closed: Boolean!
+    user_id: Int!
+    user: [User!]!
+    ticket_id: Int!
+  }
+
+  type Ticket {
+    ticket_id: Int!
+    title: String!
+    image: String!
+    content: String!
+    user_id: Int!
+    community_id: Int!
+    likes_count: Int!
+    comment_count: Int!
+    comments: [Comment!]!
   }
 
   type AuthUser {
@@ -36,20 +65,35 @@ const typeDefs = gql`
 
   type Query {
     users: [User!]!
-    user(email: String!): User
-    communities: [Community!]!
-    community(name: String!): Community
+    user(user_id: Int!): User
+    communities: [Community]
+    community(communityId: Int!): Community
+    tickets: [Ticket!]
+    ticket(ticketId:Int!): [Ticket!]
+    communityTickets(communityId: Int!): [Ticket!]
+    communityTicket(communityId: Int!, ticketId:Int!): Ticket
+    comments: [Comment!]
+    comment(commentId:Int!): [Comment!]
+    ticketComments(ticketId: Int!): [Comment!]
   }
 
   type Mutation {
     signin(email: String!, password: String!): AuthInfo!
 
     signup(
+      name: String!
+      surname: String!
       email: String!
       password: String!
     ): AuthInfo!
 
     addCommunity(ownerId: Int!, name: String!): Community!
+
+    addTicket(
+      ownerId: Int!,
+      communityId: Int!,
+      content: String!
+    ): Ticket!
   }
 `;
 

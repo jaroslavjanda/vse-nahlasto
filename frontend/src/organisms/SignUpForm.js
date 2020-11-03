@@ -6,23 +6,23 @@ import { ErrorBanner } from 'src/atoms/';
 import { FormikField, LoadingButton } from 'src/molecules/';
 
 const initialValues = {
-  email: '',
   name: '',
+  surname: '',
+  email: '',
   password: '',
   passwordConfirmation: '',
-  userName: '',
 };
 
 const schema = yup.object().shape({
-  email: yup.string().email().required().label('Email'),
   name: yup.string().required().label('Name'),
+  surname: yup.string().required().label('Surname'),
+  email: yup.string().email().required().label('Email'),
   password: yup.string().required().label('Password'),
   passwordConfirmation: yup
     .string()
     .required()
     .oneOf([yup.ref('password'), null], 'Passwords must match')
     .label('Password Confirmation'),
-  userName: yup.string().required().label('Username'),
 });
 
 export function SignUpForm({
@@ -52,9 +52,9 @@ export function SignUpForm({
           autoCapitalize="off"
         />
         <FormikField
-          id="userName"
-          name="userName"
-          label="Username"
+          id="surname"
+          name="surname"
+          label="Surname"
           type="text"
           autoComplete="on"
           autoCorrect="off"
