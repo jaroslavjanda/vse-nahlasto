@@ -27,16 +27,15 @@ export const signup = async (
   },
   { dbConnection },
 ) => {
-  const userByEmail = (
-    await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
-  )[0];
+
+  const userByEmail = ( await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email]) )[0];
 
   if (userByEmail) {
     throw new Error('Email already registered');
   }
 
   const passwordHash = await argon2.hash(password);
- 
+
   const dbResponse = await dbConnection.query(
     `INSERT INTO user (email, password, name, surname)
     VALUES (?, ?, ?, ?);`,
@@ -52,3 +51,17 @@ export const signup = async (
 
   return { user: userObject, token: token };
 };
+
+export const resetUserPassword = async (
+  _,
+  {
+    email,
+    newPassword,
+  },
+  { dbConnection },
+) => {
+  await dbConnection.query(`UPDATE user SET password = ? WHERE email = ?`, [await argon2.hash(newPassword), email]);
+  return ( await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email]) )[0];
+};
+
+

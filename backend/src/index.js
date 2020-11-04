@@ -15,7 +15,7 @@ const MOCKS = process.env.MOCKS === 'true';
 const typeDefs = gql`
   type User {
     user_id: Int!
-    name: String!
+    name: String
     surname: String!
     email: String!
     communities: [Community!]!
@@ -76,6 +76,7 @@ const typeDefs = gql`
     comment(commentId:Int!): [Comment!]
     ticketComments(ticketId: Int!): [Comment!]
   }
+  
 
   type Mutation {
     signin(email: String!, password: String!): AuthInfo!
@@ -94,6 +95,11 @@ const typeDefs = gql`
       communityId: Int!,
       content: String!
     ): Ticket!
+
+    resetUserPassword(
+      email: String!,
+      newPassword: String!
+    ): AuthUser!
   }
 `;
 
