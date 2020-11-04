@@ -24,7 +24,10 @@ export function SignInPage() {
       auth.signin({ token, user });
       history.replace('/');
     },
-    onError: () => {},
+    onError: () => {
+      console.log("TEST Error while fetching the DB")
+
+    },
   });
 
   const handleSignInFormSubmit = useCallback(
