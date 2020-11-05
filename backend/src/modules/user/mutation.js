@@ -60,7 +60,32 @@ export const resetUserPassword = async (
   },
   { dbConnection },
 ) => {
-  await dbConnection.query(`UPDATE user SET password = ? WHERE email = ?`, [await argon2.hash(newPassword), email]);
+  const dbResponse = await dbConnection.query(`UPDATE user SET password = ? WHERE email = ?`, [await argon2.hash(newPassword), email]);
+
+  if (dbResponse){
+    const sgMail = require('@sendgrid/mail')
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
+    const msg = {
+      to: email, 
+      from: 'tym7nahlasto@gmail.com', // Nemenit!
+      subject: 'Change password confirmation',
+      text: 'You have succesfully changed your password',
+      html: '<strong>You have succesfully changed your password</strong>',
+    }
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+        
+      })
+      .catch((error) => {
+        //Log friendly error
+        console.error(error.toString());
+        console.log(output)
+      })
+  }
+
   return ( await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email]) )[0];
 };
 
