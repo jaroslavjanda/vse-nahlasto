@@ -17,6 +17,7 @@ export const route = {
   signUp: () => `/auth/signup`,
   resetPassword: () => '/password_reset',
   communityDetail: () => `/community-detail/:communityId`,
+  addTicket: () => `/community-detail/:communityId/add`,
 };
 
 export function Routes() {

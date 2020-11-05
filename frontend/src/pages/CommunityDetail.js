@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Spinner, Alert, Button } from 'react-bootstrap';
-import { tr } from 'date-fns/locale';
+import { Spinner, Alert, Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const CUMMUNITY_DETAIL_QUERY = gql`
   query CommunityDetail($communityId: Int!) {
@@ -20,7 +20,6 @@ const CUMMUNITY_DETAIL_QUERY = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
-
   // Will be seperated to more files, this will be only networking manager
   // Time 😢
   const communityId = parseInt(match.params.communityId);
@@ -29,6 +28,7 @@ export const CommunityDetail = ({ match }) => {
   });
 
   const [isMember, setIsMember] = useState(false);
+  const [formData, setFormData] = useState();
   const [community, setCommunity] = useState({
     name: '',
     tickets: [],
@@ -86,15 +86,23 @@ export const CommunityDetail = ({ match }) => {
               </Alert>
               <h5>
                 Hey bro 👋 <br />
-                as a part of community you can see stats <br />
+                as a part of community you can see stats and add ticket
+                <br />
                 ⬇️
               </h5>
-              <div>
-                {console.log(community.users)}
-                Number of users: {community.users.length}
-              </div>
+              <div>Number of users: {community.users.length}</div>
               <div>Number of tickets: {community.tickets.length}</div>
-            </div>
+              <br />
+              <br />
+            
+              <Link to={`/community-detail/${communityId}/add`}>
+              <Button
+                variant="success"
+              >
+                Add ticket
+              </Button>
+              </Link>
+  </div>
           )}
           {community.closed && (
             <div>
