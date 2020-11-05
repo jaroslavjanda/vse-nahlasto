@@ -42,6 +42,32 @@ export const signup = async (
     [email, passwordHash, name, surname],
   );
 
+  if (dbResponse.insertId){const sgMail = require('@sendgrid/mail')
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
+    const msg = {
+      to: email, 
+      from: 'tym7nahlasto@gmail.com', // Nemenit!
+      subject: 'Registration confirmation',
+      text: 'You have succesfully registered to Nahlas.to ',
+      html: '<strong>You have succesfully registered to Nahlas.to</strong>',
+    }
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+        
+      })
+      .catch((error) => {
+        console.log("fuck")
+
+
+    //Log friendly error
+      console.error(error.toString());
+      console.log(output)
+      })
+  }
+
   const token = createToken({ id: dbResponse.insertId });
 
   const userObject = {
