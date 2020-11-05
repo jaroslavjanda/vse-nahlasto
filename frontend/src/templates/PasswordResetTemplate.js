@@ -17,17 +17,13 @@ export function PasswordResetTemplate({ isDone, error, onSubmit }) {
 
   return (
     <>
-      <TopNavigation />
-      <MainSection>
-        <Heading>Reset password</Heading>
-
-        <PasswordResetForm
-          errorMessage={error && error.message}
-          successMessage={isDone}
-          onSubmit={onSubmit}
-          className="mt3"
-        ></PasswordResetForm>
-      </MainSection>
+      <Heading>Reset password</Heading>
+      <PasswordResetForm
+        errorMessage={error && error.message}
+        successMessage={isDone}
+        onSubmit={onSubmit}
+        className="mt3"
+      ></PasswordResetForm>
     </>
   );
 }
