@@ -12,4 +12,3 @@ npm-debug.log
 
 /tmp/*
 !/tmp/restart.txt
-sendgrid.env
