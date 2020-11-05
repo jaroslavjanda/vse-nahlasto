@@ -1,7 +1,8 @@
 import React from 'react';
+import { Spinner } from 'react-bootstrap';
 
 import { Heading, MainSection } from 'src/atoms/';
-import { QuackForm, ReloadButton } from 'src/molecules/';
+import { QuackForm } from 'src/molecules/';
 import { QuackList } from 'src/organisms/';
 
 export function HomeTemplate({
@@ -20,19 +21,18 @@ export function HomeTemplate({
         {currentUser && <QuackForm {...quackFormState} />}
 
         {data && (
-          <ReloadButton
-            isLoading={loading}
-            onClick={() => refetchQuacks()}
-            className="fr"
-          />
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
         )}
-
+        {/* 
         <QuackList
           quacks={data && data.quacks}
           isLoading={loading}
           error={error}
           refetch={refetchQuacks}
         />
+        */}
       </>
     </>
   );

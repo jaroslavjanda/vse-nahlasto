@@ -6,7 +6,7 @@ import { TopNavigation } from 'src/organisms';
 export function AboutTemplate() {
   return (
     <>
-      <Heading>About Quacker</Heading>
+      <Heading>About Nahlasto</Heading>
       <p>
         Our company's mission is to collaboratively manufacture access to
         paradigms without losing sight of our original goal to interactively

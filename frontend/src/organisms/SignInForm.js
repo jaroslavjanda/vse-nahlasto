@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { ErrorBanner } from 'src/atoms/';
 import { LoadingButton } from 'src/molecules/';
 import { FormikField } from 'src/molecules/';
+import { Button } from 'react-bootstrap';
 
 const initialValues = {
   email: '',
@@ -52,9 +53,10 @@ export function SignInForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <LoadingButton type="submit" className="mt2 mb3" loading={isLoading}>
-          Sign In
-        </LoadingButton>
+
+        <Button type="submit" variant="success" size="lg">
+          Sign in
+        </Button>
         {children}
       </Form>
     </Formik>
