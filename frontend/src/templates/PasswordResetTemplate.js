@@ -5,7 +5,6 @@ import { TopNavigation } from 'src/organisms/TopNavigation';
 import { PasswordResetForm } from '../organisms/PasswordResetForm';
 
 export function PasswordResetTemplate({ isDone, error, onSubmit }) {
-
   // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
@@ -27,9 +26,7 @@ export function PasswordResetTemplate({ isDone, error, onSubmit }) {
           successMessage={isDone}
           onSubmit={onSubmit}
           className="mt3"
-          >
-
-        </PasswordResetForm>
+        ></PasswordResetForm>
       </MainSection>
     </>
   );

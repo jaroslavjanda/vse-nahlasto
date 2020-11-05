@@ -69,14 +69,13 @@ const typeDefs = gql`
     communities: [Community]
     community(communityId: Int!): Community
     tickets: [Ticket!]
-    ticket(ticketId:Int!): [Ticket!]
+    ticket(ticketId: Int!): [Ticket!]
     communityTickets(communityId: Int!): [Ticket!]
-    communityTicket(communityId: Int!, ticketId:Int!): Ticket
+    communityTicket(communityId: Int!, ticketId: Int!): Ticket
     comments: [Comment!]
-    comment(commentId:Int!): [Comment!]
+    comment(commentId: Int!): [Comment!]
     ticketComments(ticketId: Int!): [Comment!]
   }
-  
 
   type Mutation {
     signin(email: String!, password: String!): AuthInfo!
@@ -90,16 +89,9 @@ const typeDefs = gql`
 
     addCommunity(ownerId: Int!, name: String!): Community!
 
-    addTicket(
-      ownerId: Int!,
-      communityId: Int!,
-      content: String!
-    ): Ticket!
+    addTicket(ownerId: Int!, communityId: Int!, content: String!): Ticket!
 
-    resetUserPassword(
-      email: String!,
-      newPassword: String!
-    ): AuthUser!
+    resetUserPassword(email: String!, newPassword: String!): AuthUser!
   }
 `;
 

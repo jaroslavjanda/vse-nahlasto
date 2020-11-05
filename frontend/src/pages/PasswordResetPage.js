@@ -11,16 +11,17 @@ const PASSWORD_RESET_MUTATION = gql`
 `;
 
 export function PasswordResetPage() {
-
-  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(PASSWORD_RESET_MUTATION, {
-    onCompleted: ({ resetUserPassword: { email } }) => {
-      console.log("XXX password of user " + email + " was changed.")
-
+  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
+    PASSWORD_RESET_MUTATION,
+    {
+      onCompleted: ({ resetUserPassword: { email } }) => {
+        console.log('XXX password of user ' + email + ' was changed.');
+      },
+      onError: () => {
+        console.log('XXX error');
+      },
     },
-    onError: ( ) => {
-      console.log("XXX error")
-    },
-  });
+  );
 
   const handleResetPasswordFormSubmit = useCallback(
     (variables) => {

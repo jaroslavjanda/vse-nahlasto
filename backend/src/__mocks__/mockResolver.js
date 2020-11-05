@@ -98,9 +98,8 @@ export default {
   },
   User: {
     communities({ id }) {
-      return communities
-        .filter((community) => community.ownerId === id)
-        // .slice(0, QUACKS_LIMIT);
+      return communities.filter((community) => community.ownerId === id);
+      // .slice(0, QUACKS_LIMIT);
     },
   },
   Community: {

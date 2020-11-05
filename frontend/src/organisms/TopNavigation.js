@@ -21,7 +21,7 @@ export function TopNavigation() {
       >
         NahlašTo
       </Link>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
           <NavLink exact to={route.home()} className="pa3">
@@ -34,7 +34,8 @@ export function TopNavigation() {
             <>
               <NavLink
                 // TODO navigate nowhere OR to the user profile page
-                exact to={route.home()}
+                exact
+                to={route.home()}
                 noUnderline
                 className="ph3 pv1 h-100 flex items-center"
               >
@@ -63,11 +64,7 @@ export function TopNavigation() {
               <NavLink to={route.signIn()} className="pa3">
                 Sign In
               </NavLink>
-              <Button
-                variant="secondary"
-                to={route.signUp()}
-                as={Link}
-              >
+              <Button variant="secondary" to={route.signUp()} as={Link}>
                 Sign Up
               </Button>
             </>
