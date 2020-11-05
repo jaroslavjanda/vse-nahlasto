@@ -1,7 +1,16 @@
 import { queries as UserQueries, mutations as UserMutations } from './user';
-import { queries as CommunityQueries, mutations as CommunityMutations } from './community'
-import { queries as TicketQueries, mutations as TicketMutations } from './ticket'
-import { queries as CommentQueries, mutations as CommentMutations } from './comment'
+import {
+  queries as CommunityQueries,
+  mutations as CommunityMutations,
+} from './community';
+import {
+  queries as TicketQueries,
+  mutations as TicketMutations,
+} from './ticket';
+import {
+  queries as CommentQueries,
+  mutations as CommentMutations,
+} from './comment';
 
 export default {
   Query: {
@@ -17,15 +26,14 @@ export default {
     ...CommentMutations,
   },
 
-  User:{
+  User: {
     async communities(parent, _, { dbConnection }) {
       return await dbConnection.query(
         `SELECT community.community_id, name, description, closed FROM community 
         JOIN membership on membership.community_id = community.community_id 
-        WHERE membership.user_id = ?`, 
-        [
-        parent.user_id,
-      ]);
+        WHERE membership.user_id = ?`,
+        [parent.user_id],
+      );
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
@@ -36,10 +44,9 @@ export default {
         LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
         WHERE ticket.user_id = ?
         GROUP BY ticket.ticket_id, title, ticket.content, ticket.user_id, community_id
-        `, 
-        [
-        parent.user_id,
-      ]);
+        `,
+        [parent.user_id],
+      );
     },
   },
   Community: {
@@ -47,19 +54,17 @@ export default {
       return await dbConnection.query(
         `SELECT user.user_id, name, surname, email FROM user 
         JOIN membership on membership.user_id = user.user_id 
-        WHERE community_id = ? AND role_id = 1`, 
-        [
-        parent.community_id,
-      ]);
+        WHERE community_id = ? AND role_id = 1`,
+        [parent.community_id],
+      );
     },
     async users(parent, _, { dbConnection }) {
       return await dbConnection.query(
         `SELECT user.user_id, name, surname, email FROM user 
         JOIN membership on membership.user_id = user.user_id 
-        WHERE community_id = ?`, 
-        [
-        parent.community_id,
-      ]);
+        WHERE community_id = ?`,
+        [parent.community_id],
+      );
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
@@ -70,11 +75,9 @@ export default {
         LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
         WHERE ticket.community_id = ?
         GROUP BY ticket.ticket_id, title, ticket.content, ticket.user_id, community_id
-        `, 
-        [
-        parent.community_id,
-      ]);
+        `,
+        [parent.community_id],
+      );
     },
   },
-
 };

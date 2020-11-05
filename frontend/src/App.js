@@ -1,20 +1,15 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-
 import { ScrollToTop } from 'src/atoms/';
-import { AuthProvider } from 'src/utils/auth';
-import { EnhancedAppoloProvider } from 'src/utils/apollo';
 import { Routes } from 'src/Routes';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <EnhancedAppoloProvider>
-          <ScrollToTop />
-          <Routes />
-        </EnhancedAppoloProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <>
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+      <ScrollToTop />
+      <Routes />
+    </>
   );
 }

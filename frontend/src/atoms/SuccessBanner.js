@@ -5,10 +5,7 @@ import { faBacon } from '@fortawesome/free-solid-svg-icons';
 
 export function SuccessBanner({ className, title, children, ...props }) {
   return (
-    <div
-      className={classNames('pa4 bg-green white', className)}
-      {...props}
-    >
+    <div className={classNames('pa4 bg-green white', className)} {...props}>
       <div
         className={classNames('flex items-center justify-center f5 b', {
           mb3: !!children,

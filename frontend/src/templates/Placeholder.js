@@ -6,16 +6,13 @@ import { TopNavigation } from 'src/organisms/';
 export function Placeholder({ title, children }) {
   return (
     <>
-      <TopNavigation />
-      <MainSection>
-        <Heading>{title}</Heading>
+      <Heading>{title}</Heading>
 
-        {typeof children === 'undefined' ? (
-          <p>This page is empty for now...</p>
-        ) : (
-          children
-        )}
-      </MainSection>
+      {typeof children === 'undefined' ? (
+        <p>This page is empty for now...</p>
+      ) : (
+        children
+      )}
     </>
   );
 }

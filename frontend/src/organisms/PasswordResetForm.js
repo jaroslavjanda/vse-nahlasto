@@ -38,11 +38,12 @@ export function PasswordResetForm({
     >
       <Form className={className}>
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
-        {successMessage && <SuccessBanner
-          title={"Password has been changed successfully."}
-          className="mb3"
-
-        />}
+        {successMessage && (
+          <SuccessBanner
+            title={'Password has been changed successfully.'}
+            className="mb3"
+          />
+        )}
         <FormikField
           id="email"
           name="email"

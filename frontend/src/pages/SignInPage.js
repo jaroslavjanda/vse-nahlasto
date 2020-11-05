@@ -20,15 +20,13 @@ export function SignInPage() {
   const auth = useAuth();
   const history = useHistory();
 
-
   const [signinRequest, signinRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
       auth.signin({ token, user });
       history.replace('/');
     },
     onError: () => {
-      console.log("TEST Error while fetching the DB")
-
+      console.log('TEST Error while fetching the DB');
     },
   });
 
