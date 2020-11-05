@@ -6,12 +6,14 @@ import { HomePage } from 'src/pages/HomePage';
 import { PageNotFound } from 'src/pages/PageNotFound';
 import { SignInPage } from 'src/pages/SignInPage';
 import { SignUpPage } from 'src/pages/SignUpPage';
+import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 
 export const route = {
   home: () => `/`,
   about: () => `/about`,
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
+  resetPassword: () => '/password_reset',
 };
 
 export function Routes() {
@@ -21,6 +23,7 @@ export function Routes() {
       <Route path={route.about()} exact component={AboutPage} />
       <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.signUp()} exact component={SignUpPage} />
+      <Route path={route.resetPassword()} exact component={PasswordResetPage} />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );

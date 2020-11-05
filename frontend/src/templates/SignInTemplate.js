@@ -12,7 +12,9 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
       case 'Cannot return null for non-nullable field Mutation.signin.':
         error.message = 'Wrong username or password';
         break;
+      default:
     }
+
   }
 
   return (
@@ -31,6 +33,11 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
             or{' '}
             <Link className="f5 dark-green" to={route.signUp()}>
               Sign Up
+            </Link>
+          </div>
+          <div className="lh-copy">
+            <Link className="f5 dark-green" to={route.resetPassword()}>
+              Forgotten password?
             </Link>
           </div>
         </SignInForm>

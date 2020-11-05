@@ -19,6 +19,8 @@ const SIGNIN_MUTATION = gql`
 export function SignInPage() {
   const auth = useAuth();
   const history = useHistory();
+
+
   const [signinRequest, signinRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
       auth.signin({ token, user });

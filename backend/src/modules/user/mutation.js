@@ -27,16 +27,15 @@ export const signup = async (
   },
   { dbConnection },
 ) => {
-  const userByEmail = (
-    await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
-  )[0];
+
+  const userByEmail = ( await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email]) )[0];
 
   if (userByEmail) {
     throw new Error('Email already registered');
   }
 
   const passwordHash = await argon2.hash(password);
- 
+
   const dbResponse = await dbConnection.query(
     `INSERT INTO user (email, password, name, surname)
     VALUES (?, ?, ?, ?);`,
@@ -52,3 +51,42 @@ export const signup = async (
 
   return { user: userObject, token: token };
 };
+
+export const resetUserPassword = async (
+  _,
+  {
+    email,
+    newPassword,
+  },
+  { dbConnection },
+) => {
+  const dbResponse = await dbConnection.query(`UPDATE user SET password = ? WHERE email = ?`, [await argon2.hash(newPassword), email]);
+
+  if (dbResponse){
+    const sgMail = require('@sendgrid/mail')
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
+    const msg = {
+      to: email, 
+      from: 'tym7nahlasto@gmail.com', // Nemenit!
+      subject: 'Change password confirmation',
+      text: 'You have succesfully changed your password',
+      html: '<strong>You have succesfully changed your password</strong>',
+    }
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+        
+      })
+      .catch((error) => {
+        //Log friendly error
+        console.error(error.toString());
+        console.log(output)
+      })
+  }
+
+  return ( await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email]) )[0];
+};
+
+
