@@ -1,20 +1,31 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import { ScrollToTop } from 'src/atoms/';
-import { AuthProvider } from 'src/utils/auth';
-import { EnhancedAppoloProvider } from 'src/utils/apollo';
-import { Routes } from 'src/Routes';
+import 'tachyons';
 
-export function App() {
-  return (
-    <BrowserRouter>
+import './index.css';
+import { App } from 'src/App';
+
+const render = () => {
+  ReactDOM.render(
+    <Router history={history}>
       <AuthProvider>
         <EnhancedAppoloProvider>
-          <ScrollToTop />
-          <Routes />
+          <App />
         </EnhancedAppoloProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </Router>,
+    document.getElementById('root'),
   );
+};
+
+if (module.hot) {
+  module.hot.accept('./App', render);
 }
+
+render();
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

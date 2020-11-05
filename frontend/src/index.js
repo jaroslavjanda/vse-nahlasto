@@ -1,8 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import 'tachyons';
+import { ScrollToTop } from 'src/atoms/';
+import { Routes } from 'src/Routes';
 
-import './index.css';
-import { App } from 'src/App';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+export function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <Routes />
+    </>
+  );
+}
