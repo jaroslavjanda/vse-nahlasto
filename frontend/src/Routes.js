@@ -7,7 +7,7 @@ import { PageNotFound } from 'src/pages/PageNotFound';
 import { SignInPage } from 'src/pages/SignInPage';
 import { SignUpPage } from 'src/pages/SignUpPage';
 import { PasswordResetPage } from 'src/pages/PasswordResetPage';
-import {CommunityDetail} from "src/pages/CommunityDetail"
+import { CommunityDetail } from 'src/pages/CommunityDetail';
 import { TopNavigation } from './organisms';
 
 export const route = {
@@ -16,21 +16,29 @@ export const route = {
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
   resetPassword: () => '/password_reset',
-  communityDetail: () => `/community-detail/:communityId`
+  communityDetail: () => `/community-detail/:communityId`,
 };
 
 export function Routes() {
   return (
     <TopNavigation>
-    <Switch>
-      <Route path={route.home()} exact component={HomePage} />
-      <Route path={route.about()} exact component={AboutPage} />
-      <Route path={route.signIn()} exact component={SignInPage} />
-      <Route path={route.signUp()} exact component={SignUpPage} />
-      <Route path={route.resetPassword()} exact component={PasswordResetPage} />
-      <Route path={route.communityDetail()} exact component={CommunityDetail}/>
-      <Route path="*" component={PageNotFound} />
-    </Switch>
+      <Switch>
+        <Route path={route.home()} exact component={HomePage} />
+        <Route path={route.about()} exact component={AboutPage} />
+        <Route path={route.signIn()} exact component={SignInPage} />
+        <Route path={route.signUp()} exact component={SignUpPage} />
+        <Route
+          path={route.resetPassword()}
+          exact
+          component={PasswordResetPage}
+        />
+        <Route
+          path={route.communityDetail()}
+          exact
+          component={CommunityDetail}
+        />
+        <Route path="*" component={PageNotFound} />
+      </Switch>
     </TopNavigation>
   );
 }
