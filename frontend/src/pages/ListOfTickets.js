@@ -3,6 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { Spinner, Alert, Button, Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { random } from 'lodash';
 
 const CUMMUNITY_LIST_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -67,7 +68,8 @@ export const ListOfTickets = ({ match }) => {
                       <Card.Body>
                         <h3>{item.title}</h3>
                         <Card.Text>{item.content}</Card.Text>
-                        <Button variant="primary">See detail</Button>
+
+                        <div>👍 {random(15)}</div>
                       </Card.Body>
                     </Card>
                   </Col>

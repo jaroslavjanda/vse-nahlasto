@@ -98,6 +98,11 @@ export const CommunityDetail = ({ match }) => {
               <Link to={`/community-detail/${communityId}/add`}>
                 <Button variant="success">Add ticket</Button>
               </Link>
+              <br />
+              <br />
+              <Link to={`/community-detail/${communityId}/list`}>
+                <Button variant="info">List of tickets</Button>
+              </Link>
             </div>
           )}
           {community.closed && (
