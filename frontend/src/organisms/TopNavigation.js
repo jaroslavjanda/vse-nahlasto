@@ -5,14 +5,16 @@ import { AvatarPhoto, Link, NavLink } from 'src/atoms/';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
 
+import { MainSection } from './../atoms';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export function TopNavigation() {
+export const TopNavigation = ({children}) => {
   const { user, signout } = useAuth();
   const history = useHistory();
 
   return (
+    <>
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Link
         to={route.home()}
@@ -72,5 +74,9 @@ export function TopNavigation() {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
+    <MainSection>
+    {children}
+    </MainSection>
+    </>
   );
 }

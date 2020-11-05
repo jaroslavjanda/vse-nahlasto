@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Heading, MainSection } from 'src/atoms/';
 import { QuackForm, ReloadButton } from 'src/molecules/';
-import { QuackList, TopNavigation } from 'src/organisms/';
+import { QuackList } from 'src/organisms/';
 
 export function HomeTemplate({
   data,
@@ -14,8 +14,7 @@ export function HomeTemplate({
 }) {
   return (
     <>
-      <TopNavigation />
-      <MainSection>
+      <>
         <Heading>Home</Heading>
 
         {currentUser && <QuackForm {...quackFormState} />}
@@ -34,7 +33,7 @@ export function HomeTemplate({
           error={error}
           refetch={refetchQuacks}
         />
-      </MainSection>
+      </>
     </>
   );
 }

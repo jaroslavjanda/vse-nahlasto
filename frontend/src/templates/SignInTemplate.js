@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Heading, Link, MainSection } from 'src/atoms/';
-import { SignInForm, TopNavigation } from 'src/organisms/';
+import { Heading, Link } from 'src/atoms/';
+import { SignInForm } from 'src/organisms/';
 import { route } from 'src/Routes';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
@@ -17,10 +17,7 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
 
   return (
     <>
-      <TopNavigation />
-      <MainSection>
         <Heading>Sign In</Heading>
-
         <SignInForm
           isLoading={isLoading}
           errorMessage={error && error.message}
@@ -39,7 +36,6 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
             </Link>
           </div>
         </SignInForm>
-      </MainSection>
     </>
   );
 }

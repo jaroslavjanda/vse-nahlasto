@@ -7,8 +7,6 @@ import { route } from 'src/Routes';
 export function SignUpTemplate({ isLoading, error, onSubmit }) {
   return (
     <>
-      <TopNavigation />
-      <MainSection>
         <Heading>Sign Up</Heading>
 
         <SignUpForm
@@ -24,7 +22,6 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
             </Link>
           </div>
         </SignUpForm>
-      </MainSection>
     </>
   );
 }

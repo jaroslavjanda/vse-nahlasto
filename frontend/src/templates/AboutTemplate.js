@@ -6,8 +6,6 @@ import { TopNavigation } from 'src/organisms';
 export function AboutTemplate() {
   return (
     <>
-      <TopNavigation />
-      <MainSection>
         <Heading>About Quacker</Heading>
         <p>
           Our company's mission is to collaboratively manufacture access to
@@ -36,7 +34,6 @@ export function AboutTemplate() {
           </a>
           .
         </p>
-      </MainSection>
-    </>
+      </>
   );
 }
