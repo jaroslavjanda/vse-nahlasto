@@ -4,6 +4,7 @@ import * as yup from 'yup';
 
 import { ErrorBanner } from 'src/atoms/';
 import { FormikField, LoadingButton } from 'src/molecules/';
+import { Button } from 'react-bootstrap';
 
 const initialValues = {
   name: '',
@@ -88,9 +89,9 @@ export function SignUpForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <LoadingButton type="submit" className="mt2 mb3" loading={isLoading}>
-          Sign Up
-        </LoadingButton>
+        <Button type="submit" variant="success" size="lg">
+          Sign up
+        </Button>
         {children}
       </Form>
     </Formik>

@@ -94,15 +94,11 @@ export const CommunityDetail = ({ match }) => {
               <div>Number of tickets: {community.tickets.length}</div>
               <br />
               <br />
-            
+
               <Link to={`/community-detail/${communityId}/add`}>
-              <Button
-                variant="success"
-              >
-                Add ticket
-              </Button>
+                <Button variant="success">Add ticket</Button>
               </Link>
-  </div>
+            </div>
           )}
           {community.closed && (
             <div>

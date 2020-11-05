@@ -9,6 +9,8 @@ import { SignUpPage } from 'src/pages/SignUpPage';
 import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 import { CommunityDetail } from 'src/pages/CommunityDetail';
 import { TopNavigation } from './organisms';
+import { AddTicket } from './pages/AddTicket';
+import { ListOfTickets } from './pages/ListOfTickets';
 
 export const route = {
   home: () => `/`,
@@ -18,6 +20,7 @@ export const route = {
   resetPassword: () => '/password_reset',
   communityDetail: () => `/community-detail/:communityId`,
   addTicket: () => `/community-detail/:communityId/add`,
+  listTicket: () => `/community-detail/:communityId/list`,
 };
 
 export function Routes() {
@@ -38,6 +41,9 @@ export function Routes() {
           exact
           component={CommunityDetail}
         />
+        <Route path={route.addTicket()} exact component={AddTicket} />
+        <Route path={route.listTicket()} exact component={ListOfTickets} />
+
         <Route path="*" component={PageNotFound} />
       </Switch>
     </TopNavigation>
