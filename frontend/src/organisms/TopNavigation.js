@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { AvatarPhoto, Link, NavLink } from 'src/atoms/';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
+import logo from 'src/images/logo.png';
 
 import { MainSection } from './../atoms';
 import { Nav, Navbar, Button } from 'react-bootstrap';
@@ -16,13 +17,17 @@ export const TopNavigation = ({ children }) => {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Link
-          to={route.home()}
-          noUnderline
-          className="b white flex items-center pv2 ph3"
-        >
-          NahlašTo
-        </Link>
+        <Navbar.Brand>
+          <Link to={route.home()}>
+            <img
+                src={logo}
+                width="200"
+                height="55"
+                className="d-inline-block align-top"
+                alt="Nahlaš.To logo"
+            />
+         </Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
