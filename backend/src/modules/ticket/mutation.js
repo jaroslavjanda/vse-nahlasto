@@ -34,7 +34,7 @@ export const addLike= async (
   { dbConnection },
 ) => {
   const dbResponseCheck = await dbConnection.query(
-    `SELECT * FROM \`like\` WHERE user_id=? AND ticket_id=?;;`,
+    `SELECT * FROM \`like\` WHERE user_id=? AND ticket_id=?;`,
     [ownerId, ticketId,],
   );
 
