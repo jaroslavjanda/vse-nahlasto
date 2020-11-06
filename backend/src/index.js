@@ -89,7 +89,7 @@ const typeDefs = gql`
 
     addCommunity(ownerId: Int!, name: String!): Community!
 
-    addTicket(ownerId: Int!, communityId: Int!, content: String!): Ticket!
+    addTicket(ownerId: Int!, communityId: Int!, title: String!,content: String!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
   }

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Heading } from 'src/atoms';
-import { PasswordResetForm } from '../organisms/PasswordResetForm';
+import { AddTicketForm } from '../organisms/AddTicketForm';
 
-export function PasswordResetTemplate({ isDone, error, onSubmit }) {
+export function AddTicketTemplate({ isDone, error, onSubmit }) {
   // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
@@ -16,8 +16,8 @@ export function PasswordResetTemplate({ isDone, error, onSubmit }) {
 
   return (
     <>
-      <Heading>Reset password</Heading>
-      <PasswordResetForm
+      <Heading>Add ticket</Heading>
+      <AddTicketForm
         errorMessage={error && error.message}
         successMessage={isDone}
         onSubmit={onSubmit}

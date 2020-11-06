@@ -1,12 +1,15 @@
 export const addTicket = async (
   _,
-  { ownerId, communityId, content },
+  { ownerId, communityId, title, content },
   { dbConnection },
 ) => {
   const dbResponse = await dbConnection.query(
-    `INSERT INTO ticket (user_id, title, image, community_id, content)
-    VALUES (?, ?, ?, ?, ?);`,
-    [ownerId, communityId, content],
+    // TODO we do not have images yet
+    // `INSERT INTO ticket (user_id, title, image, community_id, content)
+    // VALUES (?, ?, ?, ?, ?);`,
+    `INSERT INTO ticket (user_id, community_id, title, content)
+    VALUES (?, ?, ?, ?);`,
+    [ownerId, communityId, title, content],
   );
 
   const ticket = (
