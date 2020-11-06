@@ -32,7 +32,7 @@ export const AddTicket = () => {
 
       addTicketRequest({ variables });
     },
-    [addTicketRequest()],
+    [addTicketRequest],
   );
 
   return (

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Heading, MainSection } from 'src/atoms';
-import { TopNavigation } from 'src/organisms/TopNavigation';
+import { Heading } from 'src/atoms';
 import { PasswordResetForm } from '../organisms/PasswordResetForm';
 
 export function PasswordResetTemplate({ isDone, error, onSubmit }) {
@@ -23,7 +22,7 @@ export function PasswordResetTemplate({ isDone, error, onSubmit }) {
         successMessage={isDone}
         onSubmit={onSubmit}
         className="mt3"
-      ></PasswordResetForm>
+      />
     </>
   );
 }
