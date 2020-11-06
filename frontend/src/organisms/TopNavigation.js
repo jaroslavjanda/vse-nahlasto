@@ -17,17 +17,17 @@ export const TopNavigation = ({ children }) => {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand>
-      <Link to={route.home()}>
-      <img
-        src={logo}
-        width="200"
-        height="55"
-        className="d-inline-block align-top"
-        alt="Nahlaš.To logo"
-      />
+        <Navbar.Brand>
+          <Link to={route.home()}>
+            <img
+                src={logo}
+                width="200"
+                height="55"
+                className="d-inline-block align-top"
+                alt="Nahlaš.To logo"
+            />
          </Link>
-   </Navbar.Brand>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
