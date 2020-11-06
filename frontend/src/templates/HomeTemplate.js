@@ -17,6 +17,7 @@ export function HomeTemplate({
     <>
       <>
         <Heading>Home</Heading>
+        <div>hiiiiii</div>
 
         {currentUser && <QuackForm {...quackFormState} />}
 

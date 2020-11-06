@@ -89,6 +89,8 @@ const typeDefs = gql`
 
     addCommunity(ownerId: Int!, name: String!): Community!
 
+    addLike(ownerId: Int!, ticketId: Int!): Ticket!
+
     addTicket(ownerId: Int!, communityId: Int!, title: String!,content: String!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!

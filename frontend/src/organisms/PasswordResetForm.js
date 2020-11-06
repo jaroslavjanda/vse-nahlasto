@@ -13,12 +13,13 @@ const initialValues = {
 
 const schema = yup.object().shape({
   email: yup.string().email().required().label('Email'),
-  newPassword: yup.string().required().label('Password'),
+  newPassword: yup.string().required().label('Password')
+    .test('len', 'Must be at least 6 characters long', val => val.length >= 6),
   passwordConfirmation: yup
     .string()
     .required()
     .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
-    .label('Password Confirmation'),
+    .label('Password Confirmation')
 });
 
 export function PasswordResetForm({
