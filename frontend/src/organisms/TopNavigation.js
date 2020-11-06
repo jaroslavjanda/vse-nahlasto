@@ -5,7 +5,7 @@ import { AvatarPhoto, Link, NavLink } from 'src/atoms/';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
 
-import { MainSection } from './../atoms';
+import { MainSection } from 'src/atoms/';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
