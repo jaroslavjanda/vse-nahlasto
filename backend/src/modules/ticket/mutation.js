@@ -34,7 +34,8 @@ export const addLike= async (
   { dbConnection },
 ) => {
   const dbResponseCheck = await dbConnection.query(
-    `SELECT * FROM \`like\`;`,
+    `SELECT * FROM \`like\` WHERE user_id=? AND ticket_id=?;;`,
+    [ownerId, ticketId,],
   );
 
   if (dbResponseCheck[0]){
@@ -60,6 +61,7 @@ export const addLike= async (
       LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
       WHERE ticket.ticket_id = ?
       GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.user_id, community_id`,
+      [ticketId],
     )
   )[0];
 
