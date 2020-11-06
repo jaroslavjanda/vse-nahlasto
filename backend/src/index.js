@@ -49,8 +49,8 @@ const typeDefs = gql`
     content: String!
     user_id: Int!
     community_id: Int!
-    likes_count: Int!
-    comment_count: Int!
+    likes_count: Int
+    comment_count: Int
     comments: [Comment!]!
   }
 
