@@ -20,7 +20,8 @@ const schema = yup.object().shape({
   name: yup.string().required().label('Name'),
   surname: yup.string().required().label('Surname'),
   email: yup.string().email().required().label('Email'),
-  password: yup.string().required().label('Password'),
+  password: yup.string().required().label('Password')
+    .test('len', 'Must be at least 6 characters long', val => val.length >= 6),
   passwordConfirmation: yup
     .string()
     .required()
