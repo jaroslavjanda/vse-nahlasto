@@ -28,17 +28,23 @@ export const TopNavigation = ({ children }) => {
             />
          </Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
+          <Nav.Item>
             <NavLink exact to={route.home()} className="pa3">
               Home
             </NavLink>
-            <NavLink to={route.about()} className="pa3">
+            </Nav.Item>  
+            <Nav.Item>
+              <NavLink to={route.about()} className="pa3">
               About
-            </NavLink>
+             </NavLink>
+            </Nav.Item>
+            
             {user ? (
               <>
+              <Nav.Item>
                 <NavLink
                   // TODO navigate nowhere OR to the user profile page
                   exact
@@ -55,6 +61,8 @@ export const TopNavigation = ({ children }) => {
                   {'Logged in as: '}
                   {user.email}
                 </NavLink>
+                </Nav.Item>
+                <Nav.Item>
                 <Button
                   variant="secondary"
                   onClick={() => {
@@ -65,15 +73,20 @@ export const TopNavigation = ({ children }) => {
                 >
                   Sign Out
                 </Button>
+                </Nav.Item>
               </>
             ) : (
               <>
+              <Nav.Item>
                 <NavLink to={route.signIn()} className="pa3">
                   Sign In
                 </NavLink>
+               </Nav.Item>
+               <Nav.Item>
                 <Button variant="secondary" to={route.signUp()} as={Link}>
                   Sign Up
                 </Button>
+                </Nav.Item>
               </>
             )}
           </Nav>
