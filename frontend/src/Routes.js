@@ -12,15 +12,17 @@ import { TopNavigation } from './organisms';
 import { AddTicket } from './pages/AddTicket';
 import { ListOfTickets } from './pages/ListOfTickets';
 
+const communityDetail = (id) => `/community-detail/${id}`
+
 export const route = {
   home: () => `/`,
   about: () => `/about`,
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
   resetPassword: () => '/password_reset',
-  communityDetail: () => `/community-detail/:communityId`,
-  addTicket: () => `/community-detail/:communityId/add`,
-  listTicket: () => `/community-detail/:communityId/list`,
+  communityDetail,
+  addTicket: (id) => `${communityDetail(id)}/add`,
+  listTicket: (id) => `${communityDetail(id)}/list`,
 };
 
 export function Routes() {
@@ -31,16 +33,8 @@ export function Routes() {
         <Route path={route.about()} exact component={AboutPage} />
         <Route path={route.signIn()} exact component={SignInPage} />
         <Route path={route.signUp()} exact component={SignUpPage} />
-        <Route
-          path={route.resetPassword()}
-          exact
-          component={PasswordResetPage}
-        />
-        <Route
-          path={route.communityDetail()}
-          exact
-          component={CommunityDetail}
-        />
+        <Route path={route.resetPassword()} exact component={PasswordResetPage} />
+        <Route path={route.communityDetail()} exact component={CommunityDetail} />
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
 

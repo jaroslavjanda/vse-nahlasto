@@ -8,6 +8,11 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
     [email],
   );
   const user = dbResponse[0];
+
+  if(!user) {
+    throw Error('Unknown username.')
+  }
+
   if (await argon2.verify(user.password, password)) {
     const token = createToken({ id: user.id });
     return {
@@ -33,7 +38,7 @@ export const signup = async (
   )[0];
 
   if (userByEmail) {
-    throw new Error('Email already registered');
+    throw new Error('Email has been already used for registration.');
   }
 
   const passwordHash = await argon2.hash(password);
@@ -97,8 +102,8 @@ export const resetUserPassword = async (
       to: email,
       from: 'tym7nahlasto@gmail.com', // Nemenit!
       subject: 'Change password confirmation',
-      text: 'You have succesfully changed your password',
-      html: '<strong>You have succesfully changed your password</strong>',
+      text: 'You have successfully changed your password',
+      html: '<strong>You have successfully changed your password</strong>',
     };
     sgMail
       .send(msg)
@@ -115,4 +120,8 @@ export const resetUserPassword = async (
   return (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
   )[0];
+
+  if(!email) {
+    throw Error('No user registered with this email.')
+  }
 };
