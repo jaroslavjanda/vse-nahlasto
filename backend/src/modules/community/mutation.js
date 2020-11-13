@@ -6,7 +6,7 @@ export const addCommunity = async (_, { ownerId, name }, { dbConnection }) => {
   );
 
   const community = (
-    await dbConnection.query(`SELECT * FROM community WHERE communty_id = ?`, [
+    await dbConnection.query(`SELECT * FROM community WHERE community_id = ?`, [
       dbResponse.insertId,
     ])
   )[0];

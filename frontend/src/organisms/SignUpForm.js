@@ -1,10 +1,11 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { ErrorBanner } from 'src/atoms/';
-import { FormikField, LoadingButton } from 'src/molecules/';
-import { Button } from 'react-bootstrap';
+import { FormikField, LoadingButton } from 'src/molecules';
+import { Button } from 'src/atoms/Button';
+import FormGroup from 'react-bootstrap/FormGroup';
 
 const initialValues = {
   name: '',
@@ -12,22 +13,26 @@ const initialValues = {
   email: '',
   password: '',
   passwordConfirmation: '',
+  checkboxAcceptTerms: false
 };
 
 const schema = yup.object().shape({
   name: yup.string().required().label('Name'),
   surname: yup.string().required().label('Surname'),
   email: yup.string().email().required().label('Email'),
-  password: yup.string().required().label('Password'),
+  password: yup.string().required().label('Password')
+    .test('len', 'Must be at least 6 characters long', val => val.length >= 6),
   passwordConfirmation: yup
     .string()
     .required()
     .oneOf([yup.ref('password'), null], 'Passwords must match')
     .label('Password Confirmation'),
+  checkboxAcceptTerms: yup
+    .bool()
+    .oneOf([true], 'Must Accept Terms and Conditions'),
 });
 
 export function SignUpForm({
-  isLoading,
   errorMessage,
   className,
   onSubmit,
@@ -39,6 +44,7 @@ export function SignUpForm({
       initialValues={initialValues}
       validationSchema={schema}
       validateOnBlur={false}
+      validateOnChange={false}
     >
       <Form className={className}>
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
@@ -89,6 +95,13 @@ export function SignUpForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
+        <FormGroup>
+          <Field type="checkbox" id="checkboxAcceptTerms" name="checkboxAcceptTerms"
+                 className={'form-check-input'}
+          />
+          <label htmlFor="checkboxAcceptTerms" className="form-check-label">Accept whatever we want</label>
+          <ErrorMessage name="checkboxAcceptTerms" component="div" className="mb1 f6 dark-red f5" />
+        </FormGroup>
         <Button type="submit" variant="success" size="lg">
           Sign up
         </Button>
