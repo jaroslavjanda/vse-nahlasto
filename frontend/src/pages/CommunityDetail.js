@@ -19,6 +19,11 @@ const COMMUNITY_DETAIL_QUERY = gql`
         content
         likes_count
         comment_count
+        status_id
+        date
+        status{
+          status
+        }
       }
     }
   }

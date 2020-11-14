@@ -1,6 +1,5 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
-import * as config from '../../config';
 
 export const signin = async (_, { email, password }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
