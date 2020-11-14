@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback }  from 'react';
 import { Card, Row, CardDeck, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/fontawesome-free';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { useMutation, gql } from '@apollo/client';
+import { useAuth } from 'src/utils/auth';
 
 const LIKE_MUTATION = gql`
   mutation addLike($ownerId: Int!, $ticketId: Int!) {
@@ -13,8 +14,9 @@ const LIKE_MUTATION = gql`
 `;
 
 export function Tickets({ tickets }) {
+  const { user } = useAuth();
 
-  const [isLiked, setLiked] = useMutation(LIKE_MUTATION, {
+  const [LikedRequest, LikedRequestState] = useMutation(LIKE_MUTATION, {
     onCompleted: ({ addLike: { user_id, ticket_id } }) => {
     },
     onError: () => {
@@ -22,12 +24,19 @@ export function Tickets({ tickets }) {
     },
   });
 
+  const handleSetLiked = useCallback(
+    (variables) => {
+      LikedRequest({ variables });
+    },
+    [LikedRequest],
+  );
+
   return (
     <div style={{ textAlign: 'center' }}>
       <div>
         <div>
           <Row>
-            {console.log(tickets)}
+            {console.log(user)}
             <CardDeck>
               {tickets.map((item) => (
                 <Card style={{ width: '100%' }} key={item.title}>
@@ -40,9 +49,7 @@ export function Tickets({ tickets }) {
                     <h3>{item.title}</h3>
                     <Card.Text>{item.content}</Card.Text>
                     <div>
-                      <div onClick={() => {
-                          setLiked();
-                      }}>
+                      <div>
                         <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
                         {item.likes_count}
                       </div>
