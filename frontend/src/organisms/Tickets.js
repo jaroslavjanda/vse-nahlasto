@@ -49,7 +49,9 @@ export function Tickets({ tickets }) {
                     <h3>{item.title}</h3>
                     <Card.Text>{item.content}</Card.Text>
                     <div>
-                      <div>
+                      <div onClick={() => {
+                          handleSetLiked(user.user_id, item.ticket_id);
+                      }}>
                         <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
                         {item.likes_count}
                       </div>
