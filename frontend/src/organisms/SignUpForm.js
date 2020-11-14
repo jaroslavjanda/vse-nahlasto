@@ -13,15 +13,22 @@ const initialValues = {
   email: '',
   password: '',
   passwordConfirmation: '',
-  checkboxAcceptTerms: false
+  checkboxAcceptTerms: false,
 };
 
 const schema = yup.object().shape({
   name: yup.string().required().label('Name'),
   surname: yup.string().required().label('Surname'),
   email: yup.string().email().required().label('Email'),
-  password: yup.string().required().label('Password')
-    .test('len', 'Must be at least 6 characters long', val => val.length >= 6),
+  password: yup
+    .string()
+    .required()
+    .label('Password')
+    .test(
+      'len',
+      'Must be at least 6 characters long',
+      (val) => val.length >= 6,
+    ),
   passwordConfirmation: yup
     .string()
     .required()
@@ -32,12 +39,7 @@ const schema = yup.object().shape({
     .oneOf([true], 'Must Accept Terms and Conditions'),
 });
 
-export function SignUpForm({
-  errorMessage,
-  className,
-  onSubmit,
-  children,
-}) {
+export function SignUpForm({ errorMessage, className, onSubmit, children }) {
   return (
     <Formik
       onSubmit={onSubmit}
@@ -96,11 +98,20 @@ export function SignUpForm({
           autoCapitalize="off"
         />
         <FormGroup>
-          <Field type="checkbox" id="checkboxAcceptTerms" name="checkboxAcceptTerms"
-                 className={'form-check-input'}
+          <Field
+            type="checkbox"
+            id="checkboxAcceptTerms"
+            name="checkboxAcceptTerms"
+            className={'form-check-input'}
           />
-          <label htmlFor="checkboxAcceptTerms" className="form-check-label">Accept whatever we want</label>
-          <ErrorMessage name="checkboxAcceptTerms" component="div" className="mb1 f6 dark-red f5" />
+          <label htmlFor="checkboxAcceptTerms" className="form-check-label">
+            Accept whatever we want
+          </label>
+          <ErrorMessage
+            name="checkboxAcceptTerms"
+            component="div"
+            className="mb1 f6 dark-red f5"
+          />
         </FormGroup>
         <Button type="submit" variant="success" size="lg">
           Sign up

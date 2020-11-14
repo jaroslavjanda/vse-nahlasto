@@ -8,7 +8,7 @@ import { FormikTextArea } from '../molecules/FormikTextArea';
 
 const initialValues = {
   title: '',
-  content: ''
+  content: '',
 };
 
 const schema = yup.object().shape({
@@ -17,11 +17,11 @@ const schema = yup.object().shape({
 });
 
 export function AddTicketForm({
-                                errorMessage,
-                                successMessage,
-                                onSubmit,
-                                className,
-                              }) {
+  errorMessage,
+  successMessage,
+  onSubmit,
+  className,
+}) {
   return (
     <Formik
       onSubmit={onSubmit}
@@ -30,12 +30,9 @@ export function AddTicketForm({
       validateOnBlur={false}
     >
       <Form className={className}>
-        {errorMessage && <ErrorBanner title={errorMessage} className="mb3"/>}
+        {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
-          <SuccessBanner
-            title={'Ticket has been sent'}
-            className="mb3"
-          />
+          <SuccessBanner title={'Ticket has been sent'} className="mb3" />
         )}
         <FormikField
           id="title"
@@ -58,7 +55,7 @@ export function AddTicketForm({
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
-          />
+        />
         <Button type="submit" className="mt2 mb3">
           Confirm request
         </Button>

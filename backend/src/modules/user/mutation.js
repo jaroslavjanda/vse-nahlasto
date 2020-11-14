@@ -9,8 +9,8 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
   );
   const user = dbResponse[0];
 
-  if(!user) {
-    throw Error('Unknown username.')
+  if (!user) {
+    throw Error('Unknown username.');
   }
 
   if (await argon2.verify(user.password, password)) {
@@ -63,7 +63,7 @@ export const signup = async (
     sgMail
       .send(msg)
       .then(() => {
-        console.log('Email sent', "Send123");
+        console.log('Email sent', 'Send123');
       })
       .catch((error) => {
         //Log friendly error
@@ -118,7 +118,7 @@ export const resetUserPassword = async (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
   )[0];
 
-  if(!email) {
-    throw Error('No user registered with this email.')
+  if (!email) {
+    throw Error('No user registered with this email.');
   }
 };

@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { Spinner, Alert, Button } from 'react-bootstrap';
@@ -34,7 +34,7 @@ export const CommunityDetail = ({ match }) => {
 
   const [isMember, setIsMember] = useState(false);
 
-  const community = communityState.data?.community
+  const community = communityState.data?.community;
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -65,9 +65,7 @@ export const CommunityDetail = ({ match }) => {
                 Join here
               </Button>
 
-              <Tickets
-                tickets={community.tickets}
-              />
+              <Tickets tickets={community.tickets} />
             </div>
           )}
           {!community.closed && isMember && (
@@ -94,9 +92,7 @@ export const CommunityDetail = ({ match }) => {
               </Link>
               <br />
               <br />
-              <Tickets
-                tickets={community.tickets}
-              />
+              <Tickets tickets={community.tickets} />
             </div>
           )}
           {community.closed && (

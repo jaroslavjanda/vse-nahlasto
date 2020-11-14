@@ -4,10 +4,12 @@ import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
-#    TODO get logged user ID and ID of the community 
-#    $ownerId: Int!,
-#    $communityId: Int!,
-    $title: String!, $content: String!) {
+    #    TODO get logged user ID and ID of the community
+    #    $ownerId: Int!,
+    #    $communityId: Int!,
+    $title: String!
+    $content: String!
+  ) {
     addTicket(ownerId: 1, communityId: 1, title: $title, content: $content) {
       ticket_id
     }
@@ -15,11 +17,11 @@ const ADD_TICKET_MUTATION = gql`
 `;
 
 export const AddTicket = () => {
-
   const [addTicketRequest, addTicketRequestState] = useMutation(
-    ADD_TICKET_MUTATION, {
+    ADD_TICKET_MUTATION,
+    {
       onCompleted: ({ addTicket: { ticket_id } }) => {
-        console.log('Ticket was added to the DB, it\'s ID is ' + ticket_id);
+        console.log("Ticket was added to the DB, it's ID is " + ticket_id);
       },
       onError: () => {
         console.log('Error while adding the ticket to DB');
@@ -29,7 +31,6 @@ export const AddTicket = () => {
 
   const handleAddTicketFormSubmit = useCallback(
     (variables) => {
-
       addTicketRequest({ variables });
     },
     [addTicketRequest],
@@ -41,7 +42,6 @@ export const AddTicket = () => {
       error={addTicketRequestState.error}
       onSubmit={handleAddTicketFormSubmit}
     />
-
 
     // <div>
     //   {errorMessage && <ErrorBanner title={errorMessage.message} className="mb3" />}

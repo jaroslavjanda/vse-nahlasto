@@ -17,16 +17,17 @@ code {
 
 .navbar-nav {
   text-align: center;
-.card{
+}
+.card {
   min-width: 300px;
 }
-.card-text{
+.card-text {
   min-height: 100px;
 }
-.card-body div{
+.card-body div {
   display: flex;
   justify-content: flex-end;
 }
-.card-body div div{
+.card-body div div {
   padding: 0 10px;
 }

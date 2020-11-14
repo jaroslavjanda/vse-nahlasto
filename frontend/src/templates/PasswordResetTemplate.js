@@ -8,7 +8,8 @@ export function PasswordResetTemplate({ isDone, error, onSubmit }) {
   if (error) {
     switch (error.message) {
       case 'Cannot return null for non-nullable field Mutation.resetUserPassword.':
-        error.message = 'No user registered with this email. Have you signed up yet?';
+        error.message =
+          'No user registered with this email. Have you signed up yet?';
         break;
       default:
     }

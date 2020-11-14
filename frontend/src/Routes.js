@@ -12,7 +12,7 @@ import { TopNavigation } from './organisms';
 import { AddTicket } from './pages/AddTicket';
 import { ListOfTickets } from './pages/ListOfTickets';
 
-const communityDetail = () => `/community-detail/:communityId`
+const communityDetail = () => `/community-detail/:communityId`;
 
 export const route = {
   home: () => `/`,
@@ -33,8 +33,16 @@ export function Routes() {
         <Route path={route.about()} exact component={AboutPage} />
         <Route path={route.signIn()} exact component={SignInPage} />
         <Route path={route.signUp()} exact component={SignUpPage} />
-        <Route path={route.resetPassword()} exact component={PasswordResetPage} />
-        <Route path={route.communityDetail()} exact component={CommunityDetail} />
+        <Route
+          path={route.resetPassword()}
+          exact
+          component={PasswordResetPage}
+        />
+        <Route
+          path={route.communityDetail()}
+          exact
+          component={CommunityDetail}
+        />
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
 
