@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  min-width: 700px;
 }
 
 code {
@@ -15,6 +14,9 @@ code {
 .break-word {
   word-break: break-word;
 }
+
+.navbar-nav {
+  text-align: center;
 .card{
   min-width: 300px;
 }
