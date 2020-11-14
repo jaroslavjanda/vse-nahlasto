@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Spinner, Alert, Button, Form } from 'react-bootstrap';
+import { Spinner, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
 
-const CUMMUNITY_DETAIL_QUERY = gql`
+const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
     community(communityId: $communityId) {
       name
@@ -28,7 +28,7 @@ export const CommunityDetail = ({ match }) => {
   // Will be seperated to more files, this will be only networking manager
   // Time 😢
   const communityId = parseInt(match.params.communityId);
-  const communityState = useQuery(CUMMUNITY_DETAIL_QUERY, {
+  const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
 

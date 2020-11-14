@@ -12,7 +12,7 @@ import { TopNavigation } from './organisms';
 import { AddTicket } from './pages/AddTicket';
 import { ListOfTickets } from './pages/ListOfTickets';
 
-const communityDetail = (id) => `/community-detail/${id}`
+const communityDetail = () => `/community-detail/:communityId`
 
 export const route = {
   home: () => `/`,
@@ -21,8 +21,8 @@ export const route = {
   signUp: () => `/auth/signup`,
   resetPassword: () => '/password_reset',
   communityDetail,
-  addTicket: (id) => `${communityDetail(id)}/add`,
-  listTicket: (id) => `${communityDetail(id)}/list`,
+  addTicket: () => `${communityDetail()}/add`,
+  listTicket: () => `${communityDetail()}/list`,
 };
 
 export function Routes() {

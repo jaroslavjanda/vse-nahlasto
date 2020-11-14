@@ -47,6 +47,8 @@ const typeDefs = gql`
     title: String!
     image: String!
     content: String!
+    date: String!
+    status: String!
     user_id: Int!
     community_id: Int!
     likes_count: Int
