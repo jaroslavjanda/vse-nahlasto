@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Spinner, Alert, Button, Form } from 'react-bootstrap';
+import { Spinner, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Tickets } from 'src/organisms';
 
-const CUMMUNITY_DETAIL_QUERY = gql`
-  query CommunityDetail($communityId: Int!) {
+const COMMUNITY_DETAIL_QUERY = gql`
+  query CommunityList($communityId: Int!) {
     community(communityId: $communityId) {
       name
+      description
       closed
       users {
         user_id
       }
       tickets {
         title
+        content
+        likes_count
+        comment_count
       }
     }
   }
@@ -23,40 +28,25 @@ export const CommunityDetail = ({ match }) => {
   // Will be seperated to more files, this will be only networking manager
   // Time 😢
   const communityId = parseInt(match.params.communityId);
-  const quacksState = useQuery(CUMMUNITY_DETAIL_QUERY, {
+  const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
 
   const [isMember, setIsMember] = useState(false);
-  const [formData, setFormData] = useState();
-  const [community, setCommunity] = useState({
-    name: '',
-    tickets: [],
-    description: '',
-    users: [],
-  });
-  useEffect(() => {
-    if (!quacksState.loading) {
-      const { name, tickets, users, closed } = quacksState.data.community;
-      setCommunity({
-        name,
-        tickets,
-        users,
-        closed,
-      });
-    }
-  }, [quacksState]);
+
+  const community = communityState.data?.community
+
   return (
     <div style={{ textAlign: 'center' }}>
-      {quacksState.loading && (
+      {communityState.loading && (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
       )}
-      {!quacksState.loading && (
+      {!communityState.loading && (
         <div>
           <h1>{community.name}</h1>
-          {console.log(community)}
+          <p>{community.description}</p>
           {!community.closed && !isMember && (
             <div>
               <Alert variant={'success'}>
@@ -74,6 +64,10 @@ export const CommunityDetail = ({ match }) => {
               >
                 Join here
               </Button>
+
+              <Tickets
+                tickets={community.tickets}
+              />
             </div>
           )}
           {!community.closed && isMember && (
@@ -100,9 +94,9 @@ export const CommunityDetail = ({ match }) => {
               </Link>
               <br />
               <br />
-              <Link to={`/community-detail/${communityId}/list`}>
-                <Button variant="info">List of tickets</Button>
-              </Link>
+              <Tickets
+                tickets={community.tickets}
+              />
             </div>
           )}
           {community.closed && (
