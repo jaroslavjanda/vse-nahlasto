@@ -63,14 +63,11 @@ export const signup = async (
     sgMail
       .send(msg)
       .then(() => {
-        console.log('Email sent');
+        console.log('Email sent', "Send123");
       })
       .catch((error) => {
-        console.log('fuck');
-
         //Log friendly error
         console.error(error.toString());
-        console.log(output);
       });
   }
 
