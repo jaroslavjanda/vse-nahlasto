@@ -17,12 +17,12 @@ const LIKE_MUTATION = gql`
 export function Tickets({ tickets }) {
 
   const [LikedRequest, {data}] = useMutation(LIKE_MUTATION);
-
   return (
     <div style={{ textAlign: 'center' }}>
       <div>
         <div>
           <Row>
+            {console.log(tickets)}
             <CardDeck>
               {tickets.map((item) => (
                 <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} />

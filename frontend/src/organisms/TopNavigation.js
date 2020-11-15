@@ -68,6 +68,11 @@ export const TopNavigation = ({ children }) => {
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
+                  <NavLink to={route.addCommunity()} className="pa3">
+                    Add new community
+                  </NavLink>
+                </Nav.Item>
+                <Nav.Item>
                   <Button
                     variant="secondary"
                     onClick={() => {

@@ -7,12 +7,12 @@ import { PageNotFound } from 'src/pages/PageNotFound';
 import { SignInPage } from 'src/pages/SignInPage';
 import { SignUpPage } from 'src/pages/SignUpPage';
 import { PasswordResetPage } from 'src/pages/PasswordResetPage';
+import { AddCommunityPage } from 'src/pages/AddCommunityPage';
 import { CommunityDetail } from 'src/pages/CommunityDetail';
 import { TopNavigation } from './organisms';
 import { AddTicket } from './pages/AddTicket';
 import { ListOfTickets } from './pages/ListOfTickets';
 import { Communities } from './pages/Communities';
-
 
 const communityDetail = () => `/community-detail/:communityId`;
 
@@ -22,11 +22,11 @@ export const route = {
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
   resetPassword: () => '/password_reset',
+  addCommunity: () => '/add_community',
   communityDetail,
   addTicket: () => `${communityDetail()}/add`,
   listTicket: () => `${communityDetail()}/list`,
   communities: () => `/communities`,
-
 };
 
 export function Routes() {
@@ -42,6 +42,7 @@ export function Routes() {
           exact
           component={PasswordResetPage}
         />
+        <Route path={route.addCommunity()} exact component={AddCommunityPage} />>}
         <Route
           path={route.communityDetail()}
           exact
