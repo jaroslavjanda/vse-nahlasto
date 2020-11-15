@@ -1,8 +1,8 @@
 export const addCommunity = async (_, { name, description, code, closed, ownerId }, { dbConnection }) => {
   const addCommunityDbResponse = await dbConnection.query(
-    `INSERT INTO community (name, description, code, closed)
-    VALUES (?, ?, ?, ?);`,
-    [name, description, code, closed],
+    `INSERT INTO community (name, description, closed)
+    VALUES (?, ?, ?);`,
+    [name, description, closed],
   );
 
   const communityId = addCommunityDbResponse.insertId
