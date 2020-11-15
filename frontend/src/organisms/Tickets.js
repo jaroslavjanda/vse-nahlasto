@@ -25,6 +25,7 @@ export function Tickets({ tickets }) {
             {console.log(tickets)}
             <CardDeck>
               {tickets.map((item) => (
+                <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} />
               ))}
             </CardDeck>
           </Row>
