@@ -13,6 +13,7 @@ import { AddTicket } from './pages/AddTicket';
 import { ListOfTickets } from './pages/ListOfTickets';
 import { Communities } from './pages/Communities';
 
+
 const communityDetail = () => `/community-detail/:communityId`;
 
 export const route = {
@@ -25,6 +26,7 @@ export const route = {
   addTicket: () => `${communityDetail()}/add`,
   listTicket: () => `${communityDetail()}/list`,
   communities: () => `/communities`,
+
 };
 
 export function Routes() {
@@ -48,7 +50,6 @@ export function Routes() {
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.communities()} exact component={Communities} />
-
         <Route path="*" component={PageNotFound} />
       </Switch>
     </TopNavigation>

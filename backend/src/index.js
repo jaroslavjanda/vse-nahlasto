@@ -14,7 +14,6 @@ const MOCKS = process.env.MOCKS === 'true';
 
 const typeDefs = gql`
   scalar Date
-
   type User {
     user_id: Int!
     name: String
@@ -109,9 +108,7 @@ const typeDefs = gql`
       title: String!
       content: String!
     ): Ticket!
-
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
-    
   }
 `;
 

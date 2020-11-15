@@ -1,7 +1,9 @@
+
 import { 
   queries as UserQueries, 
   mutations as UserMutations 
 } from './user';
+
 import {
   queries as CommunityQueries,
   mutations as CommunityMutations,
@@ -14,7 +16,6 @@ import {
   queries as CommentQueries,
   mutations as CommentMutations,
 } from './comment';
-
 const { GraphQLScalarType } = require('graphql') ;
 
 export default {
@@ -42,7 +43,7 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, title, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+       `SELECT ticket.ticket_id, title, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
         COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
         FROM ticket 
         LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
@@ -54,12 +55,42 @@ export default {
       );
     },
   },
+
   Ticket: {
     async status(parent, _, { dbConnection }) {
       return await dbConnection.query(
         `SELECT status_id, status FROM status
         WHERE status_id = ?`,
         [parent.status_id],
+
+  Community: {
+    async owner(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT user.user_id, name, surname, email FROM user 
+        JOIN membership on membership.user_id = user.user_id 
+        WHERE community_id = ? AND role_id = 1`,
+        [parent.community_id],
+      );
+    },
+    async users(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT user.user_id, name, surname, email FROM user 
+        JOIN membership on membership.user_id = user.user_id 
+        WHERE community_id = ?`,
+        [parent.community_id],
+      );
+    },
+    async tickets(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT ticket.ticket_id, title, ticket.content, ticket.user_id, community_id, 
+        COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+        FROM ticket 
+        LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
+        LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
+        WHERE ticket.community_id = ?
+        GROUP BY ticket.ticket_id, title, ticket.content, ticket.user_id, community_id
+        `,
+        [parent.community_id],
       );
     },
   },

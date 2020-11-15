@@ -36,6 +36,7 @@ export function Tickets({ tickets }) {
     [LikedRequest],
   );
 
+export function Tickets({ tickets }) {
   return (
     <div style={{ textAlign: 'center' }}>
       <div>
@@ -56,6 +57,7 @@ export function Tickets({ tickets }) {
                       <div onClick={() => {
                           handleSetLiked(user.user_id, item.ticket_id);
                       }}>
+                      <div>
                         <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
                         {item.likes_count}
                       </div>

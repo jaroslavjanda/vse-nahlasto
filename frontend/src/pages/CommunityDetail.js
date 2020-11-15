@@ -4,9 +4,7 @@ import { toast } from 'react-toastify';
 import { Spinner, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 const COMMUNITY_DETAIL_QUERY = gql`
@@ -73,8 +71,7 @@ export const CommunityDetail = ({ match }) => {
                 }}
               >
                 Join here
-              </Button>
-              
+              </Button>              
               <Button
                 variant="primary"
                 onClick={() => {
