@@ -1,7 +1,22 @@
-import React from 'react';
-import { Card, Row, CardDeck } from 'react-bootstrap';
+import React, { useCallback }  from 'react';
+import { Card, Row, CardDeck, Badge } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { useMutation, gql } from '@apollo/client';
+
+import {CardsTicket} from 'src/molecules/CardsTicket'
+
+const LIKE_MUTATION = gql`
+  mutation addLike($ownerId: Int!, $ticketId: Int!) {
+    addLike(ownerId: $ownerId, ticketId: $ticketId) {
+      title
+    }
+  }
+`;
 
 export function Tickets({ tickets }) {
+
+  const [LikedRequest, {data}] = useMutation(LIKE_MUTATION);
   return (
     <div style={{ textAlign: 'center' }}>
       <div>
@@ -10,16 +25,6 @@ export function Tickets({ tickets }) {
             {console.log(tickets)}
             <CardDeck>
               {tickets.map((item) => (
-                <Card style={{ width: '100%' }} key={item.title}>
-                  <Card.Img variant="top" src="https://picsum.photos/180/100" />
-                  <Card.Body>
-                    <h3>{item.title}</h3>
-                    <Card.Text>{item.content}</Card.Text>
-                    <div>
-
-                    </div>
-                  </Card.Body>
-                </Card>
               ))}
             </CardDeck>
           </Row>
