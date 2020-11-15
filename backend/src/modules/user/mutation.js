@@ -1,7 +1,5 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
-import * as config from '../../config';
-
 
 export const signin = async (_, { email, password }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
@@ -52,8 +50,8 @@ export const signup = async (
 
   if (dbResponse.insertId) {
     const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(config.SENDGRID_API_KEY);
-
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    
     const msg = {
       to: email,
       from: 'tym7nahlasto@gmail.com', // Nemenit!
@@ -94,7 +92,7 @@ export const resetUserPassword = async (
 
   if (dbResponse) {
     const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(config.SENDGRID_API_KEY);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
       to: email,
