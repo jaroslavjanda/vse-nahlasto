@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
+import { FormikFile } from '../molecules/FormikFile';
 
 const initialValues = {
   title: '',
@@ -14,6 +15,9 @@ const initialValues = {
 const schema = yup.object().shape({
   content: yup.string().required().label('Content'),
   title: yup.string().required().label('Title'),
+  file: yup.mixed().required().label('File').test('file', 'cannot be undefined', (value) => {
+    console.log(value); return value;
+  })
 });
 
 export function AddTicketForm({
@@ -55,6 +59,11 @@ export function AddTicketForm({
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
+        />
+        <FormikFile
+          id="file"
+          name="file"
+          label="File"
         />
         <Button type="submit" className="mt2 mb3">
           Confirm request

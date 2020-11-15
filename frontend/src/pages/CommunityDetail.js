@@ -71,7 +71,10 @@ export const CommunityDetail = ({ match }) => {
                 }}
               >
                 Join here
-              </Button>              
+              </Button>  
+              <Link to={`/community-detail/${communityId}/add`}>
+                <Button variant="success">Add ticket</Button>
+              </Link>            
               <Button
                 variant="primary"
                 onClick={() => {

@@ -4,13 +4,14 @@ import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
-    #    TODO get logged user ID and ID of the community
-    #    $ownerId: Int!,
-    #    $communityId: Int!,
+    $ownerId: Int!,
+    $communityId: Int!,
     $title: String!
     $content: String!
+    $image: String!
+    #$status: Int!
   ) {
-    addTicket(ownerId: 1, communityId: 1, title: $title, content: $content) {
+    addTicket(user_id: $ownerId, community_id: $communityId, title: $title, content: $content, image: $image, status_id: 3) {
       ticket_id
     }
   }
@@ -31,6 +32,8 @@ export const AddTicket = () => {
 
   const handleAddTicketFormSubmit = useCallback(
     (variables) => {
+      console.log("dddddddd")
+      console.log(variables)
       addTicketRequest({ variables });
     },
     [addTicketRequest],
