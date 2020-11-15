@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { Spinner, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -15,10 +17,16 @@ const COMMUNITY_DETAIL_QUERY = gql`
         user_id
       }
       tickets {
+        ticket_id
         title
         content
         likes_count
         comment_count
+        status_id
+        date
+        status{
+          status
+        }
       }
     }
   }
@@ -63,6 +71,14 @@ export const CommunityDetail = ({ match }) => {
                 }}
               >
                 Join here
+              </Button>              
+              <Button
+                variant="primary"
+                onClick={() => {
+                  toast.success('Your are in community');
+                }}
+              >
+                <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description (temporary)
               </Button>
 
               <Tickets tickets={community.tickets} />
