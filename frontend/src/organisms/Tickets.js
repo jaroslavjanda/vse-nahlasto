@@ -16,17 +16,22 @@ const LIKE_MUTATION = gql`
 export function Tickets({ tickets }) {
   const { user } = useAuth();
 
-  const [LikedRequest, LikedRequestState] = useMutation(LIKE_MUTATION, {
-    onCompleted: ({ addLike: { user_id, ticket_id } }) => {
+  const [LikedRequest, LikedRequestState] = useMutation(
+    LIKE_MUTATION,
+    {
+      onCompleted: ({ addLike: { user_id, ticket_id } }) => {
+        console.log("Like was added/removed to/from the DB, ticket ID is " + ticket_id);
+      },
+      onError: () => {
+        console.log('Error while adding the like to DB');
+      },
     },
-    onError: () => {
-      console.log('TEST Error while fetching the DB');
-    },
-  });
+  );
 
   const handleSetLiked = useCallback(
-    (variables) => {
-      LikedRequest({ variables });
+    (user_id, ticket_id) => {
+      console.log(user_id, ticket_id);
+      LikedRequest({ user_id, ticket_id });
     },
     [LikedRequest],
   );
@@ -36,7 +41,6 @@ export function Tickets({ tickets }) {
       <div>
         <div>
           <Row>
-            {console.log(user)}
             <CardDeck>
               {tickets.map((item) => (
                 <Card style={{ width: '100%' }} key={item.title}>

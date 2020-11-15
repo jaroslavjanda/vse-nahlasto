@@ -66,6 +66,7 @@ const typeDefs = gql`
 
   type AuthUser {
     email: String!
+    user_id: Int!
   }
 
   type AuthInfo {
@@ -98,6 +99,7 @@ const typeDefs = gql`
     ): AuthInfo!
 
     addCommunity(ownerId: Int!, name: String!): Community!
+    editCommunityDescription(description: String!, community_id: Int!): Community!
 
     addLike(ownerId: Int!, ticketId: Int!): Ticket!
 
@@ -109,6 +111,7 @@ const typeDefs = gql`
     ): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
+    
   }
 `;
 
