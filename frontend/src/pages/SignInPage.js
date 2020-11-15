@@ -10,7 +10,6 @@ const SIGNIN_MUTATION = gql`
     signin(email: $email, password: $password) {
       user {
         email
-        user_id
       }
       token
     }

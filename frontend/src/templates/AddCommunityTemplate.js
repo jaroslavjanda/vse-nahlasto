@@ -1,0 +1,25 @@
+import React from 'react';
+
+import { Heading } from 'src/atoms';
+import { AddCommunityForm } from '../organisms/AddCommunityForm';
+
+export function AddCommunityTemplate({ isDone, error, onSubmit }) {
+  // TODO we should unite this error handling (also present in [SignInTemplate.js])
+  if (error) {
+    switch (error.message) {
+      default:
+    }
+  }
+
+  return (
+    <>
+      <Heading>Add community</Heading>
+      <AddCommunityForm
+        errorMessage={error && error.message}
+        successMessage={isDone}
+        onSubmit={onSubmit}
+        className="mt3"
+      />
+    </>
+  );
+}

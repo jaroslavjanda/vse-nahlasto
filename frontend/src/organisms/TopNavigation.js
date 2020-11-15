@@ -37,11 +37,6 @@ export const TopNavigation = ({ children }) => {
               </NavLink>
             </Nav.Item>
             <Nav.Item>
-              <NavLink exact to={route.communities()} className="pa3">
-                Communities
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item>
               <NavLink to={route.about()} className="pa3">
                 About
               </NavLink>
@@ -65,6 +60,11 @@ export const TopNavigation = ({ children }) => {
                     {/*/>{' '}*/}
                     {'Logged in as: '}
                     {user.email}
+                  </NavLink>
+                </Nav.Item>
+                <Nav.Item>
+                  <NavLink to={route.addCommunity()} className="pa3">
+                    Add new community
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
