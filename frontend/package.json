@@ -22,6 +22,7 @@
     "date-fns": "2.16.1",
     "formik": "2.1.5",
     "graphql": "^15.3.0",
+    "levenary": "^1.1.1",
     "lodash": "4.17.20",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
