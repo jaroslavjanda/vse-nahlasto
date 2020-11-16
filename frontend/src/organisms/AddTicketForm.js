@@ -6,18 +6,7 @@ import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 import { FormikFile } from '../molecules/FormikFile';
-
-const initialValues = {
-  title: '',
-  content: '',
-  file:``,
-};
-
-const schema = yup.object().shape({
-  content: yup.string().required().label('Content'),
-  title: yup.string().required().label('Title'),
-  file: yup.mixed().required().label('File')
-});
+import { useAuth } from 'src/utils/auth';
 
 export function AddTicketForm({
   errorMessage,
@@ -25,6 +14,28 @@ export function AddTicketForm({
   onSubmit,
   className,
 }) {
+
+  const { user } = useAuth();
+
+  const initialValues = {
+    title: '',
+    content: '',
+    file: '',
+    email: '',
+    showEmail: user?false:true
+  };
+  
+  const schema = yup.object().shape({
+    content: yup.string().required().label('Content'),
+    title: yup.string().required().label('Title'),
+    email: yup.string()
+    .email()
+    .when("showEmail", {
+      is: true,
+      then: yup.string().required("Must enter email address")
+    })
+  });
+
   return (
     <Formik
       onSubmit={onSubmit}
@@ -48,6 +59,20 @@ export function AddTicketForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
+        {!user && (
+
+        <FormikField
+          id="email"
+          name="email"
+          label="Email"
+          type="text"
+          rows={3}
+          placeholder="Describe your problem further"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+        />
+        )}
         <FormikTextArea
           id="content"
           name="content"

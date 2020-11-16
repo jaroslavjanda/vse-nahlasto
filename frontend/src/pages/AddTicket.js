@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 import { useAuth } from 'src/utils/auth';
+import { useHistory } from 'react-router-dom';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
@@ -21,11 +22,14 @@ const ADD_TICKET_MUTATION = gql`
 export const AddTicket = ({ match }) => {
   const communityId = parseInt(match.params.communityId);
   const auth = useAuth();
+  const history = useHistory();
+
   const [addTicketRequest, addTicketRequestState] = useMutation(
     ADD_TICKET_MUTATION,
     {
       onCompleted: ({ addTicket: { ticket_id } }) => {
         console.log("Ticket was added to the DB, it's ID is " + ticket_id);
+        history.replace('/community-detail/'+communityId);
       },
       onError: () => {
         console.log('Error while adding the ticket to DB');
@@ -37,7 +41,7 @@ export const AddTicket = ({ match }) => {
     (oldVariables) => {
 
       const variables = {
-        user_id: auth.user.user_id,
+        user_id: auth.user?auth.user.user_id:1,
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,

@@ -77,7 +77,7 @@ export const CommunityDetail = ({ match }) => {
                 Join here
               </Button>  
 
-              {enabled && user && (
+              {!community.closed && (
                 <Link to={`/community-detail/${communityId}/add`}>
                   <Button variant="success">Add ticket</Button>
                 </Link>   
