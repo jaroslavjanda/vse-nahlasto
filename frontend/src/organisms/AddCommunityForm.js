@@ -7,8 +7,6 @@ import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 import FormGroup from 'react-bootstrap/FormGroup';
 
-
-
 const schema = yup.object().shape({
   description: yup.string().required().label('Content'),
   name: yup.string().required().label('Title'),

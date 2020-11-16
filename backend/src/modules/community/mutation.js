@@ -1,6 +1,7 @@
 export const addCommunity = async (_, { name, description, code, closed, ownerId }, { dbConnection }) => {
 
   // adds community to DB
+  // TODO prevent creating communities with same name
   const addCommunityDbResponse = await dbConnection.query(
     `INSERT INTO community (name, description, closed)
     VALUES (?, ?, ?);`,
@@ -56,3 +57,23 @@ export const addCommunity = async (_, { name, description, code, closed, ownerId
   }
   return null;
 };
+
+export const editCommunity = async (_, { community_id, description }, { dbConnection }) => {
+
+  await dbConnection.query(
+    `UPDATE community SET description = ? WHERE community_id = ?`,
+    [description, community_id]
+  );
+
+  const community = (
+    await dbConnection.query(`SELECT * FROM community WHERE community_id = ?`, [
+      community_id,
+    ])
+  )[0];
+
+  console.log(
+    "Returned community is ", community
+  )
+
+  return community
+}

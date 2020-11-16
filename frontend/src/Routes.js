@@ -8,6 +8,7 @@ import { SignInPage } from 'src/pages/SignInPage';
 import { SignUpPage } from 'src/pages/SignUpPage';
 import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 import { AddCommunityPage } from 'src/pages/AddCommunityPage';
+import { EditCommunityPage } from './pages/EditCommunityPage';
 import { CommunityDetail } from 'src/pages/CommunityDetail';
 import { TopNavigation } from './organisms';
 import { AddTicket } from './pages/AddTicket';
@@ -26,6 +27,7 @@ export const route = {
   communityDetail,
   addTicket: () => `${communityDetail()}/add`,
   listTicket: () => `${communityDetail()}/list`,
+  editCommunity: () => `${communityDetail()}/edit_community`,
   communities: () => `/communities`,
 };
 
@@ -50,6 +52,7 @@ export function Routes() {
         />
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
+        <Route path={route.editCommunity()} exact component={EditCommunityPage} />
         <Route path={route.communities()} exact component={Communities} />
         <Route path="*" component={PageNotFound} />
       </Switch>

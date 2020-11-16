@@ -53,7 +53,7 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
-          { console.log('Community: ', communityId) }
+          {console.log('Community: ', communityId)}
           <h1>{community.name}</h1>
           <p>{community.description}</p>
           {!community.closed && !isMember && (
@@ -76,15 +76,11 @@ export const CommunityDetail = ({ match }) => {
               <Link to={`/community-detail/${communityId}/add`}>
                 <Button variant="success">Add ticket</Button>
               </Link>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  toast.success('Your are in community');
-                }}
-              >
-                <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description (temporary)
-              </Button>
-
+              <Link to={`/community-detail/${communityId}/edit_community`}>
+                <Button variant="primary">
+                  <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
+                </Button>
+              </Link>
               <Tickets tickets={community.tickets} />
             </div>
           )}
@@ -98,7 +94,7 @@ export const CommunityDetail = ({ match }) => {
               </Alert>
               <h5>
                 Hey bro 👋 <br />
-                as a part of community you can see stats and add ticket
+                as a part of community you can see stats and add tickets
                 <br />
                 ⬇️
               </h5>
@@ -118,7 +114,7 @@ export const CommunityDetail = ({ match }) => {
           {community.closed && (
             <div>
               <Alert variant={'danger'}>
-                <div>Community {community.name} require permmision.</div>
+                <div>Community {community.name} requires permission.</div>
                 <div></div>
               </Alert>
               <Button

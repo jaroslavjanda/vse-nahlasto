@@ -64,6 +64,4 @@ export const AddCommunityPage = () => {
       </ErrorBanner>
     );
   }
-
-
 };
