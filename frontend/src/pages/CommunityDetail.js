@@ -58,9 +58,6 @@ export const CommunityDetail = ({ match }) => {
 
   const community = communityState.data?.community;
 
-  const [enabled, setenabled] = useState(true)
-  const { user } = useAuth();
-
   return (
     <div style={{ textAlign: 'center' }}>
       {communityState.loading && (
