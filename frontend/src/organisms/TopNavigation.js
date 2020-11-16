@@ -37,7 +37,8 @@ export const TopNavigation = ({ children }) => {
               </NavLink>
             </Nav.Item>
             <Nav.Item>
-              <NavLink exact to={route.communities()} className="pa3"> Communities
+              <NavLink exact to={route.communities()} className="pa3">
+                Communities
               </NavLink>
             </Nav.Item>
             <Nav.Item>

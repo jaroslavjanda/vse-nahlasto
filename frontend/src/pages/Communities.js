@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import {Card, Row, Col, Spinner, Button } from 'react-bootstrap';
+import {Card, Row, Col, Spinner, Button,CardColumns } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const COMMUNITY_LIST_QUERY = gql`
@@ -37,7 +37,7 @@ export const Communities = () => {
           <h1>Communities</h1>
             <div>
               <Row>
-                <Col>
+                <CardColumns>
                 {communities.map((item) => (
                     <Card style={{ width: '100%' }} key={item.community_id}>
                       <Card.Img
@@ -67,7 +67,7 @@ export const Communities = () => {
                       </Card.Body>
                     </Card>
                 ))}
-                </Col>
+                </CardColumns>
               </Row>
             </div>
           </div>

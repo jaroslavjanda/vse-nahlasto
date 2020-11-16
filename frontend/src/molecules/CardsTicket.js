@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Card, CardDeck, Badge } from 'react-bootstrap';
+import { Card, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from 'src/utils/auth';
