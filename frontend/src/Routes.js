@@ -14,6 +14,7 @@ import { TopNavigation } from './organisms';
 import { AddTicket } from './pages/AddTicket';
 import { ListOfTickets } from './pages/ListOfTickets';
 import { Communities } from './pages/Communities';
+import { ForgottenPasswordPage } from './pages/ForgottenPasswordPage';
 
 const communityDetail = () => `/community-detail/:communityId`;
 
@@ -23,6 +24,7 @@ export const route = {
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
   resetPassword: () => '/password_reset',
+  forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
   addTicket: () => `${communityDetail()}/add`,
@@ -44,6 +46,11 @@ export function Routes() {
           exact
           component={PasswordResetPage}
         />
+        <Route
+          path={route.forgottenPassword()}
+          exact
+          component={ForgottenPasswordPage}
+          />
         <Route path={route.addCommunity()} exact component={AddCommunityPage} />>}
         <Route
           path={route.communityDetail()}
