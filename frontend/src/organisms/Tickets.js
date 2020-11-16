@@ -1,10 +1,8 @@
-import React, { useCallback }  from 'react';
-import { Card, Row, CardDeck, Badge } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import { CardColumns } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
 
-import {CardsTicket} from 'src/molecules/CardsTicket'
+import { CardsTicket } from 'src/molecules/CardsTicket'
 
 const LIKE_MUTATION = gql`
   mutation addLike($ownerId: Int!, $ticketId: Int!) {
@@ -16,21 +14,16 @@ const LIKE_MUTATION = gql`
 
 export function Tickets({ tickets }) {
 
-  const [LikedRequest, {data}] = useMutation(LIKE_MUTATION);
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <div>
-        <div>
-          <Row>
-            {console.log(tickets)}
-            <CardDeck>
-              {tickets.map((item) => (
-                <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} />
-              ))}
-            </CardDeck>
-          </Row>
+    const [LikedRequest, { data }] = useMutation(LIKE_MUTATION);
+    return (
+        <div style={{ textAlign: 'center' }}>
+            <div>
+                <CardColumns>
+                    {tickets.map((item) => (
+                        <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} />
+                    ))}
+                </CardColumns>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }

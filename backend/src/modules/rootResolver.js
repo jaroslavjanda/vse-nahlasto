@@ -1,4 +1,7 @@
-import { queries as UserQueries, mutations as UserMutations } from './user';
+import { 
+  queries as UserQueries, 
+  mutations as UserMutations 
+} from './user';
 import {
   queries as CommunityQueries,
   mutations as CommunityMutations,
@@ -12,7 +15,7 @@ import {
   mutations as CommentMutations,
 } from './comment';
 
-const { GraphQLScalarType } = require('graphql');
+const { GraphQLScalarType } = require('graphql') ;
 
 export default {
   Query: {
@@ -53,10 +56,11 @@ export default {
   },
   Ticket: {
     async status(parent, _, { dbConnection }) {
-      return await dbConnection.query(`
-      SELECT status_id, status FROM status 
-      WHERE status_id = ?`,
-        [parent.status_id]);
+      return await dbConnection.query(
+        `SELECT status_id, status FROM status
+        WHERE status_id = ?`,
+        [parent.status_id],
+      );
     },
   },
   Community: {
@@ -99,7 +103,7 @@ export default {
     serialize(value) {
       const d = new Date(Number(value))
       var date = d.getDate();
-      var month = d.getMonth() + 1;
+      var month = d.getMonth() + 1; 
       var year = d.getFullYear();
       const fullDate = date + ". " + month + ". " + year
       return fullDate;

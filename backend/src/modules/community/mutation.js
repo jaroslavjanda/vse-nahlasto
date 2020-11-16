@@ -75,5 +75,21 @@ export const editCommunity = async (_, { community_id, description }, { dbConnec
     "Returned community is ", community
   )
 
-  return community
-}
+  return community;
+};
+export const editCommunityDescription = async (_, { description, community_id }, { dbConnection }) => {
+  const dbResponse = await dbConnection.query(
+    `UPDATE community 
+    SET description=? 
+    WHERE community_id=?;`,
+    [description, community_id],
+  );
+
+  const community = (
+    await dbConnection.query(`SELECT * FROM community WHERE community_id = ?`, [
+      community_id,
+    ])
+  )[0];
+
+  return community;
+};

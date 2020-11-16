@@ -1,15 +1,12 @@
 export const addTicket = async (
   _,
-  { ownerId, communityId, title, content },
+  { user_id, title, image, community_id, content, status_id },
   { dbConnection },
 ) => {
   const dbResponse = await dbConnection.query(
-    // TODO we do not have images yet
-    // `INSERT INTO ticket (user_id, title, image, community_id, content)
-    // VALUES (?, ?, ?, ?, ?);`,
-    `INSERT INTO ticket (user_id, community_id, title, content)
-    VALUES (?, ?, ?, ?);`,
-    [ownerId, communityId, title, content],
+    `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
+    VALUES (?, ?, ?, ?, ?, ?);`,
+    [user_id, title, image, community_id, content, status_id],
   );
 
   const ticket = (
@@ -49,7 +46,7 @@ export const addLike = async (_, { ownerId, ticketId }, { dbConnection }) => {
 
   const ticket = (
     await dbConnection.query(
-      `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+     `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
       COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
       FROM ticket 
       LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
