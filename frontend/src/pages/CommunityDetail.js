@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from 'src/utils/auth';
+import { useAuth } from '../utils/auth';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -33,12 +33,27 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
+const MEMBERSHIP_QUERY = gql`
+    query CommunityOwnerId($communityId: Int!) {
+      communityOwnerId(communityId: $communityId)
+    }
+`;
+
 export const CommunityDetail = ({ match }) => {
   const communityId = parseInt(match.params.communityId);
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
-  
+
+
+  const { user } = useAuth();
+
+  const userId = user?.user_id
+
+  const communityOwnerId = useQuery(MEMBERSHIP_QUERY, {
+    variables: { communityId },
+  });
+
   const [isMember, setIsMember] = useState(false);
 
   const community = communityState.data?.community;
@@ -73,18 +88,19 @@ export const CommunityDetail = ({ match }) => {
                 }}
               >
                 Join here
-              </Button>  
-
+              </Button>
               {!community.closed && (
                 <Link to={`/community-detail/${communityId}/add`}>
                   <Button variant="success">Add ticket</Button>
                 </Link>   
               )}   
-              <Link to={`/community-detail/${communityId}/edit_community`}>
-                <Button variant="primary">
-                  <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
-                </Button>
-              </Link>
+              {userId && userId === communityOwnerId.data?.communityOwnerId && (
+                <Link to={`/community-detail/${communityId}/edit_community`}>
+                  <Button variant="primary">
+                    <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
+                  </Button>
+                </Link>
+              )}
               <Tickets tickets={community.tickets} />
             </div>
           )}

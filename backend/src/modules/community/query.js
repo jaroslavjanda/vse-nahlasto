@@ -23,3 +23,23 @@ export const community = async (_, { communityId }, { dbConnection }) => {
   }
   return community;
 };
+
+/**
+ * Based on community_id returns id of it's owner.
+ * @param _
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const communityOwnerId = async (_, { communityId }, { dbConnection }) => {
+  const owner = (
+    await dbConnection.query(
+      `SELECT * FROM membership WHERE role_id = ? AND community_id = ?`,
+      [1, communityId]
+    )
+  )[0];
+
+  console.log("OwnerId for comm. " + communityId + " is " + owner.user_id)
+
+  return owner.user_id
+}
