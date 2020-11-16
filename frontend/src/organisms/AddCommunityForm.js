@@ -7,10 +7,7 @@ import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 import FormGroup from 'react-bootstrap/FormGroup';
 
-const initialValues = {
-  name: '',
-  description: '',
-};
+
 
 const schema = yup.object().shape({
   description: yup.string().required().label('Content'),
@@ -22,7 +19,15 @@ export function AddCommunityForm({
                                 successMessage,
                                 onSubmit,
                                 className,
+  user
                               }) {
+
+  const initialValues = {
+    name: '',
+    description: '',
+    closed: true,
+    owner_id: user.user_id
+  };
   return (
     <Formik
       onSubmit={onSubmit}

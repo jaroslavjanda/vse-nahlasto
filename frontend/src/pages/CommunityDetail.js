@@ -53,6 +53,7 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
+          { console.log('Community: ', communityId) }
           <h1>{community.name}</h1>
           <p>{community.description}</p>
           {!community.closed && !isMember && (
@@ -71,7 +72,10 @@ export const CommunityDetail = ({ match }) => {
                 }}
               >
                 Join here
-              </Button>              
+              </Button>
+              <Link to={`/community-detail/${communityId}/add`}>
+                <Button variant="success">Add ticket</Button>
+              </Link>
               <Button
                 variant="primary"
                 onClick={() => {

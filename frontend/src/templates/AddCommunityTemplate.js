@@ -3,7 +3,7 @@ import React from 'react';
 import { Heading } from 'src/atoms';
 import { AddCommunityForm } from '../organisms/AddCommunityForm';
 
-export function AddCommunityTemplate({ isDone, error, onSubmit }) {
+export function AddCommunityTemplate({ isDone, error, onSubmit, user }) {
   // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
@@ -19,6 +19,7 @@ export function AddCommunityTemplate({ isDone, error, onSubmit }) {
         successMessage={isDone}
         onSubmit={onSubmit}
         className="mt3"
+        user={user}
       />
     </>
   );

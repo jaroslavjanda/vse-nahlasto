@@ -12,7 +12,9 @@ dotenv.config();
 
 const MOCKS = process.env.MOCKS === 'true';
 
-const typeDefs = gql`
+const typeDefs = gql`  
+  scalar Date
+  
   type User {
     user_id: Int!
     name: String
@@ -47,17 +49,24 @@ const typeDefs = gql`
     title: String!
     image: String!
     content: String!
-    date: String!
-    status: String!
+    date: Date!
+    status_id: Int!
     user_id: Int!
     community_id: Int!
     likes_count: Int
     comment_count: Int
     comments: [Comment!]!
+    status: [Status!]
+  }
+
+  type Status {
+    status_id: Int!
+    status: String!
   }
 
   type AuthUser {
     email: String!
+    user_id: Int!
   }
 
   type AuthInfo {
@@ -90,6 +99,14 @@ const typeDefs = gql`
     ): AuthInfo!
 
     addCommunity(
+      name: String!,
+      description: String,
+      code: String,
+      closed: Boolean!,
+      ownerId: Int!
+    ): Community!
+    
+    editCommunity(
       name: String!,
       description: String,
       code: String,
