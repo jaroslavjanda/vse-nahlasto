@@ -121,7 +121,10 @@ const typeDefs = gql`
       image: String!
       status_id: Int!
     ): Ticket!
+    
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
+    
+    setResetCode(email: String!): AuthUser!
   }
 `;
 

@@ -1,5 +1,6 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
+import { random } from 'lodash';
 
 export const signin = async (_, { email, password }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
@@ -121,3 +122,64 @@ export const resetUserPassword = async (
     throw Error('No user registered with this email.');
   }
 };
+
+export const setResetCode = async (
+  _,
+  { email },
+  { dbConnection },
+) => {
+
+
+  const doesUserExist = await dbConnection.query(
+    `SELECT * FROM user WHERE email = ?`,
+    [email],
+  );
+
+  if (doesUserExist.data) {
+
+    const code = "XX".random(1, 99999999)
+
+    console.log("Code: ", code)
+
+    const dbResponse = await dbConnection.query(
+      `INSERT INTO forgotten (user_email, code) VALUES (?, ?)`,
+      [email, code],
+    );
+
+    if (dbResponse.insertId) {
+      const link = "http://dev.frontend.team07.vse.handson.pro/password_reset/?email="
+        + email + "&code=" + code
+
+      console.log("Link: ", link)
+
+      const sgMail = require('@sendgrid/mail');
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+      const msg = {
+        to: email,
+        from: 'tym7nahlasto@gmail.com', // Nemenit!
+        subject: 'Change password confirmation',
+        text: 'You have successfully changed your password',
+        html: '<strong>'+ link + '</strong>',
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Email sent');
+        })
+        .catch((error) => {
+          //Log friendly error
+          console.error(error.toString());
+          console.log(output);
+        });
+    }
+  }
+
+  if (!doesUserExist) {
+    throw Error('No user registered with this email.');
+  }
+
+  return (
+    await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
+  )[0];
+}
