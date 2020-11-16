@@ -1,21 +1,20 @@
 import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddCommunityTemplate } from '../templates/AddCommunityTemplate';
+import { useAuth } from '../utils/auth';
+import { ErrorBanner } from '../atoms';
 
 const ADD_COMMUNITY_MUTATION = gql`
   mutation AddCommunity(
     $name: String!
     $description: String
-    $code: String
     $closed: Boolean!
     $owner_id: Int!
   ) {
     addCommunity(
       name: $name,
       description: $description,
-      code: $code,
       closed: $closed,
-#      TODO get owner ID - authuser.id
       ownerId: $owner_id
     ) {
       community_id
@@ -24,6 +23,9 @@ const ADD_COMMUNITY_MUTATION = gql`
 `;
 
 export const AddCommunityPage = () => {
+
+  const { user } = useAuth();
+
   const [addCommunityRequest, addCommunityRequestState] = useMutation(
     ADD_COMMUNITY_MUTATION,
     {
@@ -38,16 +40,28 @@ export const AddCommunityPage = () => {
 
   const handleAddCommunityFormSubmit = useCallback(
     (variables) => {
-      addCommunityRequest({ variables });
+      console.log("User is " + variables.owner_id)
+      addCommunityRequest({
+        variables: variables
+      });
     },
-    [addCommunityRequest]
-  )
+    [addCommunityRequest],
+  );
 
-  return (
-    <AddCommunityTemplate
-      isDone={addCommunityRequestState.data}
-      error={addCommunityRequestState.error}
-      onSubmit={handleAddCommunityFormSubmit}
+  if (user != null) {
+    return (
+      <AddCommunityTemplate
+        isDone={addCommunityRequestState.data}
+        error={addCommunityRequestState.error}
+        onSubmit={handleAddCommunityFormSubmit}
+        user={user}
       />
-  )
+    );
+  } else {
+    return (
+      <ErrorBanner title="User not signed in">
+        You need to sign in.
+      </ErrorBanner>
+    );
+  }
 };

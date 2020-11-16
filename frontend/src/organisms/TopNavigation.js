@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AvatarPhoto, Link, NavLink } from 'src/atoms/';
+import { AvatarPhoto, Link, NavLink } from 'src/atoms';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';

@@ -97,8 +97,18 @@ const typeDefs = gql`
       password: String!
     ): AuthInfo!
 
-    addCommunity(ownerId: Int!, name: String!): Community!
-    editCommunityDescription(description: String!, community_id: Int!): Community!
+    addCommunity(
+      name: String!,
+      description: String,
+      code: String,
+      closed: Boolean!,
+      ownerId: Int!
+    ): Community!
+    
+    editCommunity(
+      description: String!,
+      community_id: Int!
+    ): Community!
 
     addLike(ownerId: Int!, ticketId: Int!): Ticket!
 
