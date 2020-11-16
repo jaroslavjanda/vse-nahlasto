@@ -25,8 +25,8 @@ export const EditCommunityPage = ({ match }) => {
   const [editCommunityRequest, editCommunityRequestState] = useMutation(
     EDIT_COMMUNITY_MUTATION,
     {
-      onCompleted: ({ addCommunity: { community_id } }) => {
-        console.log('Community was edited in the DB, it\'s ID is ' + community_id);
+      onCompleted: () => {
+        console.log('Community was edited in the DB');
       },
       onError: () => {
         console.log('Error while editing the community');
