@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../utils/auth';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -32,13 +33,32 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
+const MEMBERSHIP_QUERY = gql`
+    query CommunityOwnerId($communityId: Int!) {
+      communityOwnerId(communityId: $communityId)
+    }
+`;
+
 export const CommunityDetail = ({ match }) => {
+
   // Will be seperated to more files, this will be only networking manager
   // Time 😢
   const communityId = parseInt(match.params.communityId);
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
+
+  const { user } = useAuth();
+
+  const userId = user?.user_id
+
+  console.log("User ID is ", userId)
+
+  const communityOwnerId = useQuery(MEMBERSHIP_QUERY, {
+    variables: { communityId },
+  });
+
+  console.log("Owner ID is ", communityOwnerId.data?.communityOwnerId)
 
   const [isMember, setIsMember] = useState(false);
 
@@ -76,11 +96,14 @@ export const CommunityDetail = ({ match }) => {
               <Link to={`/community-detail/${communityId}/add`}>
                 <Button variant="success">Add ticket</Button>
               </Link>
-              <Link to={`/community-detail/${communityId}/edit_community`}>
-                <Button variant="primary">
-                  <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
-                </Button>
-              </Link>
+              {userId && userId === communityOwnerId.data?.communityOwnerId && (
+                <Link to={`/community-detail/${communityId}/edit_community`}>
+                  <Button variant="primary">
+                    <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
+                  </Button>
+                </Link>
+              )}
+
               <Tickets tickets={community.tickets} />
             </div>
           )}
