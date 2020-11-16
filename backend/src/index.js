@@ -107,11 +107,8 @@ const typeDefs = gql`
     ): Community!
     
     editCommunity(
-      name: String!,
-      description: String,
-      code: String,
-      closed: Boolean!,
-      ownerId: Int!
+      description: String!,
+      community_id: Int!
     ): Community!
 
     addLike(ownerId: Int!, ticketId: Int!): Ticket!
