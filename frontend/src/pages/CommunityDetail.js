@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from 'src/utils/auth';
+import { useAuth } from '../utils/auth';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
