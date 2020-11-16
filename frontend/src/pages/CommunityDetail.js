@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from 'src/utils/auth';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -33,16 +34,17 @@ const COMMUNITY_DETAIL_QUERY = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
-  // Will be seperated to more files, this will be only networking manager
-  // Time 😢
   const communityId = parseInt(match.params.communityId);
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
-
+  
   const [isMember, setIsMember] = useState(false);
 
   const community = communityState.data?.community;
+
+  const [enabled, setenabled] = useState(true)
+  const { user } = useAuth();
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -53,6 +55,8 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
+          {console.log(community)}
+          {console.log(communityState)}
           <h1>{community.name}</h1>
           <p>{community.description}</p>
           {!community.closed && !isMember && (
@@ -72,9 +76,12 @@ export const CommunityDetail = ({ match }) => {
               >
                 Join here
               </Button>  
-              <Link to={`/community-detail/${communityId}/add`}>
-                <Button variant="success">Add ticket</Button>
-              </Link>            
+
+              {enabled && user && (
+                <Link to={`/community-detail/${communityId}/add`}>
+                  <Button variant="success">Add ticket</Button>
+                </Link>   
+              )}         
               <Button
                 variant="primary"
                 onClick={() => {

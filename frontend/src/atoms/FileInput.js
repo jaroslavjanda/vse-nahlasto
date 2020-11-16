@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
+
 
 export function FileInput({ className, error, ...props }) {
   return (
@@ -13,9 +14,6 @@ export function FileInput({ className, error, ...props }) {
         className,
       )}
       {...props}
-      onChange={(event) => {
-        //setFieldValue("file", event.currentTarget.files[0]);
-      }}
     />
   );
 }

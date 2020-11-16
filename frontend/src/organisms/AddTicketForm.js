@@ -10,14 +10,13 @@ import { FormikFile } from '../molecules/FormikFile';
 const initialValues = {
   title: '',
   content: '',
+  file:``,
 };
 
 const schema = yup.object().shape({
   content: yup.string().required().label('Content'),
   title: yup.string().required().label('Title'),
-  file: yup.mixed().required().label('File').test('file', 'cannot be undefined', (value) => {
-    console.log(value); return value;
-  })
+  file: yup.mixed().required().label('File')
 });
 
 export function AddTicketForm({

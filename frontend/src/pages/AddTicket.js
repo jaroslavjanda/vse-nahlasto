@@ -1,23 +1,26 @@
 import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
+import { useAuth } from 'src/utils/auth';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
-    $ownerId: Int!,
-    $communityId: Int!,
+    $user_id: Int!,
+    $community_id: Int!,
     $title: String!
     $content: String!
     $image: String!
-    #$status: Int!
+    $status: Int!
   ) {
-    addTicket(user_id: $ownerId, community_id: $communityId, title: $title, content: $content, image: $image, status_id: 3) {
+    addTicket(user_id: $user_id, community_id: $community_id, title: $title, content: $content, image: $image, status_id: $status) {
       ticket_id
     }
   }
 `;
 
-export const AddTicket = () => {
+export const AddTicket = ({ match }) => {
+  const communityId = parseInt(match.params.communityId);
+  const auth = useAuth();
   const [addTicketRequest, addTicketRequestState] = useMutation(
     ADD_TICKET_MUTATION,
     {
@@ -31,10 +34,20 @@ export const AddTicket = () => {
   );
 
   const handleAddTicketFormSubmit = useCallback(
-    (variables) => {
-      console.log("dddddddd")
+    (oldVariables) => {
+
+      const variables = {
+        user_id: auth.user.user_id,
+        community_id: communityId,
+        title: oldVariables.title,
+        content: oldVariables.content,
+        image: oldVariables.file.replace('C:\\fakepath\\',''),
+        status: 3
+      }
+      
       console.log(variables)
-      addTicketRequest({ variables });
+      
+      addTicketRequest({variables});
     },
     [addTicketRequest],
   );
