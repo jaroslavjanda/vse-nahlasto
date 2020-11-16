@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import {Card, Row, Col, Spinner, Button,CardColumns } from 'react-bootstrap';
+import {Container, Col,Card, Row, Spinner, Button,CardColumns } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const COMMUNITY_LIST_QUERY = gql`
@@ -25,7 +25,7 @@ export const Communities = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-        {console.log(communities)}
+        {console.log(communitiesState)}
       {communitiesState.loading && (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
@@ -34,44 +34,57 @@ export const Communities = () => {
       {!communitiesState.loading && (
           
         <div>
-          <h1>Communities</h1>
-            <div>
-              <Row>
-                <CardColumns>
+          <Container fluid className="container-header">
+            <Row margin="50px">
+              <Col align="left"><h1>Communities</h1></Col>  
+              <Col align="right">
+                <Button 
+                  variant="success"
+                  onClick={() => history.push(`/add_community`)}
+                >
+                  Add new community
+                </Button>
+              </Col>   
+            </Row>
+          </Container>
+          
+          <div>
+            <Row>
+              <CardColumns>
                 {communities.map((item) => (
-                    <Card style={{ width: '100%' }} key={item.community_id}>
-                      <Card.Img
-                        variant="top"
-                        src="https://picsum.photos/180/100"
-                      />
-                      <Card.Body>
-                        <h3>{item.name}</h3>
-                        <Card.Text>{item.description}</Card.Text>
-                        {item.closed && !isMember &&  (
-                        <Button
-                            variant="danger"
-                            onClick={() => toast.info('Your request was sended')}
-                        >
-                            JOIN
-                        </Button>
-                        )}
-                        {!item.closed && (
+                  <Card style={{ width: '100%' }} key={item.community_id}>
+                    <Card.Img
+                      variant="top"
+                      src="https://picsum.photos/180/100"
+                    />
+                    <Card.Body>
+                      <h3>{item.name}</h3>
+                      <Card.Text>{item.description}</Card.Text>
+                      {item.closed && !isMember &&  (
+                      <Button
+                          variant="danger"
+                          onClick={() => toast.info('Your request was sended')}
+                      >
+                          JOIN
+                      </Button>
+                      )}
+                      {!item.closed && (
 
-                        <Button
-                            variant="success"
-                            onClick={() => history.push(`community-detail/${item.community_id}`)}
-                        >
-                            OPEN
-                        </Button>
-                        )}
-                      </Card.Body>
-                    </Card>
+                      <Button
+                          variant="success"
+                          onClick={() => history.push(`community-detail/${item.community_id}`)}
+                      >
+                          OPEN
+                      </Button>
+                      )}
+                    </Card.Body>
+                  </Card>
                 ))}
-                </CardColumns>
-              </Row>
-            </div>
+              </CardColumns>
+            </Row>
           </div>
-        )}
+        </div>
+      )}
     </div>
-    )
+  )
 };

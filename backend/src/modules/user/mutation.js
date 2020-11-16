@@ -73,7 +73,7 @@ export const signup = async (
   const token = createToken({ id: dbResponse.insertId });
 
   const userObject = {
-    id: dbResponse.insertId,
+    user_id: dbResponse.insertId,
     email,
   };
 

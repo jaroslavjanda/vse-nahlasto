@@ -3,7 +3,6 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { ErrorBanner } from 'src/atoms/';
-import { LoadingButton } from 'src/molecules/';
 import { FormikField } from 'src/molecules/';
 import { Button } from 'react-bootstrap';
 
