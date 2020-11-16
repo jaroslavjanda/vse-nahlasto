@@ -6,7 +6,7 @@ import { ErrorBanner, SuccessBanner, Button } from 'src/atoms';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 
 const schema = yup.object().shape({
-  description: yup.string().required().label('Content').max(500, "Too long! Please use max 500 characters."),
+  description: yup.string().required().label('Description').max(500, "Too long! Please use max 500 characters."),
 });
 
 export function EditCommunityForm({
@@ -14,12 +14,13 @@ export function EditCommunityForm({
                                    successMessage,
                                    onSubmit,
                                    className,
-                                   community_id
+                                   community_id,
+  currentDescription,
                                  }) {
   const initialValues = {
-    description: '',
     closed: true,
-    community_id: community_id
+    community_id: community_id,
+    description: currentDescription
   };
   return (
     <Formik

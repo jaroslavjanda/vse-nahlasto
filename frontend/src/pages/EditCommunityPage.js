@@ -1,6 +1,14 @@
 import React, { useCallback } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { EditCommunityTemplate } from '../templates/EditCommunityTemplate';
+
+const COMMUNITY_QUERY = gql`
+  query Community($community_id: Int!) {
+    community(communityId: $community_id) {
+      description
+    }
+  }
+`;
 
 const EDIT_COMMUNITY_MUTATION = gql`
   mutation EditCommunity(
@@ -20,7 +28,11 @@ export const EditCommunityPage = ({ match }) => {
 
   const community_id = parseInt(match.params.communityId);
 
-  console.log("Community ID: ", community_id)
+  const currentDescription = useQuery(COMMUNITY_QUERY, {
+    variables: { community_id }
+  }).data?.community?.description;
+
+  console.log("Community ID, currenDesc: ", community_id, currentDescription)
 
   const [editCommunityRequest, editCommunityRequestState] = useMutation(
     EDIT_COMMUNITY_MUTATION,
@@ -51,6 +63,7 @@ export const EditCommunityPage = ({ match }) => {
       isDone={editCommunityRequestState.data}
       error={editCommunityRequestState.error}
       onSubmit={handleEditCommunityFormSubmit}
+      currentDescription={currentDescription}
       community_id={community_id}
     />
   );
