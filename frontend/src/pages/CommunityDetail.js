@@ -79,18 +79,7 @@ export const CommunityDetail = ({ match }) => {
                 <Link to={`/community-detail/${communityId}/add`}>
                   <Button variant="success">Add ticket</Button>
                 </Link>   
-              )}         
-              <Button
-                variant="primary"
-                onClick={() => {
-                  toast.success('Your are in community');
-                }}
-              >
-                <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description (temporary)
-              </Button>
-              <Link to={`/community-detail/${communityId}/add`}>
-                <Button variant="success">Add ticket</Button>
-              </Link>
+              )}   
               <Link to={`/community-detail/${communityId}/edit_community`}>
                 <Button variant="primary">
                   <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
