@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AvatarPhoto, Link, NavLink } from 'src/atoms';
+import {Link, NavLink } from 'src/atoms';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
@@ -65,11 +65,6 @@ export const TopNavigation = ({ children }) => {
                     {/*/>{' '}*/}
                     {'Logged in as: '}
                     {user.email}
-                  </NavLink>
-                </Nav.Item>
-                <Nav.Item>
-                  <NavLink to={route.addCommunity()} className="pa3">
-                    Add new community
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { Spinner, Alert, Button, Card, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { random } from 'lodash';
 
 const CUMMUNITY_LIST_QUERY = gql`

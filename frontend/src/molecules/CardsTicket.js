@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Card, Badge } from 'react-bootstrap';
+import { Card, Badge, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from 'src/utils/auth';
@@ -14,8 +14,10 @@ export const CardsTicket = ({item, like, requestSendLike}) => {
     <Card style={{ width: '100%' }} key={item.title}>
         <Card.Img variant="top" src="https://picsum.photos/180/100" />
         <Card.Header as="h5">
-            <div>{item.date}</div>
-            <Badge variant="secondary">{item.status[0].status}</Badge>
+            <Row>
+                <Col align="left"><div >{item.date}</div></Col>
+                <Col align="right"><Badge variant="secondary">{item.status[0].status}</Badge></Col>
+            </Row>
         </Card.Header>
         <Card.Body>
             <h3>{item.title}</h3>
