@@ -1,4 +1,10 @@
-export const communities = async (_, __, { dbConnection }) => {
+/**
+ * Returns all communities.
+ * @param _
+ * @param __
+ * @returns {Promise<*>}
+ */
+ export const communities = async (_, __, { dbConnection }) => {
   const communities = await dbConnection.query(
     `SELECT  
     c.community_id, name, description, closed
@@ -8,6 +14,12 @@ export const communities = async (_, __, { dbConnection }) => {
   return communities;
 };
 
+/**
+ * Based on community_id returns one community.
+ * @param _
+ * @param communityId
+ * @returns {Promise<*>}
+ */
 export const community = async (_, { communityId }, { dbConnection }) => {
   const community = (
     await dbConnection.query(

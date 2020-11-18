@@ -1,3 +1,9 @@
+/**
+ * Returns all tickets.
+ * @param _
+ * @param __
+ * @returns {Promise<*>}
+ */
 export const tickets = async (_, __, { dbConnection }) => {
   const tickets = await dbConnection.query(
     `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
@@ -11,6 +17,12 @@ export const tickets = async (_, __, { dbConnection }) => {
   return tickets;
 };
 
+/**
+ * Returns ticket based on ticketId.
+ * @param _
+ * @param ticketId
+ * @returns {Promise<*>}
+ */
 export const ticket = async (_, { ticketId }, { dbConnection }) => {
   const tickets = await dbConnection.query(
     `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
@@ -27,11 +39,13 @@ export const ticket = async (_, { ticketId }, { dbConnection }) => {
   return tickets;
 };
 
-export const communityTickets = async (
-  _,
-  { communityId },
-  { dbConnection },
-) => {
+/**
+ * Returns tickets from one community based on communityId.
+ * @param _
+ * @param communityId
+ * @returns {Promise<*>}
+ */
+export const communityTickets = async ( _, { communityId }, { dbConnection }) => {
   const tickets = await dbConnection.query(
     `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
     COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
@@ -47,11 +61,14 @@ export const communityTickets = async (
   return tickets;
 };
 
-export const communityTicket = async (
-  _,
-  { ticketId, communityId },
-  { dbConnection },
-) => {
+/**
+ * Returns ticket from one community based on communityId and ticketId.
+ * @param _
+ * @param ticketId
+ * @param communityId
+ * @returns {Promise<*>}
+ */
+export const communityTicket = async ( _, { ticketId, communityId }, { dbConnection }) => {
   const ticket = (
     await dbConnection.query(
     `SELECT ticket.ticket_id, title, image, image, ticket.content, ticket.date, ticket.status_id,  ticket.user_id, community_id, 
@@ -65,6 +82,7 @@ export const communityTicket = async (
       [ticketId, communityId],
     )
   )[0];
+  
   if (!ticket) {
     return null;
   }
