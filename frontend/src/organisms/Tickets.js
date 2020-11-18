@@ -12,15 +12,25 @@ const LIKE_MUTATION = gql`
   }
 `;
 
-export function Tickets({ tickets }) {
+const DELETE_MUTATION = gql`
+  mutation deleteTicket($userId: Int!, $communityId:Int!, $ticketId: Int!) {
+    deleteTicket(userId: $userId, communityId: $communityId ticketId: $ticketId) {
+      ticket_id
+    }
+  }
+`;
 
-    const [LikedRequest, { data }] = useMutation(LIKE_MUTATION);
+export function Tickets({ tickets, communityOwner }) {
+
+    const [LikedRequest] = useMutation(LIKE_MUTATION);
+    const [deleteRequest] = useMutation(DELETE_MUTATION);
+
     return (
         <div style={{ textAlign: 'center' }}>
             <div>
                 <CardColumns>
                     {tickets.map((item) => (
-                        <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} />
+                        <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} requestDelete={deleteRequest}  communityOwner={communityOwner} />
                     ))}
                 </CardColumns>
             </div>

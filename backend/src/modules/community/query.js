@@ -39,7 +39,5 @@ export const communityOwnerId = async (_, { communityId }, { dbConnection }) => 
     )
   )[0];
 
-  console.log("OwnerId for comm. " + communityId + " is " + owner.user_id)
-
   return owner.user_id
 }

@@ -24,6 +24,7 @@ const COMMUNITY_DETAIL_QUERY = gql`
         likes_count
         comment_count
         status_id
+        community_id
         date
         status{
           status
@@ -68,6 +69,7 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
+          {console.log(communityOwnerId)}
           <Container fluid className="container-header">
             <Row margin="50px">
               <Col align="left">
@@ -110,7 +112,7 @@ export const CommunityDetail = ({ match }) => {
                   <strong>This community is open for everyone</strong>
                 </div>
               </Alert>
-              <Tickets tickets={community.tickets} />
+              <Tickets tickets={community.tickets} communityOwner={communityOwnerId.data?.communityOwnerId} />
             </div>
           )}
           {!community.closed && isMember && (
@@ -137,7 +139,7 @@ export const CommunityDetail = ({ match }) => {
               </Link>
               <br />
               <br />
-              <Tickets tickets={community.tickets} />
+              <Tickets tickets={community.tickets} communityOwner={communityOwnerId.data?.communityOwnerId} />
             </div>
           )}
           {community.closed && (

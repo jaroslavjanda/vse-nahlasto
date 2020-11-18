@@ -1,3 +1,5 @@
+import { community } from "../community/query";
+
 export const addTicket = async (
   _,
   { user_id, title, image, community_id, content, status_id },
@@ -58,4 +60,22 @@ export const addLike = async (_, { ownerId, ticketId }, { dbConnection }) => {
   )[0];
 
   return ticket;
+};
+
+export const deleteTicket = async (_, { userId,communityId, ticketId }, { dbConnection }) => {
+  const dbResponseCheck = await dbConnection.query(
+    `SELECT * FROM membership WHERE role_id = ? AND community_id = ?`,
+    [1, communityId],
+  );
+
+  if (dbResponseCheck[0].user_id == userId) {
+    const dbResponseDelete = await dbConnection.query(
+      `DELETE FROM \`ticket\` WHERE ticket_id=?;`,
+      [ ticketId],
+    );
+  }
+
+  return {
+    ticket_id: ticketId
+  };
 };
