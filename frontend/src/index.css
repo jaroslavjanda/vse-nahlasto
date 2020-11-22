@@ -35,7 +35,10 @@ code {
 .card-columns {
   margin:auto
 }
-
+.card-header-items{
+  display: flex;
+  align-items: center;
+}
 .container-header{
   margin-bottom: 2%;
 }

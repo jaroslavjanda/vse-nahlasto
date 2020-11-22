@@ -121,6 +121,9 @@ const typeDefs = gql`
       image: String!
       status_id: Int!
     ): Ticket!
+
+    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
+
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
   }
 `;
