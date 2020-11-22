@@ -3,15 +3,10 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
+import { Spinner } from 'react-bootstrap';
 
-const initialValues = {
-  email: '',
-  password: '',
-  passwordConfirmation: '',
-};
 
 const schema = yup.object().shape({
-  email: yup.string().email().required().label('Email'),
   newPassword: yup
     .string()
     .required()
@@ -29,11 +24,18 @@ const schema = yup.object().shape({
 });
 
 export function PasswordResetForm({
-  errorMessage,
-  successMessage,
-  onSubmit,
-  className,
-}) {
+                                    errorMessage,
+                                    successMessage,
+                                    onSubmit,
+                                    className,
+                                    email,
+                                  }) {
+  const initialValues = {
+    email: email,
+    newPassword: '',
+    passwordConfirmation: ''
+  };
+
   return (
     <Formik
       onSubmit={onSubmit}
@@ -45,21 +47,14 @@ export function PasswordResetForm({
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
           <SuccessBanner
-            title={'Password has been changed successfully.'}
+            title={'Password has been changed successfully. You will be redirected in 2 seconds.'}
             className="mb3"
-          />
+          >
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Redirecting...</span>
+            </Spinner>
+          </SuccessBanner>
         )}
-        <FormikField
-          id="email"
-          name="email"
-          label="Email"
-          type="email"
-          placeholder="e.g. john@doe.com"
-          autoFocus="autofocus"
-          autoComplete="on"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
         <FormikField
           id="newPassword"
           name="newPassword"

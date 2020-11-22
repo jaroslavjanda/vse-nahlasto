@@ -3,7 +3,7 @@ import React from 'react';
 import { Heading } from 'src/atoms';
 import { PasswordResetForm } from '../organisms/PasswordResetForm';
 
-export function PasswordResetTemplate({ isDone, error, onSubmit }) {
+export function PasswordResetTemplate({ isDone, error, onSubmit, email }) {
   // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
@@ -19,6 +19,7 @@ export function PasswordResetTemplate({ isDone, error, onSubmit }) {
     <>
       <Heading>Reset password</Heading>
       <PasswordResetForm
+        email={email}
         errorMessage={error && error.message}
         successMessage={isDone}
         onSubmit={onSubmit}

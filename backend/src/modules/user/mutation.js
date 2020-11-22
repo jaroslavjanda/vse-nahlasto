@@ -93,6 +93,12 @@ export const resetUserPassword = async (_, { email, newPassword }, { dbConnectio
     send(email, TYPE.CHANGE_PASSWORD);
   }
 
+  // deletes completed request from the DB
+  await dbConnection.query(
+    `DELETE FROM change_password_request WHERE user_email = ?`,
+    [email]
+  );
+
   return (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
   )[0];
@@ -106,16 +112,13 @@ export const setResetCode = async (
 
   // 1. check if the request is first, if not, delete the previous one
   const uniqueCheckDbResponse = ( await dbConnection.query(
-    `SELECT * FROM forgotten WHERE user_email = ?`,
+    `SELECT * FROM change_password_request WHERE user_email = ?`,
     [email]
   ))[0];
 
-  console.log("unique resp. data:", uniqueCheckDbResponse)
-
   if (uniqueCheckDbResponse) {
-    console.log("Deleting previous request")
     await dbConnection.query(
-      `DELETE FROM forgotten WHERE user_email = ?`,
+      `DELETE FROM change_password_request WHERE user_email = ?`,
       [email]
     );
   }
@@ -139,6 +142,6 @@ export const setResetCode = async (
   }
 
   return (
-    await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
+    await dbConnection.query(`SELECT * FROM change_password_request WHERE user_email = ?`, [email])
   )[0];
 };

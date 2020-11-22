@@ -9,7 +9,7 @@ import { errorMessage } from 'jest-validate';
 const PASSWORD_CHANGE_REQUEST_MUTATION = gql`
   mutation SetResetCode($email: String!) {
     setResetCode(email: $email) {
-      email
+      user_email
     }
   }
 `;
@@ -18,11 +18,9 @@ export function ForgottenPasswordPage() {
   const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
     PASSWORD_CHANGE_REQUEST_MUTATION,
     {
-      onCompleted: ({ resetUserPassword: { email } }) => {
-        console.log('XXX password of user ' + email + ' was changed.');
+      onCompleted: () => {
       },
       onError: () => {
-        console.log('XXX error');
       },
     },
   );

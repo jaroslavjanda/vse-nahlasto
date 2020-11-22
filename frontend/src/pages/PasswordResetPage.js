@@ -32,14 +32,13 @@ export function PasswordResetPage({ match }) {
   });
 
   const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
-    PASSWORD_RESET_MUTATION,
-    {
-      onCompleted: ({ resetUserPassword: { email } }) => {
-      },
-      onError: () => {
-      },
-    },
-  );
+    PASSWORD_RESET_MUTATION, {
+      onCompleted: () => setTimeout(
+        () => {
+          window.location.replace("http://dev.frontend.team07.vse.handson.pro/auth/signin");
+        }, 2000
+      )
+    });
 
   const handleResetPasswordFormSubmit = useCallback(
     (variables) => {
@@ -51,6 +50,7 @@ export function PasswordResetPage({ match }) {
   if (currentRequest.data?.changePasswordRequest) {
     return (
       <PasswordResetTemplate
+        email={user_email}
         isDone={resetPasswordRequestState.data}
         error={resetPasswordRequestState.error}
         onSubmit={handleResetPasswordFormSubmit}

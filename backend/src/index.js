@@ -132,7 +132,7 @@ const typeDefs = gql`
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
     
-    setResetCode(email: String!): AuthUser!
+    setResetCode(email: String!): ChangePasswordRequest!
   }
 `;
 
