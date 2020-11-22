@@ -25,7 +25,6 @@ export const Communities = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-        {console.log(communitiesState)}
       {communitiesState.loading && (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
