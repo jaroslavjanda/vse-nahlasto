@@ -122,6 +122,8 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
+    addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
+
     deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
