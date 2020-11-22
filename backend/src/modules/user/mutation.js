@@ -140,25 +140,20 @@ export const setResetCode = async (
   { email },
   { dbConnection },
 ) => {
-
-
-  const doesUserExist = await dbConnection.query(
-    `SELECT * FROM user WHERE email = ?`,
-    [email],
-  );
-
-  if (doesUserExist.data) {
-
-    const code = "XX".random(1, 99999999)
-
+    const code = random(99999999)
     console.log("Code: ", code)
 
-    const dbResponse = await dbConnection.query(
-      `INSERT INTO forgotten (user_email, code) VALUES (?, ?)`,
+    const setResetCodeDbResponse = await dbConnection.query(
+      `INSERT INTO forgotten (user_email, code)
+      VALUES (?, ?)`,
       [email, code],
     );
 
-    if (dbResponse.insertId) {
+    console.log("Insert ID: ", setResetCodeDbResponse.insertId)
+
+    if (setResetCodeDbResponse.insertId) {
+
+      console.log("I got here");
       const link = "http://dev.frontend.team07.vse.handson.pro/password_reset/?email="
         + email + "&code=" + code
 
@@ -181,15 +176,13 @@ export const setResetCode = async (
         })
         .catch((error) => {
           //Log friendly error
+          console.log("Sendgrid failed.");
           console.error(error.toString());
-          console.log(output);
+          console.log(error.toString());
         });
     }
-  }
 
-  if (!doesUserExist) {
-    throw Error('No user registered with this email.');
-  }
+  console.log("Im returning something!");
 
   return (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
