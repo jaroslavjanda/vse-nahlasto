@@ -2,13 +2,21 @@ import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
 import { random } from 'lodash';
 
+/**
+ * Sign in user.
+ * @param _
+ * @param email
+ * @param password
+ * @returns {Promise<*>}
+ */
 export const signin = async (_, { email, password }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
     `SELECT * FROM user WHERE email = ?`,
     [email],
   );
   const user = dbResponse[0];
-
+  
+  //if user does not exists
   if (!user) {
     throw Error('Unknown username.');
   }
@@ -22,17 +30,17 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
   }
 };
 
-export const signup = async (
-  _,
-  {
-    email,
-    password,
-    name,
-    surname,
-    // profileImageUrl = 'http://mrmrs.github.io/photos/p/1.jpg',
-  },
-  { dbConnection },
-) => {
+/**
+ * Creates user.
+ * @param _
+ * @param email
+ * @param password
+ * @param name
+ * @param surname
+ * @returns {Promise<*>}
+ */
+export const signup = async (_, {email, password, name, surname}, { dbConnection }) => {
+  //check if user is already signed up
   const userByEmail = (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
   )[0];
@@ -41,8 +49,10 @@ export const signup = async (
     throw new Error('Email has been already used for registration.');
   }
 
+  //create hash
   const passwordHash = await argon2.hash(password);
 
+  //create user
   const dbResponse = await dbConnection.query(
     `INSERT INTO user (email, password, name, surname)
     VALUES (?, ?, ?, ?);`,
@@ -50,6 +60,7 @@ export const signup = async (
   );
 
   if (dbResponse.insertId) {
+    //send email
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     
@@ -74,24 +85,29 @@ export const signup = async (
   const token = createToken({ id: dbResponse.insertId });
 
   const userObject = {
-    id: dbResponse.insertId,
+    user_id: dbResponse.insertId,
     email,
   };
 
   return { user: userObject, token: token };
 };
 
-export const resetUserPassword = async (
-  _,
-  { email, newPassword },
-  { dbConnection },
-) => {
+/**
+ * Returns ticket from one community based on communityId and ticketId.
+ * @param _
+ * @param email
+ * @param newPassword
+ * @returns {Promise<*>}
+ */
+export const resetUserPassword = async (_, { email, newPassword }, { dbConnection }) => {
+  //update user
   const dbResponse = await dbConnection.query(
     `UPDATE user SET password = ? WHERE email = ?`,
     [await argon2.hash(newPassword), email],
   );
 
   if (dbResponse) {
+    //send email
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -117,10 +133,6 @@ export const resetUserPassword = async (
   return (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
   )[0];
-
-  if (!email) {
-    throw Error('No user registered with this email.');
-  }
 };
 
 export const setResetCode = async (

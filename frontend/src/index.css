@@ -7,6 +7,11 @@ code {
     monospace;
 }
 
+a:hover {
+  text-decoration: none !important;
+  color: white !important;
+}
+
 .pre-line {
   white-space: pre-line;
 }
@@ -30,4 +35,27 @@ code {
 }
 .card-body div div {
   padding: 0 10px;
+}
+
+.card-columns {
+  margin: auto;
+}
+.card-header-items {
+  display: flex;
+  align-items: center;
+}
+.container-header {
+  margin-bottom: 2%;
+}
+.btn {
+  margin: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .container-header .row .col {
+    text-align: center;
+  }
+  .container-header {
+    margin-bottom: 5%;
+  }
 }

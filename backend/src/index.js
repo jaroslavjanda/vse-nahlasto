@@ -65,7 +65,7 @@ const typeDefs = gql`
 
   type AuthUser {
     email: String!
-    user_id: Int!
+    user_id: Int
   }
 
   type AuthInfo {
@@ -121,7 +121,9 @@ const typeDefs = gql`
       image: String!
       status_id: Int!
     ): Ticket!
-    
+
+    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
+
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
     
     setResetCode(email: String!): AuthUser!

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AvatarPhoto, Link, NavLink } from 'src/atoms';
+import {Link, NavLink } from 'src/atoms';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
@@ -42,34 +42,18 @@ export const TopNavigation = ({ children }) => {
               </NavLink>
             </Nav.Item>
             <Nav.Item>
-              <NavLink to={route.about()} className="pa3">
-                About
-              </NavLink>
             </Nav.Item>
-
             {user ? (
               <>
                 <Nav.Item>
                   <NavLink
-                    // TODO navigate nowhere OR to the user profile page
                     exact
                     to={route.home()}
                     noUnderline
                     className="ph3 pv1 h-100 flex items-center"
                   >
-                    {/*<AvatarPhoto*/}
-                    {/*  className="v-mid dib mr2"*/}
-                    {/*  src={user.profileImageUrl}*/}
-                    {/*  alt={user.userName}*/}
-                    {/*  size={2}*/}
-                    {/*/>{' '}*/}
                     {'Logged in as: '}
                     {user.email}
-                  </NavLink>
-                </Nav.Item>
-                <Nav.Item>
-                  <NavLink to={route.addCommunity()} className="pa3">
-                    Add new community
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>

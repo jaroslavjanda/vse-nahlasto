@@ -1,3 +1,13 @@
+/**
+ * Add community.
+ * @param _
+ * @param name
+ * @param description
+ * @param code
+ * @param closed
+ * @param ownerId
+ * @returns {Promise<*>}
+ */
 export const addCommunity = async (_, { name, description, code, closed, ownerId }, { dbConnection }) => {
 
   // adds community to DB
@@ -58,8 +68,15 @@ export const addCommunity = async (_, { name, description, code, closed, ownerId
   return null;
 };
 
+/**
+ * Edit community description.
+ * @param _
+ * @param community_id
+ * @param description
+ * @returns {Promise<*>}
+ */
 export const editCommunity = async (_, { community_id, description }, { dbConnection }) => {
-
+  //TODO check if user have role to edit
   await dbConnection.query(
     `UPDATE community SET description = ? WHERE community_id = ?`,
     [description, community_id]

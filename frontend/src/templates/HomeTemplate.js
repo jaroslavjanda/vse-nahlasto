@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-import { Heading, MainSection } from 'src/atoms/';
+import { Heading } from 'src/atoms/';
 import { QuackForm } from 'src/molecules/';
 
 export function HomeTemplate({ data, quackFormState, currentUser }) {

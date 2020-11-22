@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Spinner, Alert, Button } from 'react-bootstrap';
+import { Spinner, Alert, Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Tickets } from 'src/organisms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,6 +24,7 @@ const COMMUNITY_DETAIL_QUERY = gql`
         likes_count
         comment_count
         status_id
+        community_id
         date
         status{
           status
@@ -40,6 +41,7 @@ const MEMBERSHIP_QUERY = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
+
   const communityId = parseInt(match.params.communityId);
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
@@ -67,8 +69,41 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
-          <h1>{community.name}</h1>
-          <p>{community.description}</p>
+          {console.log(communityOwnerId)}
+          <Container fluid className="container-header">
+            <Row margin="50px">
+              <Col align="left">
+                <h1>{community.name}</h1>
+                <p>{community.description}</p>
+              </Col>  
+              <Col align="right">
+                {!isMember && (
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      toast.success('Your are in community');
+                      setIsMember(true);
+                    }}
+                  >
+                    Join here
+                  </Button>
+                )} 
+                {!community.closed && (
+                  <Link to={`/community-detail/${communityId}/add`}>
+                    <Button variant="success">Add ticket</Button>
+                  </Link>   
+                )}   
+                {userId && userId === communityOwnerId.data?.communityOwnerId && (
+                  <Link to={`/community-detail/${communityId}/edit_community`}>
+                    <Button variant="primary">
+                      <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
+                    </Button>
+                  </Link>
+                )}
+              </Col>   
+            </Row>
+          </Container>
+
           {!community.closed && !isMember && (
             <div>
               <Alert variant={'success'}>
@@ -77,28 +112,7 @@ export const CommunityDetail = ({ match }) => {
                   <strong>This community is open for everyone</strong>
                 </div>
               </Alert>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  toast.success('Your are in community');
-                  setIsMember(true);
-                }}
-              >
-                Join here
-              </Button>
-              {!community.closed && (
-                <Link to={`/community-detail/${communityId}/add`}>
-                  <Button variant="success">Add ticket</Button>
-                </Link>   
-              )}   
-              {userId && userId === communityOwnerId.data?.communityOwnerId && (
-                <Link to={`/community-detail/${communityId}/edit_community`}>
-                  <Button variant="primary">
-                    <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
-                  </Button>
-                </Link>
-              )}
-              <Tickets tickets={community.tickets} />
+              <Tickets tickets={community.tickets} communityOwner={communityOwnerId.data?.communityOwnerId} />
             </div>
           )}
           {!community.closed && isMember && (
@@ -125,7 +139,7 @@ export const CommunityDetail = ({ match }) => {
               </Link>
               <br />
               <br />
-              <Tickets tickets={community.tickets} />
+              <Tickets tickets={community.tickets} communityOwner={communityOwnerId.data?.communityOwnerId} />
             </div>
           )}
           {community.closed && (
