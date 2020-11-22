@@ -125,15 +125,15 @@ export const setResetCode = async (
 
   // 3. insert email $ code into DB table 'forgotten'
   const setResetCodeDbResponse = await dbConnection.query(
-    `INSERT INTO forgotten (user_email, code)
+    `INSERT INTO change_password_request (user_email, code)
       VALUES (?, ?)`,
     [email, code],
   );
 
 
   if (setResetCodeDbResponse.insertId) {
-    const link = 'http://dev.frontend.team07.vse.handson.pro/password_reset/?email='
-      + email + '&code=' + code;
+    const link = 'http://dev.frontend.team07.vse.handson.pro/password_reset/'
+      + email + '/' + code;
 
     send(email, TYPE.SEND_LINK_TO_CHANGE_PASSWORD, link);
   }

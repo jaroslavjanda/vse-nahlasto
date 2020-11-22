@@ -62,6 +62,11 @@ const typeDefs = gql`
     status_id: Int!
     status: String!
   }
+  
+  type ChangePasswordRequest {
+    user_email: String!
+    code: Int!
+  }
 
   type AuthUser {
     email: String!
@@ -76,6 +81,7 @@ const typeDefs = gql`
   type Query {
     users: [User!]!
     user(user_id: Int!): User
+    changePasswordRequest(user_email: String!, code: Int!): ChangePasswordRequest
     communities: [Community]
     community(communityId: Int!): Community
     tickets: [Ticket!]

@@ -17,13 +17,16 @@ import { Communities } from './pages/Communities';
 import { ForgottenPasswordPage } from './pages/ForgottenPasswordPage';
 
 const communityDetail = () => `/community-detail/:communityId`;
+const forgottenPasswordRequest = () => ':email/:code';
 
 export const route = {
   home: () => `/`,
   about: () => `/about`,
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
-  resetPassword: () => '/password_reset',
+  forgottenPasswordRequest,
+  resetPassword: () => `/password_reset/${forgottenPasswordRequest()}`,
+  // resetPassword: () => `/password_reset`,
   forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
