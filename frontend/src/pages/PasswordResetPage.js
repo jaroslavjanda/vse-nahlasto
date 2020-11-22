@@ -22,12 +22,12 @@ const VALID_REQUEST_CHECK_QUERY = gql`
 
 export function PasswordResetPage({ match }) {
 
+  // parameters from URL link sent via email
   const user_email = match.params.email.toString();
   const code = parseInt(match.params.code);
 
-  console.log(user_email, code);
-
-  const previousRequest = useQuery(VALID_REQUEST_CHECK_QUERY, {
+  // finds the last sent change-password request, if not found, link is not valid
+  const currentRequest = useQuery(VALID_REQUEST_CHECK_QUERY, {
     variables: { user_email, code },
   });
 
@@ -35,10 +35,8 @@ export function PasswordResetPage({ match }) {
     PASSWORD_RESET_MUTATION,
     {
       onCompleted: ({ resetUserPassword: { email } }) => {
-        console.log('XXX password of user ' + email + ' was changed.');
       },
       onError: () => {
-        console.log('XXX error');
       },
     },
   );
@@ -50,7 +48,7 @@ export function PasswordResetPage({ match }) {
     [resetPasswordRequest],
   );
 
-  if (previousRequest.data?.changePasswordRequest) {
+  if (currentRequest.data?.changePasswordRequest) {
     return (
       <PasswordResetTemplate
         isDone={resetPasswordRequestState.data}
