@@ -116,7 +116,13 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
                                     </div>
                                 </Card.Body>
                             </div>
+                            <a
+                            href="mailto:tym7nahlasto@gmail.com?subject=Chci Free verzi"
+                            rel="noreferrer"
+                            target="_blank"
+                            >
                             <Button className="homepageButton">To chci</Button>
+                            </a>
                         </div>
                     </Card>
                     <Card>
@@ -137,7 +143,13 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
                                     </Card.Title>
                                 </Card.Body>
                             </div>
+                            <a
+                            href="mailto:tym7nahlasto@gmail.com?subject=Chci Pro verzi"
+                            rel="noreferrer"
+                            target="_blank"
+                            >
                             <Button className="homepageButton">To chci</Button>
+                            </a>
                         </div>
                     </Card>
                     <Card>
@@ -157,7 +169,13 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
                                     </Card.Title>
                                 </Card.Body>
                             </div>
+                            <a
+                            href="mailto:tym7nahlasto@gmail.com?subject=Chci Ultimate verzi"
+                            rel="noreferrer"
+                            target="_blank"
+                            >
                             <Button className="homepageButton">To chci</Button>
+                            </a>
                         </div>
                     </Card>
                 </CardDeck>
