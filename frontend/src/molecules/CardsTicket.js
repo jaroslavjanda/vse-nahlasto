@@ -43,6 +43,12 @@ export const CardsTicket = ({item, like, requestSendLike, requestDelete, communi
         <Card.Body>
             <h3>{item.title}</h3>
             <Card.Text>{item.content}</Card.Text>
+            <Button
+              variant="success"
+              onClick={() => history.push(`/ticket-detail/${item.ticket_id}`)}
+            >
+              OPEN
+            </Button>
             <div>
             <div onClick={() => {
                 if(user){
@@ -66,4 +72,3 @@ export const CardsTicket = ({item, like, requestSendLike, requestDelete, communi
     )  
 }
 
-                

@@ -69,7 +69,6 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
-          {console.log(communityOwnerId)}
           <Container fluid className="container-header">
             <Row margin="50px">
               <Col align="left">
