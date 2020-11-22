@@ -1,5 +1,6 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
+import { send, TYPE } from '../helpers/sendgrid/send';
 
 /**
  * Sign in user.
@@ -59,26 +60,7 @@ export const signup = async (_, {email, password, name, surname}, { dbConnection
   );
 
   if (dbResponse.insertId) {
-    //send email
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    
-    const msg = {
-      to: email,
-      from: 'tym7nahlasto@gmail.com', // Nemenit!
-      subject: 'Registration confirmation',
-      text: 'You have succesfully registered to Nahlas.to ',
-      html: '<strong>You have succesfully registered to Nahlas.to</strong>',
-    };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent', 'Send123');
-      })
-      .catch((error) => {
-        //Log friendly error
-        console.error(error.toString());
-      });
+    send(email, TYPE.REGISTRATION)
   }
 
   const token = createToken({ id: dbResponse.insertId });
@@ -107,26 +89,7 @@ export const resetUserPassword = async (_, { email, newPassword }, { dbConnectio
 
   if (dbResponse) {
     //send email
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-    const msg = {
-      to: email,
-      from: 'tym7nahlasto@gmail.com', // Nemenit!
-      subject: 'Change password confirmation',
-      text: 'You have successfully changed your password',
-      html: '<strong>You have successfully changed your password</strong>',
-    };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent');
-      })
-      .catch((error) => {
-        //Log friendly error
-        console.error(error.toString());
-        console.log(output);
-      });
+    send(email, TYPE.CHANGE_PASSWORD)
   }
 
   return (
