@@ -10,7 +10,7 @@ import { MainSection } from 'src/atoms/';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const TopNavigation = ({ children }) => {
+export const TopNavigation = ({ children, hasFullscreen }) => {
   const { user, signout } = useAuth();
   const history = useHistory();
 
@@ -97,7 +97,9 @@ export const TopNavigation = ({ children }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <MainSection>{children}</MainSection>
+      {hasFullscreen && <div>{children}</div>}
+      {!hasFullscreen && <MainSection>{children}</MainSection>}
+      
     </>
   );
 };

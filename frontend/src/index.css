@@ -54,3 +54,137 @@ code {
     margin-bottom: 5%;
   }
 }
+
+/* Homepage */
+.alignButton {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+.h5 {
+  height: 2.5rem;
+}
+
+.cover {
+  margin: -1rem;
+  background-image: url(src/images/background.png);
+  background-size: cover !important;
+  background-repeat: repeat;
+  height: 300px;
+}
+
+.cover h1 {
+  color: #76A8D3;
+}
+
+.benefits {
+  text-align: center;
+}
+
+.jumbotronWhite {
+  background-color: white !important;
+}
+
+.jumbotronWhite h2 {
+  color: #76A8D3;
+  padding-bottom: 35px;
+  text-align: center;
+}
+
+.jumbotronWhite p {
+  color: black;
+}
+
+.jumbotronBlue {
+  background-color:#76A8D3 !important;
+}
+
+.jumbotronBlue h2 {
+  color: white;
+}
+
+.jumbotronBlue p {
+  color: white;
+}
+
+.card-body div {
+  display: block;
+}
+
+.carousel {
+  width: 740px;
+  height: 500px;
+  margin: auto;
+}
+
+@media screen and (max-width:1000px){
+  .carousel {
+    width: auto;
+    height: auto;
+  }
+}
+
+.carousel h3 {
+  color: white !important;
+}
+
+.carousel p {
+  color: white !important;
+}
+
+@media screen and (max-width:1000px){
+  .carousel-item img {
+    display: none;
+  }
+}
+
+.carousel-caption {
+  background-color: #76A8D3;
+}
+
+@media screen and (max-width:1000px){
+  .carousel-caption {
+    opacity: 0.5;
+  }
+}
+
+.card-text {
+  color: black;
+}
+
+.card-header {
+  background-color: #76A8D3 !important;
+}
+
+.card-header h3 {
+  color: white !important;
+}
+
+.homepageButton {
+  color: white;
+  padding: 9px 25px;
+  background-color: #76A8D3 !important;
+  border: 2px solid #76A8D3 !important;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-transform: uppercase;
+}
+
+.homepageButton:hover {
+  background-color: white !important;
+  border: 2px solid #76A8D3 !important;
+  color: #76A8D3 !important;
+}
+
+.info {
+  padding-top: 20%;
+}
+
+@media screen and (max-width:1000px){
+  .info {
+    padding-top: 0;
+  }  
+}
+/* Homepage */
