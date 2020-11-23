@@ -1,12 +1,16 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export function Footer({ className, error, ...rest }) {
-    return (
-            <footer class="container">
-            <hr class="featurette-divider"/>
-            <p class="float-right">&copy; 2020</p>
-            <p>Nahlaš.To</p>
-          </footer>
+    return (    
+<footer id="footer">
+<div className="container">
+    <div className="col col-md-auto text-center">
+      <small className="text-muted">©2020 Nahlaš.To 
+      </small>
+  </div>
+</div>
+</footer>
     );
   }
   

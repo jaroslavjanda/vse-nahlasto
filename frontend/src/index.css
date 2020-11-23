@@ -56,10 +56,9 @@ code {
 }
 
 /* Homepage */
-.alignButton {
-  position: absolute;
-  right: 0;
-  left: 0;
+.jumbotron {
+  margin: -1rem;
+  border-radius: 0;
 }
 
 .h5 {
@@ -71,15 +70,17 @@ code {
   background-image: url(src/images/background.png);
   background-size: cover !important;
   background-repeat: repeat;
-  height: 300px;
+  height: 100vh;
+}
+
+@media screen and (max-width:1000px){
+  .cover {
+    height: 50vh;
+  }
 }
 
 .cover h1 {
   color: #76A8D3;
-}
-
-.benefits {
-  text-align: center;
 }
 
 .jumbotronWhite {
@@ -93,7 +94,7 @@ code {
 }
 
 .jumbotronWhite p {
-  color: black;
+  color: #343a40;
 }
 
 .jumbotronBlue {
@@ -102,6 +103,7 @@ code {
 
 .jumbotronBlue h2 {
   color: white;
+  padding-bottom: 35px;
 }
 
 .jumbotronBlue p {
@@ -112,45 +114,8 @@ code {
   display: block;
 }
 
-.carousel {
-  width: 740px;
-  height: 500px;
-  margin: auto;
-}
-
-@media screen and (max-width:1000px){
-  .carousel {
-    width: auto;
-    height: auto;
-  }
-}
-
-.carousel h3 {
-  color: white !important;
-}
-
-.carousel p {
-  color: white !important;
-}
-
-@media screen and (max-width:1000px){
-  .carousel-item img {
-    display: none;
-  }
-}
-
-.carousel-caption {
-  background-color: #76A8D3;
-}
-
-@media screen and (max-width:1000px){
-  .carousel-caption {
-    opacity: 0.5;
-  }
-}
-
 .card-text {
-  color: black;
+  color: #343a40;
 }
 
 .card-header {
@@ -186,5 +151,72 @@ code {
   .info {
     padding-top: 0;
   }  
+}
+
+.hover-shadow-sm:hover {
+  box-shadow: 0 0.125rem 0.25rem rgba(118, 168, 211, 0.08) !important; }
+
+.hover-shadow:hover {
+  box-shadow: 0 0 1.25rem rgba(118, 168, 211, 0.08) !important; }
+
+.hover-shadow-lg:hover {
+  box-shadow: 0 1rem 3rem rgba(118, 168, 211, 0.225) !important; }
+
+.shadow-none,
+.hover-shadow-none:hover {
+  box-shadow: none !important; }
+
+#benefits {
+  border: none;
+}
+
+.avatar {
+  flex-shrink:0;
+  width:3rem;
+  height:3rem;
+  border-radius:50%
+}
+
+.avatar.avatar-sm {
+  width:2.25rem;
+  height:2.25rem
+}
+
+.avatar.avatar-lg {
+  width:4.5rem;
+  height:4.5rem
+}
+
+@media (min-width:992px){
+  .avatar.avatar-lg {
+    width:4.5rem;
+    height:4.5rem}
+  }
+
+.avatar-author {
+  display: flex !important;
+  justify-content: initial !important;
+}
+
+.testimonial {
+  color: #343a40 !important;
+  font-size: x-large;
+  font-style: italic;
+}
+
+#footer {
+  background-color: #343a40;
+  margin: -1rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.cover-text {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15% 10%;
 }
 /* Homepage */
