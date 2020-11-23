@@ -10,7 +10,7 @@ import { MainSection } from 'src/atoms/';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const TopNavigation = ({ children }) => {
+export const TopNavigation = ({ children, hasFullscreen }) => {
   const { user, signout } = useAuth();
   const history = useHistory();
 
@@ -42,34 +42,23 @@ export const TopNavigation = ({ children }) => {
               </NavLink>
             </Nav.Item>
             <Nav.Item>
-              <NavLink to={route.about()} className="pa3">
-                About
-              </NavLink>
             </Nav.Item>
-
             {user ? (
               <>
                 <Nav.Item>
                   <NavLink
-                    // TODO navigate nowhere OR to the user profile page
                     exact
                     to={route.home()}
                     noUnderline
                     className="ph3 pv1 h-100 flex items-center"
                   >
-                    {/*<AvatarPhoto*/}
-                    {/*  className="v-mid dib mr2"*/}
-                    {/*  src={user.profileImageUrl}*/}
-                    {/*  alt={user.userName}*/}
-                    {/*  size={2}*/}
-                    {/*/>{' '}*/}
                     {'Logged in as: '}
                     {user.email}
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
                   <Button
-                    variant="secondary"
+                    className="navButton"
                     onClick={() => {
                       signout();
                       history.push(route.home());
@@ -88,7 +77,7 @@ export const TopNavigation = ({ children }) => {
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                  <Button variant="secondary" to={route.signUp()} as={Link}>
+                  <Button className="navButton" to={route.signUp()} as={Link}>
                     Sign Up
                   </Button>
                 </Nav.Item>
@@ -97,7 +86,9 @@ export const TopNavigation = ({ children }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <MainSection>{children}</MainSection>
+      {hasFullscreen && <div>{children}</div>}
+      {!hasFullscreen && <MainSection>{children}</MainSection>}
+      
     </>
   );
 };
