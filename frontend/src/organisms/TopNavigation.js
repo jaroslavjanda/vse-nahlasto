@@ -58,7 +58,7 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
                 </Nav.Item>
                 <Nav.Item>
                   <Button
-                    variant="secondary"
+                    className="navButton"
                     onClick={() => {
                       signout();
                       history.push(route.home());
@@ -77,7 +77,7 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                  <Button variant="secondary" to={route.signUp()} as={Link}>
+                  <Button className="navButton" to={route.signUp()} as={Link}>
                     Sign Up
                   </Button>
                 </Nav.Item>

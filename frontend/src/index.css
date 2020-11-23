@@ -7,11 +7,6 @@ code {
     monospace;
 }
 
-a:hover {
-  text-decoration: none !important;
-  color: white !important;
-}
-
 .pre-line {
   white-space: pre-line;
 }
@@ -60,6 +55,35 @@ a:hover {
   }
 }
 
+.nav-item a{
+  color: white !important;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.nav-item a:hover {
+  color:  #76A8D3 !important;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.navButton {
+  color: white;
+  padding: 9px 25px;
+  background-color: #76A8D3 !important;
+  border: 2px solid #76A8D3 !important;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  text-transform: uppercase;
+}
+
+.navButton:hover {
+  background-color: #343a40 !important;
+  border: 2px solid #76A8D3 !important;
+  color: #76A8D3 !important;
+}
+
 /* Homepage */
 .jumbotron {
   margin: -1rem;
@@ -78,7 +102,7 @@ a:hover {
   height: 100vh;
 }
 
-@media screen and (max-width:1000px){
+@media screen and (max-width:900px){
   .cover {
     height: 50vh;
   }
