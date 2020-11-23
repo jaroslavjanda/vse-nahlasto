@@ -7,6 +7,11 @@ code {
     monospace;
 }
 
+a:hover {
+  text-decoration: none !important;
+  color: white !important;
+}
+
 .pre-line {
   white-space: pre-line;
 }
@@ -33,24 +38,24 @@ code {
 }
 
 .card-columns {
-  margin:auto
+  margin: auto;
 }
-.card-header-items{
+.card-header-items {
   display: flex;
   align-items: center;
 }
-.container-header{
+.container-header {
   margin-bottom: 2%;
 }
-.btn{
-  margin:10px;
+.btn {
+  margin: 10px;
 }
 
-@media screen and (max-width:1000px){
+@media screen and (max-width: 1000px) {
   .container-header .row .col {
     text-align: center;
   }
-  .container-header{
+  .container-header {
     margin-bottom: 5%;
   }
 }

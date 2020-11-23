@@ -42,27 +42,16 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
               </NavLink>
             </Nav.Item>
             <Nav.Item>
-              <NavLink to={route.about()} className="pa3">
-                About
-              </NavLink>
             </Nav.Item>
-
             {user ? (
               <>
                 <Nav.Item>
                   <NavLink
-                    // TODO navigate nowhere OR to the user profile page
                     exact
                     to={route.home()}
                     noUnderline
                     className="ph3 pv1 h-100 flex items-center"
                   >
-                    {/*<AvatarPhoto*/}
-                    {/*  className="v-mid dib mr2"*/}
-                    {/*  src={user.profileImageUrl}*/}
-                    {/*  alt={user.userName}*/}
-                    {/*  size={2}*/}
-                    {/*/>{' '}*/}
                     {'Logged in as: '}
                     {user.email}
                   </NavLink>
