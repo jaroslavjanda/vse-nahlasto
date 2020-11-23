@@ -26,7 +26,8 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
             <Jumbotron className="cover">
                 <Container>
                         <div className="cover-text">
-                        <h1>Pojďme vyřešit Vaše problémy</h1>
+                        <h1>Pojďme vyřešit Vaše problémy<br/>
+                        &#9745;</h1>
                         <a
                                 href="mailto:tym7nahlasto@gmail.com"
                                 rel="noreferrer"
@@ -163,7 +164,7 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
                                 target="_blank"
                             >
                                 <Button className="homepageButton">
-                                    To chci
+                                   Vybrat
                                 </Button>
                             </a>
                         </div>
@@ -192,7 +193,7 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
                                 target="_blank"
                             >
                                 <Button className="homepageButton">
-                                    To chci
+                                    Vybrat
                                 </Button>
                             </a>
                         </div>
@@ -220,7 +221,7 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
                                 target="_blank"
                             >
                                 <Button className="homepageButton">
-                                    To chci
+                                    Vybrat
                                 </Button>
                             </a>
                         </div>
