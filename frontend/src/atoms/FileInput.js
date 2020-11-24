@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 
-
 export function FileInput({ className, error, ...props }) {
+
+
   return (
-    <input
+    <div id="upload-box">
+      <input 
       id="file" 
       name="file"
       type="file"
@@ -13,7 +15,8 @@ export function FileInput({ className, error, ...props }) {
         error ? 'b--red' : 'b--black-20',
         className,
       )}
-      {...props}
-    />
+      {...props}/>
+      
+    </div>
   );
 }
