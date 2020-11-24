@@ -36,7 +36,7 @@ export const ticket = async (_, { ticketId }, { dbConnection }) => {
     [ticketId],
   );
 
-  return tickets;
+  return tickets[0];
 };
 
 /**

@@ -85,7 +85,7 @@ const typeDefs = gql`
     communities: [Community]
     community(communityId: Int!): Community
     tickets: [Ticket!]
-    ticket(ticketId: Int!): [Ticket!]
+    ticket(ticketId: Int!): Ticket!
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
     communityOwnerId(communityId: Int!): Int!
