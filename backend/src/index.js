@@ -62,7 +62,7 @@ const typeDefs = gql`
     status_id: Int!
     status: String!
   }
-  
+
   type ChangePasswordRequest {
     user_email: String!
     code: Int!
@@ -81,7 +81,10 @@ const typeDefs = gql`
   type Query {
     users: [User!]!
     user(user_id: Int!): User
-    changePasswordRequest(user_email: String!, code: Int!): ChangePasswordRequest
+    changePasswordRequest(
+      user_email: String!
+      code: Int!
+    ): ChangePasswordRequest
     communities: [Community]
     community(communityId: Int!): Community
     tickets: [Ticket!]
@@ -105,17 +108,14 @@ const typeDefs = gql`
     ): AuthInfo!
 
     addCommunity(
-      name: String!,
-      description: String,
-      code: String,
-      closed: Boolean!,
+      name: String!
+      description: String
+      code: String
+      closed: Boolean!
       ownerId: Int!
     ): Community!
-    
-    editCommunity(
-      description: String!,
-      community_id: Int!
-    ): Community!
+
+    editCommunity(description: String!, community_id: Int!): Community!
 
     addLike(ownerId: Int!, ticketId: Int!): Ticket!
 
@@ -128,10 +128,10 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
-    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
+    deleteTicket(userId: Int!, communityId: Int!, ticketId: Int!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
-    
+
     setResetCode(email: String!): ChangePasswordRequest!
   }
 `;

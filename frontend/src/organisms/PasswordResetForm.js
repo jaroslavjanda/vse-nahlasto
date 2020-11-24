@@ -5,7 +5,6 @@ import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
 import { Spinner } from 'react-bootstrap';
 
-
 const schema = yup.object().shape({
   newPassword: yup
     .string()
@@ -24,16 +23,16 @@ const schema = yup.object().shape({
 });
 
 export function PasswordResetForm({
-                                    errorMessage,
-                                    successMessage,
-                                    onSubmit,
-                                    className,
-                                    email,
-                                  }) {
+  errorMessage,
+  successMessage,
+  onSubmit,
+  className,
+  email,
+}) {
   const initialValues = {
     email: email,
     newPassword: '',
-    passwordConfirmation: ''
+    passwordConfirmation: '',
   };
 
   return (
@@ -47,7 +46,9 @@ export function PasswordResetForm({
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
           <SuccessBanner
-            title={'Password has been changed successfully. You will be redirected in 2 seconds.'}
+            title={
+              'Password has been changed successfully. You will be redirected in 2 seconds.'
+            }
             className="mb3"
           >
             <Spinner animation="border" role="status">

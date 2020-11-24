@@ -13,18 +13,17 @@ const schema = yup.object().shape({
 });
 
 export function AddCommunityForm({
-                                errorMessage,
-                                successMessage,
-                                onSubmit,
-                                className,
-  user
-                              }) {
-
+  errorMessage,
+  successMessage,
+  onSubmit,
+  className,
+  user,
+}) {
   const initialValues = {
     name: '',
     description: '',
     closed: true,
-    owner_id: user.user_id
+    owner_id: user.user_id,
   };
   return (
     <Formik

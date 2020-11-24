@@ -12,9 +12,9 @@ const ADD_COMMUNITY_MUTATION = gql`
     $owner_id: Int!
   ) {
     addCommunity(
-      name: $name,
-      description: $description,
-      closed: $closed,
+      name: $name
+      description: $description
+      closed: $closed
       ownerId: $owner_id
     ) {
       community_id
@@ -23,14 +23,15 @@ const ADD_COMMUNITY_MUTATION = gql`
 `;
 
 export const AddCommunityPage = () => {
-
   const { user } = useAuth();
 
   const [addCommunityRequest, addCommunityRequestState] = useMutation(
     ADD_COMMUNITY_MUTATION,
     {
       onCompleted: ({ addCommunity: { community_id } }) => {
-        console.log('Community was added to the DB, it\'s ID is ' + community_id);
+        console.log(
+          "Community was added to the DB, it's ID is " + community_id,
+        );
       },
       onError: () => {
         console.log('Error while adding the community to DB');
@@ -40,9 +41,9 @@ export const AddCommunityPage = () => {
 
   const handleAddCommunityFormSubmit = useCallback(
     (variables) => {
-      console.log("User is " + variables.owner_id)
+      console.log('User is ' + variables.owner_id);
       addCommunityRequest({
-        variables: variables
+        variables: variables,
       });
     },
     [addCommunityRequest],
@@ -59,9 +60,7 @@ export const AddCommunityPage = () => {
     );
   } else {
     return (
-      <ErrorBanner title="User not signed in">
-        You need to sign in.
-      </ErrorBanner>
+      <ErrorBanner title="User not signed in">You need to sign in.</ErrorBanner>
     );
   }
 };

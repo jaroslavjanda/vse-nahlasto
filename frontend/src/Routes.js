@@ -57,7 +57,8 @@ export function Routes() {
           exact
           component={ForgottenPasswordPage}
         />
-        <Route path={route.addCommunity()} exact component={AddCommunityPage} />>}
+        <Route path={route.addCommunity()} exact component={AddCommunityPage} />
+        >}
         <Route
           path={route.communityDetail()}
           exact
@@ -66,7 +67,11 @@ export function Routes() {
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.ticketDetail()} exact component={TicketDetail} />
-        <Route path={route.editCommunity()} exact component={EditCommunityPage} />
+        <Route
+          path={route.editCommunity()}
+          exact
+          component={EditCommunityPage}
+        />
         <Route path={route.communities()} exact component={Communities} />
         <Route path="*" component={PageNotFound} />
       </Switch>

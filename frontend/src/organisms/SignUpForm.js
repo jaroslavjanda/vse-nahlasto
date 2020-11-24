@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 import { ErrorBanner } from 'src/atoms/';
-import { FormikField} from 'src/molecules';
+import { FormikField } from 'src/molecules';
 import { Button } from 'src/atoms/Button';
 import FormGroup from 'react-bootstrap/FormGroup';
 

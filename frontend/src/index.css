@@ -55,23 +55,23 @@ code {
   }
 }
 
-.nav-item a{
+.nav-item a {
   color: white !important;
-    text-transform: uppercase;
-    text-decoration: none;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 .nav-item a:hover {
-  color:  #76A8D3 !important;
-    text-transform: uppercase;
-    text-decoration: none;
+  color: #76a8d3 !important;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 .navButton {
   color: white;
   padding: 9px 25px;
-  background-color: #76A8D3 !important;
-  border: 2px solid #76A8D3 !important;
+  background-color: #76a8d3 !important;
+  border: 2px solid #76a8d3 !important;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
@@ -80,8 +80,8 @@ code {
 
 .navButton:hover {
   background-color: #343a40 !important;
-  border: 2px solid #76A8D3 !important;
-  color: #76A8D3 !important;
+  border: 2px solid #76a8d3 !important;
+  color: #76a8d3 !important;
 }
 
 /* Homepage */
@@ -96,20 +96,20 @@ code {
 
 .cover {
   margin: -1rem;
-  background-image: url(/frontend/src/images/background.png);
+  background-image: url('src/images/background.png');
   background-size: cover !important;
   background-repeat: repeat;
   height: 100vh;
 }
 
-@media screen and (max-width:900px){
+@media screen and (max-width: 900px) {
   .cover {
     height: 50vh;
   }
 }
 
 .cover h1 {
-  color: #76A8D3;
+  color: #76a8d3;
 }
 
 .jumbotronWhite {
@@ -117,7 +117,7 @@ code {
 }
 
 .jumbotronWhite h2 {
-  color: #76A8D3;
+  color: #76a8d3;
   padding-bottom: 35px;
   text-align: center;
 }
@@ -127,7 +127,7 @@ code {
 }
 
 .jumbotronBlue {
-  background-color:#76A8D3 !important;
+  background-color: #76a8d3 !important;
 }
 
 .jumbotronBlue h2 {
@@ -148,7 +148,7 @@ code {
 }
 
 .card-header {
-  background-color: #76A8D3 !important;
+  background-color: #76a8d3 !important;
 }
 
 .card-header h3 {
@@ -158,8 +158,8 @@ code {
 .homepageButton {
   color: white;
   padding: 9px 25px;
-  background-color: #76A8D3 !important;
-  border: 2px solid #76A8D3 !important;
+  background-color: #76a8d3 !important;
+  border: 2px solid #76a8d3 !important;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
@@ -168,59 +168,64 @@ code {
 
 .homepageButton:hover {
   background-color: white !important;
-  border: 2px solid #76A8D3 !important;
-  color: #76A8D3 !important;
+  border: 2px solid #76a8d3 !important;
+  color: #76a8d3 !important;
 }
 
 .info {
   padding-top: 20%;
 }
 
-@media screen and (max-width:1000px){
+@media screen and (max-width: 1000px) {
   .info {
     padding-top: 0;
-  }  
+  }
 }
 
 .hover-shadow-sm:hover {
-  box-shadow: 0 0.125rem 0.25rem rgba(118, 168, 211, 0.08) !important; }
+  box-shadow: 0 0.125rem 0.25rem rgba(118, 168, 211, 0.08) !important;
+}
 
 .hover-shadow:hover {
-  box-shadow: 0 0 1.25rem rgba(118, 168, 211, 0.08) !important; }
+  box-shadow: 0 0 1.25rem rgba(118, 168, 211, 0.08) !important;
+}
 
 .hover-shadow-lg:hover {
-  box-shadow: 0 1rem 3rem rgba(118, 168, 211, 0.225) !important; }
+  box-shadow: 0 1rem 3rem rgba(118, 168, 211, 0.225) !important;
+}
 
 .shadow-none,
 .hover-shadow-none:hover {
-  box-shadow: none !important; }
+  box-shadow: none !important;
+}
 
 #benefits {
   border: none;
 }
 
 .avatar {
-  flex-shrink:0;
-  width:3rem;
-  height:3rem;
-  border-radius:50%
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
 }
 
 .avatar.avatar-sm {
-  width:2.25rem;
-  height:2.25rem
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .avatar.avatar-lg {
-  width:4.5rem;
-  height:4.5rem
+  width: 4.5rem;
+  height: 4.5rem;
 }
 
-@media (min-width:992px){
+@media (min-width: 992px) {
   .avatar.avatar-lg {
-    width:4.5rem;
-    height:4.5rem}
+    width: 4.5rem;
+    height: 4.5rem;
   }
+}
 
 .avatar-author {
   display: flex !important;

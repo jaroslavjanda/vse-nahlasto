@@ -40,7 +40,11 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
  * @param surname
  * @returns {Promise<*>}
  */
-export const signup = async (_, { email, password, name, surname }, { dbConnection }) => {
+export const signup = async (
+  _,
+  { email, password, name, surname },
+  { dbConnection },
+) => {
   //check if user is already signed up
   const userByEmail = (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
@@ -81,7 +85,11 @@ export const signup = async (_, { email, password, name, surname }, { dbConnecti
  * @param newPassword
  * @returns {Promise<*>}
  */
-export const resetUserPassword = async (_, { email, newPassword }, { dbConnection }) => {
+export const resetUserPassword = async (
+  _,
+  { email, newPassword },
+  { dbConnection },
+) => {
   //update user
   const dbResponse = await dbConnection.query(
     `UPDATE user SET password = ? WHERE email = ?`,
@@ -96,7 +104,7 @@ export const resetUserPassword = async (_, { email, newPassword }, { dbConnectio
   // deletes completed request from the DB
   await dbConnection.query(
     `DELETE FROM change_password_request WHERE user_email = ?`,
-    [email]
+    [email],
   );
 
   return (
@@ -104,22 +112,19 @@ export const resetUserPassword = async (_, { email, newPassword }, { dbConnectio
   )[0];
 };
 
-export const setResetCode = async (
-  _,
-  { email },
-  { dbConnection },
-) => {
-
+export const setResetCode = async (_, { email }, { dbConnection }) => {
   // 1. check if the request is first, if not, delete the previous one
-  const uniqueCheckDbResponse = ( await dbConnection.query(
-    `SELECT * FROM change_password_request WHERE user_email = ?`,
-    [email]
-  ))[0];
+  const uniqueCheckDbResponse = (
+    await dbConnection.query(
+      `SELECT * FROM change_password_request WHERE user_email = ?`,
+      [email],
+    )
+  )[0];
 
   if (uniqueCheckDbResponse) {
     await dbConnection.query(
       `DELETE FROM change_password_request WHERE user_email = ?`,
-      [email]
+      [email],
     );
   }
 
@@ -133,15 +138,20 @@ export const setResetCode = async (
     [email, code],
   );
 
-
   if (setResetCodeDbResponse.insertId) {
-    const link = 'http://dev.frontend.team07.vse.handson.pro/password_reset/'
-      + email + '/' + code;
+    const link =
+      'http://dev.frontend.team07.vse.handson.pro/password_reset/' +
+      email +
+      '/' +
+      code;
 
     send(email, TYPE.SEND_LINK_TO_CHANGE_PASSWORD, link);
   }
 
   return (
-    await dbConnection.query(`SELECT * FROM change_password_request WHERE user_email = ?`, [email])
+    await dbConnection.query(
+      `SELECT * FROM change_password_request WHERE user_email = ?`,
+      [email],
+    )
   )[0];
 };

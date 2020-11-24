@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import {Link, NavLink } from 'src/atoms';
+import { Link, NavLink } from 'src/atoms';
 import { useAuth } from 'src/utils/auth';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
@@ -41,8 +41,7 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
                 Communities
               </NavLink>
             </Nav.Item>
-            <Nav.Item>
-            </Nav.Item>
+            <Nav.Item></Nav.Item>
             {user ? (
               <>
                 <Nav.Item>
@@ -88,7 +87,6 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
       </Navbar>
       {hasFullscreen && <div>{children}</div>}
       {!hasFullscreen && <MainSection>{children}</MainSection>}
-      
     </>
   );
 };

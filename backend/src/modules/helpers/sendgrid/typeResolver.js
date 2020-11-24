@@ -20,9 +20,12 @@ export function resolveText(type, link) {
     case TYPE.CHANGE_PASSWORD:
       return 'You have successfully changed your password';
     case TYPE.SEND_LINK_TO_CHANGE_PASSWORD:
-      return 'We received a request to change your password. ' +
+      return (
+        'We received a request to change your password. ' +
         'In case you did not submit it, please ignore this message.' +
-        ' Otherwise, here is your link: ' + link;
+        ' Otherwise, here is your link: ' +
+        link
+      );
     case TYPE.ADD_COMMUNITY_CONFIRMATION:
       return 'Community at Nahlas.to created';
   }

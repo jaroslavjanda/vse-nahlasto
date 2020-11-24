@@ -9,7 +9,11 @@
  * @param status_id
  * @returns {Promise<*>}
  */
-export const addTicket = async ( _, { user_id, title, image, community_id, content, status_id }, { dbConnection }) => {
+export const addTicket = async (
+  _,
+  { user_id, title, image, community_id, content, status_id },
+  { dbConnection },
+) => {
   const dbResponse = await dbConnection.query(
     `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
     VALUES (?, ?, ?, ?, ?, ?);`,
@@ -63,7 +67,7 @@ export const addLike = async (_, { ownerId, ticketId }, { dbConnection }) => {
 
   const ticket = (
     await dbConnection.query(
-     `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+      `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
       COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
       FROM ticket 
       LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
@@ -85,21 +89,25 @@ export const addLike = async (_, { ownerId, ticketId }, { dbConnection }) => {
  * @param ticketId
  * @returns {Promise<*>}
  */
-export const deleteTicket = async (_, { userId, communityId, ticketId }, { dbConnection }) => {
-  //select owner 
+export const deleteTicket = async (
+  _,
+  { userId, communityId, ticketId },
+  { dbConnection },
+) => {
+  //select owner
   const dbResponseCheck = await dbConnection.query(
     `SELECT * FROM membership WHERE role_id = ? AND community_id = ?`,
     [1, communityId],
   );
-  //check if owner of community is user who deletes 
+  //check if owner of community is user who deletes
   if (dbResponseCheck[0].user_id == userId) {
     const dbResponseDelete = await dbConnection.query(
       `DELETE FROM \`ticket\` WHERE ticket_id=?;`,
-      [ ticketId],
+      [ticketId],
     );
   }
 
   return {
-    ticket_id: ticketId
+    ticket_id: ticketId,
   };
 };

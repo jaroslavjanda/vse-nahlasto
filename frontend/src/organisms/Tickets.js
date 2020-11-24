@@ -2,7 +2,7 @@ import React from 'react';
 import { CardColumns } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
 
-import { CardsTicket } from 'src/molecules/CardsTicket'
+import { CardsTicket } from 'src/molecules/CardsTicket';
 
 const LIKE_MUTATION = gql`
   mutation addLike($ownerId: Int!, $ticketId: Int!) {
@@ -13,27 +13,37 @@ const LIKE_MUTATION = gql`
 `;
 
 const DELETE_MUTATION = gql`
-  mutation deleteTicket($userId: Int!, $communityId:Int!, $ticketId: Int!) {
-    deleteTicket(userId: $userId, communityId: $communityId ticketId: $ticketId) {
+  mutation deleteTicket($userId: Int!, $communityId: Int!, $ticketId: Int!) {
+    deleteTicket(
+      userId: $userId
+      communityId: $communityId
+      ticketId: $ticketId
+    ) {
       ticket_id
     }
   }
 `;
 
 export function Tickets({ tickets, communityOwner }) {
+  const [LikedRequest] = useMutation(LIKE_MUTATION);
+  const [deleteRequest] = useMutation(DELETE_MUTATION);
 
-    const [LikedRequest] = useMutation(LIKE_MUTATION);
-    const [deleteRequest] = useMutation(DELETE_MUTATION);
-
-    return (
-        <div style={{ textAlign: 'center' }}>
-            <div>
-                <CardColumns>
-                    {tickets.map((item) => (
-                        <CardsTicket key={item.ticket_id} item={item} like={item.likes_count} requestSendLike={LikedRequest} requestDelete={deleteRequest}  communityOwner={communityOwner} />
-                    ))}
-                </CardColumns>
-            </div>
-        </div>
-    );
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div>
+        <CardColumns>
+          {tickets.map((item) => (
+            <CardsTicket
+              key={item.ticket_id}
+              item={item}
+              like={item.likes_count}
+              requestSendLike={LikedRequest}
+              requestDelete={deleteRequest}
+              communityOwner={communityOwner}
+            />
+          ))}
+        </CardColumns>
+      </div>
+    </div>
+  );
 }

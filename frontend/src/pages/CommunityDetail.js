@@ -26,7 +26,7 @@ const COMMUNITY_DETAIL_QUERY = gql`
         status_id
         community_id
         date
-        status{
+        status {
           status
         }
       }
@@ -35,22 +35,20 @@ const COMMUNITY_DETAIL_QUERY = gql`
 `;
 
 const MEMBERSHIP_QUERY = gql`
-    query CommunityOwnerId($communityId: Int!) {
-      communityOwnerId(communityId: $communityId)
-    }
+  query CommunityOwnerId($communityId: Int!) {
+    communityOwnerId(communityId: $communityId)
+  }
 `;
 
 export const CommunityDetail = ({ match }) => {
-
   const communityId = parseInt(match.params.communityId);
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
 
-
   const { user } = useAuth();
 
-  const userId = user?.user_id
+  const userId = user?.user_id;
 
   const communityOwnerId = useQuery(MEMBERSHIP_QUERY, {
     variables: { communityId },
@@ -74,7 +72,7 @@ export const CommunityDetail = ({ match }) => {
               <Col align="left">
                 <h1>{community.name}</h1>
                 <p>{community.description}</p>
-              </Col>  
+              </Col>
               <Col align="right">
                 {!isMember && (
                   <Button
@@ -86,20 +84,21 @@ export const CommunityDetail = ({ match }) => {
                   >
                     Join here
                   </Button>
-                )} 
+                )}
                 {!community.closed && (
                   <Link to={`/community-detail/${communityId}/add`}>
                     <Button variant="success">Add ticket</Button>
-                  </Link>   
-                )}   
+                  </Link>
+                )}
                 {userId && userId === communityOwnerId.data?.communityOwnerId && (
                   <Link to={`/community-detail/${communityId}/edit_community`}>
                     <Button variant="primary">
-                      <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Edit Description
+                      <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" />{' '}
+                      Edit Description
                     </Button>
                   </Link>
                 )}
-              </Col>   
+              </Col>
             </Row>
           </Container>
 
@@ -111,7 +110,10 @@ export const CommunityDetail = ({ match }) => {
                   <strong>This community is open for everyone</strong>
                 </div>
               </Alert>
-              <Tickets tickets={community.tickets} communityOwner={communityOwnerId.data?.communityOwnerId} />
+              <Tickets
+                tickets={community.tickets}
+                communityOwner={communityOwnerId.data?.communityOwnerId}
+              />
             </div>
           )}
           {!community.closed && isMember && (
@@ -138,7 +140,10 @@ export const CommunityDetail = ({ match }) => {
               </Link>
               <br />
               <br />
-              <Tickets tickets={community.tickets} communityOwner={communityOwnerId.data?.communityOwnerId} />
+              <Tickets
+                tickets={community.tickets}
+                communityOwner={communityOwnerId.data?.communityOwnerId}
+              />
             </div>
           )}
           {community.closed && (
