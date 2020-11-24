@@ -5,20 +5,17 @@ import { AboutPage } from './pages/AboutPage';
 import { AddCommunityPage } from './pages/AddCommunityPage';
 import { AddTicket } from './pages/AddTicket';
 import { Communities } from './pages/Communities';
-import { AboutPage } from 'src/pages/AboutPage';
-import { HomePage } from 'src/pages/HomePage';
-import { PageNotFound } from 'src/pages/PageNotFound';
-import { SignInPage } from 'src/pages/SignInPage';
-import { SignUpPage } from 'src/pages/SignUpPage';
-import { PasswordResetPage } from 'src/pages/PasswordResetPage';
-import { AddCommunityPage } from 'src/pages/AddCommunityPage';
+import { CommunityDetail } from './pages/CommunityDetail';
 import { EditCommunityPage } from './pages/EditCommunityPage';
-import { CommunityDetail } from 'src/pages/CommunityDetail';
-import { TopNavigation } from './organisms';
-import { AddTicket } from './pages/AddTicket';
-import { ListOfTickets } from './pages/ListOfTickets';
-import { Communities } from './pages/Communities';
 import { ForgottenPasswordPage } from './pages/ForgottenPasswordPage';
+import { HomePage } from './pages/HomePage';
+import { ListOfTickets } from './pages/ListOfTickets';
+import { PageNotFound } from './pages/PageNotFound';
+import { PasswordResetPage } from './pages/PasswordResetPage';
+import { SignInPage } from './pages/SignInPage';
+import { SignUpPage } from './pages/SignUpPage';
+import { TicketDetail } from './pages/TicketDetail';
+import { TopNavigation } from './organisms';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
@@ -59,7 +56,7 @@ export function Routes() {
           path={route.forgottenPassword()}
           exact
           component={ForgottenPasswordPage}
-          />
+        />
         <Route path={route.addCommunity()} exact component={AddCommunityPage} />>}
         <Route
           path={route.communityDetail()}

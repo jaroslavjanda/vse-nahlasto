@@ -96,7 +96,7 @@ code {
 
 .cover {
   margin: -1rem;
-  background-image: url(src/images/background.png);
+  background-image: url(/frontend/src/images/background.png);
   background-size: cover !important;
   background-repeat: repeat;
   height: 100vh;
