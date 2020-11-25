@@ -18,10 +18,8 @@ export function ForgottenPasswordPage() {
   const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
     PASSWORD_CHANGE_REQUEST_MUTATION,
     {
-      onCompleted: () => {
-      },
-      onError: () => {
-      },
+      onCompleted: () => {},
+      onError: () => {},
     },
   );
 
@@ -40,7 +38,6 @@ export function ForgottenPasswordPage() {
     email: yup.string().email().required().label('Email'),
   });
 
-
   return (
     <Formik
       onSubmit={handleChangePasswordRequest}
@@ -48,13 +45,10 @@ export function ForgottenPasswordPage() {
       validationSchema={schema}
       validateOnBlur={false}
     >
-      <Form className={"mt3"}>
+      <Form className={'mt3'}>
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {resetPasswordRequestState.data && (
-          <SuccessBanner
-            title={'Email has been sent.'}
-            className="mb3"
-          />
+          <SuccessBanner title={'Email has been sent.'} className="mb3" />
         )}
         <FormikField
           id="email"

@@ -21,7 +21,6 @@ const VALID_REQUEST_CHECK_QUERY = gql`
 `;
 
 export function PasswordResetPage({ match }) {
-
   // parameters from URL link sent via email
   const user_email = match.params.email.toString();
   const code = parseInt(match.params.code);
@@ -32,13 +31,16 @@ export function PasswordResetPage({ match }) {
   });
 
   const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
-    PASSWORD_RESET_MUTATION, {
-      onCompleted: () => setTimeout(
-        () => {
-          window.location.replace("http://dev.frontend.team07.vse.handson.pro/auth/signin");
-        }, 2000
-      )
-    });
+    PASSWORD_RESET_MUTATION,
+    {
+      onCompleted: () =>
+        setTimeout(() => {
+          window.location.replace(
+            'http://dev.frontend.team07.vse.handson.pro/auth/signin',
+          );
+        }, 2000),
+    },
+  );
 
   const handleResetPasswordFormSubmit = useCallback(
     (variables) => {

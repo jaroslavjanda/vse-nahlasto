@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
-import {Container, Col,Card, Row, Spinner, Button,CardColumns } from 'react-bootstrap';
+import {
+  Container,
+  Col,
+  Card,
+  Row,
+  Spinner,
+  Button,
+  CardColumns,
+} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const COMMUNITY_LIST_QUERY = gql`
   query Communities {
     communities {
-        community_id
-        name
-        description
-        closed
+      community_id
+      name
+      description
+      closed
     }
   }
 `;
@@ -31,22 +39,23 @@ export const Communities = () => {
         </Spinner>
       )}
       {!communitiesState.loading && (
-          
         <div>
           <Container fluid className="container-header">
             <Row margin="50px">
-              <Col align="left"><h1>Communities</h1></Col>  
+              <Col align="left">
+                <h1>Communities</h1>
+              </Col>
               <Col align="right">
-                <Button 
+                <Button
                   variant="success"
                   onClick={() => history.push(`/add_community`)}
                 >
                   Add new community
                 </Button>
-              </Col>   
+              </Col>
             </Row>
           </Container>
-          
+
           <div>
             <Row>
               <CardColumns>
@@ -59,22 +68,25 @@ export const Communities = () => {
                     <Card.Body>
                       <h3>{item.name}</h3>
                       <Card.Text>{item.description}</Card.Text>
-                      {item.closed && !isMember &&  (
-                      <Button
+                      {item.closed && !isMember && (
+                        <Button
                           variant="danger"
                           onClick={() => toast.info('Your request was sended')}
-                      >
+                        >
                           JOIN
-                      </Button>
+                        </Button>
                       )}
                       {!item.closed && (
-
-                      <Button
+                        <Button
                           variant="success"
-                          onClick={() => history.push(`community-detail/${item.community_id}`)}
-                      >
+                          onClick={() =>
+                            history.push(
+                              `community-detail/${item.community_id}`,
+                            )
+                          }
+                        >
                           OPEN
-                      </Button>
+                        </Button>
                       )}
                     </Card.Body>
                   </Card>
@@ -85,5 +97,5 @@ export const Communities = () => {
         </div>
       )}
     </div>
-  )
+  );
 };

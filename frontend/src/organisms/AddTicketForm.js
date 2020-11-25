@@ -14,7 +14,6 @@ export function AddTicketForm({
   onSubmit,
   className,
 }) {
-
   const { user } = useAuth();
 
   const initialValues = {
@@ -22,18 +21,19 @@ export function AddTicketForm({
     content: '',
     file: '',
     email: '',
-    showEmail: user?false:true
+    showEmail: user ? false : true,
   };
-  
+
   const schema = yup.object().shape({
     content: yup.string().required().label('Content'),
     title: yup.string().required().label('Title'),
-    email: yup.string()
-    .email()
-    .when("showEmail", {
-      is: true,
-      then: yup.string().required("Must enter email address")
-    })
+    email: yup
+      .string()
+      .email()
+      .when('showEmail', {
+        is: true,
+        then: yup.string().required('Must enter email address'),
+      }),
   });
 
   return (
@@ -60,18 +60,17 @@ export function AddTicketForm({
           autoCapitalize="off"
         />
         {!user && (
-
-        <FormikField
-          id="email"
-          name="email"
-          label="Email"
-          type="text"
-          rows={3}
-          placeholder="Describe your problem further"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
+          <FormikField
+            id="email"
+            name="email"
+            label="Email"
+            type="text"
+            rows={3}
+            placeholder="Describe your problem further"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+          />
         )}
         <FormikTextArea
           id="content"
@@ -84,11 +83,7 @@ export function AddTicketForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <FormikFile
-          id="file"
-          name="file"
-          label="File"
-        />
+        <FormikFile id="file" name="file" label="File" />
         <Button type="submit" className="mt2 mb3">
           Confirm request
         </Button>

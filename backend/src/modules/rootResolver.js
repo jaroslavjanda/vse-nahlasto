@@ -1,7 +1,4 @@
-import { 
-  queries as UserQueries, 
-  mutations as UserMutations 
-} from './user';
+import { queries as UserQueries, mutations as UserMutations } from './user';
 import {
   queries as CommunityQueries,
   mutations as CommunityMutations,
@@ -15,7 +12,7 @@ import {
   mutations as CommentMutations,
 } from './comment';
 
-const { GraphQLScalarType } = require('graphql') ;
+const { GraphQLScalarType } = require('graphql');
 
 export default {
   Query: {
@@ -101,11 +98,11 @@ export default {
       return value;
     },
     serialize(value) {
-      const d = new Date(Number(value))
+      const d = new Date(Number(value));
       var date = d.getDate();
-      var month = d.getMonth() + 1; 
+      var month = d.getMonth() + 1;
       var year = d.getFullYear();
-      const fullDate = date + ". " + month + ". " + year
+      const fullDate = date + '. ' + month + '. ' + year;
       return fullDate;
     },
     parseLiteral(ast) {
@@ -113,6 +110,6 @@ export default {
         return new Date(ast.value);
       }
       return null;
-    }
-  })
+    },
+  }),
 };

@@ -1,4 +1,4 @@
-import { send, TYPE } from "../helpers/sendgrid/send";
+import { send, TYPE } from '../helpers/sendgrid/send';
 
 /**
  * Add community.
@@ -10,8 +10,11 @@ import { send, TYPE } from "../helpers/sendgrid/send";
  * @param ownerId
  * @returns {Promise<*>}
  */
-export const addCommunity = async (_, { name, description, code, closed, ownerId }, { dbConnection }) => {
-
+export const addCommunity = async (
+  _,
+  { name, description, code, closed, ownerId },
+  { dbConnection },
+) => {
   // adds community to DB
   // TODO prevent creating communities with same name
   const addCommunityDbResponse = await dbConnection.query(
@@ -22,14 +25,14 @@ export const addCommunity = async (_, { name, description, code, closed, ownerId
 
   // if community inserted successfully
   if (addCommunityDbResponse.insertId) {
-
     const communityId = addCommunityDbResponse.insertId;
 
     // fetches added community from DB
     const community = (
-      await dbConnection.query(`SELECT * FROM community WHERE community_id = ?`, [
-        communityId,
-      ])
+      await dbConnection.query(
+        `SELECT * FROM community WHERE community_id = ?`,
+        [communityId],
+      )
     )[0];
 
     // adds user to membership table as an owner of the added community
@@ -40,11 +43,13 @@ export const addCommunity = async (_, { name, description, code, closed, ownerId
     );
 
     // fetches user email from DB to be able to send him an email
-    const email = (await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [
-      ownerId,
-    ]))[0];
-    
-    send(email, TYPE.ADD_COMMUNITY_CONFIRMATION)
+    const email = (
+      await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [
+        ownerId,
+      ])
+    )[0];
+
+    send(email, TYPE.ADD_COMMUNITY_CONFIRMATION);
 
     return community;
   }
@@ -58,11 +63,15 @@ export const addCommunity = async (_, { name, description, code, closed, ownerId
  * @param description
  * @returns {Promise<*>}
  */
-export const editCommunity = async (_, { community_id, description }, { dbConnection }) => {
+export const editCommunity = async (
+  _,
+  { community_id, description },
+  { dbConnection },
+) => {
   //TODO check if user have role to edit
   await dbConnection.query(
     `UPDATE community SET description = ? WHERE community_id = ?`,
-    [description, community_id]
+    [description, community_id],
   );
 
   const community = (
