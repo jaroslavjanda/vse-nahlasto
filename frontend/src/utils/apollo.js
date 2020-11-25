@@ -4,10 +4,10 @@ import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
-  createHttpLink,
   ApolloLink,
   from,
 } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { onError } from '@apollo/client/link/error';
 
 import { useAuth } from 'src/utils/auth';
@@ -27,7 +27,7 @@ const hasNetworkStatusCode = (error, code) => {
   return error && error.statusCode === code;
 };
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: config.GRAPHQL_API,
 });
 

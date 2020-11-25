@@ -14,20 +14,19 @@ export function AddTicketForm({
   successMessage,
   onSubmit,
   className,
-  handleFileUpload
+  handleFileUpload,
 }) {
-
   const { user } = useAuth();
 
   const initialValues = {
     title: '',
     content: '',
-    file: "",
+    file: '',
     email: '',
-    showEmail: user?false:true
+    showEmail: user ? false : true,
   };
   //const [file, setFile] = React.useState("");
-/*
+  /*
   // Handles file upload event and updates state
   function handleUpload(event) {
     console.log(event.target.files[0])
@@ -42,12 +41,13 @@ export function AddTicketForm({
   const schema = yup.object().shape({
     content: yup.string().required().label('Content'),
     title: yup.string().required().label('Title'),
-    email: yup.string()
-    .email()
-    .when("showEmail", {
-      is: true,
-      then: yup.string().required("Must enter email address")
-    })
+    email: yup
+      .string()
+      .email()
+      .when('showEmail', {
+        is: true,
+        then: yup.string().required('Must enter email address'),
+      }),
   });
 
   return (
@@ -56,12 +56,13 @@ export function AddTicketForm({
       initialValues={initialValues}
       validationSchema={schema}
       validateOnBlur={false}
-      handleFileUpload={handleFileUpload}
     >
       <Row>
         <Col>
           <Form className={className}>
-            {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
+            {errorMessage && (
+              <ErrorBanner title={errorMessage} className="mb3" />
+            )}
             {successMessage && (
               <SuccessBanner title={'Ticket has been sent'} className="mb3" />
             )}
@@ -77,18 +78,17 @@ export function AddTicketForm({
               autoCapitalize="off"
             />
             {!user && (
-
-            <FormikField
-              id="email"
-              name="email"
-              label="Email"
-              type="text"
-              rows={3}
-              placeholder="Describe your problem further"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-            />
+              <FormikField
+                id="email"
+                name="email"
+                label="Email"
+                type="text"
+                rows={3}
+                placeholder="Describe your problem further"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+              />
             )}
             <FormikTextArea
               id="content"
@@ -105,11 +105,11 @@ export function AddTicketForm({
               id="file"
               name="file"
               label="File"
-              onChange={(event) => {
-                handleFileUpload(event.currentTarget.files[0]);
-              }}
+              // onChange={(event) => {
+              //   handleFileUpload(event.currentTarget.files[0]);
+              // }}
             />
-            
+
             <Button type="submit" className="mt2 mb3">
               Confirm request
             </Button>

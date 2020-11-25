@@ -3,6 +3,8 @@ npm-debug.log
 
 /build/
 
+/public/uploads/
+
 # custom
 /.env
 /.env.local
