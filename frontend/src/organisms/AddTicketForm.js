@@ -83,7 +83,9 @@ export function AddTicketForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
+        
         <FormikFile id="file" name="file" label="File" />
+
         <div style={{textAlign:"right"}}>
           <Button type="submit" className="mt2 mb3">
             Confirm request

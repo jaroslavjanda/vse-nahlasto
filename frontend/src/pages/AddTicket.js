@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 import { useAuth } from 'src/utils/auth';
-import { useHistory } from 'react-router-dom';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
@@ -29,7 +28,6 @@ const ADD_TICKET_MUTATION = gql`
 export const AddTicket = ({ match }) => {
   const communityId = parseInt(match.params.communityId);
   const auth = useAuth();
-  const history = useHistory();
 
   const [addTicketRequest, addTicketRequestState] = useMutation(
     ADD_TICKET_MUTATION,
