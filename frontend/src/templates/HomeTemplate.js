@@ -297,7 +297,7 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
       {currentUser && <QuackForm {...quackFormState} />}
       {data && (
         <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only">Načítání...</span>
         </Spinner>
       )}
     </>

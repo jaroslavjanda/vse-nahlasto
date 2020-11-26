@@ -13,7 +13,7 @@ export function AddCommunityTemplate({ isDone, error, onSubmit, user }) {
 
   return (
     <>
-      <Heading>Add community</Heading>
+      <Heading>Přidat komunitu</Heading>
       <AddCommunityForm
         errorMessage={error && error.message}
         successMessage={isDone}

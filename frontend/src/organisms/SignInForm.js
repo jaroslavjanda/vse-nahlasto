@@ -54,7 +54,7 @@ export function SignInForm({
         />
 
         <Button type="submit" variant="success" size="lg">
-          Sign in
+          Přihlásit se
         </Button>
         {children}
       </Form>

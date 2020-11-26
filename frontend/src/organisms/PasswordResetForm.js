@@ -47,12 +47,12 @@ export function PasswordResetForm({
         {successMessage && (
           <SuccessBanner
             title={
-              'Password has been changed successfully. You will be redirected in 2 seconds.'
+              'Heslo bylo úspěšně změněno. Za 2 sekundy budete přesměrováni.'
             }
             className="mb3"
           >
             <Spinner animation="border" role="status">
-              <span className="sr-only">Redirecting...</span>
+              <span className="sr-only">Přesměrovávání...</span>
             </Spinner>
           </SuccessBanner>
         )}
@@ -75,7 +75,7 @@ export function PasswordResetForm({
           autoCapitalize="off"
         />
         <Button type="submit" className="mt2 mb3">
-          Confirm request
+          Potvrdit žádost 
         </Button>
       </Form>
     </Formik>

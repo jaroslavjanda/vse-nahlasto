@@ -26,17 +26,17 @@ const schema = yup.object().shape({
     .label('Password')
     .test(
       'len',
-      'Must be at least 6 characters long',
+      'Musí mít alespoň 6 znaků',
       (val) => val.length >= 6,
     ),
   passwordConfirmation: yup
     .string()
     .required()
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .oneOf([yup.ref('password'), null], 'Hesla se musí shodovat')
     .label('Password Confirmation'),
   checkboxAcceptTerms: yup
     .bool()
-    .oneOf([true], 'Must Accept Terms and Conditions'),
+    .oneOf([true], 'Musíte přijmout podmínky'),
 });
 
 export function SignUpForm({ errorMessage, className, onSubmit, children }) {
@@ -105,7 +105,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
             className={'form-check-input'}
           />
           <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-            Accept whatever we want
+            Vše příjmout 
           </label>
           <ErrorMessage
             name="checkboxAcceptTerms"
@@ -114,7 +114,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           />
         </FormGroup>
         <Button type="submit" variant="success" size="lg">
-          Sign up
+          Registrovat se
         </Button>
         {children}
       </Form>

@@ -35,7 +35,7 @@ export const Communities = () => {
     <div style={{ textAlign: 'center' }}>
       {communitiesState.loading && (
         <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only">Načítání...</span>
         </Spinner>
       )}
       {!communitiesState.loading && (
@@ -43,14 +43,14 @@ export const Communities = () => {
           <Container fluid className="container-header">
             <Row margin="50px">
               <Col align="left">
-                <h1>Communities</h1>
+                <h1>Komunity</h1>
               </Col>
               <Col align="right">
                 <Button
                   variant="success"
                   onClick={() => history.push(`/add_community`)}
                 >
-                  Add new community
+                  Přidat komunitu
                 </Button>
               </Col>
             </Row>
@@ -73,7 +73,7 @@ export const Communities = () => {
                           variant="danger"
                           onClick={() => toast.info('Your request was sended')}
                         >
-                          JOIN
+                          PŘIPOJIT SE
                         </Button>
                       )}
                       {!item.closed && (
@@ -85,7 +85,7 @@ export const Communities = () => {
                             )
                           }
                         >
-                          OPEN
+                          OTEVŘÍT
                         </Button>
                       )}
                     </Card.Body>

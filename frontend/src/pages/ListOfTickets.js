@@ -48,7 +48,7 @@ export const ListOfTickets = ({ match }) => {
     <div style={{ textAlign: 'center' }}>
       {quacksState.loading && (
         <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only">Načítání...</span>
         </Spinner>
       )}
       {!quacksState.loading && (
@@ -79,13 +79,13 @@ export const ListOfTickets = ({ match }) => {
           {community.closed && (
             <div>
               <Alert variant={'danger'}>
-                <div>You cannot see tickets of secret community.</div>
+                <div>Nemůžete vidět tickety uzavřené komunity.</div>
               </Alert>
               <Button
                 variant="danger"
-                onClick={() => toast.info('Your request was sended')}
+                onClick={() => toast.info('Vaše žádost byla odeslána')}
               >
-                Ask for permission to this community
+                Požádejte o přístup do této komunity
               </Button>
             </div>
           )}

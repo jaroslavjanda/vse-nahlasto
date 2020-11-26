@@ -62,7 +62,7 @@ export function ForgottenPasswordPage() {
           autoCapitalize="off"
         />
         <Button type="submit" className="mt2 mb3">
-          Send request
+          Odeslat žádost
         </Button>
       </Form>
     </Formik>

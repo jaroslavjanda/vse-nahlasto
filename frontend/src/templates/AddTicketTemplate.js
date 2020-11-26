@@ -16,7 +16,7 @@ export function AddTicketTemplate({ isDone, error, onSubmit }) {
 
   return (
     <>
-      <Heading>Add ticket</Heading>
+      <Heading>Přidat ticket</Heading>
       <AddTicketForm
         errorMessage={error && error.message}
         successMessage={isDone}

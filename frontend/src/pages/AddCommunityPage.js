@@ -60,7 +60,7 @@ export const AddCommunityPage = () => {
     );
   } else {
     return (
-      <ErrorBanner title="User not signed in">You need to sign in.</ErrorBanner>
+      <ErrorBanner title="Uživatel není přihlášen">Musíš se přihlásit.</ErrorBanner>
     );
   }
 };

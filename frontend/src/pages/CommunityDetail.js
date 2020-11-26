@@ -62,7 +62,7 @@ export const CommunityDetail = ({ match }) => {
     <div style={{ textAlign: 'center' }}>
       {communityState.loading && (
         <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only">Načítání...</span>
         </Spinner>
       )}
       {!communityState.loading && (
@@ -82,19 +82,19 @@ export const CommunityDetail = ({ match }) => {
                       setIsMember(true);
                     }}
                   >
-                    Join here
+                    PŘIDAT SE
                   </Button>
                 )}
                 {!community.closed && (
                   <Link to={`/community-detail/${communityId}/add`}>
-                    <Button variant="success">Add ticket</Button>
+                    <Button variant="success">Přidat ticket</Button>
                   </Link>
                 )}
                 {userId && userId === communityOwnerId.data?.communityOwnerId && (
                   <Link to={`/community-detail/${communityId}/edit_community`}>
                     <Button variant="primary">
                       <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" />{' '}
-                      Edit Description
+                      Upravit popis
                     </Button>
                   </Link>
                 )}
@@ -105,9 +105,9 @@ export const CommunityDetail = ({ match }) => {
           {!community.closed && !isMember && (
             <div>
               <Alert variant={'success'}>
-                <div>Welcome in {community.name} community.</div>
+                <div>Vítej v {community.name} komunitě.</div>
                 <div>
-                  <strong>This community is open for everyone</strong>
+                  <strong>Tato komunita je otevřená pro všechny</strong>
                 </div>
               </Alert>
               <Tickets
@@ -119,24 +119,18 @@ export const CommunityDetail = ({ match }) => {
           {!community.closed && isMember && (
             <div>
               <Alert variant={'success'}>
-                <div>Welcome in {community.name} community.</div>
+                <div>Vítej v {community.name} komunitě.</div>
                 <div>
-                  <strong>This community is open for everyone</strong>
+                  <strong>Tato komunita je otevřená pro všechny</strong>
                 </div>
               </Alert>
-              <h5>
-                Hey bro 👋 <br />
-                as a part of community you can see stats and add tickets
-                <br />
-                ⬇️
-              </h5>
-              <div>Number of users: {community.users.length}</div>
-              <div>Number of tickets: {community.tickets.length}</div>
+              <div>Počet uživatelu: {community.users.length}</div>
+              <div>Počet ticketu: {community.tickets.length}</div>
               <br />
               <br />
 
               <Link to={`/community-detail/${communityId}/add`}>
-                <Button variant="success">Add ticket</Button>
+                <Button variant="success">Přidat ticket</Button>
               </Link>
               <br />
               <br />
@@ -149,14 +143,14 @@ export const CommunityDetail = ({ match }) => {
           {community.closed && (
             <div>
               <Alert variant={'danger'}>
-                <div>Community {community.name} requires permission.</div>
+                <div>Komunita {community.name} vyžaduje žádost o přístup.</div>
                 <div></div>
               </Alert>
               <Button
                 variant="danger"
                 onClick={() => toast.info('Your request was sended')}
               >
-                Ask for permission
+                Zažádat o přístup
               </Button>
             </div>
           )}
