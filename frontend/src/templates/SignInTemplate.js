@@ -21,7 +21,7 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
           </Link>
         </div>
         <div className="lh-copy">
-          <Link className="f5 dark-green" to={route.resetPassword()}>
+          <Link className="f5 dark-green" to={route.forgottenPassword()}>
             Forgotten password?
           </Link>
         </div>

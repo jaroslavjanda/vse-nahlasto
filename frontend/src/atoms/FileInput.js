@@ -1,11 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 
-
 export function FileInput({ className, error, ...props }) {
   return (
     <input
-      id="file" 
+      id="file"
       name="file"
       type="file"
       className={classNames(

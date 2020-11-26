@@ -11,28 +11,21 @@ const COMMUNITY_QUERY = gql`
 `;
 
 const EDIT_COMMUNITY_MUTATION = gql`
-  mutation EditCommunity(
-    $description: String!,
-    $community_id: Int!
-  ) {
-    editCommunity(
-      description: $description,
-      community_id: $community_id
-    ) {
+  mutation EditCommunity($description: String!, $community_id: Int!) {
+    editCommunity(description: $description, community_id: $community_id) {
       community_id
     }
   }
 `;
 
 export const EditCommunityPage = ({ match }) => {
-
   const community_id = parseInt(match.params.communityId);
 
   const currentDescription = useQuery(COMMUNITY_QUERY, {
-    variables: { community_id }
+    variables: { community_id },
   }).data?.community?.description;
 
-  console.log("Community ID, currenDesc: ", community_id, currentDescription)
+  console.log('Community ID, currenDesc: ', community_id, currentDescription);
 
   const [editCommunityRequest, editCommunityRequestState] = useMutation(
     EDIT_COMMUNITY_MUTATION,
@@ -49,14 +42,13 @@ export const EditCommunityPage = ({ match }) => {
   const handleEditCommunityFormSubmit = useCallback(
     (variables) => {
       console.log('Community is ' + variables.community_id);
-      console.log('Variables are ', variables)
+      console.log('Variables are ', variables);
       editCommunityRequest({
-        variables: variables
+        variables: variables,
       });
     },
     [editCommunityRequest],
   );
-
 
   return (
     <EditCommunityTemplate

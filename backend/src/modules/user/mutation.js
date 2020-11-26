@@ -1,5 +1,7 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
+import { send, TYPE } from '../helpers/sendgrid/send';
+import { random } from 'lodash';
 
 /**
  * Sign in user.
@@ -14,7 +16,7 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
     [email],
   );
   const user = dbResponse[0];
-  
+
   //if user does not exists
   if (!user) {
     throw Error('Unknown username.');
@@ -38,7 +40,11 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
  * @param surname
  * @returns {Promise<*>}
  */
-export const signup = async (_, {email, password, name, surname}, { dbConnection }) => {
+export const signup = async (
+  _,
+  { email, password, name, surname },
+  { dbConnection },
+) => {
   //check if user is already signed up
   const userByEmail = (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
@@ -59,26 +65,7 @@ export const signup = async (_, {email, password, name, surname}, { dbConnection
   );
 
   if (dbResponse.insertId) {
-    //send email
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    
-    const msg = {
-      to: email,
-      from: 'tym7nahlasto@gmail.com', // Nemenit!
-      subject: 'Registration confirmation',
-      text: 'You have succesfully registered to Nahlas.to ',
-      html: '<strong>You have succesfully registered to Nahlas.to</strong>',
-    };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent', 'Send123');
-      })
-      .catch((error) => {
-        //Log friendly error
-        console.error(error.toString());
-      });
+    send(email, TYPE.REGISTRATION);
   }
 
   const token = createToken({ id: dbResponse.insertId });
@@ -98,7 +85,11 @@ export const signup = async (_, {email, password, name, surname}, { dbConnection
  * @param newPassword
  * @returns {Promise<*>}
  */
-export const resetUserPassword = async (_, { email, newPassword }, { dbConnection }) => {
+export const resetUserPassword = async (
+  _,
+  { email, newPassword },
+  { dbConnection },
+) => {
   //update user
   const dbResponse = await dbConnection.query(
     `UPDATE user SET password = ? WHERE email = ?`,
@@ -107,29 +98,60 @@ export const resetUserPassword = async (_, { email, newPassword }, { dbConnectio
 
   if (dbResponse) {
     //send email
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-    const msg = {
-      to: email,
-      from: 'tym7nahlasto@gmail.com', // Nemenit!
-      subject: 'Change password confirmation',
-      text: 'You have successfully changed your password',
-      html: '<strong>You have successfully changed your password</strong>',
-    };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent');
-      })
-      .catch((error) => {
-        //Log friendly error
-        console.error(error.toString());
-        console.log(output);
-      });
+    send(email, TYPE.CHANGE_PASSWORD);
   }
+
+  // deletes completed request from the DB
+  await dbConnection.query(
+    `DELETE FROM change_password_request WHERE user_email = ?`,
+    [email],
+  );
 
   return (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [email])
+  )[0];
+};
+
+export const setResetCode = async (_, { email }, { dbConnection }) => {
+  // 1. check if the request is first, if not, delete the previous one
+  const uniqueCheckDbResponse = (
+    await dbConnection.query(
+      `SELECT * FROM change_password_request WHERE user_email = ?`,
+      [email],
+    )
+  )[0];
+
+  if (uniqueCheckDbResponse) {
+    await dbConnection.query(
+      `DELETE FROM change_password_request WHERE user_email = ?`,
+      [email],
+    );
+  }
+
+  // 2. create random code
+  const code = random(99999999);
+
+  // 3. insert email $ code into DB table 'forgotten'
+  const setResetCodeDbResponse = await dbConnection.query(
+    `INSERT INTO change_password_request (user_email, code)
+      VALUES (?, ?)`,
+    [email, code],
+  );
+
+  if (setResetCodeDbResponse.insertId) {
+    const link =
+      'http://dev.frontend.team07.vse.handson.pro/password_reset/' +
+      email +
+      '/' +
+      code;
+
+    send(email, TYPE.SEND_LINK_TO_CHANGE_PASSWORD, link);
+  }
+
+  return (
+    await dbConnection.query(
+      `SELECT * FROM change_password_request WHERE user_email = ?`,
+      [email],
+    )
   )[0];
 };

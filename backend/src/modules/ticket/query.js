@@ -36,7 +36,7 @@ export const ticket = async (_, { ticketId }, { dbConnection }) => {
     [ticketId],
   );
 
-  return tickets;
+  return tickets[0];
 };
 
 /**
@@ -45,7 +45,11 @@ export const ticket = async (_, { ticketId }, { dbConnection }) => {
  * @param communityId
  * @returns {Promise<*>}
  */
-export const communityTickets = async ( _, { communityId }, { dbConnection }) => {
+export const communityTickets = async (
+  _,
+  { communityId },
+  { dbConnection },
+) => {
   const tickets = await dbConnection.query(
     `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
     COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
@@ -68,10 +72,14 @@ export const communityTickets = async ( _, { communityId }, { dbConnection }) =>
  * @param communityId
  * @returns {Promise<*>}
  */
-export const communityTicket = async ( _, { ticketId, communityId }, { dbConnection }) => {
+export const communityTicket = async (
+  _,
+  { ticketId, communityId },
+  { dbConnection },
+) => {
   const ticket = (
     await dbConnection.query(
-    `SELECT ticket.ticket_id, title, image, image, ticket.content, ticket.date, ticket.status_id,  ticket.user_id, community_id, 
+      `SELECT ticket.ticket_id, title, image, image, ticket.content, ticket.date, ticket.status_id,  ticket.user_id, community_id, 
     COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
     FROM ticket 
     LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
@@ -82,7 +90,7 @@ export const communityTicket = async ( _, { ticketId, communityId }, { dbConnect
       [ticketId, communityId],
     )
   )[0];
-  
+
   if (!ticket) {
     return null;
   }

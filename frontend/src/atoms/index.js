@@ -17,3 +17,4 @@ export { TextInput } from './TextInput';
 export { TransparentButton } from './TransparentButton';
 export { UserName } from './UserName';
 export { UserUserName } from './UserUserName';
+export { Footer } from './Footer';

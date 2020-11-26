@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {  Heading } from 'src/atoms';
+import { Heading } from 'src/atoms';
 
 export function AboutTemplate() {
   return (
