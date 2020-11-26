@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Spinner} from 'react-bootstrap';
 import { useAuth } from '../utils/auth';
-
+import { useHistory } from 'react-router-dom';
+import { ErrorBanner, Button } from 'src/atoms/';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 
 const COMMUNITY_DETAIL_QUERY = gql`
@@ -20,11 +21,13 @@ const COMMUNITY_DETAIL_QUERY = gql`
         content
         likes_count
         comment_count
+        image
         status_id
         community_id
         date
         status {
           status
+          code_class
         }
       }
     }
@@ -54,6 +57,7 @@ export const CommunityDetail = ({ match }) => {
   const [isMember, setIsMember] = useState(false);
 
   const community = communityState.data?.community;
+  const history = useHistory();
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -64,13 +68,22 @@ export const CommunityDetail = ({ match }) => {
       )}
       {!communityState.loading && (
         <div>
-          <CommunityDetailTemplate 
-          community={community} 
-          isMember={isMember} 
-          setIsMember={setIsMember}
-          communityId={communityId}
-          userId={userId}
-          communityOwnerId={communityOwnerId}/>
+          {communityState.error && (
+            <ErrorBanner title={communityState.error.message}>
+              <Button color="red" onClick={() => history.go(0)}>
+                Reload
+              </Button>
+            </ErrorBanner>
+          )} 
+          {community && (
+            <CommunityDetailTemplate 
+            community={community} 
+            isMember={isMember} 
+            setIsMember={setIsMember}
+            communityId={communityId}
+            userId={userId}
+            communityOwnerId={communityOwnerId}/>
+          )}
         </div>
       )}
     </div>
