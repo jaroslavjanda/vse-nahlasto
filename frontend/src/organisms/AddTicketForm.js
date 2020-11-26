@@ -14,7 +14,6 @@ export function AddTicketForm({
   successMessage,
   onSubmit,
   className,
-  handleFileUpload,
 }) {
   const { user } = useAuth();
 
@@ -25,19 +24,7 @@ export function AddTicketForm({
     email: '',
     showEmail: user ? false : true,
   };
-  //const [file, setFile] = React.useState("");
-  /*
-  // Handles file upload event and updates state
-  function handleUpload(event) {
-    console.log(event.target.files[0])
-    setFile(event.target.files[0]);
-    initialValues.file = event.target.files[0].name 
-    // Details of the uploaded file 
-    console.log(event.target.files[0]); 
-    console.log(initialValues); 
-    
-  }
-  */
+
   const schema = yup.object().shape({
     content: yup.string().required().label('Content'),
     title: yup.string().required().label('Title'),
@@ -105,9 +92,6 @@ export function AddTicketForm({
               id="file"
               name="file"
               label="File"
-              // onChange={(event) => {
-              //   handleFileUpload(event.currentTarget.files[0]);
-              // }}
             />
 
             <Button type="submit" className="mt2 mb3">

@@ -22,7 +22,6 @@ export function AddTicketTemplate({ isDone, error, onSubmit, handleFileUpload })
         successMessage={isDone}
         onSubmit={onSubmit}
         className="mt3"
-        handleFileUpload = {handleFileUpload}
       />
     </>
   );

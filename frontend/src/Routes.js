@@ -9,11 +9,11 @@ import { SignUpPage } from 'src/pages/SignUpPage';
 import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 import { AddCommunityPage } from 'src/pages/AddCommunityPage';
 import { EditCommunityPage } from './pages/EditCommunityPage';
-import { CommunityDetail } from 'src/pages/CommunityDetail';
+import { CommunityDetail } from 'src/pages/CommunityDetailPage';
 import { TopNavigation } from './organisms';
-import { AddTicket } from './pages/AddTicket';
-import { ListOfTickets } from './pages/ListOfTickets';
-import { Communities } from './pages/Communities';
+import { AddTicket } from './pages/AddTicketPage';
+import { ListOfTickets } from './pages/ListOfTicketsPage';
+import { Communities } from './pages/CommunitiesPage';
 
 const communityDetail = () => `/community-detail/:communityId`;
 
