@@ -11,6 +11,7 @@ import {
   CardColumns,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../utils/auth';
 
 const COMMUNITY_LIST_QUERY = gql`
   query Communities {
@@ -23,11 +24,37 @@ const COMMUNITY_LIST_QUERY = gql`
   }
 `;
 
+const USER_ACCESSIBLE_COMMUNITIES = gql`
+  query UserAccessibleCommunities($userId: Int!) {
+    communitiesAccessibleToUserIds(userId: $userId)
+  }
+`;
+
+
 export const Communities = () => {
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const [isMember] = useState(false);
+  const user = useAuth()
+  var userId = user.user?.user_id
+
+  // if (userId == null) {
+  //   userId = 25
+  // }
+
+  const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
+    variables: { userId }
+  });
+  console.log("User id: ", userId)
+
+  console.log("Communities accessible to user:", communitiesAccessibleToUser)
+
+  console.log("Hey", communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds)
+
+  function isMemberCheck(commId) {
+    return !!communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds.includes(commId);
+  }
 
   const communities = communitiesState.data?.communities;
+
 
   const history = useHistory();
 
@@ -39,12 +66,11 @@ export const Communities = () => {
         </Spinner>
       )}
       {!communitiesState.loading && (
+          
         <div>
           <Container fluid className="container-header">
             <Row margin="50px">
-              <Col align="left">
-                <h1>Communities</h1>
-              </Col>
+              <Col align="left"><h1>Communities</h1></Col>  
               <Col align="right">
                 <Button
                   variant="success"
@@ -60,6 +86,7 @@ export const Communities = () => {
             <Row>
               <CardColumns>
                 {communities.map((item) => (
+
                   <Card style={{ width: '100%' }} key={item.community_id}>
                     <Card.Img
                       variant="top"
@@ -68,25 +95,22 @@ export const Communities = () => {
                     <Card.Body>
                       <h3>{item.name}</h3>
                       <Card.Text>{item.description}</Card.Text>
-                      {item.closed && !isMember && (
+                      {item.closed && !isMemberCheck(item.community_id) && (
                         <Button
                           variant="danger"
-                          onClick={() => toast.info('Your request was sended')}
-                        >
+                          onClick={() => toast.info('Your request was sent')}
+                      >
                           JOIN
                         </Button>
                       )}
-                      {!item.closed && (
-                        <Button
+                      { console.log(((!item.closed) || (item.closed && isMemberCheck(item.community_id))), "condition log", item.name) }
+                      {((!item.closed) || (item.closed && isMemberCheck(item.community_id))) && (
+                      <Button
                           variant="success"
-                          onClick={() =>
-                            history.push(
-                              `community-detail/${item.community_id}`,
-                            )
-                          }
-                        >
+                          onClick={() => history.push(`community-detail/${item.community_id}`)}
+                      >
                           OPEN
-                        </Button>
+                      </Button>
                       )}
                     </Card.Body>
                   </Card>
@@ -97,5 +121,5 @@ export const Communities = () => {
         </div>
       )}
     </div>
-  );
+  )
 };

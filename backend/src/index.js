@@ -87,6 +87,7 @@ const typeDefs = gql`
     ): ChangePasswordRequest
     communities: [Community]
     community(communityId: Int!): Community
+    communitiesAccessibleToUserIds(userId: Int!): [Int]
     tickets: [Ticket!]
     ticket(ticketId: Int!): Ticket!
     communityTickets(communityId: Int!): [Ticket!]

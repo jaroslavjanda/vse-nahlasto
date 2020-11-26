@@ -57,3 +57,29 @@ export const communityOwnerId = async (
 
   return owner.user_id;
 };
+
+/**
+ * Returns list of community ids where current user is member.
+ * @param _
+ * @param userId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const communitiesAccessibleToUserIds = async (_, { userId }, { dbConnection }) => {
+  const idsArrayObject = (await dbConnection.query(
+    // TODO solve 'accepted'
+      `SELECT community_id FROM membership WHERE user_id = ?`,
+      [userId],
+    )
+  );
+
+  const idsArrayInt = []
+  idsArrayObject.forEach(convertObjectsToInts)
+
+  function convertObjectsToInts(item, index) {
+    console.log("Item value:",item.community_id)
+    idsArrayInt[index] = item.community_id
+  }
+
+  return idsArrayInt;
+};
