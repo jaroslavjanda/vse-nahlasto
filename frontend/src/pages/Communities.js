@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { toast } from 'react-toastify';
 import {
@@ -30,32 +29,22 @@ const USER_ACCESSIBLE_COMMUNITIES = gql`
   }
 `;
 
-
 export const Communities = () => {
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
   const user = useAuth()
   var userId = user.user?.user_id
-
-  // if (userId == null) {
-  //   userId = 25
-  // }
+  if (userId == null)
+    userId = 0
 
   const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
     variables: { userId }
   });
-  console.log("User id: ", userId)
-
-  console.log("Communities accessible to user:", communitiesAccessibleToUser)
-
-  console.log("Hey", communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds)
 
   function isMemberCheck(commId) {
     return !!communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds.includes(commId);
   }
 
   const communities = communitiesState.data?.communities;
-
-
   const history = useHistory();
 
   return (
@@ -103,7 +92,6 @@ export const Communities = () => {
                           JOIN
                         </Button>
                       )}
-                      { console.log(((!item.closed) || (item.closed && isMemberCheck(item.community_id))), "condition log", item.name) }
                       {((!item.closed) || (item.closed && isMemberCheck(item.community_id))) && (
                       <Button
                           variant="success"
