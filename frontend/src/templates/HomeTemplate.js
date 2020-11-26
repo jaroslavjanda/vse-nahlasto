@@ -20,7 +20,7 @@ import {
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export function HomeTemplate({ data, quackFormState, currentUser }) {
+export function HomeTemplate() {
   return (
     <>
       <Jumbotron className="cover">
@@ -294,12 +294,6 @@ export function HomeTemplate({ data, quackFormState, currentUser }) {
       </Jumbotron>
 
       <Footer />
-      {currentUser && <QuackForm {...quackFormState} />}
-      {data && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
-      )}
     </>
   );
 }

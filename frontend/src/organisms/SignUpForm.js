@@ -53,7 +53,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
         <FormikField
           id="name"
           name="name"
-          label="Name"
+          label="Jméno"
           type="text"
           autoFocus="autofocus"
           autoComplete="on"
@@ -63,7 +63,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
         <FormikField
           id="surname"
           name="surname"
-          label="Surname"
+          label="Příjmení"
           type="text"
           autoComplete="on"
           autoCorrect="off"
@@ -82,7 +82,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
         <FormikField
           id="password"
           name="password"
-          label="Password"
+          label="Heslo"
           type="password"
           autoComplete="off"
           autoCorrect="off"
@@ -91,32 +91,36 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
         <FormikField
           id="passwordConfirmation"
           name="passwordConfirmation"
-          label="Password Confirmation"
+          label="Potvrzení hesla"
           type="password"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
         />
         <FormGroup>
-          <Field
-            type="checkbox"
-            id="checkboxAcceptTerms"
-            name="checkboxAcceptTerms"
-            className={'form-check-input'}
-          />
-          <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-            Vše příjmout 
-          </label>
-          <ErrorMessage
-            name="checkboxAcceptTerms"
-            component="div"
-            className="mb1 f6 dark-red f5"
-          />
+          <div style={{marginLeft:"20px"}}>
+            <Field
+              type="checkbox"
+              id="checkboxAcceptTerms"
+              name="checkboxAcceptTerms"
+              className={'form-check-input'}
+            />
+            <label htmlFor="checkboxAcceptTerms" className="form-check-label">
+              Vše příjmout 
+            </label>
+            <ErrorMessage
+              name="checkboxAcceptTerms"
+              component="div"
+              className="mb1 f6 dark-red f5"
+            />
+          </div>
         </FormGroup>
-        <Button type="submit" variant="success" size="lg">
-          Registrovat se
-        </Button>
-        {children}
+        <div style={{textAlign:"right"}}>
+          <Button type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+            Registrovat se
+          </Button>
+          {children}
+        </div>
       </Form>
     </Formik>
   );

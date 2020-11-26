@@ -39,32 +39,36 @@ export function ForgottenPasswordPage() {
   });
 
   return (
-    <Formik
-      onSubmit={handleChangePasswordRequest}
-      initialValues={initialValues}
-      validationSchema={schema}
-      validateOnBlur={false}
-    >
-      <Form className={'mt3'}>
-        {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
-        {resetPasswordRequestState.data && (
-          <SuccessBanner title={'Email has been sent.'} className="mb3" />
-        )}
-        <FormikField
-          id="email"
-          name="email"
-          label="Email"
-          type="email"
-          placeholder="e.g. john@doe.com"
-          autoFocus="autofocus"
-          autoComplete="on"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
-        <Button type="submit" className="mt2 mb3">
-          Odeslat žádost
-        </Button>
-      </Form>
-    </Formik>
+    <div className="mw6 center">
+      <Formik
+        onSubmit={handleChangePasswordRequest}
+        initialValues={initialValues}
+        validationSchema={schema}
+        validateOnBlur={false}
+      >
+        <Form className={'mt3'}>
+          {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
+          {resetPasswordRequestState.data && (
+            <SuccessBanner title={'Email byl odeslán.'} className="mb3" />
+          )}
+          <FormikField
+            id="email"
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="e.g. john@doe.com"
+            autoFocus="autofocus"
+            autoComplete="on"
+            autoCorrect="off"
+            autoCapitalize="off"
+          />
+          <div style={{textAlign:"right"}}>
+            <Button type="submit" className="mt2 mb3">
+              Odeslat žádost
+            </Button>
+          </div>
+        </Form>
+      </Formik>
+      </div>
   );
 }

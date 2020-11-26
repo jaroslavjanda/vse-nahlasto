@@ -46,17 +46,19 @@ export function SignInForm({
         <FormikField
           id="password"
           name="password"
-          label="Password"
+          label="Heslo"
           type="password"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
         />
 
-        <Button type="submit" variant="success" size="lg">
-          Přihlásit se
-        </Button>
-        {children}
+        <div style={{textAlign:"right"}}>
+          <Button type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+            Přihlásit se
+          </Button>
+          {children}
+        </div>
       </Form>
     </Formik>
   );

@@ -15,7 +15,7 @@ export function AddTicketTemplate({ isDone, error, onSubmit }) {
   }
 
   return (
-    <>
+    <div className="mw6 center">
       <Heading>Přidat ticket</Heading>
       <AddTicketForm
         errorMessage={error && error.message}
@@ -23,6 +23,6 @@ export function AddTicketTemplate({ isDone, error, onSubmit }) {
         onSubmit={onSubmit}
         className="mt3"
       />
-    </>
+    </div>
   );
 }
