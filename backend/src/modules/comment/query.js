@@ -35,7 +35,7 @@ export const comment = async (_, { commentId }, { dbConnection }) => {
  * @param ticketId
  * @returns {Promise<*>}
  */
-export const ticketComments = async (_, { ticketId }, { dbConnection }) => {
+export const ticketComment = async (_, { ticketId }, { dbConnection }) => {
   const comment = await dbConnection.query(
     `SELECT comment_id, date, content, user_id, ticket_id
       FROM \`comment\`

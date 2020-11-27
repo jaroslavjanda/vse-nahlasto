@@ -45,8 +45,8 @@ const typeDefs = gql`
     date: String!
     content: String!
     closed: Boolean!
-    user_id: Int
-    user: User!
+    user_id: Int!
+    user: [User!]
     ticket_id: Int!
   }
 
@@ -105,7 +105,7 @@ const typeDefs = gql`
     communityMembersIds(communityId: Int!): [Int]
     comments: [Comment!]
     comment(commentId: Int!): [Comment!]
-    ticketComments(ticketId: Int!): [Comment!]
+    ticketComment(ticketId: Int!): [Comment!]
   }
 
   type Mutation {

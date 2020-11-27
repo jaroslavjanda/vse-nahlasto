@@ -78,7 +78,7 @@ export default {
         `SELECT user_id, name, surname, email FROM user 
         WHERE user_id = ?`,
         [parent.user_id],
-      )[0];
+      );
     },
   },
   Community: {
