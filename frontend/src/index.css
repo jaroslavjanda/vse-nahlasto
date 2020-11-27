@@ -46,6 +46,16 @@ code {
   margin: 10px;
 }
 
+.active_link {
+  border-top:5px solid #76a8d3;
+  margin-top: -10px;
+  padding-top: 21px;
+  
+}
+.link {
+  outline: none !important;
+}
+
 @media screen and (max-width: 1000px) {
   .container-header .row .col {
     text-align: center;
