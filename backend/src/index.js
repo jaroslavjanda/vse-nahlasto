@@ -45,8 +45,8 @@ const typeDefs = gql`
     date: String!
     content: String!
     closed: Boolean!
-    user_id: Int!
-    user: [User!]!
+    user_id: Int
+    user: User!
     ticket_id: Int!
   }
 
