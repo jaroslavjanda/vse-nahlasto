@@ -3,16 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
-export const UserImageAndName = (user) => {
+export const Comment = (user, comment) => {
   return (
     <Row>
       <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
         <FontAwesomeIcon icon={faUserCircle} />
       </Col>
+      <Col style={{ textAlign: 'left' }}>
+        <Col style={{ textAlign: 'left' }}>{user.user.name} {user.user.surname}</Col>
+        <p style={{ textAlign: 'left', marginTop: '5px' }}>
 
-      {/*TODO Umoznit vypis jmena a prijmeni prihlaseneho uzivatele*/}
+          {console.log(comment)}
 
-      <Col style={{ textAlign: 'left' }}>{user.user.email}</Col>
+          {/*{comment.content.content}*/}
+        </p>
+      </Col>
     </Row>
   )
 }

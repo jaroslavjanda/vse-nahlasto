@@ -1,7 +1,7 @@
 import { Container, Image } from 'react-bootstrap';
 import React from 'react';
 
-export const TicketComment = ({ ticketTitle, ticketContent }) => {
+export const CommentContent = ({ ticketTitle, ticketContent }) => {
   return (
     <Container fluid>
       <h1>{ticketTitle}</h1>
