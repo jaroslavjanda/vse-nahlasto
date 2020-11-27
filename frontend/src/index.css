@@ -52,10 +52,12 @@ code {
   padding-top: 21px;
   
 }
+.not-active{
+  border:none
+}
 .link {
   outline: none !important;
 }
-
 @media screen and (max-width: 1000px) {
   .container-header .row .col {
     text-align: center;
