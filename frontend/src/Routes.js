@@ -1,19 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { AboutPage } from './pages/AboutPage';
-import { AddCommunityPage } from './pages/AddCommunityPage';
-import { AddTicket } from './pages/AddTicket';
-import { Communities } from './pages/Communities';
-import { CommunityDetail } from './pages/CommunityDetail';
+import { AboutPage } from 'src/pages/AboutPage';
+import { AddCommunityPage } from 'src/pages/AddCommunityPage';
+import { AddTicket } from './pages/AddTicketPage';
+import { Communities } from './pages/CommunitiesPage';
+import { CommunityDetail } from 'src/pages/CommunityDetailPage';
 import { EditCommunityPage } from './pages/EditCommunityPage';
 import { ForgottenPasswordPage } from './pages/ForgottenPasswordPage';
-import { HomePage } from './pages/HomePage';
-import { ListOfTickets } from './pages/ListOfTickets';
-import { PageNotFound } from './pages/PageNotFound';
-import { PasswordResetPage } from './pages/PasswordResetPage';
-import { SignInPage } from './pages/SignInPage';
-import { SignUpPage } from './pages/SignUpPage';
+import { HomePage } from 'src/pages/HomePage';
+import { ListOfTickets } from './pages/ListOfTicketsPage';
+import { PageNotFound } from 'src/pages/PageNotFound';
+import { PasswordResetPage } from 'src/pages/PasswordResetPage';
+import { SignInPage } from 'src/pages/SignInPage';
+import { SignUpPage } from 'src/pages/SignUpPage';
 import { TicketDetail } from './pages/TicketDetail';
 import { TopNavigation } from './organisms';
 

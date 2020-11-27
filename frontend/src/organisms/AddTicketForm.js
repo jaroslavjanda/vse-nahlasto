@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
+import { Row, Col } from 'react-bootstrap';
 import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
@@ -43,51 +44,62 @@ export function AddTicketForm({
       validationSchema={schema}
       validateOnBlur={false}
     >
-      <Form className={className}>
-        {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
-        {successMessage && (
-          <SuccessBanner title={'Ticket has been sent'} className="mb3" />
-        )}
-        <FormikField
-          id="title"
-          name="title"
-          label="Title"
-          type="text"
-          placeholder="What's wrong?"
-          autoFocus="autofocus"
-          autoComplete="on"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
-        {!user && (
-          <FormikField
-            id="email"
-            name="email"
-            label="Email"
-            type="text"
-            rows={3}
-            placeholder="Describe your problem further"
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-          />
-        )}
-        <FormikTextArea
-          id="content"
-          name="content"
-          label="Content"
-          type="textArea"
-          rows={3}
-          placeholder="Describe your problem further"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
-        <FormikFile id="file" name="file" label="File" />
-        <Button type="submit" className="mt2 mb3">
-          Confirm request
-        </Button>
-      </Form>
+      <Row>
+        <Col>
+          <Form className={className}>
+            {errorMessage && (
+              <ErrorBanner title={errorMessage} className="mb3" />
+            )}
+            {successMessage && (
+              <SuccessBanner title={'Ticket has been sent'} className="mb3" />
+            )}
+            <FormikField
+              id="title"
+              name="title"
+              label="Title"
+              type="text"
+              placeholder="What's wrong?"
+              autoFocus="autofocus"
+              autoComplete="on"
+              autoCorrect="off"
+              autoCapitalize="off"
+            />
+            {!user && (
+              <FormikField
+                id="email"
+                name="email"
+                label="Email"
+                type="text"
+                rows={3}
+                placeholder="Describe your problem further"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+              />
+            )}
+            <FormikTextArea
+              id="content"
+              name="content"
+              label="Content"
+              type="textArea"
+              rows={3}
+              placeholder="Describe your problem further"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+            />
+            <FormikFile
+              id="file"
+              name="file"
+              label="File"
+            />
+
+            <Button type="submit" className="mt2 mb3">
+              Confirm request
+            </Button>
+          </Form>
+        </Col>
+      </Row>
     </Formik>
   );
 }
