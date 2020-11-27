@@ -1,10 +1,12 @@
-import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { Col, Container, Form, Image, Row, Spinner } from 'react-bootstrap';
-import { Button } from '../atoms';
-import { toast } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import React from 'react'
+import { useQuery, gql } from '@apollo/client'
+import { Col, Container, Form, Row, Spinner } from 'react-bootstrap'
+import { Button } from '../atoms'
+import { toast } from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { useAuth } from '../utils/auth'
+import { TicketComment } from '../molecules'
 
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {
@@ -17,15 +19,37 @@ const TICKET_DETAIL_QUERY = gql`
       content
     }
   }
-`;
+`
+
+const COMMENT_QUERY = gql`
+  query Comment($tickedId: Int!) {
+    ticketComments(ticketId: $tickedId) {
+      content
+      user {
+        name
+        surname
+      }
+    }
+  }
+`
+
+// const UPLOAD_COMMENT = gql`
+// mutation CommentUpload($comment: )
+// `
 
 export const TicketDetail = ({ match }) => {
-  const ticketId = parseInt(match.params.ticketId);
-  const ticketState = useQuery(TICKET_DETAIL_QUERY, {
-    variables: { ticketId },
-  });
 
-  const ticket = ticketState.data?.ticket;
+  const ticketId = parseInt(match.params.ticketId)
+  const ticketState = useQuery(TICKET_DETAIL_QUERY, { variables: { ticketId } })
+  const ticket = ticketState.data?.ticket
+
+  const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId: 1 } })
+  console.log(commentState)
+  const comment = commentState.data?.comment
+
+
+  // const auth = useAuth()
+
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -36,18 +60,22 @@ export const TicketDetail = ({ match }) => {
       )}
       {!ticketState.loading && (
         <div>
-          <Container fluid>
-            <h1>{ticket?.title}</h1>
-            <p align="left">{ticket?.content}</p>
-            <Image src="https://picsum.photos/1080/720" />
-          </Container>
+
+          <h1>{comment.content}</h1>
+
+          <TicketComment
+            ticketTitle={ticket?.title}
+            ticketContent={ticket?.content}
+          />
 
           <Container className="mt-2">
             <Row>
               <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
                 <FontAwesomeIcon icon={faUserCircle} />
               </Col>
-              <Col style={{ textAlign: 'left' }}>Jméno Příjmení</Col>
+
+              {console.log(comment?.content)}
+              <Col style={{ textAlign: 'left' }}>{comment?.date}</Col>
             </Row>
 
             <Form>
@@ -107,5 +135,5 @@ export const TicketDetail = ({ match }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}

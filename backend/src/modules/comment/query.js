@@ -30,17 +30,18 @@ export const comment = async (_, { commentId }, { dbConnection }) => {
 };
 
 /**
- * Returns all comments based on communityId.
+ * Returns all comments based on ticketId.
  * @param _
- * @param communityId
+ * @param ticketId
  * @returns {Promise<*>}
  */
-export const ticketComments = async (_, { communityId }, { dbConnection }) => {
+export const ticketComments = async (_, { ticketId }, { dbConnection }) => {
+  console.log("kmnkjnbkb" + ticketId)
   const comment = await dbConnection.query(
     `SELECT comment_id, date, content, user_id, ticket_id
       FROM \`comment\`
       WHERE ticket_id = ?`,
-    [communityId],
+    [ticketId],
   );
-  return community;
+  return comment;
 };

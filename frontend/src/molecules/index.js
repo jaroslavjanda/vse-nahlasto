@@ -5,3 +5,5 @@ export { Quack } from './Quack';
 export { QuackForm } from './QuackForm';
 export { ReloadButton } from './ReloadButton';
 export { CommunityCards } from './CommunityCards';
+export { UserImageAndName } from './UserImageAndName';
+export { TicketComment } from './TicketComment';
