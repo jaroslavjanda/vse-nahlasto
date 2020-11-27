@@ -7,7 +7,7 @@ export function Loading() {
     <div className="center black-60">
       <div className="tc f4 pa4">
         <FontAwesomeIcon icon={faFeatherAlt} spin />
-        <div className="dib ml3">Loading...</div>
+        <div className="dib ml3">Načítání...</div>
       </div>
     </div>
   );

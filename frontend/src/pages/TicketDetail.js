@@ -31,7 +31,7 @@ export const TicketDetail = ({ match }) => {
     <div style={{ textAlign: 'center' }}>
       {ticketState.loading && (
         <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only">Načítání...</span>
         </Spinner>
       )}
       {!ticketState.loading && (
@@ -47,7 +47,7 @@ export const TicketDetail = ({ match }) => {
               <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
                 <FontAwesomeIcon icon={faUserCircle} />
               </Col>
-              <Col style={{ textAlign: 'left' }}>Name Surname</Col>
+              <Col style={{ textAlign: 'left' }}>Jméno Příjmení</Col>
             </Row>
 
             <Form>
@@ -62,9 +62,9 @@ export const TicketDetail = ({ match }) => {
                 className="pull-right"
                 // type="submit"
                 variant="success"
-                onClick={() => toast.success('Comment added.')}
+                onClick={() => toast.success('Komentář byl přidan.')}
               >
-                Submit
+                Podtvrdit
               </Button>
             </Form>
           </Container>
@@ -75,9 +75,9 @@ export const TicketDetail = ({ match }) => {
                 <FontAwesomeIcon icon={faUserCircle} />
               </Col>
               <Col style={{ textAlign: 'left' }}>
-                Name Surname
+                Jméno Příjmení
                 <p style={{ textAlign: 'left', marginTop: '5px' }}>
-                  Toto je jiz existujici komentar!
+                  Toto je již existující komentář!
                 </p>
               </Col>
             </Row>
@@ -89,7 +89,7 @@ export const TicketDetail = ({ match }) => {
                 <FontAwesomeIcon icon={faUserCircle} />
               </Col>
               <Col style={{ textAlign: 'left' }}>
-                Name Surname
+                Jméno Příjmení
                 <p style={{ textAlign: 'left', marginTop: '5px' }}>
                   Toto je již existující dlouhý komentář. Leave dead animals as
                   gifts sit in window and stare oooh, a bird, yum scoot butt on

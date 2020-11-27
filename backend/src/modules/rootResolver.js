@@ -44,13 +44,13 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, title, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+        `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
         COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
         FROM ticket 
         LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
         LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
         WHERE ticket.user_id = ?
-        GROUP BY ticket.ticket_id, title, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+        GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
         `,
         [parent.user_id],
       );
@@ -59,7 +59,7 @@ export default {
   Ticket: {
     async status(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT status_id, status FROM status
+        `SELECT status_id, status, code_class FROM status
         WHERE status_id = ?`,
         [parent.status_id],
       );
@@ -100,13 +100,13 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, title, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+        `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
         COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
         FROM ticket 
         LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
         LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
         WHERE ticket.community_id = ?
-        GROUP BY ticket.ticket_id, title, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+        GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
         `,
         [parent.community_id],
       );

@@ -53,7 +53,7 @@ const typeDefs = gql`
   type Ticket {
     ticket_id: Int!
     title: String!
-    image: String!
+    image: String
     content: String!
     date: Date!
     status_id: Int!
@@ -68,6 +68,7 @@ const typeDefs = gql`
   type Status {
     status_id: Int!
     status: String!
+    code_class: String!
   }
 
   type ChangePasswordRequest {

@@ -15,11 +15,12 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
     `SELECT * FROM user WHERE email = ?`,
     [email],
   );
+  console.log(dbResponse)
   const user = dbResponse[0];
-
+  console.log(user)
   //if user does not exists
   if (!user) {
-    throw Error('Unknown username.');
+    throw Error('Neznámý uživatel.');
   }
 
   if (await argon2.verify(user.password, password)) {
@@ -28,6 +29,9 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
       user: { ...user },
       token,
     };
+  }
+  else{
+    throw Error('Email nebo heslo je špatně zadané.');
   }
 };
 

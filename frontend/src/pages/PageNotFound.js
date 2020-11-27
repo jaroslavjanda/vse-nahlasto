@@ -8,7 +8,7 @@ export function PageNotFound() {
   return (
     <Placeholder title="Error 404">
       <p>
-        Page not found, please return to <Link to={route.home()}>Home</Link>.
+        Stránka nebyla nalezena, vraťte se prosím na <Link to={route.home()}>Domů</Link>.
       </p>
     </Placeholder>
   );

@@ -34,8 +34,7 @@ export function SignUpPage() {
   });
 
   const handleSignUpFormSubmit = useCallback(
-    (variables) => {
-      signupRequest({ variables });
+    (variables) => {signupRequest({ variables });
     },
     [signupRequest],
   );

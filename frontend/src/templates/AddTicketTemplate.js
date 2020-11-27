@@ -15,14 +15,14 @@ export function AddTicketTemplate({ isDone, error, onSubmit, handleFileUpload })
   }
 
   return (
-    <>
-      <Heading>Add ticket</Heading>
+    <div className="mw6 center">
+      <Heading>Přidat ticket</Heading>
       <AddTicketForm
         errorMessage={error && error.message}
         successMessage={isDone}
         onSubmit={onSubmit}
         className="mt3"
       />
-    </>
+    </div>
   );
 }

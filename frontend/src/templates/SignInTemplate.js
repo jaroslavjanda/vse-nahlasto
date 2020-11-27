@@ -6,8 +6,8 @@ import { route } from 'src/Routes';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
   return (
-    <>
-      <Heading>Sign In</Heading>
+    <div className="mw6 center">
+      <Heading>Přihlášení</Heading>
       <SignInForm
         isLoading={isLoading}
         errorMessage={error && error.message}
@@ -15,17 +15,17 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
         className="mt3"
       >
         <div className="lh-copy">
-          or{' '}
+          Nemáte účet? {' '}
           <Link className="f5 dark-green" to={route.signUp()}>
-            Sign Up
+            Registrujte se.
           </Link>
         </div>
         <div className="lh-copy">
           <Link className="f5 dark-green" to={route.forgottenPassword()}>
-            Forgotten password?
+            Zapomenuté heslo?
           </Link>
         </div>
       </SignInForm>
-    </>
+    </div>
   );
 }

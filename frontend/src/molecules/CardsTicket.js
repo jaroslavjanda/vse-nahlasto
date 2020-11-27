@@ -16,15 +16,16 @@ export const CardsTicket = ({
   const [enabled, setenabled] = useState(true);
   const { user } = useAuth();
   const history = useHistory();
-
+  const imgSrc = "https://picsum.photos/180/100";
+  //TODO: Prep for image showing
+  //const imgSrc = item.image? "http://dev.backend.team07.vse.handson.pro/uploads/tickets/"+item.image:"https://picsum.photos/180/100"
   return (
     <Card style={{ width: '100%' }} key={item.title}>
-      <Card.Img variant="top" src="https://picsum.photos/180/100" />
+      <Card.Img variant="top" src={imgSrc} />
       <Card.Header as="h5">
         <Row>
           <Col align="left">
             <Row className="card-header-items">
-              {console.log(item)}
               {user && user.user_id === communityOwner && (
                 <Button variant="danger" className="btn-sm">
                   <FontAwesomeIcon
@@ -50,7 +51,7 @@ export const CardsTicket = ({
           </Col>
           <Col>
             <Row align="right" style={{ display: 'block' }}>
-              <Badge variant="secondary">{item.status[0].status}</Badge>
+              <Badge variant={item.status[0].code_class}>{item.status[0].status}</Badge>
             </Row>
           </Col>
         </Row>
