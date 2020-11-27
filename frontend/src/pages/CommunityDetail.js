@@ -34,14 +34,21 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
-const MEMBERSHIP_QUERY = gql`
+const COMMUNITY_OWNER_ID = gql`
   query CommunityOwnerId($communityId: Int!) {
     communityOwnerId(communityId: $communityId)
   }
 `;
 
+const COMMUNITY_MEMBERS_IDS = gql`
+    query CommunityMembersIds($communityId: Int!) {
+      communityMembersIds(communityId: $communityId)
+    }
+`;
+
 export const CommunityDetail = ({ match }) => {
   const communityId = parseInt(match.params.communityId);
+
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
@@ -50,11 +57,24 @@ export const CommunityDetail = ({ match }) => {
 
   const userId = user?.user_id;
 
-  const communityOwnerId = useQuery(MEMBERSHIP_QUERY, {
+  const communityOwnerId = useQuery(COMMUNITY_OWNER_ID, {
     variables: { communityId },
   });
 
-  const [isMember, setIsMember] = useState(false);
+  const communityMembersIds = useQuery(COMMUNITY_MEMBERS_IDS, {
+    variables: { communityId },
+  });
+
+  console.log("Member ids:", communityMembersIds.data?.communityMembersIds)
+  console.log("Includes owner id:", !!communityMembersIds.data?.communityMembersIds.includes(userId))
+
+  function isUserAMember() {
+    return !!communityMembersIds.data?.communityMembersIds.includes(userId);
+  }
+
+  const [isMember, setIsMember] = useState(isUserAMember);
+
+  console.log("Is member:", isMember)
 
   const community = communityState.data?.community;
 
@@ -85,7 +105,7 @@ export const CommunityDetail = ({ match }) => {
                     Join here
                   </Button>
                 )}
-                {!community.closed && (
+                {isMember && (
                   <Link to={`/community-detail/${communityId}/add`}>
                     <Button variant="success">Add ticket</Button>
                   </Link>
@@ -116,7 +136,8 @@ export const CommunityDetail = ({ match }) => {
               />
             </div>
           )}
-          {!community.closed && isMember && (
+
+          { isMember && (
             <div>
               <Alert variant={'success'}>
                 <div>Welcome in {community.name} community.</div>
@@ -146,7 +167,8 @@ export const CommunityDetail = ({ match }) => {
               />
             </div>
           )}
-          {community.closed && (
+
+          {community.closed && !isMember && (
             <div>
               <Alert variant={'danger'}>
                 <div>Community {community.name} requires permission.</div>
@@ -154,7 +176,7 @@ export const CommunityDetail = ({ match }) => {
               </Alert>
               <Button
                 variant="danger"
-                onClick={() => toast.info('Your request was sended')}
+                onClick={() => toast.info('Your request was sent')}
               >
                 Ask for permission
               </Button>

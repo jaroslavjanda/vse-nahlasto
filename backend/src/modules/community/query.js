@@ -57,3 +57,63 @@ export const communityOwnerId = async (
 
   return owner.user_id;
 };
+
+/**
+ * Based on community_id returns array of Ids of all it's members.
+ * @param _
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<[]>}
+ */
+export const communityMembersIds = async (
+  _,
+  { communityId },
+  { dbConnection },
+) => {
+  const membersObjects = (
+    await dbConnection.query(
+      `SELECT user_id FROM membership WHERE community_id = ?`,
+      [communityId],
+    )
+  );
+
+  const idsArrayInt = [];
+  membersObjects.forEach(convertObjectsToInts);
+
+  function convertObjectsToInts(item, index) {
+    console.log('Item value:', item.user_id);
+    idsArrayInt[index] = item.user_id;
+  }
+
+  return idsArrayInt;
+};
+
+/**
+ * Returns list of community ids where current user is member.
+ * @param _
+ * @param userId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const communitiesAccessibleToUserIds = async (
+  _,
+  { userId },
+  { dbConnection }
+  ) => {
+  const idsArrayObject = (await dbConnection.query(
+      // TODO solve 'accepted'
+      `SELECT community_id FROM membership WHERE user_id = ?`,
+      [userId],
+    )
+  );
+
+  const idsArrayInt = [];
+  idsArrayObject.forEach(convertObjectsToInts);
+
+  function convertObjectsToInts(item, index) {
+    console.log('Item value:', item.community_id);
+    idsArrayInt[index] = item.community_id;
+  }
+
+  return idsArrayInt;
+};
