@@ -10,7 +10,7 @@ const ADD_TICKET_MUTATION = gql`
     $community_id: Int!
     $title: String!
     $content: String!
-    $image: String!
+    $image: Upload!
     $status: Int!
   ) {
     addTicket(
@@ -28,9 +28,7 @@ const ADD_TICKET_MUTATION = gql`
 
 const UPLOAD_MUTATION = gql`
   mutation SingleUpload($file: Upload!) {
-    singleUpload(file: $file) {
-      filename
-    }
+    singleUpload(file: $file) 
   }
 `;
 
@@ -52,7 +50,7 @@ export const AddTicket = ({ match }) => {
     },
   );
 
-  const [addFileRequest] = useMutation(UPLOAD_MUTATION);
+  //const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
@@ -61,14 +59,14 @@ export const AddTicket = ({ match }) => {
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: oldVariables.file.name,
+        image: oldVariables.file,
         status: 3,
       };
 
-      addFileRequest({ variables: { file: oldVariables.file } });
+      //addFileRequest({ variables: { file: oldVariables.file } });
       addTicketRequest({ variables });
     },
-    [addTicketRequest, addFileRequest],
+    [addTicketRequest],
   );
 
   return (

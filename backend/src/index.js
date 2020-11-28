@@ -15,12 +15,6 @@ const MOCKS = process.env.MOCKS === 'true';
 const typeDefs = gql`
   scalar Date
 
-  type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-  }
-
   type User {
     user_id: Int!
     name: String
@@ -87,7 +81,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    uploads: [File]
     users: [User!]!
     user(user_id: Int!): User
     changePasswordRequest(
@@ -109,9 +102,6 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    singleUploadStream(file: Upload!): File!
-    singleUpload(file: Upload!): File!
-
     signin(email: String!, password: String!): AuthInfo!
 
     signup(
@@ -138,7 +128,7 @@ const typeDefs = gql`
       community_id: Int!
       title: String!
       content: String!
-      image: String!
+      image: Upload
       status_id: Int!
     ): Ticket!
 

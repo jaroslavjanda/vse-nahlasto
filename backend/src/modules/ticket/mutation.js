@@ -1,3 +1,4 @@
+import { singleUpload } from '../helpers/upload/imageUpload';
 /**
  * Adding ticket to the community
  * @param _
@@ -14,26 +15,31 @@ export const addTicket = async (
   { user_id, title, image, community_id, content, status_id },
   { dbConnection },
 ) => {
-  const dbResponse = await dbConnection.query(
-    `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
-    VALUES (?, ?, ?, ?, ?, ?);`,
-    [user_id, title, image, community_id, content, status_id],
-  );
-
-  const ticket = (
-    await dbConnection.query(
-      `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
-      COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
-      FROM ticket 
-      LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-      LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-      WHERE ticket.ticket_id = ?
-      GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
-      [dbResponse.insertId],
-    )
-  )[0];
-
-  return ticket;
+  console.log("hiiii")
+  if(image){
+    console.log("ffffff")
+    const imgPath = (await singleUpload({"file":image}))
+    const dbResponse = await dbConnection.query(
+      `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
+      VALUES (?, ?, ?, ?, ?, ?);`,
+      [user_id, title, imgPath, community_id, content, status_id],
+    );
+    console.log("hiiiddsši")
+    const ticket = (
+      await dbConnection.query(
+        `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+        COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+        FROM ticket 
+        LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
+        LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
+        WHERE ticket.ticket_id = ?
+        GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+        [dbResponse.insertId],
+      )
+    )[0];
+  
+    return ticket;
+  }
 };
 
 /**

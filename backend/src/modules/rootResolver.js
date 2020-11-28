@@ -11,10 +11,6 @@ import {
   queries as CommentQueries,
   mutations as CommentMutations,
 } from './comment';
-import {
-  queries as UploadQueries,
-  mutations as UploadMutations,
-} from './upload';
 
 const { GraphQLScalarType } = require('graphql');
 
@@ -24,14 +20,12 @@ export default {
     ...CommunityQueries,
     ...TicketQueries,
     ...CommentQueries,
-    ...UploadQueries,
   },
   Mutation: {
     ...UserMutations,
     ...CommunityMutations,
     ...TicketMutations,
     ...CommentMutations,
-    ...UploadMutations,
   },
   User: {
     async communities(parent, _, { dbConnection }) {
