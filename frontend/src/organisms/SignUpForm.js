@@ -106,7 +106,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
               className={'form-check-input'}
             />
             <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-              Vše příjmout 
+              Vše přijmout 
             </label>
             <ErrorMessage
               name="checkboxAcceptTerms"
@@ -116,7 +116,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           </div>
         </FormGroup>
         <div style={{textAlign:"right"}}>
-          <Button type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+          <Button className="homepageButton" variant="success" size="lg" style={{marginBottom:"10px"}}>
             Registrovat se
           </Button>
           {children}

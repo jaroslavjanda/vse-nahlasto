@@ -96,6 +96,11 @@ code {
   color: #76a8d3 !important;
 }
 
+.card-columns {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 /* Homepage */
 .jumbotron {
   margin: -1rem;
@@ -111,7 +116,7 @@ code {
   background-image: url('src/images/background.png');
   background-size: cover !important;
   background-repeat: repeat;
-  height: 100vh;
+  height: 80vh;
 }
 
 @media screen and (max-width: 900px) {
@@ -264,6 +269,6 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15% 10%;
+  padding: 10% 10%;
 }
 /* Homepage */

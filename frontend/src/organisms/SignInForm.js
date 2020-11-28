@@ -54,7 +54,7 @@ export function SignInForm({
         />
 
         <div style={{textAlign:"right"}}>
-          <Button type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+          <Button className="homepageButton" variant="success" size="lg" style={{marginBottom:"10px"}}>
             Přihlásit se
           </Button>
           {children}
