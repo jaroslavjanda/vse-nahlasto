@@ -1,3 +1,4 @@
+import React from 'react';
 import { Footer } from 'src/atoms/';
 import icon1 from 'src/images/icon1.PNG';
 import icon2 from 'src/images/icon2.PNG';
@@ -5,8 +6,11 @@ import icon3 from 'src/images/icon3.PNG';
 import mobile from 'src/images/mobile.jpg';
 import testimonial from 'src/images/testimonial1.jpg';
 import testimonial2 from 'src/images/testimonial2.jpg';
+import { CommunityCardsHomepage } from 'src/molecules/';
+import { useHistory } from 'react-router-dom';
+import { route } from 'src/Routes';
+import { Link } from 'src/atoms/';
 
-import React from 'react';
 import {
   Jumbotron,
   Button,
@@ -20,7 +24,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'src/templates/Homepage.css';
 
-export function HomeTemplate() {
+export function HomeTemplate({
+  communitiesHomepage,
+  isMember,
+}) {
+  const history = useHistory();
   return (
     <>
       <Jumbotron className="cover">
@@ -31,13 +39,11 @@ export function HomeTemplate() {
               <br />
               &#9745;
             </h1>
-            <a
-              href="mailto:tym7nahlasto@gmail.com"
-              rel="noreferrer"
-              target="_blank"
+            <Link
+              to={route.signUp()}
             >
               <Button className="homepageButton">To chci</Button>
-            </a>
+            </Link>
           </div>
         </Container>
       </Jumbotron>
@@ -132,6 +138,70 @@ export function HomeTemplate() {
       </Jumbotron>
 
       <Jumbotron className="jumbotronWhite">
+        <h2>Prozkoumejte komunity</h2>
+        <Container>
+          <CommunityCardsHomepage communitiesHomepage={communitiesHomepage} isMember={isMember}/>
+        </Container>
+      </Jumbotron>
+
+      <Jumbotron className="jumbotronBlue">
+        <div className="text-center">
+          <h2>Recenze</h2>
+        </div>
+        <Container>
+          <CardDeck>
+            <Row>
+              <Col lg={6} sm={6}>
+                <Card>
+                  <Card.Body>
+                    <Card.Text className="testimonial">
+                      "Nahlaš.To používám v práci téměř každý den."
+                    </Card.Text>
+                    <div className="avatar-author">
+                      <img
+                        alt="uživatel"
+                        className="avatar"
+                        src={testimonial}
+                      />
+                      <div className="ml-2">
+                        <h6>
+                          zaměstnankyně <br />
+                          korporátu
+                        </h6>
+                      </div>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col lg={6} sm={6}>
+                <Card>
+                  <Card.Body>
+                    <Card.Text className="testimonial">
+                      "Když se něco rozbije u nás v bytovce, snadno to
+                      nahlásím."
+                    </Card.Text>
+                    <div className="avatar-author">
+                      <img
+                        alt="uživatel"
+                        className="avatar"
+                        src={testimonial2}
+                      />
+                      <div className="ml-2">
+                        <h6>
+                          běžný <br />
+                          uživatel
+                        </h6>
+                      </div>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </CardDeck>
+        </Container>
+      </Jumbotron>
+
+      <Jumbotron className="jumbotronWhite">
         <h2>Ceník</h2>
         <CardDeck>
           <Card>
@@ -220,75 +290,16 @@ export function HomeTemplate() {
       </Jumbotron>
 
       <Jumbotron className="jumbotronBlue">
-        <div className="text-center">
-          <h2>Recenze</h2>
-        </div>
-        <Container>
-          <CardDeck>
-            <Row>
-              <Col lg={6} sm={6}>
-                <Card>
-                  <Card.Body>
-                    <Card.Text className="testimonial">
-                      "Nahlaš.To používám v práci téměř každý den."
-                    </Card.Text>
-                    <div className="avatar-author">
-                      <img
-                        alt="uživatel"
-                        className="avatar"
-                        src={testimonial}
-                      />
-                      <div className="ml-2">
-                        <h6>
-                          zaměstnankyně <br />
-                          korporátu
-                        </h6>
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col lg={6} sm={6}>
-                <Card>
-                  <Card.Body>
-                    <Card.Text className="testimonial">
-                      "Když se něco rozbije u nás v bytovce, snadno to
-                      nahlásím."
-                    </Card.Text>
-                    <div className="avatar-author">
-                      <img
-                        alt="uživatel"
-                        className="avatar"
-                        src={testimonial2}
-                      />
-                      <div className="ml-2">
-                        <h6>
-                          běžný <br />
-                          uživatel
-                        </h6>
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </CardDeck>
-        </Container>
-      </Jumbotron>
-
-      <Jumbotron className="jumbotronWhite">
         <Container>
           <div className="text-center">
             <h2>Zaujali jsme vás?</h2>
 
             <p>Pošlete nám mail a my se vám ozveme do 24 hodin.</p>
-            <a
-              href="mailto:tym7nahlasto@gmail.com"
-              rel="noreferrer"
-              target="_blank"
+            <Link
+              to={route.signUp()}
             >
               <Button className="homepageButton">Vyzkoušet Nahlaš.To</Button>
-            </a>
+            </Link>
           </div>
         </Container>
       </Jumbotron>

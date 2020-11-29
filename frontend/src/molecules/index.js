@@ -5,3 +5,4 @@ export { Quack } from './Quack';
 export { QuackForm } from './QuackForm';
 export { ReloadButton } from './ReloadButton';
 export { CommunityCards } from './CommunityCards';
+export { CommunityCardsHomepage } from './CommunityCardsHomepage';
