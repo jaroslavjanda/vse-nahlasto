@@ -16,12 +16,9 @@ export const CardsTicket = ({
   const [enabled, setenabled] = useState(true);
   const { user } = useAuth();
   const history = useHistory();
-  const imgSrc = "https://picsum.photos/180/100";
-  //TODO: Prep for image showing
-  //const imgSrc = item.image? "http://dev.backend.team07.vse.handson.pro/uploads/tickets/"+item.image:"https://picsum.photos/180/100"
   return (
-    <Card style={{ width: '100%' }} key={item.title}>
-      <Card.Img variant="top" src={imgSrc} />
+    <Card style={{ width: '100%' }} key={item.title} >
+      <Card.Img variant="top" src={imgPath("tickets",item.image)} />
       <Card.Header as="h5">
         <Row>
           <Col align="left">
@@ -59,15 +56,21 @@ export const CardsTicket = ({
       <Card.Body>
         <h3>{item.title}</h3>
         <Card.Text>{item.content}</Card.Text>
-        <Button
-          variant="success"
-          onClick={() => history.push(`/ticket-detail/${item.ticket_id}`)}
-        >
-          OPEN
-        </Button>
-        <div>
-          <div
-            onClick={() => {
+        
+        <Row>
+          <Col xs={2}>
+          </Col>
+          <Col xs={8}>
+            <Button
+              variant="success"
+              onClick={() => history.push(`/ticket-detail/${item.ticket_id}`)}
+            >
+              OPEN
+            </Button>
+          </Col>
+        
+          <Col xs={2}>
+            <div onClick={() => {
               if (user) {
                 if (enabled) {
                   setliked(liked + 1);
@@ -89,12 +92,16 @@ export const CardsTicket = ({
                   });
                 }
               }
-            }}
-          >
-            <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-            {liked}
-          </div>
-        </div>
+            }}  className="btn">
+              <div style={{display: "flex"}}>
+                <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
+              {liked}
+              </div>
+            
+            </div>
+            
+          </Col>
+        </Row>
       </Card.Body>
     </Card>
   );
