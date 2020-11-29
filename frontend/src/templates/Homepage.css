@@ -53,6 +53,11 @@
   color: white;
 }
 
+.price-list {
+  margin-left: 20vw !important;
+  margin-right: 20vw !important;
+}
+
 .card-body div {
   display: block;
 }
