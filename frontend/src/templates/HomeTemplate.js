@@ -5,10 +5,8 @@ import icon3 from 'src/images/icon3.PNG';
 import mobile from 'src/images/mobile.jpg';
 import testimonial from 'src/images/testimonial1.jpg';
 import testimonial2 from 'src/images/testimonial2.jpg';
-import { QuackForm } from 'src/molecules/';
 
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
 import {
   Jumbotron,
   Button,
@@ -19,6 +17,8 @@ import {
   Col,
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import 'src/templates/Homepage.css';
 
 export function HomeTemplate() {
   return (
