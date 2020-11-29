@@ -41,8 +41,6 @@ export const EditCommunityPage = ({ match }) => {
 
   const handleEditCommunityFormSubmit = useCallback(
     (variables) => {
-      console.log('Community is ' + variables.community_id);
-      console.log('Variables are ', variables);
       editCommunityRequest({
         variables: variables,
       });

@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 import { useAuth } from 'src/utils/auth';
+import { useHistory } from 'react-router-dom';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
@@ -25,9 +26,18 @@ const ADD_TICKET_MUTATION = gql`
   }
 `;
 
+const UPLOAD_MUTATION = gql`
+  mutation SingleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      filename
+    }
+  }
+`;
+
 export const AddTicket = ({ match }) => {
   const communityId = parseInt(match.params.communityId);
   const auth = useAuth();
+  const history = useHistory();
 
   const [addTicketRequest, addTicketRequestState] = useMutation(
     ADD_TICKET_MUTATION,
@@ -42,6 +52,8 @@ export const AddTicket = ({ match }) => {
     },
   );
 
+  const [addFileRequest] = useMutation(UPLOAD_MUTATION);
+
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
       const variables = {
@@ -49,15 +61,14 @@ export const AddTicket = ({ match }) => {
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: oldVariables.file.replace('C:\\fakepath\\', ''),
+        image: oldVariables.file.name,
         status: 3,
       };
 
-      console.log(variables);
-
+      addFileRequest({ variables: { file: oldVariables.file } });
       addTicketRequest({ variables });
     },
-    [addTicketRequest],
+    [addTicketRequest, addFileRequest],
   );
 
   return (

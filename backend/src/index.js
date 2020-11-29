@@ -1,6 +1,7 @@
 import dotenv from 'dotenv-flow';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 
 import { getConnection } from './libs/connection';
@@ -14,12 +15,20 @@ const MOCKS = process.env.MOCKS === 'true';
 
 const typeDefs = gql`
   scalar Date
+
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
+
   type User {
     user_id: Int!
     name: String
     surname: String!
     email: String!
     communities: [Community!]!
+    communitiesHomepage: [Community!]!
     tickets: [Ticket!]
   }
 
@@ -27,6 +36,7 @@ const typeDefs = gql`
     community_id: Int!
     name: String!
     description: String!
+    image: String
     closed: Boolean!
     owner: [User]
     users: [User!]!
@@ -80,6 +90,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    uploads: [File]
     users: [User!]!
     user(user_id: Int!): User
     changePasswordRequest(
@@ -87,18 +98,24 @@ const typeDefs = gql`
       code: Int!
     ): ChangePasswordRequest
     communities: [Community]
+    communitiesHomepage: [Community]
     community(communityId: Int!): Community
+    communitiesAccessibleToUserIds(userId: Int!): [Int]
     tickets: [Ticket!]
     ticket(ticketId: Int!): Ticket!
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
     communityOwnerId(communityId: Int!): Int!
+    communityMembersIds(communityId: Int!): [Int]
     comments: [Comment!]
     comment(commentId: Int!): [Comment!]
     ticketComments(ticketId: Int!): [Comment!]
   }
 
   type Mutation {
+    singleUploadStream(file: Upload!): File!
+    singleUpload(file: Upload!): File!
+
     signin(email: String!, password: String!): AuthInfo!
 
     signup(
@@ -112,6 +129,7 @@ const typeDefs = gql`
       name: String!
       description: String
       code: String
+      image: Upload
       closed: Boolean!
       ownerId: Int!
     ): Community!
@@ -129,7 +147,9 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
-    deleteTicket(userId: Int!, communityId: Int!, ticketId: Int!): Ticket!
+    addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
+
+    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
 
@@ -139,7 +159,7 @@ const typeDefs = gql`
 
 const main = async () => {
   const app = express();
-
+  
   app.disable('x-powered-by');
   app.use(cors());
 
@@ -164,7 +184,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
 
   const port = process.env.PORT || 4000;
-
+  app.use('/static',express.static('public/'));
   app.get('/', (_, res) => res.redirect('/graphql'));
 
   app.listen(port, () => {

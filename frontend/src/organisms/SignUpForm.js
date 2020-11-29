@@ -74,7 +74,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           name="email"
           label="Email"
           type="text"
-          placeholder="e.g. john@doe.com"
+          placeholder="např. jan@novak.cz"
           autoComplete="on"
           autoCorrect="off"
           autoCapitalize="off"
@@ -106,7 +106,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
               className={'form-check-input'}
             />
             <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-              Vše příjmout 
+              Vše přijmout 
             </label>
             <ErrorMessage
               name="checkboxAcceptTerms"
@@ -116,7 +116,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           </div>
         </FormGroup>
         <div style={{textAlign:"right"}}>
-          <Button type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+          <Button className="homepageButton" type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
             Registrovat se
           </Button>
           {children}

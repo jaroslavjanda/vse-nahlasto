@@ -9,7 +9,7 @@ export function NavLink({ className, ...rest }) {
     <Link
       as={RouterNavLink}
       className={classNames(className, 'f6 dib')}
-      activeClassName
+      activeClassName={'active_link'}
       noUnderline
       {...rest}
     />

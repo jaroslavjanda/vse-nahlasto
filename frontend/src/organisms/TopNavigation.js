@@ -48,8 +48,7 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
                   <NavLink
                     exact
                     to={route.home()}
-                    noUnderline
-                    className="ph3 pv1 h-100 flex items-center"
+                    className="ph3 pv1 h-100 flex items-center not-active"
                   >
                     {'Logged in as: '}
                     {user.email}

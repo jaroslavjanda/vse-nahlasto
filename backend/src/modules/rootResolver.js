@@ -11,6 +11,10 @@ import {
   queries as CommentQueries,
   mutations as CommentMutations,
 } from './comment';
+import {
+  queries as UploadQueries,
+  mutations as UploadMutations,
+} from './upload';
 
 const { GraphQLScalarType } = require('graphql');
 
@@ -20,14 +24,15 @@ export default {
     ...CommunityQueries,
     ...TicketQueries,
     ...CommentQueries,
+    ...UploadQueries,
   },
   Mutation: {
     ...UserMutations,
     ...CommunityMutations,
     ...TicketMutations,
     ...CommentMutations,
+    ...UploadMutations,
   },
-
   User: {
     async communities(parent, _, { dbConnection }) {
       return await dbConnection.query(
@@ -57,6 +62,22 @@ export default {
         `SELECT status_id, status, code_class FROM status
         WHERE status_id = ?`,
         [parent.status_id],
+      );
+    },
+    async comments(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT comment_id, date, content, user_id, ticket_id FROM comment
+        WHERE ticket_id = ?`,
+        [parent.ticket_id],
+      );
+    },
+  },
+  Comment: {
+    async user(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT user_id, name, surname, email FROM user 
+        WHERE user_id = ?`,
+        [parent.user_id],
       );
     },
   },
