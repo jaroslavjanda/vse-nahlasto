@@ -9,4 +9,4 @@ export { UserImageAndName } from './UserImageAndName';
 export { TicketDetailContent } from './TicketDetailContent';
 export { AddCommentForm } from './AddCommentForm';
 export { Comment } from './Comment'
-
+export { CommunityCardsHomepage } from './CommunityCardsHomepage';

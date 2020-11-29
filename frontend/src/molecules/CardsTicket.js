@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
+import { imgPath } from 'src/utils/imgPath'
 
 export const CardsTicket = ({
   item,
@@ -16,12 +17,9 @@ export const CardsTicket = ({
   const [enabled, setenabled] = useState(true);
   const { user } = useAuth();
   const history = useHistory();
-  const imgSrc = "https://picsum.photos/180/100";
-  //TODO: Prep for image showing
-  //const imgSrc = item.image? "http://dev.backend.team07.vse.handson.pro/uploads/tickets/"+item.image:"https://picsum.photos/180/100"
   return (
     <Card style={{ width: '100%' }} key={item.title}>
-      <Card.Img variant="top" src={imgSrc} />
+      <Card.Img variant="top" src={imgPath("tickets",item.image)} />
       <Card.Header as="h5">
         <Row>
           <Col align="left">

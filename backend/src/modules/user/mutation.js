@@ -15,9 +15,7 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
     `SELECT * FROM user WHERE email = ?`,
     [email],
   );
-  console.log(dbResponse)
   const user = dbResponse[0];
-  console.log(user)
   //if user does not exists
   if (!user) {
     throw Error('Neznámý uživatel.');

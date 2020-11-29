@@ -7,11 +7,32 @@
 export const communities = async (_, __, { dbConnection }) => {
   const communities = await dbConnection.query(
     `SELECT  
-    c.community_id, name, description, closed
+    c.community_id, name, description, image, closed
     FROM community as c`,
   );
 
   return communities;
+};
+
+/**
+ * Returns TOP 3 communities with the most tickets and are opened.
+ * @param _
+ * @param __
+ * @returns {Promise<*>}
+ */
+export const communitiesHomepage = async (_, __, { dbConnection }) => {
+  const communitiesHomepage = await dbConnection.query(
+    `SELECT  
+    c.community_id, c.name, c.description, c.image, c.closed, COUNT(ticket.community_id) as countID
+    FROM community as c
+    LEFT JOIN ticket on c.community_id = ticket.community_id
+    WHERE c.closed = '0'
+    GROUP BY  c.community_id, c.name, c.description, c.closed
+    ORDER BY countID DESC
+    LIMIT 3`, 
+  );
+
+  return communitiesHomepage;
 };
 
 /**
@@ -24,7 +45,7 @@ export const community = async (_, { communityId }, { dbConnection }) => {
   const community = (
     await dbConnection.query(
       `SELECT 
-      c.community_id, name, description, closed
+      c.community_id, name, description, image, closed
       FROM community as c
       WHERE c.community_id = ?`,
       [communityId],

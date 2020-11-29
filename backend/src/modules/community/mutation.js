@@ -18,8 +18,8 @@ export const addCommunity = async (
   // adds community to DB
   // TODO prevent creating communities with same name
   const addCommunityDbResponse = await dbConnection.query(
-    `INSERT INTO community (name, description, closed)
-    VALUES (?, ?, ?);`,
+    `INSERT INTO community (name, description, image, closed)
+    VALUES (?, ?, ?, ?);`,
     [name, description, closed],
   );
 

@@ -22,6 +22,13 @@ const ADD_COMMUNITY_MUTATION = gql`
   }
 `;
 
+const UPLOAD_MUTATION = gql`
+  mutation SingleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      filename
+    }
+  }
+`;
 export const AddCommunityPage = () => {
   const { user } = useAuth();
 
@@ -38,15 +45,17 @@ export const AddCommunityPage = () => {
       },
     },
   );
+  const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddCommunityFormSubmit = useCallback(
     (variables) => {
-      console.log('User is ' + variables.owner_id);
+
+      addFileRequest({ variables: { file: variables.file } });
       addCommunityRequest({
         variables: variables,
       });
     },
-    [addCommunityRequest],
+    [addCommunityRequest, addFileRequest],
   );
 
   if (user != null) {

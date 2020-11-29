@@ -1,6 +1,7 @@
 import dotenv from 'dotenv-flow';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 
 import { getConnection } from './libs/connection';
@@ -27,6 +28,7 @@ const typeDefs = gql`
     surname: String!
     email: String!
     communities: [Community!]!
+    communitiesHomepage: [Community!]!
     tickets: [Ticket!]
   }
 
@@ -34,6 +36,7 @@ const typeDefs = gql`
     community_id: Int!
     name: String!
     description: String!
+    image: String
     closed: Boolean!
     owner: [User]
     users: [User!]!
@@ -97,6 +100,7 @@ const typeDefs = gql`
       code: Int!
     ): ChangePasswordRequest
     communities: [Community]
+    communitiesHomepage: [Community]
     community(communityId: Int!): Community
     communitiesAccessibleToUserIds(userId: Int!): [Int]
     tickets: [Ticket!]
@@ -127,6 +131,7 @@ const typeDefs = gql`
       name: String!
       description: String
       code: String
+      image: Upload
       closed: Boolean!
       ownerId: Int!
     ): Community!
@@ -156,7 +161,7 @@ const typeDefs = gql`
 
 const main = async () => {
   const app = express();
-
+  
   app.disable('x-powered-by');
   app.use(cors());
 
@@ -181,7 +186,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
 
   const port = process.env.PORT || 4000;
-
+  app.use('/static',express.static('public/'));
   app.get('/', (_, res) => res.redirect('/graphql'));
 
   app.listen(port, () => {
