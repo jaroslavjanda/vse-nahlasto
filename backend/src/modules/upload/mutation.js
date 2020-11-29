@@ -38,7 +38,5 @@ export const singleUploadStream = async (_, { args }, { dbConnection }) => {
   };
   const result = await s3.upload(uploadParams).promise();
 
-  console.log(result);
-
   return file;
 };

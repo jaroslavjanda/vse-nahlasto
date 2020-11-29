@@ -12,6 +12,7 @@ const COMMUNITY_LIST_QUERY = gql`
       name
       description
       closed
+      image
     }
   }
 `;
