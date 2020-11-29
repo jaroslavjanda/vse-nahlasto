@@ -15,7 +15,7 @@ export const communities = async (_, __, { dbConnection }) => {
 };
 
 /**
- * Returns TOP 3 communities with with the most posts/cards and are opened.
+ * Returns TOP 3 communities with the most tickets and are opened.
  * @param _
  * @param __
  * @returns {Promise<*>}
@@ -23,9 +23,12 @@ export const communities = async (_, __, { dbConnection }) => {
 export const communitiesHomepage = async (_, __, { dbConnection }) => {
   const communitiesHomepage = await dbConnection.query(
     `SELECT  
-    community_id, name, description, image, closed
-    FROM community
-    WHERE closed = '0'
+    c.community_id, c.name, c.description, c.image, c.closed, COUNT(ticket.community_id) as countID
+    FROM community as c
+    LEFT JOIN ticket on c.community_id = ticket.community_id
+    WHERE c.closed = '0'
+    GROUP BY  c.community_id, c.name, c.description, c.closed
+    ORDER BY countID DESC
     LIMIT 3`, 
   );
 

@@ -203,7 +203,7 @@ export function HomeTemplate({
 
       <Jumbotron className="jumbotronWhite">
         <h2>Ceník</h2>
-        <CardDeck>
+        <CardDeck  className="price-list">
           <Card>
             <div className="text-center">
               <Card.Header>
