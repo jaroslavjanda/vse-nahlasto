@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { ErrorBanner, SuccessBanner, Button } from 'src/atoms';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
+import { FormikFile } from '../molecules/FormikFile';
 import FormGroup from 'react-bootstrap/FormGroup';
 
 const schema = yup.object().shape({
@@ -22,6 +23,7 @@ export function AddCommunityForm({
   const initialValues = {
     name: '',
     description: '',
+    file: '',
     closed: true,
     owner_id: user.user_id,
   };
@@ -59,6 +61,11 @@ export function AddCommunityForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
+        <FormikFile
+          id="file"
+          name="file"
+          label="File"
+        />
         <FormGroup>
           <Field
             type="checkbox"
@@ -71,9 +78,11 @@ export function AddCommunityForm({
             Make this community private
           </label>
         </FormGroup>
-        <Button type="submit" className="mt2 mb3">
-          Confirm request
-        </Button>
+        <div style={{textAlign:"right"}}>
+          <Button type="submit" className="mt2 mb3">
+            Confirm request
+          </Button>
+        </div>
       </Form>
     </Formik>
   );

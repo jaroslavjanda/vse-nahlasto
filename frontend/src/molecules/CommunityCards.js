@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Button, Row, CardColumns } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { imgPath } from 'src/utils/imgPath'
 
 export const CommunityCards = ({
 communities,
@@ -16,7 +17,7 @@ isMember
             <Card style={{ width: '100%' }} key={item.community_id}>
                 <Card.Img
                     variant="top"
-                    src="https://picsum.photos/180/100"
+                    src={imgPath("tickets",item.image)}
                 />
                 <Card.Body>
                     <h3>{item.name}</h3>

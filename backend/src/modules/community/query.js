@@ -7,7 +7,7 @@
 export const communities = async (_, __, { dbConnection }) => {
   const communities = await dbConnection.query(
     `SELECT  
-    c.community_id, name, description, closed
+    c.community_id, name, description, image, closed
     FROM community as c`,
   );
 
@@ -23,7 +23,7 @@ export const communities = async (_, __, { dbConnection }) => {
 export const communitiesHomepage = async (_, __, { dbConnection }) => {
   const communitiesHomepage = await dbConnection.query(
     `SELECT  
-    community_id, name, description, closed
+    community_id, name, description, image, closed
     FROM community
     WHERE closed = '0'
     LIMIT 3`, 
@@ -42,7 +42,7 @@ export const community = async (_, { communityId }, { dbConnection }) => {
   const community = (
     await dbConnection.query(
       `SELECT 
-      c.community_id, name, description, closed
+      c.community_id, name, description, image, closed
       FROM community as c
       WHERE c.community_id = ?`,
       [communityId],
