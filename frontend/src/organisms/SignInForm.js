@@ -37,7 +37,7 @@ export function SignInForm({
           name="email"
           label="Email"
           type="email"
-          placeholder="e.g. john@doe.com"
+          placeholder="např. jan@novak.cz"
           autoFocus="autofocus"
           autoComplete="on"
           autoCorrect="off"
@@ -54,7 +54,7 @@ export function SignInForm({
         />
 
         <div style={{textAlign:"right"}}>
-          <Button type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+          <Button className="homepageButton" type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
             Přihlásit se
           </Button>
           {children}

@@ -27,6 +27,7 @@ const typeDefs = gql`
     surname: String!
     email: String!
     communities: [Community!]!
+    communitiesHomepage: [Community!]!
     tickets: [Ticket!]
   }
 
@@ -95,6 +96,7 @@ const typeDefs = gql`
       code: Int!
     ): ChangePasswordRequest
     communities: [Community]
+    communitiesHomepage: [Community]
     community(communityId: Int!): Community
     communitiesAccessibleToUserIds(userId: Int!): [Int]
     tickets: [Ticket!]
