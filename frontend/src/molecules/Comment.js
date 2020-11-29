@@ -3,21 +3,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
-export const Comment = (user, comment) => {
+export const Comment = ({comments}) => {
   return (
-    <Row>
-      <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
-        <FontAwesomeIcon icon={faUserCircle} />
-      </Col>
-      <Col style={{ textAlign: 'left' }}>
-        <Col style={{ textAlign: 'left' }}>{user.user.name} {user.user.surname}</Col>
-        <p style={{ textAlign: 'left', marginTop: '5px' }}>
-
-          {console.log(comment)}
-
-          {/*{comment.content.content}*/}
-        </p>
-      </Col>
-    </Row>
+    <div>
+      {comments.map((item) =>(
+        <div key={item.comment_id}>
+          <Row>
+            <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
+              <FontAwesomeIcon icon={faUserCircle} />
+            </Col>
+            <Col style={{ textAlign: 'left' }}>
+              <p className="mb-2" style={{ fontWeight: "bold" }}>{item.user[0].name} {item.user[0].surname}</p>
+              <p>{item.content}</p>
+            </Col>
+          </Row>
+        </div>
+        )
+      )}
+    </div>
   )
 }

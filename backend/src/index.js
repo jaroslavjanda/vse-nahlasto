@@ -77,6 +77,8 @@ const typeDefs = gql`
   }
 
   type AuthUser {
+    name: String!
+    surname: String!
     email: String!
     user_id: Int!
   }

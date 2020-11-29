@@ -18,7 +18,6 @@ export function CommunityDetailTemplate({
 }) {
 return (
     <>
-    {console.log(community)}
       <HeadingWithButtons header={community.name} description={community.description}>
         <div>      
             {!isMember && (

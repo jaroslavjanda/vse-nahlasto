@@ -6,7 +6,7 @@ export { QuackForm } from './QuackForm';
 export { ReloadButton } from './ReloadButton';
 export { CommunityCards } from './CommunityCards';
 export { UserImageAndName } from './UserImageAndName';
-export { CommentContent } from './CommentContent';
-export { CommentForm } from './CommentForm';
+export { TicketDetailContent } from './TicketDetailContent';
+export { AddCommentForm } from './AddCommentForm';
 export { Comment } from './Comment'
 

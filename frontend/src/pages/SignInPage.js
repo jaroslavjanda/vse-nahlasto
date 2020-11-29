@@ -11,6 +11,8 @@ const SIGNIN_MUTATION = gql`
       user {
         email
         user_id
+        name
+        surname
       }
       token
     }
