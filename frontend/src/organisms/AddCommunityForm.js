@@ -65,7 +65,6 @@ export function AddCommunityForm({
             id="closed"
             name="closed"
             className={'form-check-input'}
-            className="pl-5 mr-2"
           />
           <label htmlFor="closed" className="form-check-label">
             Make this community private

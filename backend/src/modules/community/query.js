@@ -15,24 +15,6 @@ export const communities = async (_, __, { dbConnection }) => {
 };
 
 /**
- * Returns TOP 3 communities with with the most posts/cards and are opened.
- * @param _
- * @param __
- * @returns {Promise<*>}
- */
-export const communitiesHomepage = async (_, __, { dbConnection }) => {
-  const communitiesHomepage = await dbConnection.query(
-    `SELECT  
-    community_id, name, description, closed
-    FROM community
-    WHERE closed = '0'
-    LIMIT 3`, 
-  );
-
-  return communitiesHomepage;
-};
-
-/**
  * Based on community_id returns one community.
  * @param _
  * @param communityId
