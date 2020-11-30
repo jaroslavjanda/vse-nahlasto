@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap'
 import { Loading } from '../atoms'
 import { AddCommentForm, TicketDetailContent, Comment, UserImageAndName } from '../molecules'
 import { useAuth } from '../utils/auth'
+import { parseValue } from 'graphql'
 
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {
@@ -32,11 +33,9 @@ const COMMENT_QUERY = gql`
   }
 `
 
-const sedmkurva = 77
-
 const COMMUNITY_OWNER_QUERY = gql`
   query CommunityOwnerId($communityId: Int!) {
-    communityOwnerId(communityId: sedmkurva)
+    communityOwnerId(communityId: $communityId)
   }
 `
 
@@ -51,12 +50,13 @@ export const TicketDetail = ({ match }) => {
 
   const { user } = useAuth()
 
-  const communityId = ticket.community_id
 
-  console.log("co je kurva", ticket.community_id)
+  const communityId = ticket?.community_id
+
+  console.log("co je kurva", communityId)
 
 
-  const communityOwnerState = useQuery(COMMUNITY_OWNER_QUERY)
+  const communityOwnerState = useQuery(COMMUNITY_OWNER_QUERY, {variables: { communityId: communityId }})
 
   console.log(communityOwnerState)
 
@@ -85,6 +85,7 @@ export const TicketDetail = ({ match }) => {
                 <AddCommentForm
                   ticket_id={1}
                   user_id = {77}
+                  // user = { user }
                 />
               </Container>
 

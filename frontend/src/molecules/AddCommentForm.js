@@ -26,10 +26,6 @@ const ADD_COMMENT_MUTATION = gql`
   }
 `
 
-const schema = yup.object().shape({
-  description: yup.string().required().label('Content')
-})
-
 export function AddCommentForm({ ticket_id, user_id, }) {
   const initialValues = {
     content: '',
@@ -68,14 +64,13 @@ export function AddCommentForm({ ticket_id, user_id, }) {
     return (
       <Formik
         onSubmit={(e) => {
-          e.preventDefault()
           handleAddCommentFormSubmit()
+          e.preventDefault()
         }}
         initialValues={initialValues}
-        validationSchema={schema}
         validateOnBlur={false}
       >
-        <Form className="mt3">
+        <Form>
           {addCommentRequestState.error && <ErrorBanner
             title={addCommentRequestState.error} className="mb3" />}
           {addCommentRequestState.data && (<SuccessBanner
@@ -90,7 +85,6 @@ export function AddCommentForm({ ticket_id, user_id, }) {
             autoComplete="off"
             autoCorrect="on"
             autoCapitalize="off"
-            width="100%"
           />
           <Button type="submit" className="mt2 mb3">
             ODESLAT
