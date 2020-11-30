@@ -14,6 +14,7 @@ const TICKET_DETAIL_QUERY = gql`
       date
       image
       content
+      community_id
     }
   }
 `
@@ -31,6 +32,14 @@ const COMMENT_QUERY = gql`
   }
 `
 
+const sedmkurva = 77
+
+const COMMUNITY_OWNER_QUERY = gql`
+  query CommunityOwnerId($communityId: Int!) {
+    communityOwnerId(communityId: sedmkurva)
+  }
+`
+
 export const TicketDetail = ({ match }) => {
 
   const ticketId = parseInt(match.params.ticketId)
@@ -42,6 +51,19 @@ export const TicketDetail = ({ match }) => {
 
   const { user } = useAuth()
 
+  const communityId = ticket.community_id
+
+  console.log("co je kurva", ticket.community_id)
+
+
+  const communityOwnerState = useQuery(COMMUNITY_OWNER_QUERY)
+
+  console.log(communityOwnerState)
+
+  const communityOwner = communityOwnerState.data?.communityOwnerId
+
+  console.log(communityOwner)
+
   return (
     <div style={{ textAlign: 'center' }}>
       {ticketState.loading && (
@@ -52,7 +74,6 @@ export const TicketDetail = ({ match }) => {
           {commentState.loading && (
             <Loading />
           )}
-
           {!commentState.loading && (
             <div>
               <TicketDetailContent
