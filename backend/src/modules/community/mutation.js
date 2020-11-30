@@ -5,6 +5,7 @@ import { send, TYPE } from '../helpers/sendgrid/send';
  * @param _
  * @param name
  * @param description
+ * @param image
  * @param code
  * @param closed
  * @param ownerId
@@ -12,15 +13,18 @@ import { send, TYPE } from '../helpers/sendgrid/send';
  */
 export const addCommunity = async (
   _,
-  { name, description, code, closed, ownerId },
+  { name, description, image, code, closed, ownerId },
   { dbConnection },
 ) => {
   // adds community to DB
   // TODO prevent creating communities with same name
+  console.log(image)
+  var img = image? image :null
+  console.log(img)
   const addCommunityDbResponse = await dbConnection.query(
     `INSERT INTO community (name, description, image, closed)
     VALUES (?, ?, ?, ?);`,
-    [name, description, closed],
+    [name, description, img, closed],
   );
 
   // if community inserted successfully

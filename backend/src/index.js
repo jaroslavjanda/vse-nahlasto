@@ -129,7 +129,7 @@ const typeDefs = gql`
       name: String!
       description: String
       code: String
-      image: Upload
+      image: String
       closed: Boolean!
       ownerId: Int!
     ): Community!
