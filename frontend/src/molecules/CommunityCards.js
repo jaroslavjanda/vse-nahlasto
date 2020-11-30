@@ -5,15 +5,19 @@ import { toast } from 'react-toastify';
 import { imgPath } from 'src/utils/imgPath'
 
 export const CommunityCards = ({
-communities,
-isMember
+allCommunities,
+communitiesAccessibleToUser
 }) => {
   const history = useHistory();
+
+  function isMemberCheck(commId) {
+    return !!communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds.includes(commId);
+  }
 
   return (
     <Row>
         <CardColumns>
-        {communities.map((item) => (
+        {allCommunities.map((item) => (
             <Card style={{ width: '100%' }} key={item.community_id}>
                 <Card.Img
                     variant="top"
@@ -22,15 +26,16 @@ isMember
                 <Card.Body>
                     <h3>{item.name}</h3>
                     <Card.Text>{item.description}</Card.Text>
-                    {item.closed && !isMember && (
+                    {item.closed && !isMemberCheck(item.community_id) && (
                     <Button
                         variant="danger"
-                        onClick={() => toast.info('Your request was sended')}
+                        onClick={() => toast.info('Požadavek byl odeslán')}
                     >
                         PŘIPOJIT SE
                     </Button>
                     )}
-                    {!item.closed && (
+                  {console.log("Comm name:", item.name, "condition:", item.closed && isMemberCheck(item.community_id))}
+                    { ( ( !item.closed ) || ( isMemberCheck(item.community_id) ) ) && (
                     <Button
                         variant="success"
                         onClick={() =>

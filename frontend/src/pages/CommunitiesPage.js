@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { CommunitiesTemplate } from '../templates/CommunitiesTemplate';
 import { Spinner } from 'react-bootstrap';
 import { ErrorBanner, Button } from 'src/atoms/';
+import { useAuth } from '../utils/auth';
 
 const COMMUNITY_LIST_QUERY = gql`
   query Communities {
@@ -17,11 +18,26 @@ const COMMUNITY_LIST_QUERY = gql`
   }
 `;
 
+const USER_ACCESSIBLE_COMMUNITIES = gql`
+  query UserAccessibleCommunities($userId: Int!) {
+    communitiesAccessibleToUserIds(userId: $userId)
+  }
+`;
+
 export const Communities = () => {
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const [isMember] = useState(false);
+  const [isMember, setIsMember] = useState(false);
   const history = useHistory();
   const communities = communitiesState.data?.communities;
+
+  const user = useAuth()
+  var userId = user.user?.user_id
+  if (userId == null)
+    userId = 0
+
+  const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
+    variables: { userId }
+  });
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -40,7 +56,7 @@ export const Communities = () => {
           </ErrorBanner>
         )} 
         {communities && (
-          <CommunitiesTemplate communities={communities} isMember={isMember}/>
+          <CommunitiesTemplate allCommunities={communities} communitiesAccessibleToUser={communitiesAccessibleToUser}/>
         )}
         </>
       )}
