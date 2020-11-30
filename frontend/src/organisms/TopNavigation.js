@@ -33,12 +33,12 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
           <Nav className="ml-auto">
             <Nav.Item>
               <NavLink exact to={route.home()} className="pa3">
-                Home
+                Domů
               </NavLink>
             </Nav.Item>
             <Nav.Item>
               <NavLink exact to={route.communities()} className="pa3">
-                Communities
+                Komunity
               </NavLink>
             </Nav.Item>
             <Nav.Item></Nav.Item>
@@ -63,7 +63,7 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
                       window.location.reload();
                     }}
                   >
-                    Sign Out
+                    Odhlásit se
                   </Button>
                 </Nav.Item>
               </>
@@ -71,12 +71,12 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
               <>
                 <Nav.Item>
                   <NavLink to={route.signIn()} className="pa3">
-                    Sign In
+                    Přihlásit se
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item>
                   <Button className="navButton" to={route.signUp()} as={Link}>
-                    Sign Up
+                    Registrovat se
                   </Button>
                 </Nav.Item>
               </>

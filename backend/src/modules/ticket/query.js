@@ -58,6 +58,7 @@ export const communityTickets = async (
     LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
     WHERE community_id = ? 
     GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+    ORDER BY ticket.date desc
     `,
     [communityId],
   );
