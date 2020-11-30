@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback }from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { Container } from 'react-bootstrap'
 import { Loading } from '../atoms'
 import { AddCommentForm, TicketDetailContent, Comment, UserImageAndName } from '../molecules'
 import { useAuth } from '../utils/auth'
+import { useMutation } from '@apollo/client'
 import { parseValue } from 'graphql'
 
 const TICKET_DETAIL_QUERY = gql`
@@ -39,6 +40,22 @@ const COMMUNITY_OWNER_QUERY = gql`
   }
 `
 
+const ADD_COMMENT_MUTATION = gql`
+  mutation AddComment(
+    $content: String!
+    $user_id: Int!
+    $ticket_id: Int!
+  ) {
+    addComment(
+      content: $content
+      user_id: $user_id
+      ticket_id: $ticket_id
+    ) {
+      comment_id
+    }
+  }
+`
+
 export const TicketDetail = ({ match }) => {
 
   const ticketId = parseInt(match.params.ticketId)
@@ -64,6 +81,30 @@ export const TicketDetail = ({ match }) => {
 
   console.log(communityOwner)
 
+  const [addCommentRequest, addCommentRequestState] = useMutation(
+    ADD_COMMENT_MUTATION, {
+      onCompleted: ({ addComment: { comment_id } }) => {
+        console.log(
+          'Comment was added to the DB, its ID is' + comment_id,
+        )
+      },
+      onError: () => {
+        console.log('Error while adding the comment to DB')
+      },
+    },
+  )
+
+
+  const handleAddCommentFormSubmit = useCallback(
+    (variables) => {
+      console.log("KURVAAAA", variables)
+
+      addCommentRequest({
+        variables: variables,
+      })
+    }, [addCommentRequest],
+  )
+
   return (
     <div style={{ textAlign: 'center' }}>
       {ticketState.loading && (
@@ -85,6 +126,9 @@ export const TicketDetail = ({ match }) => {
                 <AddCommentForm
                   ticket_id={1}
                   user_id = {77}
+                  onSubmit={handleAddCommentFormSubmit}
+                  isLoading={addCommentRequestState.loading}
+                  error={addCommentRequestState.error}
                   // user = { user }
                 />
               </Container>
