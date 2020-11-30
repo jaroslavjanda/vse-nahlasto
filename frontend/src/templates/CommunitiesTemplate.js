@@ -1,12 +1,12 @@
 import React from 'react';
-import { CommunityCards } from 'src/molecules/';
+import { CommunityCards } from 'src/molecules';
 import { HeadingWithButtons } from 'src/organisms/';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 export function CommunitiesTemplate({
-  communities,
-  isMember,
+  allCommunities,
+  communitiesAccessibleToUser,
 }) {
   const history = useHistory();
 return (
@@ -21,7 +21,7 @@ return (
           </Button>
         </div>
       </HeadingWithButtons>
-      <CommunityCards communities={communities} isMember={isMember}/>
+      <CommunityCards allCommunities={allCommunities} communitiesAccessibleToUser={communitiesAccessibleToUser}/>
     </>
   );
 }

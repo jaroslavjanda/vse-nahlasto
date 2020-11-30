@@ -56,16 +56,21 @@ export const AddTicket = ({ match }) => {
 
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
+      
+      var img = oldVariables.file?oldVariables.file.name:""
+
       const variables = {
         user_id: auth.user ? auth.user.user_id : 1,
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: oldVariables.file.name,
+        image: img,
         status: 3,
       };
 
-      addFileRequest({ variables: { file: oldVariables.file } });
+      if(oldVariables.file){
+        addFileRequest({ variables: { file: oldVariables.file } });
+      }
       addTicketRequest({ variables });
     },
     [addTicketRequest, addFileRequest],

@@ -23,7 +23,7 @@ export function AddCommunityForm({
   const initialValues = {
     name: '',
     description: '',
-    file: '',
+    file: null,
     closed: true,
     owner_id: user.user_id,
   };
