@@ -41,7 +41,7 @@ export const AddCommunityPage = () => {
     {
       onCompleted: ({ addCommunity: { community_id } }) => {
         console.log(
-          "Community was added to the DB, it's ID is " + community_id,
+          "Community was added to the DB, its ID is " + community_id,
         );
         history.replace('/communities/');
       },

@@ -1,10 +1,11 @@
-import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { Col, Container, Form, Image, Row, Spinner } from 'react-bootstrap';
-import { Button } from '../atoms';
-import { toast } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import React, { useCallback }from 'react'
+import { useQuery, gql } from '@apollo/client'
+import { Container } from 'react-bootstrap'
+import { Loading } from '../atoms'
+import { AddCommentForm, TicketDetailContent, Comment, UserImageAndName } from '../molecules'
+import { useAuth } from '../utils/auth'
+import { useMutation } from '@apollo/client'
+import { parseValue } from 'graphql'
 
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {
@@ -15,97 +16,129 @@ const TICKET_DETAIL_QUERY = gql`
       date
       image
       content
+      community_id
     }
   }
-`;
+`
+
+const COMMENT_QUERY = gql`
+  query Comment($ticketId: Int!) {
+    ticketComment(ticketId: $ticketId) {
+      comment_id
+      content
+      user {
+        name
+        surname
+      }
+    }
+  }
+`
+
+const COMMUNITY_OWNER_QUERY = gql`
+  query CommunityOwnerId($communityId: Int!) {
+    communityOwnerId(communityId: $communityId)
+  }
+`
+
+const ADD_COMMENT_MUTATION = gql`
+  mutation AddComment(
+    $content: String!
+    $user_id: Int!
+    $ticket_id: Int!
+  ) {
+    addComment(
+      content: $content
+      user_id: $user_id
+      ticket_id: $ticket_id
+    ) {
+      comment_id
+    }
+  }
+`
 
 export const TicketDetail = ({ match }) => {
-  const ticketId = parseInt(match.params.ticketId);
-  const ticketState = useQuery(TICKET_DETAIL_QUERY, {
-    variables: { ticketId },
-  });
 
-  const ticket = ticketState.data?.ticket;
+  const ticketId = parseInt(match.params.ticketId)
+  const ticketState = useQuery(TICKET_DETAIL_QUERY, { variables: { ticketId } })
+  const ticket = ticketState.data?.ticket
+
+  const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId } })
+  const comments = commentState.data?.ticketComment
+
+  const { user } = useAuth()
+
+
+  const communityId = ticket?.community_id
+
+  console.log("co je kurva", communityId)
+
+
+  const communityOwnerState = useQuery(COMMUNITY_OWNER_QUERY, {variables: { communityId: communityId }})
+
+  console.log(communityOwnerState)
+
+  const communityOwner = communityOwnerState.data?.communityOwnerId
+
+  console.log(communityOwner)
+
+  const [addCommentRequest, addCommentRequestState] = useMutation(
+    ADD_COMMENT_MUTATION, {
+      onCompleted: ({ addComment: { comment_id } }) => {
+        console.log(
+          'Comment was added to the DB, its ID is' + comment_id,
+        )
+      },
+      onError: () => {
+        console.log('Error while adding the comment to DB')
+      },
+    },
+  )
+
+
+  const handleAddCommentFormSubmit = useCallback(
+    (variables) => {
+      console.log("KURVAAAA", variables)
+
+      addCommentRequest({
+        variables: variables,
+      })
+    }, [addCommentRequest],
+  )
 
   return (
     <div style={{ textAlign: 'center' }}>
       {ticketState.loading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
+        <Loading />
       )}
       {!ticketState.loading && (
         <div>
-          <Container fluid>
-            <h1>{ticket?.title}</h1>
-            <p align="left">{ticket?.content}</p>
-            <Image src="https://picsum.photos/1080/720" />
-          </Container>
+          {commentState.loading && (
+            <Loading />
+          )}
+          {!commentState.loading && (
+            <div>
+              <TicketDetailContent
+                ticket={ticket}
+              />
 
-          <Container className="mt-2">
-            <Row>
-              <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
-                <FontAwesomeIcon icon={faUserCircle} />
-              </Col>
-              <Col style={{ textAlign: 'left' }}>Jméno Příjmení</Col>
-            </Row>
-
-            <Form>
-              <Form.Group controlId="ControlInput1">
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Komentuj zde"
+              <Container className="mt-4">
+                <UserImageAndName />
+                <AddCommentForm
+                  ticket_id={1}
+                  user_id = {77}
+                  onSubmit={handleAddCommentFormSubmit}
+                  isLoading={addCommentRequestState.loading}
+                  error={addCommentRequestState.error}
+                  // user = { user }
                 />
-              </Form.Group>
-              <Button
-                className="pull-right"
-                // type="submit"
-                variant="success"
-                onClick={() => toast.success('Komentář byl přidan.')}
-              >
-                Podtvrdit
-              </Button>
-            </Form>
-          </Container>
+              </Container>
 
-          <Container className="mt-2">
-            <Row>
-              <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
-                <FontAwesomeIcon icon={faUserCircle} />
-              </Col>
-              <Col style={{ textAlign: 'left' }}>
-                Jméno Příjmení
-                <p style={{ textAlign: 'left', marginTop: '5px' }}>
-                  Toto je již existující komentář!
-                </p>
-              </Col>
-            </Row>
-          </Container>
-
-          <Container className="mt-2">
-            <Row>
-              <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
-                <FontAwesomeIcon icon={faUserCircle} />
-              </Col>
-              <Col style={{ textAlign: 'left' }}>
-                Jméno Příjmení
-                <p style={{ textAlign: 'left', marginTop: '5px' }}>
-                  Toto je již existující dlouhý komentář. Leave dead animals as
-                  gifts sit in window and stare oooh, a bird, yum scoot butt on
-                  the rug yet hack sleep all day whilst slave is at work, play
-                  all night whilst slave is sleeping. Lick face hiss at owner,
-                  pee a lot, and meow repeatedly scratch at fence purrrrrr eat
-                  muffins and poutine until owner comes back shred all toilet
-                  paper and spread around the house, and meow. Brown cats with
-                  pink ears. Meeeeouw and sometimes switches in french and say
-                  "miaou" just because well.
-                </p>
-              </Col>
-            </Row>
-          </Container>
+              <Container className="mt-4">
+                <Comment comments={ comments } />
+              </Container>
+            </div>
+          )}
         </div>
       )}
-    </div>
-  );
-};
+    </div>)
+}

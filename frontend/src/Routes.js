@@ -15,11 +15,13 @@ import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 import { SignInPage } from 'src/pages/SignInPage';
 import { SignUpPage } from 'src/pages/SignUpPage';
 import { TicketDetail } from './pages/TicketDetail';
+import { TicketDetailPage } from './pages/TicketDetailPage';
 import { TopNavigation } from './organisms';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
 const ticketDetail = () => `/ticket-detail/:ticketId`;
+const ticketDetailPage = () => `/ticket-detail-page/:ticketId`;
 
 export const route = {
   home: () => `/`,
@@ -37,6 +39,7 @@ export const route = {
   editCommunity: () => `${communityDetail()}/edit_community`,
   communities: () => `/communities`,
   ticketDetail,
+  ticketDetailPage,
 };
 
 export function Routes() {
@@ -67,6 +70,7 @@ export function Routes() {
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.ticketDetail()} exact component={TicketDetail} />
+        <Route path={route.ticketDetailPage()} exact component={TicketDetailPage} />
         <Route
           path={route.editCommunity()}
           exact

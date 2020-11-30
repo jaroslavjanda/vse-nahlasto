@@ -49,7 +49,7 @@ const typeDefs = gql`
     content: String!
     closed: Boolean!
     user_id: Int!
-    user: [User!]!
+    user: [User!]
     ticket_id: Int!
   }
 
@@ -80,6 +80,8 @@ const typeDefs = gql`
   }
 
   type AuthUser {
+    name: String!
+    surname: String!
     email: String!
     user_id: Int!
   }
@@ -109,7 +111,7 @@ const typeDefs = gql`
     communityMembersIds(communityId: Int!): [Int]
     comments: [Comment!]
     comment(commentId: Int!): [Comment!]
-    ticketComments(ticketId: Int!): [Comment!]
+    ticketComment(ticketId: Int!): [Comment!]
   }
 
   type Mutation {
