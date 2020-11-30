@@ -2,18 +2,21 @@ import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddCommunityTemplate } from '../templates/AddCommunityTemplate';
 import { useAuth } from '../utils/auth';
+import { useHistory } from 'react-router-dom';
 import { ErrorBanner } from '../atoms';
 
 const ADD_COMMUNITY_MUTATION = gql`
   mutation AddCommunity(
     $name: String!
     $description: String
+    $image: String
     $closed: Boolean!
     $owner_id: Int!
   ) {
     addCommunity(
       name: $name
       description: $description
+      image: $image
       closed: $closed
       ownerId: $owner_id
     ) {
@@ -31,6 +34,7 @@ const UPLOAD_MUTATION = gql`
 `;
 export const AddCommunityPage = () => {
   const { user } = useAuth();
+  const history = useHistory();
 
   const [addCommunityRequest, addCommunityRequestState] = useMutation(
     ADD_COMMUNITY_MUTATION,
@@ -39,6 +43,7 @@ export const AddCommunityPage = () => {
         console.log(
           "Community was added to the DB, it's ID is " + community_id,
         );
+        history.replace('/communities/');
       },
       onError: () => {
         console.log('Error while adding the community to DB');
@@ -48,11 +53,23 @@ export const AddCommunityPage = () => {
   const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddCommunityFormSubmit = useCallback(
-    (variables) => {
+    (oldVariables) => {
 
-      addFileRequest({ variables: { file: variables.file } });
+      var img = oldVariables.file?oldVariables.file.name:""
+
+      const variables = {
+        name: oldVariables.name,
+        description: oldVariables.description,
+        image: img,
+        owner_id: oldVariables.owner_id,
+        closed: oldVariables.closed
+      };
+      console.log(variables)
+      if(oldVariables.file){
+        addFileRequest({ variables: { file: oldVariables.file } });
+      }
       addCommunityRequest({
-        variables: variables,
+        variables,
       });
     },
     [addCommunityRequest, addFileRequest],
