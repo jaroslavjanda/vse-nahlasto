@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { Container } from 'react-bootstrap'
 import { Loading } from '../atoms'
-import { AddCommentForm, TicketDetailContent, Comment, UserImageAndName } from '../molecules'
+import { AddCommentForm, TicketDetailContent, Comment, UserImageAndName, ChangeTicketState } from '../molecules'
 import { useAuth } from '../utils/auth'
 import { parseValue } from 'graphql'
 
@@ -64,6 +64,9 @@ export const TicketDetail = ({ match }) => {
 
   console.log(communityOwner)
 
+
+
+
   return (
     <div style={{ textAlign: 'center' }}>
       {ticketState.loading && (
@@ -81,6 +84,10 @@ export const TicketDetail = ({ match }) => {
               />
 
               <Container className="mt-4">
+                <ChangeTicketState
+                  user = { user }
+                  owner_id = { communityOwner }
+                />
                 <UserImageAndName />
                 <AddCommentForm
                   ticket_id={1}

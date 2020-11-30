@@ -8,5 +8,6 @@ export { CommunityCards } from './CommunityCards';
 export { UserImageAndName } from './UserImageAndName';
 export { TicketDetailContent } from './TicketDetailContent';
 export { AddCommentForm } from './AddCommentForm';
-export { Comment } from './Comment'
+export { Comment } from './Comment';
 export { CommunityCardsHomepage } from './CommunityCardsHomepage';
+export { ChangeTicketState } from './ChangeTicketState';
