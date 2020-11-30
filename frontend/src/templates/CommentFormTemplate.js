@@ -55,9 +55,9 @@ export function CommentFormTemplate({ ticketId }) {
         user_id: 77,
         ticket_id: ticketId
       }
+      console.log(user)
     return (
         <>
-        {user && !user.user_id && (
         <div className="mw8 center">
             <UserImageAndName />
             <AddCommentForm
@@ -67,7 +67,6 @@ export function CommentFormTemplate({ ticketId }) {
                 error={addCommentRequestState.error}
             />
         </div>
-        )}
         </>
     );
 }

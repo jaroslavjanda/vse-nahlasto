@@ -19,7 +19,8 @@ export function AddCommentForm({
   initialValues,
   onSubmit,
   children}) {
-  console.log(initialValues)
+  
+  // if (user_id != null) {
     return (
       <Formik
         onSubmit={onSubmit}
