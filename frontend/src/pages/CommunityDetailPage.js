@@ -3,7 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import { Spinner} from 'react-bootstrap';
 import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
-import { ErrorBanner, Button } from 'src/atoms/';
+import { ErrorBanner, Button } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 
 const COMMUNITY_DETAIL_QUERY = gql`
@@ -34,27 +34,46 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
-const MEMBERSHIP_QUERY = gql`
+const COMMUNITY_OWNER_ID = gql`
   query CommunityOwnerId($communityId: Int!) {
     communityOwnerId(communityId: $communityId)
   }
 `;
 
+const COMMUNITY_MEMBERS_IDS = gql`
+  query CommunityMembersIds($communityId: Int!) {
+    communityMembersIds(communityId: $communityId)
+  }
+`;
+
 export const CommunityDetail = ({ match }) => {
+
+  const { user } = useAuth();
+  var userId = user?.user_id;
+
+  if (userId === null)
+    userId = 0
+
   const communityId = parseInt(match.params.communityId);
+
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
 
-  const { user } = useAuth();
-
-  const userId = user?.user_id;
-
-  const communityOwnerId = useQuery(MEMBERSHIP_QUERY, {
+  const communityOwnerId = useQuery(COMMUNITY_OWNER_ID, {
     variables: { communityId },
   });
 
-  const [isMember, setIsMember] = useState(false);
+  const communityMembersIds = useQuery(COMMUNITY_MEMBERS_IDS, {
+    variables: { communityId },
+  });
+
+  const isUserAMember = !!communityMembersIds.data?.communityMembersIds.includes(userId);
+  const [isMember, setIsMember] = useState(isUserAMember);
+  const isUserAnOwner = (userId === communityOwnerId.data?.communityOwnerId);
+  const [isOwner, setIsOwner] = useState(isUserAnOwner);
+
+  console.log("Is member:", isMember, "Is owner:", isOwner)
 
   const community = communityState.data?.community;
   const history = useHistory();
@@ -74,12 +93,14 @@ export const CommunityDetail = ({ match }) => {
                 Reload
               </Button>
             </ErrorBanner>
-          )} 
+          )}
           {community && (
-            <CommunityDetailTemplate 
-            community={community} 
-            isMember={isMember} 
+            <CommunityDetailTemplate
+            community={community}
+            isMember={isMember}
             setIsMember={setIsMember}
+            isOwner={isOwner}
+            setIsOwner={setIsOwner}
             communityId={communityId}
             userId={userId}
             communityOwnerId={communityOwnerId}/>

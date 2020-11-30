@@ -26,17 +26,16 @@ const USER_ACCESSIBLE_COMMUNITIES = gql`
 
 export const Communities = () => {
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const [isMember, setIsMember] = useState(false);
   const history = useHistory();
   const communities = communitiesState.data?.communities;
 
-  const user = useAuth()
-  var userId = user.user?.user_id
+  const user = useAuth();
+  var userId = user.user?.user_id;
   if (userId == null)
-    userId = 0
+    userId = 0;
 
   const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
-    variables: { userId }
+    variables: { userId },
   });
 
   return (
@@ -48,16 +47,17 @@ export const Communities = () => {
       )}
       {!communitiesState.loading && (
         <>
-        {communitiesState.error && (
-          <ErrorBanner title={communitiesState.error.message}>
-            <Button color="red" onClick={() => history.go(0)}>
-              Reload
-            </Button>
-          </ErrorBanner>
-        )} 
-        {communities && (
-          <CommunitiesTemplate allCommunities={communities} communitiesAccessibleToUser={communitiesAccessibleToUser}/>
-        )}
+          {communitiesState.error && (
+            <ErrorBanner title={communitiesState.error.message}>
+              <Button color="red" onClick={() => history.go(0)}>
+                Reload
+              </Button>
+            </ErrorBanner>
+          )}
+          {communities && (
+            <CommunitiesTemplate allCommunities={communities}
+                                 communitiesAccessibleToUser={communitiesAccessibleToUser} />
+          )}
         </>
       )}
     </div>
