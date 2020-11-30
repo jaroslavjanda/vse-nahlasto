@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import fsPromises from 'fs';
 import fs from 'fs';
 import path from 'path';
 import { TICKET_UPLOAD_DIR } from '../../constants';
@@ -10,7 +10,7 @@ import { TICKET_UPLOAD_DIR } from '../../constants';
  * @returns {Promise<*>}
  */
 export const singleUpload = async (_, args, { dbConnection }) => {
-  await fsPromises.mkdir(TICKET_UPLOAD_DIR, { recursive: true });
+  // await fsPromises.mkdir(TICKET_UPLOAD_DIR, { recursive: true });
 
   return args.file.then((file) => {
     const { createReadStream, filename, mimetype } = file;
