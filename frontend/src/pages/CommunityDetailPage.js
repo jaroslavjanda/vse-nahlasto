@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Spinner} from 'react-bootstrap';
 import { useAuth } from '../utils/auth';
@@ -8,6 +8,8 @@ import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
+    communityMembersIds(communityId: $communityId)
+    communityOwnerId(communityId: $communityId)
     community(communityId: $communityId) {
       name
       description
@@ -34,18 +36,6 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
-const COMMUNITY_OWNER_ID = gql`
-  query CommunityOwnerId($communityId: Int!) {
-    communityOwnerId(communityId: $communityId)
-  }
-`;
-
-const COMMUNITY_MEMBERS_IDS = gql`
-  query CommunityMembersIds($communityId: Int!) {
-    communityMembersIds(communityId: $communityId)
-  }
-`;
-
 export const CommunityDetail = ({ match }) => {
 
   const { user } = useAuth();
@@ -60,18 +50,12 @@ export const CommunityDetail = ({ match }) => {
     variables: { communityId },
   });
 
-  const communityOwnerId = useQuery(COMMUNITY_OWNER_ID, {
-    variables: { communityId },
-  });
+  const { isMember, isOwner } = useMemo(() => {
+    const isMember = !!communityState.data?.communityMembersIds.includes(userId);
+    const isOwner = (userId === communityState.data?.communityOwnerId);
+    return { isMember, isOwner }
+  }, [communityState, userId])
 
-  const communityMembersIds = useQuery(COMMUNITY_MEMBERS_IDS, {
-    variables: { communityId },
-  });
-
-  const isUserAMember = !!communityMembersIds.data?.communityMembersIds.includes(userId);
-  const [isMember, setIsMember] = useState(isUserAMember);
-  const isUserAnOwner = (userId === communityOwnerId.data?.communityOwnerId);
-  const [isOwner, setIsOwner] = useState(isUserAnOwner);
 
   console.log("Is member:", isMember, "Is owner:", isOwner)
 
@@ -98,12 +82,12 @@ export const CommunityDetail = ({ match }) => {
             <CommunityDetailTemplate
             community={community}
             isMember={isMember}
-            setIsMember={setIsMember}
+
             isOwner={isOwner}
-            setIsOwner={setIsOwner}
+
             communityId={communityId}
             userId={userId}
-            communityOwnerId={communityOwnerId}/>
+            communityOwnerId={communityState}/>
           )}
         </div>
       )}

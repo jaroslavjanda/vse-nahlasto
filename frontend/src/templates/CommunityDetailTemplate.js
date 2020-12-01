@@ -10,9 +10,8 @@ import { Tickets } from 'src/organisms';
 export function CommunityDetailTemplate({
                                           community,
                                           isMember,
-                                          setIsMember,
                                           isOwner,
-                                          setIsOwner,
+
                                           communityId,
                                           userId,
                                           communityOwnerId,
@@ -26,7 +25,7 @@ export function CommunityDetailTemplate({
               variant="primary"
               onClick={() => {
                 toast.success('Nyní jste součástí komunity!');
-                setIsMember(true);
+                // setIsMember(true);
               }}
             >
               PŘIDAT SE
