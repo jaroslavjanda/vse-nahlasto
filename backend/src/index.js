@@ -100,9 +100,12 @@ const typeDefs = gql`
     communities: [Community]
     communitiesHomepage: [Community]
     community(communityId: Int!): Community
+    communitiesAccessibleToUser(userId: Int!): [Community]
+    communitiesUserOwns(userId: Int!): [Community]
     communitiesAccessibleToUserIds(userId: Int!): [Int]
     tickets: [Ticket!]
     ticket(ticketId: Int!): Ticket!
+    usersTickets(userId: Int!): [Ticket]
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
     communityOwnerId(communityId: Int!): Int!
