@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { CommunitiesTemplate } from '../templates/CommunitiesTemplate';
 import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
+import { ErrorBanner, Button } from 'src/atoms';
 import { useAuth } from '../utils/auth';
 
 const COMMUNITY_LIST_QUERY = gql`
-  query Communities {
+  query Communities($userId: Int!) {
+    communitiesAccessibleToUserIds(userId: $userId)
     communities {
       community_id
       name
@@ -18,24 +18,19 @@ const COMMUNITY_LIST_QUERY = gql`
   }
 `;
 
-const USER_ACCESSIBLE_COMMUNITIES = gql`
-  query UserAccessibleCommunities($userId: Int!) {
-    communitiesAccessibleToUserIds(userId: $userId)
-  }
-`;
-
 export const Communities = () => {
-  const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const history = useHistory();
-  const communities = communitiesState.data?.communities;
 
   const user = useAuth();
   var userId = user.user?.user_id;
-  if (userId == null) userId = 0;
+  if (userId == null)
+    userId = 0;
 
-  const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
+  const communitiesState = useQuery(COMMUNITY_LIST_QUERY, {
     variables: { userId },
   });
+
+  const history = useHistory();
+  const communities = communitiesState.data?.communities;
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -54,10 +49,8 @@ export const Communities = () => {
             </ErrorBanner>
           )}
           {communities && (
-            <CommunitiesTemplate
-              allCommunities={communities}
-              communitiesAccessibleToUser={communitiesAccessibleToUser}
-            />
+            <CommunitiesTemplate allCommunities={communities}
+                                 communitiesAccessibleToUser={communitiesState} />
           )}
         </>
       )}

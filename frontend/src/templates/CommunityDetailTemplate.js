@@ -8,28 +8,24 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Tickets } from 'src/organisms';
 
 export function CommunityDetailTemplate({
-  community,
-  isMember,
-  setIsMember,
-  isOwner,
-  setIsOwner,
-  communityId,
-  userId,
-  communityOwnerId,
-}) {
+                                          community,
+                                          isMember,
+                                          isOwner,
+
+                                          communityId,
+                                          userId,
+                                          communityOwnerId,
+                                        }) {
   return (
     <>
-      <HeadingWithButtons
-        header={community.name}
-        description={community.description}
-      >
+      <HeadingWithButtons header={community.name} description={community.description}>
         <div>
           {!community.closed && !isMember && (
             <Button
               variant="primary"
               onClick={() => {
                 toast.success('Nyní jste součástí komunity!');
-                setIsMember(true);
+                // setIsMember(true);
               }}
             >
               PŘIDAT SE
@@ -70,7 +66,7 @@ export function CommunityDetailTemplate({
         </div>
       )}
 
-      {(!community.closed || isMember) && (
+      {((!community.closed) || (isMember)) && (
         <div>
           <div>{community.description}</div>
           <br />

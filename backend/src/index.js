@@ -80,8 +80,6 @@ const typeDefs = gql`
   }
 
   type AuthUser {
-    name: String!
-    surname: String!
     email: String!
     user_id: Int!
   }
@@ -102,9 +100,12 @@ const typeDefs = gql`
     communities: [Community]
     communitiesHomepage: [Community]
     community(communityId: Int!): Community
+    communitiesAccessibleToUser(userId: Int!): [Community]
+    communitiesUserOwns(userId: Int!): [Community]
     communitiesAccessibleToUserIds(userId: Int!): [Int]
     tickets: [Ticket!]
     ticket(ticketId: Int!): Ticket!
+    usersTickets(userId: Int!): [Ticket]
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
     communityOwnerId(communityId: Int!): Int!
@@ -131,7 +132,7 @@ const typeDefs = gql`
       name: String!
       description: String
       code: String
-      image: String
+      image: Upload
       closed: Boolean!
       ownerId: Int!
     ): Community!
@@ -149,9 +150,9 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
-    addComment(content: String!, user_id: Int!, ticket_id: Int!): Comment
+    addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
 
-    deleteTicket(userId: Int!, communityId: Int!, ticketId: Int!): Ticket!
+    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
 
@@ -186,7 +187,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
 
   const port = process.env.PORT || 4000;
-  app.use('/static', express.static('public/'));
+  app.use('/static',express.static('public/'));
   app.get('/', (_, res) => res.redirect('/graphql'));
 
   app.listen(port, () => {

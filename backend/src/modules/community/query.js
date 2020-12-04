@@ -125,13 +125,62 @@ export const communitiesAccessibleToUserIds = async (
     [userId],
   );
 
-  const idsArrayInt = [];
+  const communityIdsArrayInt = [];
   idsArrayObject.forEach(convertObjectsToInts);
 
   function convertObjectsToInts(item, index) {
     console.log('Item value:', item.community_id);
-    idsArrayInt[index] = item.community_id;
+    communityIdsArrayInt[index] = item.community_id;
   }
 
-  return idsArrayInt;
+  return communityIdsArrayInt;
 };
+
+/**
+ * Based on user_id, returns all communities in which is user a member or an owner.
+ * @param _
+ * @param userId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const communitiesAccessibleToUser = async (
+  _,
+  { userId },
+  { dbConnection }
+) => {
+  return (await dbConnection.query(
+      // TODO solve 'accepted'
+      'SELECT community.community_id, name, description, image, code, closed ' +
+      'FROM `community` ' +
+      'JOIN membership ' +
+      'ON community.community_id = membership.community_id ' +
+      'WHERE user_id = ?',
+      [userId],
+    )
+  );
+};
+
+/**
+ * Based on user_id, returns all communities in which is user an owner.
+ * @param _
+ * @param userId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const communitiesUserOwns = async (
+  _,
+  { userId },
+  { dbConnection }
+) => {
+  return (await dbConnection.query(
+      // TODO solve 'accepted'
+      'SELECT community.community_id, name, description, image, code, closed ' +
+      'FROM `community` ' +
+      'JOIN membership ' +
+      'ON community.community_id = membership.community_id ' +
+      'WHERE user_id = ? AND role_id = 1',
+      [userId],
+    )
+  );
+};
+
