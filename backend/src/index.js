@@ -147,7 +147,85 @@ type Mutation {
     content: String!
     image: String!
     status_id: Int!
-  ): Ticket!
+    status: String!
+    code_class: String!
+  }
+
+  type ChangePasswordRequest {
+    user_email: String!
+    code: Int!
+  }
+
+  type AuthUser {
+    email: String!
+    user_id: Int!
+  }
+
+  type AuthInfo {
+    user: AuthUser!
+    token: String!
+  }
+
+  type Query {
+    uploads: [File]
+    users: [User!]!
+    user(user_id: Int!): User
+    changePasswordRequest(
+      user_email: String!
+      code: Int!
+    ): ChangePasswordRequest
+    communities: [Community]
+    communitiesHomepage: [Community]
+    community(communityId: Int!): Community
+    communitiesAccessibleToUser(userId: Int!): [Community]
+    communitiesUserOwns(userId: Int!): [Community]
+    communitiesAccessibleToUserIds(userId: Int!): [Int]
+    tickets: [Ticket!]
+    ticket(ticketId: Int!): Ticket!
+    usersTickets(userId: Int!): [Ticket]
+    communityTickets(communityId: Int!): [Ticket!]
+    communityTicket(communityId: Int!, ticketId: Int!): Ticket
+    communityOwnerId(communityId: Int!): Int!
+    communityMembersIds(communityId: Int!): [Int]
+    comments: [Comment!]
+    comment(commentId: Int!): [Comment!]
+    ticketComments(ticketId: Int!): [Comment!]
+  }
+
+  type Mutation {
+    singleUploadStream(file: Upload!): File!
+    singleUpload(file: Upload!): File!
+
+    signin(email: String!, password: String!): AuthInfo!
+
+    signup(
+      name: String!
+      surname: String!
+      email: String!
+      password: String!
+    ): AuthInfo!
+
+    addCommunity(
+      name: String!
+      description: String
+      code: String
+      image: Upload
+      closed: Boolean!
+      ownerId: Int!
+    ): Community!
+
+    editCommunity(description: String!, community_id: Int!): Community!
+
+    addLike(ownerId: Int!, ticketId: Int!): Ticket!
+
+    addTicket(
+      user_id: Int!
+      community_id: Int!
+      title: String!
+      content: String!
+      image: String!
+      status_id: Int!
+    ): Ticket!
 
   addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
 

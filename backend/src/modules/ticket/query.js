@@ -97,3 +97,14 @@ export const communityTicket = async (
   }
   return ticket;
 };
+
+export const usersTickets = async (
+  _,
+  { userId },
+  { dbConnection },
+) => {
+  return (await dbConnection.query(
+    `SELECT * from ticket WHERE user_id = ?`,
+    [userId],
+  ));
+};
