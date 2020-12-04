@@ -1,4 +1,4 @@
-import fsPromises from 'fs';
+import fsPromises from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
 import { TICKET_UPLOAD_DIR } from '../../constants';
@@ -10,7 +10,7 @@ import { TICKET_UPLOAD_DIR } from '../../constants';
  * @returns {Promise<*>}
  */
 export const singleUpload = async (_, args, { dbConnection }) => {
-  // await fsPromises.mkdir(TICKET_UPLOAD_DIR, { recursive: true });
+  await fsPromises.mkdir(TICKET_UPLOAD_DIR, { recursive: true });
 
   return args.file.then((file) => {
     const { createReadStream, filename, mimetype } = file;
@@ -22,21 +22,4 @@ export const singleUpload = async (_, args, { dbConnection }) => {
 
     return file;
   });
-};
-
-export const singleUploadStream = async (_, { args }, { dbConnection }) => {
-  const file = await args.file;
-  const { createReadStream, filename, mimetype } = file;
-  const fileStream = createReadStream();
-
-  //Here stream it to S3
-  // Enter your bucket name here next to "Bucket: "
-  const uploadParams = {
-    Bucket: 'apollo-file-upload-test',
-    Key: filename,
-    Body: fileStream,
-  };
-  const result = await s3.upload(uploadParams).promise();
-
-  return file;
 };

@@ -14,61 +14,138 @@ dotenv.config();
 const MOCKS = process.env.MOCKS === 'true';
 
 const typeDefs = gql`
-  scalar Date
+scalar Date
 
-  type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-  }
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
 
-  type User {
-    user_id: Int!
-    name: String
+type User {
+  user_id: Int!
+  name: String
+  surname: String!
+  email: String!
+  communities: [Community!]!
+  communitiesHomepage: [Community!]!
+  tickets: [Ticket!]
+}
+
+type Community {
+  community_id: Int!
+  name: String!
+  description: String!
+  image: String
+  closed: Boolean!
+  owner: [User]
+  users: [User!]!
+  tickets: [Ticket!]
+}
+
+type Comment {
+  comment_id: Int!
+  date: String!
+  content: String!
+  closed: Boolean!
+  user_id: Int!
+  user: [User!]!
+  ticket_id: Int!
+}
+
+type Ticket {
+  ticket_id: Int!
+  title: String!
+  image: String
+  content: String!
+  date: Date!
+  status_id: Int!
+  user_id: Int!
+  community_id: Int!
+  likes_count: Int
+  comment_count: Int
+  comments: [Comment!]!
+  status: [Status!]
+}
+
+type Status {
+  status_id: Int!
+  status: String!
+  code_class: String!
+}
+
+type ChangePasswordRequest {
+  user_email: String!
+  code: Int!
+}
+
+type AuthUser {
+  name: String!
+  surname: String!
+  email: String!
+  user_id: Int!
+}
+
+type AuthInfo {
+  user: AuthUser!
+  token: String!
+}
+
+type Query {
+  uploads: [File]
+  users: [User!]!
+  user(user_id: Int!): User
+  changePasswordRequest(
+    user_email: String!
+    code: Int!
+  ): ChangePasswordRequest
+  communities: [Community]
+  communitiesHomepage: [Community]
+  community(communityId: Int!): Community
+  communitiesAccessibleToUserIds(userId: Int!): [Int]
+  tickets: [Ticket!]
+  ticket(ticketId: Int!): Ticket!
+  communityTickets(communityId: Int!): [Ticket!]
+  communityTicket(communityId: Int!, ticketId: Int!): Ticket
+  communityOwnerId(communityId: Int!): Int!
+  communityMembersIds(communityId: Int!): [Int]
+  comments: [Comment!]
+  comment(commentId: Int!): [Comment!]
+  ticketComment(ticketId: Int!): [Comment!]
+}
+
+type Mutation {
+  singleUploadStream(file: Upload!): File!
+  singleUpload(file: Upload!): File!
+
+  signin(email: String!, password: String!): AuthInfo!
+
+  signup(
+    name: String!
     surname: String!
     email: String!
-    communities: [Community!]!
-    communitiesHomepage: [Community!]!
-    tickets: [Ticket!]
-  }
+    password: String!
+  ): AuthInfo!
 
-  type Community {
-    community_id: Int!
+  addCommunity(
     name: String!
-    description: String!
+    description: String
+    code: String
     image: String
     closed: Boolean!
-    owner: [User]
-    users: [User!]!
-    tickets: [Ticket!]
-  }
+    ownerId: Int!
+  ): Community!
 
-  type Comment {
-    comment_id: Int!
-    date: String!
-    content: String!
-    closed: Boolean!
-    user_id: Int!
-    user: [User!]!
-    ticket_id: Int!
-  }
+  editCommunity(description: String!, community_id: Int!): Community!
 
-  type Ticket {
-    ticket_id: Int!
-    title: String!
-    image: String
-    content: String!
-    date: Date!
-    status_id: Int!
+  addLike(ownerId: Int!, ticketId: Int!): Ticket!
+
+  addTicket(
     user_id: Int!
     community_id: Int!
-    likes_count: Int
-    comment_count: Int
-    comments: [Comment!]!
-    status: [Status!]
-  }
-
-  type Status {
+    title: String!
+    content: String!
+    image: String!
     status_id: Int!
     status: String!
     code_class: String!
@@ -150,13 +227,13 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
-    addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
+  addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
 
-    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
+  deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
 
-    resetUserPassword(email: String!, newPassword: String!): AuthUser!
+  resetUserPassword(email: String!, newPassword: String!): AuthUser!
 
-    setResetCode(email: String!): ChangePasswordRequest!
+  setResetCode(email: String!): ChangePasswordRequest!
   }
 `;
 

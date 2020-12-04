@@ -64,7 +64,7 @@ export const CardsTicket = ({
           <Col xs={8}>
             <Button
               variant="success"
-              onClick={() => history.push(`/ticket-detail/${item.ticket_id}`)}
+              onClick={() => history.push(`/ticket-detail-page/${item.ticket_id}`)}
             >
               OPEN
             </Button>
