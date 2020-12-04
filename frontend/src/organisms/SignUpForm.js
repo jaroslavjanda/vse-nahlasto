@@ -24,19 +24,13 @@ const schema = yup.object().shape({
     .string()
     .required()
     .label('Password')
-    .test(
-      'len',
-      'Musí mít alespoň 6 znaků',
-      (val) => val.length >= 6,
-    ),
+    .test('len', 'Musí mít alespoň 6 znaků', (val) => val.length >= 6),
   passwordConfirmation: yup
     .string()
     .required()
     .oneOf([yup.ref('password'), null], 'Hesla se musí shodovat')
     .label('Password Confirmation'),
-  checkboxAcceptTerms: yup
-    .bool()
-    .oneOf([true], 'Musíte přijmout podmínky'),
+  checkboxAcceptTerms: yup.bool().oneOf([true], 'Musíte přijmout podmínky'),
 });
 
 export function SignUpForm({ errorMessage, className, onSubmit, children }) {
@@ -98,7 +92,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           autoCapitalize="off"
         />
         <FormGroup>
-          <div style={{marginLeft:"20px"}}>
+          <div style={{ marginLeft: '20px' }}>
             <Field
               type="checkbox"
               id="checkboxAcceptTerms"
@@ -106,7 +100,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
               className={'form-check-input'}
             />
             <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-              Vše přijmout 
+              Vše přijmout
             </label>
             <ErrorMessage
               name="checkboxAcceptTerms"
@@ -115,8 +109,14 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
             />
           </div>
         </FormGroup>
-        <div style={{textAlign:"right"}}>
-          <Button className="homepageButton" type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+        <div style={{ textAlign: 'right' }}>
+          <Button
+            className="homepageButton"
+            type="submit"
+            variant="success"
+            size="lg"
+            style={{ marginBottom: '10px' }}
+          >
             Registrovat se
           </Button>
           {children}

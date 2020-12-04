@@ -7,17 +7,14 @@ import { TicketDetailContentTemplate } from 'src/templates/TicketDetailContentTe
 import { CommentContentTemplate } from 'src/templates/CommentContentTemplate';
 import { CommentFormTemplate } from 'src/templates/CommentFormTemplate';
 
-
 export function TicketDetailPage({ match }) {
-
-  const ticketId = parseInt(match.params.ticketId)
+  const ticketId = parseInt(match.params.ticketId);
 
   return (
-      <>
-    <TicketDetailContentTemplate ticketId={ticketId}/>
-    <CommentFormTemplate ticketId={ticketId}/>
-    <CommentContentTemplate ticketId={ticketId}/>
-    
+    <>
+      <TicketDetailContentTemplate ticketId={ticketId} />
+      <CommentFormTemplate ticketId={ticketId} />
+      <CommentContentTemplate ticketId={ticketId} />
     </>
   );
 }

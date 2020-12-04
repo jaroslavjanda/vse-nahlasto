@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Spinner} from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner, Button } from 'src/atoms';
@@ -47,12 +47,10 @@ const COMMUNITY_MEMBERS_IDS = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
-
   const { user } = useAuth();
   var userId = user?.user_id;
 
-  if (userId === null)
-    userId = 0
+  if (userId === null) userId = 0;
 
   const communityId = parseInt(match.params.communityId);
 
@@ -68,12 +66,14 @@ export const CommunityDetail = ({ match }) => {
     variables: { communityId },
   });
 
-  const isUserAMember = !!communityMembersIds.data?.communityMembersIds.includes(userId);
+  const isUserAMember = !!communityMembersIds.data?.communityMembersIds.includes(
+    userId,
+  );
   const [isMember, setIsMember] = useState(isUserAMember);
-  const isUserAnOwner = (userId === communityOwnerId.data?.communityOwnerId);
+  const isUserAnOwner = userId === communityOwnerId.data?.communityOwnerId;
   const [isOwner, setIsOwner] = useState(isUserAnOwner);
 
-  console.log("Is member:", isMember, "Is owner:", isOwner)
+  console.log('Is member:', isMember, 'Is owner:', isOwner);
 
   const community = communityState.data?.community;
   const history = useHistory();
@@ -96,14 +96,15 @@ export const CommunityDetail = ({ match }) => {
           )}
           {community && (
             <CommunityDetailTemplate
-            community={community}
-            isMember={isMember}
-            setIsMember={setIsMember}
-            isOwner={isOwner}
-            setIsOwner={setIsOwner}
-            communityId={communityId}
-            userId={userId}
-            communityOwnerId={communityOwnerId}/>
+              community={community}
+              isMember={isMember}
+              setIsMember={setIsMember}
+              isOwner={isOwner}
+              setIsOwner={setIsOwner}
+              communityId={communityId}
+              userId={userId}
+              communityOwnerId={communityOwnerId}
+            />
           )}
         </div>
       )}

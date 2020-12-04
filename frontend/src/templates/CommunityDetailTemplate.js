@@ -8,18 +8,21 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Tickets } from 'src/organisms';
 
 export function CommunityDetailTemplate({
-                                          community,
-                                          isMember,
-                                          setIsMember,
-                                          isOwner,
-                                          setIsOwner,
-                                          communityId,
-                                          userId,
-                                          communityOwnerId,
-                                        }) {
+  community,
+  isMember,
+  setIsMember,
+  isOwner,
+  setIsOwner,
+  communityId,
+  userId,
+  communityOwnerId,
+}) {
   return (
     <>
-      <HeadingWithButtons header={community.name} description={community.description}>
+      <HeadingWithButtons
+        header={community.name}
+        description={community.description}
+      >
         <div>
           {!community.closed && !isMember && (
             <Button
@@ -67,7 +70,7 @@ export function CommunityDetailTemplate({
         </div>
       )}
 
-      {((!community.closed) || (isMember)) && (
+      {(!community.closed || isMember) && (
         <div>
           <div>{community.description}</div>
           <br />

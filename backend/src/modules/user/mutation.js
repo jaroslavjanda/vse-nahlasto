@@ -27,8 +27,7 @@ export const signin = async (_, { email, password }, { dbConnection }) => {
       user: { ...user },
       token,
     };
-  }
-  else{
+  } else {
     throw Error('Email nebo heslo je špatně zadané.');
   }
 };

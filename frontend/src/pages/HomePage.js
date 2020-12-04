@@ -8,14 +8,14 @@ import { ErrorBanner, Button } from 'src/atoms/';
 import { HomeTemplate } from 'src/templates/HomeTemplate';
 
 const COMMUNITY_LIST_QUERY = gql`
-query Communities {
-  communitiesHomepage {
-    community_id
-    name
-    description
-    closed
+  query Communities {
+    communitiesHomepage {
+      community_id
+      name
+      description
+      closed
+    }
   }
-}
 `;
 
 export const HomePage = () => {
@@ -33,16 +33,10 @@ export const HomePage = () => {
       )}
       {!communitiesState.loading && (
         <>
-        {communitiesState.error && (
-          <ErrorBanner title={communitiesState.error.message}>
-            <Button color="red" onClick={() => history.go(0)}>
-              Reload
-            </Button>
-          </ErrorBanner>
-        )} 
-        {communitiesHomepage && (
-          <HomeTemplate communitiesHomepage={communitiesHomepage} isMember={isMember} />
-        )}
+          <HomeTemplate
+            communitiesHomepage={communitiesHomepage}
+            isMember={isMember}
+          />
         </>
       )}
     </div>

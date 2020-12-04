@@ -29,7 +29,7 @@ export const communitiesHomepage = async (_, __, { dbConnection }) => {
     WHERE c.closed = '0'
     GROUP BY  c.community_id, c.name, c.description, c.closed
     ORDER BY countID DESC
-    LIMIT 3`, 
+    LIMIT 3`,
   );
 
   return communitiesHomepage;
@@ -91,11 +91,9 @@ export const communityMembersIds = async (
   { communityId },
   { dbConnection },
 ) => {
-  const membersObjects = (
-    await dbConnection.query(
-      `SELECT user_id FROM membership WHERE community_id = ?`,
-      [communityId],
-    )
+  const membersObjects = await dbConnection.query(
+    `SELECT user_id FROM membership WHERE community_id = ?`,
+    [communityId],
   );
 
   const idsArrayInt = [];
@@ -119,13 +117,12 @@ export const communityMembersIds = async (
 export const communitiesAccessibleToUserIds = async (
   _,
   { userId },
-  { dbConnection }
-  ) => {
-  const idsArrayObject = (await dbConnection.query(
-      // TODO solve 'accepted'
-      `SELECT community_id FROM membership WHERE user_id = ?`,
-      [userId],
-    )
+  { dbConnection },
+) => {
+  const idsArrayObject = await dbConnection.query(
+    // TODO solve 'accepted'
+    `SELECT community_id FROM membership WHERE user_id = ?`,
+    [userId],
   );
 
   const idsArrayInt = [];

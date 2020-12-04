@@ -9,7 +9,7 @@ export function CommunitiesTemplate({
   communitiesAccessibleToUser,
 }) {
   const history = useHistory();
-return (
+  return (
     <>
       <HeadingWithButtons header="Komunity">
         <div>
@@ -21,7 +21,10 @@ return (
           </Button>
         </div>
       </HeadingWithButtons>
-      <CommunityCards allCommunities={allCommunities} communitiesAccessibleToUser={communitiesAccessibleToUser}/>
+      <CommunityCards
+        allCommunities={allCommunities}
+        communitiesAccessibleToUser={communitiesAccessibleToUser}
+      />
     </>
   );
 }

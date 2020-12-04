@@ -53,8 +53,14 @@ export function SignInForm({
           autoCapitalize="off"
         />
 
-        <div style={{textAlign:"right"}}>
-          <Button className="homepageButton" type="submit" variant="success" size="lg" style={{marginBottom:"10px"}}>
+        <div style={{ textAlign: 'right' }}>
+          <Button
+            className="homepageButton"
+            type="submit"
+            variant="success"
+            size="lg"
+            style={{ marginBottom: '10px' }}
+          >
             Přihlásit se
           </Button>
           {children}

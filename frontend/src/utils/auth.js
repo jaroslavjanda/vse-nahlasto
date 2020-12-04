@@ -43,8 +43,10 @@ function createContextValue({ token, user, setState }) {
   return {
     token,
     user,
-    signin: ({ token, user }) => setState({ token, user }),
-    signout: () => setState({ token: null, user: null }),
+    signin: ({ token, user }) => {
+      setState({ token, user });
+    },
+    signout: () => localStorage.removeItem('quacker-auth'),
   };
 }
 

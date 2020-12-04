@@ -31,8 +31,7 @@ export const Communities = () => {
 
   const user = useAuth();
   var userId = user.user?.user_id;
-  if (userId == null)
-    userId = 0;
+  if (userId == null) userId = 0;
 
   const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
     variables: { userId },
@@ -55,8 +54,10 @@ export const Communities = () => {
             </ErrorBanner>
           )}
           {communities && (
-            <CommunitiesTemplate allCommunities={communities}
-                                 communitiesAccessibleToUser={communitiesAccessibleToUser} />
+            <CommunitiesTemplate
+              allCommunities={communities}
+              communitiesAccessibleToUser={communitiesAccessibleToUser}
+            />
           )}
         </>
       )}

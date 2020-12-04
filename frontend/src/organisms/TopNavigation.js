@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Link, NavLink } from 'src/atoms';
@@ -10,9 +10,27 @@ import { MainSection } from 'src/atoms/';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const TopNavigation = ({ children, hasFullscreen }) => {
+import { AdminBackground, AdminWrapper } from './styled';
+import PrivateStyledLink from './privateStyledLink';
+import './style.css';
+import { Row, Col } from 'react-grid-system';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBuilding,
+  faNewspaper,
+  faFileAlt,
+  faFolderOpen,
+  faTools,
+  faClipboardList,
+  faTachometerAlt,
+} from '@fortawesome/free-solid-svg-icons';
+
+export const TopNavigation = ({ children }) => {
   const { user, signout } = useAuth();
   const history = useHistory();
+  const [isAuthenticated, setIsAutheticated] = useState(
+    localStorage.getItem('quacker-auth'),
+  );
 
   return (
     <>
@@ -31,29 +49,22 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Item>
-              <NavLink exact to={route.home()} className="pa3">
-                Domů
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink exact to={route.communities()} className="pa3">
-                Komunity
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item></Nav.Item>
-            {user ? (
+            {!isAuthenticated && (
               <>
                 <Nav.Item>
-                  <NavLink
-                    exact
-                    to={route.home()}
-                    className="ph3 pv1 h-100 flex items-center not-active"
-                  >
-                    {'Logged in as: '}
-                    {user.email}
+                  <NavLink exact to={route.home()} className="pa3">
+                    Domů
                   </NavLink>
                 </Nav.Item>
+                <Nav.Item>
+                  <NavLink exact to={route.communities()} className="pa3">
+                    Komunity
+                  </NavLink>
+                </Nav.Item>
+              </>
+            )}
+            {isAuthenticated ? (
+              <>
                 <Nav.Item>
                   <Button
                     className="navButton"
@@ -84,8 +95,84 @@ export const TopNavigation = ({ children, hasFullscreen }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      {hasFullscreen && <div>{children}</div>}
-      {!hasFullscreen && <MainSection>{children}</MainSection>}
+      {!isAuthenticated && <>{children} </>}
+
+      {isAuthenticated && (
+        <AdminBackground>
+          <>
+            <Row>
+              <Col id="admin-menu" lg={12} xl={3} justify="center">
+                <PrivateStyledLink
+                  activeClassName="active-admin"
+                  to={route.admin()}
+                >
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faTachometerAlt}
+                  />{' '}
+                  Nástěnka
+                </PrivateStyledLink>
+                <br />
+                <PrivateStyledLink
+                  activeClassName="active-admin"
+                  to={route.adminAllCommunities()}
+                >
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faBuilding}
+                  />{' '}
+                  Hledat nové skupiny
+                </PrivateStyledLink>
+                <PrivateStyledLink
+                  activeClassName="active-admin"
+                  to={route.adminAllCommunities()}
+                >
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faFolderOpen}
+                  />{' '}
+                  Členství ve skupinách
+                </PrivateStyledLink>
+                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faNewspaper}
+                  />{' '}
+                  Podané tickety
+                </PrivateStyledLink>
+                <br />
+                <br />
+                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faFileAlt}
+                  />{' '}
+                  Moje skupiny
+                </PrivateStyledLink>
+                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faClipboardList}
+                  />{' '}
+                  Tickety na vyřešení
+                </PrivateStyledLink>
+                <br />
+                <br />
+                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                  <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faTools}
+                  />{' '}
+                  Nastavení
+                </PrivateStyledLink>
+              </Col>
+              <Col lg={12} xl={8}>
+                <AdminWrapper>{children}</AdminWrapper>
+              </Col>
+            </Row>
+          </>
+        </AdminBackground>
+      )}
     </>
   );
 };
