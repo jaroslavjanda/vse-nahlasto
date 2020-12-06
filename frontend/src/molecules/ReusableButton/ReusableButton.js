@@ -1,6 +1,6 @@
-import "./styles.css"
+import './styles.css';
 
-const ReusableButton = ({to, text}) => {
+const ReusableButton = ({ to, text }) => {
   return (
     <a href="#" className="cta">
       <span>Click me</span>
@@ -9,6 +9,6 @@ const ReusableButton = ({to, text}) => {
         <polyline points="8 1 12 5 8 9"></polyline>
       </svg>
     </a>
-  )
-}
-export default ReusableButton
+  );
+};
+export default ReusableButton;

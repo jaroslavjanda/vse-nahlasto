@@ -38,7 +38,7 @@ export const route = {
   forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
-  communityDetailRaw: () => '/community-detail' ,
+  communityDetailRaw: () => '/community-detail',
   addTicket: () => `${communityDetail()}/add`,
   listTicket: () => `${communityDetail()}/list`,
   editCommunity: () => `${communityDetail()}/edit_community`,

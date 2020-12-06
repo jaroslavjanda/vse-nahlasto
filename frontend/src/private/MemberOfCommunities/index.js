@@ -21,7 +21,7 @@ const USER_ACCESSIBLE_COMMUNITIES = gql`
 `;
 
 export const MemberOfCommunities = () => {
-  const { user } = getDataFromLocalStorage()
+  const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
   const quacksState = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
     variables: { userId },
@@ -48,7 +48,11 @@ export const MemberOfCommunities = () => {
             <ErrorBanner title={quacksState.error.message}></ErrorBanner>
           )}
           {community && (
-            <CommunitiesTemplate communities={community} title={"Členství v komunitách"} previewType={PreviewType.Member} />
+            <CommunitiesTemplate
+              communities={community}
+              title={'Členství v komunitách'}
+              previewType={PreviewType.Member}
+            />
           )}
         </>
       )}

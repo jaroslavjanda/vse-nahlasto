@@ -96,7 +96,9 @@ export const TopNavigation = ({ children }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      {!isAuthenticated && <div setIsAuthenticated={setIsAuthenticated}>{children} </div>}
+      {!isAuthenticated && (
+        <div setIsAuthenticated={setIsAuthenticated}>{children} </div>
+      )}
 
       {isAuthenticated && (
         <AdminBackground>

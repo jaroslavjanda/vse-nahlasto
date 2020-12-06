@@ -51,7 +51,7 @@ const COMMUNITY_MEMBERS_IDS = gql`
 
 export const CommunityDetail = ({ match }) => {
   const { user } = useAuth();
-  const localStorage = getDataFromLocalStorage()
+  const localStorage = getDataFromLocalStorage();
   var userId = localStorage?.user?.user_id;
 
   if (userId === null) userId = 0;

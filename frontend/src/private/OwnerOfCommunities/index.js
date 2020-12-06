@@ -8,9 +8,12 @@ import '../../molecules/CommunityPreview/styles.css';
 import { useAuth } from '../../utils/auth';
 import { imgPath } from '../../utils/imgPath';
 import { route } from '../../Routes';
-import { HeadingWithButtons } from "./../../organisms"
+import { HeadingWithButtons } from './../../organisms';
 import { getDataFromLocalStorage } from '../../utils/localStorage';
-import { CommunityPreview, PreviewType} from '../../molecules/CommunityPreview';
+import {
+  CommunityPreview,
+  PreviewType,
+} from '../../molecules/CommunityPreview';
 const COMMUNITY_USER_OWNS = gql`
   query CommunitiesUserOwns($userId: Int!) {
     communitiesUserOwns(userId: $userId) {
@@ -24,7 +27,7 @@ const COMMUNITY_USER_OWNS = gql`
 `;
 
 export const OwnerOfCommunities = () => {
-  const { user } = getDataFromLocalStorage()
+  const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
   const communitiesUserOwnsState = useQuery(COMMUNITY_USER_OWNS, {
     variables: { userId },
@@ -53,20 +56,18 @@ export const OwnerOfCommunities = () => {
           )}
           {communities && (
             <>
-            <HeadingWithButtons header={"Moje komunity"}>
-              <div>
-                <Link to={route.addCommunity()}>
-
-                <Button
-                  variant="success"
-                >
-                  Přidat komunitu
-                </Button>
-                </Link>
-              </div>
-            </HeadingWithButtons>
-              <CommunityPreview communities={communities} previewType={PreviewType.Owner} />
-              </>
+              <HeadingWithButtons header={'Moje komunity'}>
+                <div>
+                  <Link to={route.addCommunity()}>
+                    <Button variant="success">Přidat komunitu</Button>
+                  </Link>
+                </div>
+              </HeadingWithButtons>
+              <CommunityPreview
+                communities={communities}
+                previewType={PreviewType.Owner}
+              />
+            </>
           )}
         </>
       )}

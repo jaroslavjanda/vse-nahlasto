@@ -59,7 +59,7 @@ export const AdminAllCommunities = () => {
           {communities && (
             <CommunitiesTemplate
               communities={communities}
-              title={"Hledej komunity"}
+              title={'Hledej komunity'}
               previewType={PreviewType.Basic}
             />
           )}

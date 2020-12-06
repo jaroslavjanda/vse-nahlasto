@@ -3,19 +3,20 @@ import { CommunityCards } from 'src/molecules';
 import { HeadingWithButtons } from 'src/organisms/';
 import { Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { CommunityPreview } from "./../molecules/CommunityPreview/"
+import { CommunityPreview } from './../molecules/CommunityPreview/';
 export function CommunitiesTemplate({
   allCommunities,
-  communitiesAccessibleToUser, previewType,
-                                      communities,
+  communitiesAccessibleToUser,
+  previewType,
+  communities,
   ownerOfCommunities,
   title,
-  isPublic
+  isPublic,
 }) {
   const history = useHistory();
   return (
     <Container>
-      <HeadingWithButtons header={title ? title : ""}>
+      <HeadingWithButtons header={title ? title : ''}>
         <div>
           <Button
             variant="success"
@@ -27,7 +28,11 @@ export function CommunitiesTemplate({
       </HeadingWithButtons>
       {console.log('Owner of communities:', ownerOfCommunities)}
 
-      <CommunityPreview communities={communities} previewType={previewType} isPublic={isPublic} />
+      <CommunityPreview
+        communities={communities}
+        previewType={previewType}
+        isPublic={isPublic}
+      />
 
       {/*
       <CommunityCards

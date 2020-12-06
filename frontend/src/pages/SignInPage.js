@@ -26,7 +26,7 @@ export function SignInPage() {
   const [signinRequest, signinRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
       auth.signin({ token, user });
-      history.replace("/")
+      history.replace('/');
       window.location.reload();
     },
     onError: () => {

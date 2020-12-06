@@ -21,7 +21,7 @@ const COMMUNITY_LIST_QUERY = gql`
 `;
 
 export const HomePage = () => {
-  const localStorage  = getDataFromLocalStorage()
+  const localStorage = getDataFromLocalStorage();
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
   const [isMember] = useState(false);
   const history = useHistory();
@@ -29,28 +29,24 @@ export const HomePage = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {!localStorage &&
+      {!localStorage && (
         <>
-      {
-        communitiesState.loading && (
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Načítání...</span>
-          </Spinner>
-        )
-      }
-      {!communitiesState.loading && (
-        <>
-        <HomeTemplate
-        communitiesHomepage={communitiesHomepage}
-        isMember={isMember}
-        />
+          {communitiesState.loading && (
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Načítání...</span>
+            </Spinner>
+          )}
+          {!communitiesState.loading && (
+            <>
+              <HomeTemplate
+                communitiesHomepage={communitiesHomepage}
+                isMember={isMember}
+              />
+            </>
+          )}
         </>
-        )}
-        </>
-      }
-      {localStorage &&
-        <Redirect to={route.admin()} />
-      }
+      )}
+      {localStorage && <Redirect to={route.admin()} />}
     </div>
   );
 };
