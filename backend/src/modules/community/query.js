@@ -140,7 +140,7 @@ export const communitiesAccessibleToUserIds = async (
 };
 
 /**
- * Based on user_id, returns all communities in which is user a member or an owner.
+ * Based on user_id, returns all communities in which is user a member or an admin.
  * @param _
  * @param userId
  * @param dbConnection
@@ -153,11 +153,11 @@ export const communitiesAccessibleToUser = async (
 ) => {
   return (await dbConnection.query(
       // TODO solve 'accepted'
-      'SELECT community.community_id, name, description, image, code, closed ' +
+      'SELECT DISTINCT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +
       'ON community.community_id = membership.community_id ' +
-      'WHERE user_id = ?',
+      'WHERE user_id = ? AND role_id = 2 OR role_id = 3',
       [userId],
     )
   );
