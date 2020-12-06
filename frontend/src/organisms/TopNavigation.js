@@ -125,7 +125,7 @@ export const TopNavigation = ({ children }) => {
                 </PrivateStyledLink>
                 <PrivateStyledLink
                   activeClassName="active-admin"
-                  to={route.adminAllCommunities()}
+                  to={route.adminMemberOfCommunities()}
                 >
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}

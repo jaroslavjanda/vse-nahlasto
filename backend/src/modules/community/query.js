@@ -146,17 +146,16 @@ export const communitiesAccessibleToUserIds = async (
 export const communitiesAccessibleToUser = async (
   _,
   { userId },
-  { dbConnection }
+  { dbConnection },
 ) => {
-  return (await dbConnection.query(
-      // TODO solve 'accepted'
-      'SELECT community.community_id, name, description, image, code, closed ' +
+  return await dbConnection.query(
+    // TODO solve 'accepted'
+    'SELECT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +
       'ON community.community_id = membership.community_id ' +
       'WHERE user_id = ?',
-      [userId],
-    )
+    [userId],
   );
 };
 
@@ -167,20 +166,14 @@ export const communitiesAccessibleToUser = async (
  * @param dbConnection
  * @returns {Promise<*>}
  */
-export const communitiesUserOwns = async (
-  _,
-  { userId },
-  { dbConnection }
-) => {
-  return (await dbConnection.query(
-      // TODO solve 'accepted'
-      'SELECT community.community_id, name, description, image, code, closed ' +
+export const communitiesUserOwns = async (_, { userId }, { dbConnection }) => {
+  return await dbConnection.query(
+    // TODO solve 'accepted'
+    'SELECT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +
       'ON community.community_id = membership.community_id ' +
       'WHERE user_id = ? AND role_id = 1',
-      [userId],
-    )
+    [userId],
   );
 };
-

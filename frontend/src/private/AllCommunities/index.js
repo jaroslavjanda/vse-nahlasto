@@ -30,15 +30,17 @@ export const AdminAllCommunities = () => {
   const communities = communitiesState.data?.communities;
 
   const user = useAuth();
-  var userId = user.user?.user_id;
+  var userId = 3;
   if (userId == null) userId = 0;
 
   const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
     variables: { userId },
   });
+  const communitiesAccessibleToUserState = communitiesAccessibleToUser.data;
 
   return (
     <div style={{ textAlign: 'center' }}>
+      {console.log(communitiesAccessibleToUserState)}
       {communitiesState.loading && (
         <Spinner animation="border" role="status">
           <span className="sr-only">Načítání...</span>

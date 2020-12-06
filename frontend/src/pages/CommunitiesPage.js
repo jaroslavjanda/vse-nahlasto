@@ -19,11 +19,9 @@ const COMMUNITY_LIST_QUERY = gql`
 `;
 
 export const Communities = () => {
-
   const user = useAuth();
   var userId = user.user?.user_id;
-  if (userId == null)
-    userId = 0;
+  if (userId == null) userId = 0;
 
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY, {
     variables: { userId },
@@ -49,8 +47,10 @@ export const Communities = () => {
             </ErrorBanner>
           )}
           {communities && (
-            <CommunitiesTemplate allCommunities={communities}
-                                 communitiesAccessibleToUser={communitiesState} />
+            <CommunitiesTemplate
+              allCommunities={communities}
+              communitiesAccessibleToUser={communitiesState}
+            />
           )}
         </>
       )}

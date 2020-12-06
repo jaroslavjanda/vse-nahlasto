@@ -150,9 +150,9 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
-    addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
+    addComment(content: String!, user_id: Int!, ticket_id: Int!): Comment
 
-    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
+    deleteTicket(userId: Int!, communityId: Int!, ticketId: Int!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
 
@@ -187,7 +187,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
 
   const port = process.env.PORT || 4000;
-  app.use('/static',express.static('public/'));
+  app.use('/static', express.static('public/'));
   app.get('/', (_, res) => res.redirect('/graphql'));
 
   app.listen(port, () => {

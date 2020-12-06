@@ -19,6 +19,7 @@ import { TicketDetailPage } from './pages/TicketDetailPage';
 import { TopNavigation } from './organisms';
 import Dashboard from './private/Dashboard';
 import { AdminAllCommunities } from './private/AllCommunities';
+import { MemberOfCommunities } from './private/MemberOfCommunities';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
@@ -44,7 +45,7 @@ export const route = {
   ticketDetailPage,
   admin: () => `/admin`,
   adminAllCommunities: () => `/admin/all-communities`,
-  adminOpenCommunities: () => `/admin/open-communities`,
+  adminMemberOfCommunities: () => `/admin/member-of-communities`,
 };
 
 export function Routes() {
@@ -91,9 +92,9 @@ export function Routes() {
           component={AdminAllCommunities}
         />
         <Route
-          path={route.adminOpenCommunities()}
+          path={route.adminMemberOfCommunities()}
           exact
-          component={AdminAllCommunities}
+          component={MemberOfCommunities}
         />
         <Route path={route.admin()} exact component={Dashboard} />
 

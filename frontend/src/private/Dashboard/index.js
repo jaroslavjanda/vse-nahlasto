@@ -16,7 +16,7 @@ const Dashboard = () => {
   return (
     <Row>
       <Col lg={4}>
-        <Link to={route.communities()}>
+        <Link to={route.adminAllCommunities()}>
           <DashboardCardWrapper>
             <img width="50%" src={organizationImage} />
             <CardTitle>Hledat skupiny</CardTitle>
@@ -24,9 +24,9 @@ const Dashboard = () => {
         </Link>
       </Col>
       <Col lg={4}>
-        <Link to={''}>
+        <Link to={route.adminMemberOfCommunities()}>
           <DashboardCardWrapper>
-            <img width="50%"  src={servicesImage} />
+            <img width="50%" src={servicesImage} />
             <CardTitle>Členství ve skupinách</CardTitle>
           </DashboardCardWrapper>
         </Link>
@@ -34,7 +34,7 @@ const Dashboard = () => {
       <Col lg={4}>
         <Link to={''}>
           <DashboardCardWrapper>
-            <img width="50%"  src={messageImage} />
+            <img width="50%" src={messageImage} />
             <CardTitle>Podané tickety</CardTitle>
           </DashboardCardWrapper>
         </Link>
@@ -42,7 +42,7 @@ const Dashboard = () => {
       <Col lg={4}>
         <Link to={''}>
           <DashboardCardWrapper>
-            <img width="50%"  src={adminsImage} />
+            <img width="50%" src={adminsImage} />
             <CardTitle>Moje skupiny</CardTitle>
           </DashboardCardWrapper>
         </Link>
@@ -51,7 +51,7 @@ const Dashboard = () => {
       <Col lg={4}>
         <Link to={''}>
           <DashboardCardWrapper>
-            <img width="50%"  src={newsImage} />
+            <img width="50%" src={newsImage} />
             <CardTitle>Moje tickety</CardTitle>
           </DashboardCardWrapper>
         </Link>
@@ -59,7 +59,7 @@ const Dashboard = () => {
       <Col lg={4}>
         <Link to={''}>
           <DashboardCardWrapper>
-            <img width="50%"  src={settingsImage} />
+            <img width="50%" src={settingsImage} />
             <CardTitle>Nastavení</CardTitle>
           </DashboardCardWrapper>
         </Link>
