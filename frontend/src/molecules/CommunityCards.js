@@ -7,6 +7,7 @@ import { imgPath } from 'src/utils/imgPath';
 export const CommunityCards = ({
   allCommunities,
   communitiesAccessibleToUser,
+  ownerOfCommunities,
 }) => {
   const history = useHistory();
 
@@ -29,7 +30,7 @@ export const CommunityCards = ({
                 key={item.community_id}
                 onClick={() =>
                   isMemberCheck(item.community_id) || !item.closed
-                    ? history.push(`community-detail/${item.community_id}`)
+                    ? history.push(`/community-detail/${item.community_id}`)
                     : toast.info('Požadavek byl odeslán')
                 }
               >
@@ -48,6 +49,13 @@ export const CommunityCards = ({
           </>
         )}
 
+        {console.log('Owner of communities:', ownerOfCommunities)}
+
+        {console.log(
+          'communitiesAccessibleToUser of communities:',
+          communitiesAccessibleToUser,
+        )}
+
         {!allCommunities && communitiesAccessibleToUser && (
           <>
             {communitiesAccessibleToUser.map((item) => (
@@ -55,7 +63,7 @@ export const CommunityCards = ({
                 style={{ width: '100%' }}
                 key={item.community_id}
                 onClick={() =>
-                  history.push(`community-detail/${item.community_id}`)
+                  history.push(`/community-detail/${item.community_id}`)
                 }
               >
                 <Card.Img variant="top" src={imgPath('tickets', item.image)} />
@@ -63,6 +71,27 @@ export const CommunityCards = ({
                   <h3>{item.name}</h3>
                   <Card.Text>{item.description}</Card.Text>
                   <div>Jsi členem ✅</div>
+                </Card.Body>
+              </Card>
+            ))}
+          </>
+        )}
+
+        {!allCommunities && !communitiesAccessibleToUser && ownerOfCommunities && (
+          <>
+            {ownerOfCommunities.map((item) => (
+              <Card
+                style={{ width: '100%' }}
+                key={item.community_id}
+                onClick={() =>
+                  history.push(`/community-detail/${item.community_id}`)
+                }
+              >
+                <Card.Img variant="top" src={imgPath('tickets', item.image)} />
+                <Card.Body>
+                  <h3>{item.name}</h3>
+                  <Card.Text>{item.description}</Card.Text>
+                  <Button variant="primary">UPRAVIT</Button>
                 </Card.Body>
               </Card>
             ))}

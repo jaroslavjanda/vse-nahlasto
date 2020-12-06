@@ -5,6 +5,7 @@ import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner, Button } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -50,7 +51,8 @@ const COMMUNITY_MEMBERS_IDS = gql`
 
 export const CommunityDetail = ({ match }) => {
   const { user } = useAuth();
-  var userId = user?.user_id;
+  const localStorage = getDataFromLocalStorage()
+  var userId = localStorage?.user?.user_id;
 
   if (userId === null) userId = 0;
 

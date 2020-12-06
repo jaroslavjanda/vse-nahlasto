@@ -12,6 +12,7 @@ import { useAuth } from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { parseValue } from 'graphql';
 
+
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {
     ticket(ticketId: $ticketId) {

@@ -48,8 +48,9 @@ export const Communities = () => {
           )}
           {communities && (
             <CommunitiesTemplate
-              allCommunities={communities}
-              communitiesAccessibleToUser={communitiesState}
+              communities={communities}
+              title={"Komunity"}
+              isPublic={true}
             />
           )}
         </>

@@ -5,6 +5,8 @@ import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
 import { Spinner } from 'react-bootstrap';
 import { ErrorBanner, Button } from 'src/atoms/';
 import { useAuth } from '../../utils/auth';
+import { getDataFromLocalStorage } from './../../utils/localStorage';
+import { PreviewType } from '../../molecules/CommunityPreview';
 
 const USER_ACCESSIBLE_COMMUNITIES = gql`
   query UserAccessibleCommunities($userId: Int!) {
@@ -19,7 +21,8 @@ const USER_ACCESSIBLE_COMMUNITIES = gql`
 `;
 
 export const MemberOfCommunities = () => {
-  const userId = parseInt(3);
+  const { user } = getDataFromLocalStorage()
+  const userId = parseInt(user.user_id);
   const quacksState = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
     variables: { userId },
   });
@@ -45,7 +48,7 @@ export const MemberOfCommunities = () => {
             <ErrorBanner title={quacksState.error.message}></ErrorBanner>
           )}
           {community && (
-            <CommunitiesTemplate communitiesAccessibleToUser={community} />
+            <CommunitiesTemplate communities={community} title={"Členství v komunitách"} previewType={PreviewType.Member} />
           )}
         </>
       )}

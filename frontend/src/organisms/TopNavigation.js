@@ -24,11 +24,12 @@ import {
   faClipboardList,
   faTachometerAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 
 export const TopNavigation = ({ children }) => {
-  const { user, signout } = useAuth();
+  const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAutheticated] = useState(
+  const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('quacker-auth'),
   );
 
@@ -95,7 +96,7 @@ export const TopNavigation = ({ children }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      {!isAuthenticated && <>{children} </>}
+      {!isAuthenticated && <div setIsAuthenticated={setIsAuthenticated}>{children} </div>}
 
       {isAuthenticated && (
         <AdminBackground>
@@ -142,7 +143,10 @@ export const TopNavigation = ({ children }) => {
                 </PrivateStyledLink>
                 <br />
                 <br />
-                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                <PrivateStyledLink
+                  activeClassName="active-admin"
+                  to={route.adminOwnerOfCommunities()}
+                >
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faFileAlt}

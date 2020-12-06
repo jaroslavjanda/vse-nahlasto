@@ -5,6 +5,7 @@ import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
 import { Spinner } from 'react-bootstrap';
 import { ErrorBanner, Button } from 'src/atoms/';
 import { useAuth } from '../../utils/auth';
+import { PreviewType } from '../../molecules/CommunityPreview';
 
 const COMMUNITY_LIST_QUERY = gql`
   query Communities {
@@ -57,8 +58,9 @@ export const AdminAllCommunities = () => {
           )}
           {communities && (
             <CommunitiesTemplate
-              allCommunities={communities}
-              communitiesAccessibleToUser={communitiesAccessibleToUser}
+              communities={communities}
+              title={"Hledej komunity"}
+              previewType={PreviewType.Basic}
             />
           )}
         </>

@@ -20,6 +20,7 @@ import { TopNavigation } from './organisms';
 import Dashboard from './private/Dashboard';
 import { AdminAllCommunities } from './private/AllCommunities';
 import { MemberOfCommunities } from './private/MemberOfCommunities';
+import { OwnerOfCommunities } from './private/OwnerOfCommunities';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
@@ -37,6 +38,7 @@ export const route = {
   forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
+  communityDetailRaw: () => '/community-detail' ,
   addTicket: () => `${communityDetail()}/add`,
   listTicket: () => `${communityDetail()}/list`,
   editCommunity: () => `${communityDetail()}/edit_community`,
@@ -46,6 +48,7 @@ export const route = {
   admin: () => `/admin`,
   adminAllCommunities: () => `/admin/all-communities`,
   adminMemberOfCommunities: () => `/admin/member-of-communities`,
+  adminOwnerOfCommunities: () => `/admin/owner-of-communities`,
 };
 
 export function Routes() {
@@ -96,8 +99,12 @@ export function Routes() {
           exact
           component={MemberOfCommunities}
         />
+        <Route
+          path={route.adminOwnerOfCommunities()}
+          exact
+          component={OwnerOfCommunities}
+        />
         <Route path={route.admin()} exact component={Dashboard} />
-
         <Route path="*" component={PageNotFound} />
       </Switch>
     </TopNavigation>

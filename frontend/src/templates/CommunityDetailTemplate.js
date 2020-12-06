@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeadingWithButtons } from 'src/organisms/';
-import { Button, Alert } from 'react-bootstrap';
+import { Button, Alert, Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +17,7 @@ export function CommunityDetailTemplate({
   communityOwnerId,
 }) {
   return (
-    <>
+    <Container>
       <HeadingWithButtons
         header={community.name}
         description={community.description}
@@ -102,6 +102,6 @@ export function CommunityDetailTemplate({
           </Button>
         </div>
       )}
-    </>
+    </Container>
   );
 }

@@ -7,6 +7,10 @@ code {
     monospace;
 }
 
+a:hover {
+  text-decoration: none !important;
+}
+
 .pre-line {
   white-space: pre-line;
 }
