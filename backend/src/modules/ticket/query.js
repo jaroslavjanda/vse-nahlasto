@@ -103,3 +103,27 @@ export const usersTickets = async (_, { userId }, { dbConnection }) => {
     userId,
   ]);
 };
+
+/**
+ * Returns tickets from all communities where user is an admin (based on userId).
+ * @param _
+ * @param userId
+ * @returns {Promise<*>}
+ */
+export const ticketFromCommunitiesIAmAdminIn = async (
+  _,
+  { userId },
+  { dbConnection },
+) => {
+  const ticketsFromCommunitiesIAmAdminIn = ( await dbConnection.query(
+    `SELECT DISTINCT ticket_id FROM membership 
+    JOIN ticket ON membership.community_id = ticket.community_id 
+    WHERE membership.user_id = ? AND membership.role_id = 1 OR membership.role_id = 2`,
+    [userId],
+  )
+);
+
+  console.log("Admin Comms Ids", ticketsFromCommunitiesIAmAdminIn)
+
+  return ticketsFromCommunitiesIAmAdminIn;
+};

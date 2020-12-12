@@ -115,6 +115,7 @@ const typeDefs = gql`
     comments: [Comment!]
     comment(commentId: Int!): [Comment!]
     ticketComment(ticketId: Int!): [Comment!]
+    ticketFromCommunitiesIAmAdminIn(userId: Int!): [Ticket]
   }
 
   type Mutation {
