@@ -14,7 +14,7 @@ import { route } from '../../Routes';
 const Dashboard = () => {
   return (
     <>
-      <div className="main-content">
+{/*       <div className="main-content">
         <div className="container-fluid">
           <div className="header-body">
             <div className="row">
@@ -123,7 +123,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <br />
 
