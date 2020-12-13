@@ -51,9 +51,8 @@ export const MyAddedTickets = () => {
           )}
           {tickets && (
             <MyAddedTicketsTemplate
-              communities={tickets}
+              tickets={tickets}
               title={'Vložené příspěvky'}
-              previewType={PreviewType.Member}
             />
           )}
         </>

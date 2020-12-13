@@ -1,16 +1,14 @@
 import React from 'react';
-import { CommunityCards } from 'src/molecules';
+import { route } from 'src/Routes';
 import { HeadingWithButtons } from 'src/organisms/';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Col, Row, Card } from 'react-bootstrap';
+import { imgPath } from 'src/utils/imgPath';
 import { useHistory } from 'react-router-dom';
-import { CommunityPreview } from './../molecules/CommunityPreview/';
-import { Tickets } from 'src/organisms';
+import { Link } from 'react-router-dom';
+import { random } from 'lodash';
 export function MyAddedTicketsTemplate({
-  allCommunities,
-  communitiesAccessibleToUser,
-  previewType,
-  communities,
-  ownerOfCommunities,
+  usersTickets,
+  tickets,
   title,
   isPublic,
 }) {
@@ -20,11 +18,23 @@ export function MyAddedTicketsTemplate({
       <HeadingWithButtons header={title ? title : ''}>
       </HeadingWithButtons>
 
-      <CommunityPreview
-        communities={communities}
-        previewType={previewType}
-        isPublic={isPublic}
-      />
+      <Row>
+        {tickets.map((tickets) => (
+          <Col lg={isPublic ? 4 : 6} md={12}>
+                <Card style={{ width: '100%' }}>
+                      <Card.Img
+                        variant="top"
+                        src={imgPath('tickets', tickets.image)}
+                      />
+                      <Card.Body>
+                        <h3>{tickets.title}</h3>
+                        <Card.Text>{tickets.content}</Card.Text>
+                        <div>👍 {random(15)}</div>
+                      </Card.Body>
+                    </Card>
+          </Col>
+        ))}
+      </Row>
     </Container>
   );
 }
