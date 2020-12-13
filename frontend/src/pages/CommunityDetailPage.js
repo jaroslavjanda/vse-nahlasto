@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React, { useCallback, useMemo } from 'react';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { Spinner } from 'react-bootstrap';
-import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner, Button } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
+import { toast } from 'react-toastify';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -37,20 +37,46 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
-const COMMUNITY_OWNER_ID = gql`
-  query CommunityOwnerId($communityId: Int!) {
-    communityOwnerId(communityId: $communityId)
-  }
-`;
-
-const COMMUNITY_MEMBERS_IDS = gql`
-  query CommunityMembersIds($communityId: Int!) {
-    communityMembersIds(communityId: $communityId)
+const JOIN_COMMUNITY_MUTATION = gql`
+  mutation JoinCommunity($userId: Int!, $communityId: Int!) {
+    joinPublicCommunity(userId: $userId, communityId: $communityId) {
+      community_id
+    }
   }
 `;
 
 export const CommunityDetail = ({ match }) => {
-  const { user } = useAuth();
+
+  const [joinPublicCommunityRequest] = useMutation(
+    JOIN_COMMUNITY_MUTATION,
+    {
+      onCompleted: ({ joinPublicCommunity: {community_id} }) => {
+        console.log("completed, comm id, user_id", community_id);
+        toast.success('Nyní jste součástí komunity!');
+        window.location.reload();
+      },
+      onError: () => {
+        console.log("error, comm id, user_id");
+      },
+    }
+  );
+
+  const handleJoinCommunity = useCallback(
+    (oldVariables) => {
+      console.log("variables userId", oldVariables.variables)
+
+      const variables = {
+        userId: oldVariables.variables.userId,
+        communityId: oldVariables.variables.communityId
+      }
+
+      console.log("new variables", variables)
+
+      joinPublicCommunityRequest({ variables });
+    },
+    [joinPublicCommunityRequest],
+  );
+
   const localStorage = getDataFromLocalStorage();
   var userId = localStorage?.user?.user_id;
 
@@ -96,6 +122,7 @@ export const CommunityDetail = ({ match }) => {
               community={community}
               isMember={isMember}
               isOwner={isOwner}
+              handleJoinCommunity={handleJoinCommunity}
               communityId={communityId}
               userId={userId}
               communityOwnerId={communityState}

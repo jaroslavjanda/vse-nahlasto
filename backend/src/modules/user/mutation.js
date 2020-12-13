@@ -156,3 +156,21 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
     )
   )[0];
 };
+
+export const joinPublicCommunity = async (_, { userId, communityId }, { dbConnection }) => {
+
+  console.log("userId:", userId, "commId:", communityId)
+
+  await dbConnection.query(
+    `INSERT INTO membership (role_id, community_id, user_id, accepted)
+      VALUES (?, ?, ?, ?)`,
+    [3, communityId, userId, 1],
+  );
+
+  return (
+    await dbConnection.query(
+      `SELECT community_id FROM membership WHERE community_id = ? AND user_id = ?`,
+      [communityId, userId],
+    )
+  )[0];
+};
