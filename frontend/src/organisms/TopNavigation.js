@@ -142,7 +142,7 @@ export const TopNavigation = ({ children }) => {
                   />{' '}
                   Členství v komunitách
                 </PrivateStyledLink>
-                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                <PrivateStyledLink activeClassName="active-admin" to={route.myAddedTickets()}>
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faNewspaper}

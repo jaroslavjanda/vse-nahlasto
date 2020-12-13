@@ -145,7 +145,7 @@ const Dashboard = () => {
           </Link>
         </Col>
         <Col lg={4}>
-          <Link to={''}>
+          <Link to={route.myAddedTickets()}>
             <DashboardCardWrapper>
               <img width="50%" src={messageImage} />
               <CardTitle>Vložené příspěvky</CardTitle>

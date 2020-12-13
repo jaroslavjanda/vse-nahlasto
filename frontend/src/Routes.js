@@ -21,6 +21,7 @@ import Dashboard from './private/Dashboard';
 import { AdminAllCommunities } from './private/AllCommunities';
 import { MemberOfCommunities } from './private/MemberOfCommunities';
 import { OwnerOfCommunities } from './private/OwnerOfCommunities';
+import { MyAddedTickets } from './private/MyAddedTickets';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
@@ -49,6 +50,7 @@ export const route = {
   adminAllCommunities: () => `/admin/all-communities`,
   adminMemberOfCommunities: () => `/admin/member-of-communities`,
   adminOwnerOfCommunities: () => `/admin/owner-of-communities`,
+  myAddedTickets: () => `/admin/my-added-tickets`,
 };
 
 export function Routes() {
@@ -103,6 +105,11 @@ export function Routes() {
           path={route.adminOwnerOfCommunities()}
           exact
           component={OwnerOfCommunities}
+        />
+         <Route
+          path={route.myAddedTickets()}
+          exact
+          component={MyAddedTickets}
         />
         <Route path={route.admin()} exact component={Dashboard} />
         <Route path="*" component={PageNotFound} />
