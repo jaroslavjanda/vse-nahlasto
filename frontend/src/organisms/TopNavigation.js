@@ -130,7 +130,7 @@ export const TopNavigation = ({ children }) => {
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faBuilding}
                   />{' '}
-                  Hledat nové skupiny
+                 Výpis komunit
                 </PrivateStyledLink>
                 <PrivateStyledLink
                   activeClassName="active-admin"
@@ -140,14 +140,14 @@ export const TopNavigation = ({ children }) => {
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faFolderOpen}
                   />{' '}
-                  Členství ve skupinách
+                  Členství v komunitách
                 </PrivateStyledLink>
                 <PrivateStyledLink activeClassName="active-admin" to={''}>
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faNewspaper}
                   />{' '}
-                  Podané tickety
+                  Vložené příspěvky
                 </PrivateStyledLink>
                 <br />
                 <br />
@@ -159,14 +159,14 @@ export const TopNavigation = ({ children }) => {
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faFileAlt}
                   />{' '}
-                  Moje skupiny
+                 Moje komunity
                 </PrivateStyledLink>
                 <PrivateStyledLink activeClassName="active-admin" to={''}>
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faClipboardList}
                   />{' '}
-                  Tickety na vyřešení
+                Příspěvky na vyřešení
                 </PrivateStyledLink>
                 <br />
                 <br />
