@@ -31,8 +31,8 @@ export function Tickets({ tickets, communityOwner }) {
   return (
     <div style={{ textAlign: 'center' }}>
       <div>
-        <CardColumns>
-          {tickets.map((item) => (
+        <CardColumns style={{ columnCount: '1' }}>
+          {tickets.filter(item => item.date).map((item) => (
             <CardsTicket
               key={item.ticket_id}
               item={item}
