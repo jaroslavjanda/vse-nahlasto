@@ -29,9 +29,10 @@ import { getDataFromLocalStorage } from '../utils/localStorage';
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem('quacker-auth'),
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('quacker-auth'),
   );
+
+  var user = getDataFromLocalStorage()?.user;
 
   return (
     <>
@@ -66,6 +67,11 @@ export const TopNavigation = ({ children }) => {
             )}
             {isAuthenticated ? (
               <>
+                <Nav.Item>
+                <NavLink exact to={route.home()} className="pa3">
+                {user.name}<span> </span>{user.surname}
+                  </NavLink>
+                </Nav.Item>
                 <Nav.Item>
                   <Button
                     className="navButton"
