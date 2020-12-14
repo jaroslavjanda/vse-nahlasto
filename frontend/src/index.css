@@ -82,13 +82,6 @@ a:hover {
   text-decoration: none;
 }
 
-@media screen and (max-width: 900px) {
-  .nav-item a {
-    justify-content: center;
-    text-align: center;
-  }
-}
-
 .nav-item a:hover {
   color: #76a8d3 !important;
   text-transform: uppercase;
@@ -119,4 +112,61 @@ a:hover {
 
 .myTicket {
   margin-bottom: 10px;
+}
+
+.container-image {
+  position: relative;
+  text-align: center;
+  color: white;
+  height: 300px;
+  overflow: hidden;
+}
+
+.container-image img {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  width: 100%;
+}
+
+
+.centered-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+@media screen and (max-width: 900px) {
+  .nav-item a {
+    justify-content: center;
+    text-align: center;
+  }
+  .container-image {
+    overflow: none;
+    position: relative;
+    text-align: center;
+    color: black;
+    height: unset;
+    overflow: none;
+  }
+  .centered-image {
+    position: relative;
+    margin: 40px 0px;
+    height: unset;
+    transform: unset;
+    top: unset;
+    left: unset;
+  }
+  .container-image img {
+    -webkit-filter: unset;
+    -moz-filter: unset;
+    -o-filter: unset;
+    -ms-filter: unset;
+    filter: unset;
+    width: 100%;
+  }
 }

@@ -3,10 +3,10 @@ import { Card, Badge, Row, Col, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
-import { imgPath } from 'src/utils/imgPath'
 import { gql, useMutation } from '@apollo/client'
 import './CardsTicketStyle.css'
 import { getDataFromLocalStorage } from '../utils/localStorage'
+import { imgPathForTicket } from 'src/utils/imgPathForTickets'
 
 const RESOLVE_TICKET_MUTATION = gql`
   mutation setTicketResolved($ticketId: Int!) {
@@ -95,7 +95,7 @@ export const CardsTicket = ({
   if (item.status[0].status_id === 1) {
     return (
       <Card className="ticketCardMaxSize" style={{ width: '100%', border: '3px solid rgb(40 167 69)' }} key={item.title}>
-        <Card.Img style={{ width: '100%' }} src={imgPath('tickets', item.image)} className="ticketImageNoBorders" />
+        <Card.Img style={{ width: '100%' }} src={imgPathForTicket('tickets', item.image)} className="ticketImageNoBorders" />
         <Card.Header className="ticketCardHeaderGreen">
           <Row>
             <Col align="left">
@@ -174,7 +174,7 @@ export const CardsTicket = ({
   } else if (user.user_id === communityOwner) {
     return (
       <Card className="ticketCardMaxSize" style={{width: '100%', border: '3px solid rgb(0 123 254)' }} key={item.title}>
-        <Card.Img style={{ width: '100%' }} src={imgPath('tickets', item.image)} className="ticketImageNoBorders" />
+        <Card.Img style={{ width: '100%' }} src={imgPathForTicket('tickets', item.image)} className="ticketImageNoBorders" />
         <Card.Header className="ticketCardHeaderBlue">
           <Row>
             <Col align="left">
@@ -277,7 +277,7 @@ export const CardsTicket = ({
     return (
 
         <Card className="ticketCardMaxSize" style={{ width: '100%', border: '3px solid rgb(0 123 254)' }} key={item.title}>
-          <Card.Img style={{ width: '100%' }} src={imgPath('tickets', item.image)} className="ticketImageNoBorders" />
+          <Card.Img style={{ width: '100%' }} src={imgPathForTicket('tickets', item.image)} className="ticketImageNoBorders" />
           <Card.Header className="ticketCardHeaderBlue">
             <Row>
               <Col align="left">

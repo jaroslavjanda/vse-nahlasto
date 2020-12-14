@@ -171,6 +171,9 @@ export const TopNavigation = ({ children }) => {
                   />{' '}
                   Nastavení
                 </PrivateStyledLink>
+                <br />
+                <br />
+                <br />
               </Col>
               <Col lg={12} xl={8}>
                 <AdminWrapper>{children}</AdminWrapper>
