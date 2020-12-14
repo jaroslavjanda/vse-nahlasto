@@ -7,7 +7,7 @@ import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
 
 import { MainSection } from 'src/atoms/';
-import { Nav, Navbar, Button } from 'react-bootstrap';
+import { Nav, Navbar, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AdminBackground, AdminWrapper } from './styled';
@@ -66,24 +66,18 @@ export const TopNavigation = ({ children }) => {
               </>
             )}
             {isAuthenticated ? (
-              <>
-                <Nav.Item>
-                <NavLink exact to={route.home()} className="pa3">
-                {user.name}<span> </span>{user.surname}
-                  </NavLink>
-                </Nav.Item>
-                <Nav.Item>
-                  <Button
-                    className="navButton"
-                    onClick={() => {
+              <>   
+        <Dropdown>
+    <Dropdown.Toggle id="dropdown-custom-1"  className="navButton"> {user.name}<span> </span>{user.surname}</Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item as={Link} exact to={route.forgottenPassword()}>Změna hesla</Dropdown.Item>
+      <Dropdown.Item onClick={() => {
                       signout();
                       history.push(route.home());
                       window.location.reload();
-                    }}
-                  >
-                    Odhlásit se
-                  </Button>
-                </Nav.Item>
+                    }}> Odhlásit se</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
               </>
             ) : (
               <>
