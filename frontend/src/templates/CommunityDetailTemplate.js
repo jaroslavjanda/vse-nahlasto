@@ -72,7 +72,7 @@ export function CommunityDetailTemplate({
         <div>
    
           <Link to={`/community-detail/${communityId}/add`}>
-            <Button style={{width: "150px"}} variant="success">Přidat ticket</Button>
+            <Button style={{width: "150px"}} variant="success">Přidat příspěvek</Button>
           </Link>
           <br />
           <br />
