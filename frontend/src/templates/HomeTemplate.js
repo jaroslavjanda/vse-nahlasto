@@ -208,7 +208,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
         <CardDeck className="">
           <Card>
             <div className="text-center">
-              <Card.Header>
+              <Card.Header className="homePageHeader">
                 <h3>Free</h3>
               </Card.Header>
               <div className="text-center">

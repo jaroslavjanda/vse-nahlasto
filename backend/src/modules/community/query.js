@@ -100,7 +100,6 @@ export const communityMembersIds = async (
   membersObjects.forEach(convertObjectsToInts);
 
   function convertObjectsToInts(item, index) {
-    console.log('Item value:', item.user_id);
     idsArrayInt[index] = item.user_id;
   }
 
@@ -129,7 +128,6 @@ export const communitiesAccessibleToUserIds = async (
   idsArrayObject.forEach(convertObjectsToInts);
 
   function convertObjectsToInts(item, index) {
-    console.log('Item value:', item.community_id);
     communityIdsArrayInt[index] = item.community_id;
   }
 

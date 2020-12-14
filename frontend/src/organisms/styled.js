@@ -10,6 +10,7 @@ export const Wrapper = styled.div``;
 export const AdminBackground = styled.div`
   min-height: calc(100vh - 5rem);
   padding-top: 5rem;
+  overflow-x: hidden;
   background: transparent
     linear-gradient(180deg, #fafafa 0%, #fafafa 50%, #dfe2f1 100%) 0% 0%
     no-repeat padding-box;

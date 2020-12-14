@@ -160,8 +160,10 @@ const typeDefs = gql`
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
 
     setResetCode(email: String!): ChangePasswordRequest!
-    
+
+
     joinPublicCommunity(userId: Int!, communityId: Int!): Community
+
   }
 `;
 

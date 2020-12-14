@@ -15,6 +15,9 @@ const COMMUNITY_DETAIL_QUERY = gql`
       name
       description
       closed
+      owner {
+        user_id
+      }
       users {
         user_id
       }
@@ -28,14 +31,20 @@ const COMMUNITY_DETAIL_QUERY = gql`
         status_id
         community_id
         date
+        comments {
+          comment_id
+          content
+        }
         status {
           status
+          status_id
           code_class
         }
       }
     }
   }
 `;
+
 
 const JOIN_COMMUNITY_MUTATION = gql`
   mutation JoinCommunity($userId: Int!, $communityId: Int!) {
