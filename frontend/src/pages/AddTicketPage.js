@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
@@ -52,6 +53,7 @@ export const AddTicket = ({ match }) => {
     },
   );
 
+  var user = getDataFromLocalStorage()?.user;
   const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddTicketFormSubmit = useCallback(
@@ -59,7 +61,7 @@ export const AddTicket = ({ match }) => {
       var img = oldVariables.file ? oldVariables.file.name : '';
 
       const variables = {
-        user_id: auth.user ? auth.user.user_id : 1,
+        user_id: user ? user.user_id : 1,
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,

@@ -7,7 +7,7 @@ import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
 
 import { MainSection } from 'src/atoms/';
-import { Nav, Navbar, Button } from 'react-bootstrap';
+import { Nav, Navbar, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AdminBackground, AdminWrapper } from './styled';
@@ -29,9 +29,10 @@ import { getDataFromLocalStorage } from '../utils/localStorage';
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem('quacker-auth'),
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('quacker-auth'),
   );
+
+  var user = getDataFromLocalStorage()?.user;
 
   return (
     <>
@@ -65,19 +66,18 @@ export const TopNavigation = ({ children }) => {
               </>
             )}
             {isAuthenticated ? (
-              <>
-                <Nav.Item>
-                  <Button
-                    className="navButton"
-                    onClick={() => {
+              <>   
+        <Dropdown>
+    <Dropdown.Toggle id="dropdown-custom-1"  className="navButton"> {user.name}<span> </span>{user.surname}</Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item as={Link} exact to={route.forgottenPassword()}>Změna hesla</Dropdown.Item>
+      <Dropdown.Item onClick={() => {
                       signout();
                       history.push(route.home());
                       window.location.reload();
-                    }}
-                  >
-                    Odhlásit se
-                  </Button>
-                </Nav.Item>
+                    }}> Odhlásit se</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
               </>
             ) : (
               <>
@@ -124,7 +124,7 @@ export const TopNavigation = ({ children }) => {
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faBuilding}
                   />{' '}
-                  Hledat nové skupiny
+                 Výpis komunit
                 </PrivateStyledLink>
                 <PrivateStyledLink
                   activeClassName="active-admin"
@@ -134,14 +134,14 @@ export const TopNavigation = ({ children }) => {
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faFolderOpen}
                   />{' '}
-                  Členství ve skupinách
+                  Členství v komunitách
                 </PrivateStyledLink>
-                <PrivateStyledLink activeClassName="active-admin" to={''}>
+                <PrivateStyledLink activeClassName="active-admin" to={route.myAddedTickets()}>
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faNewspaper}
                   />{' '}
-                  Podané tickety
+                  Vložené příspěvky
                 </PrivateStyledLink>
                 <br />
                 <br />
@@ -153,14 +153,14 @@ export const TopNavigation = ({ children }) => {
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faFileAlt}
                   />{' '}
-                  Moje skupiny
+                 Moje komunity
                 </PrivateStyledLink>
                 <PrivateStyledLink activeClassName="active-admin" to={''}>
                   <FontAwesomeIcon
                     style={{ fontSize: '18px', width: '25px' }}
                     icon={faClipboardList}
                   />{' '}
-                  Tickety na vyřešení
+                Příspěvky na vyřešení
                 </PrivateStyledLink>
                 <br />
                 <br />
