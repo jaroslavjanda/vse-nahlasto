@@ -21,7 +21,7 @@ export function AddTicketTemplate({
 
   return (
     <div className="mw6 center">
-      <Heading>Přidat ticket</Heading>
+      <Heading>Přidat příspěvek</Heading>
       <AddTicketForm
         errorMessage={error && error.message}
         successMessage={isDone}
