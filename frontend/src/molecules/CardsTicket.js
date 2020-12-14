@@ -101,7 +101,7 @@ export const CardsTicket = ({
           <Row>
             <Col align="left">
               <Row className="card-header-items">
-                {user && user.user_id === communityOwner && (
+                {user && user.user.user_id === communityOwner && (
                   <Button variant="danger" className="btn-sm">
                     <FontAwesomeIcon
                       icon={faTrashAlt}
@@ -172,7 +172,7 @@ export const CardsTicket = ({
         </Card.Body>
       </Card>
     )
-  } else if (user && user.user_id === communityOwner) {
+  } else if (user && user.user.user_id === communityOwner) {
     return (
       <Card className="ticketCardMaxSize" style={{width: '100%', border: '3px solid rgb(0 123 254)' }} key={item.title}>
         <Card.Img style={{ width: '100%' }} src={imgPathForTicket('tickets', item.image)} className="ticketImageNoBorders" />
