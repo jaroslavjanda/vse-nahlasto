@@ -15,6 +15,9 @@ const COMMUNITY_DETAIL_QUERY = gql`
       name
       description
       closed
+      owner {
+        user_id
+      }
       users {
         user_id
       }
@@ -28,24 +31,17 @@ const COMMUNITY_DETAIL_QUERY = gql`
         status_id
         community_id
         date
+        comments {
+          comment_id
+          content
+        }
         status {
           status
+          status_id
           code_class
         }
       }
     }
-  }
-`;
-
-const COMMUNITY_OWNER_ID = gql`
-  query CommunityOwnerId($communityId: Int!) {
-    communityOwnerId(communityId: $communityId)
-  }
-`;
-
-const COMMUNITY_MEMBERS_IDS = gql`
-  query CommunityMembersIds($communityId: Int!) {
-    communityMembersIds(communityId: $communityId)
   }
 `;
 
