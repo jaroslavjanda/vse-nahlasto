@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
-import { imgPath } from 'src/utils/imgPath'
+import { imgPath } from 'src/utils/imgPath';
 
 export const CardsTicket = ({
   item,
@@ -19,7 +19,7 @@ export const CardsTicket = ({
   const history = useHistory();
   return (
     <Card style={{ width: '100%' }} key={item.title}>
-      <Card.Img variant="top" src={imgPath("tickets",item.image)} />
+      <Card.Img variant="top" src={imgPath('tickets', item.image)} />
       <Card.Header as="h5">
         <Row>
           <Col align="left">
@@ -49,7 +49,9 @@ export const CardsTicket = ({
           </Col>
           <Col>
             <Row align="right" style={{ display: 'block' }}>
-              <Badge variant={item.status[0].code_class}>{item.status[0].status}</Badge>
+              <Badge variant={item.status[0].code_class}>
+                {item.status[0].status}
+              </Badge>
             </Row>
           </Col>
         </Row>
@@ -57,50 +59,52 @@ export const CardsTicket = ({
       <Card.Body>
         <h3>{item.title}</h3>
         <Card.Text>{item.content}</Card.Text>
-        
+
         <Row>
-          <Col xs={2}>
-          </Col>
+          <Col xs={2}></Col>
           <Col xs={8}>
             <Button
               variant="success"
-              onClick={() => history.push(`/ticket-detail-page/${item.ticket_id}`)}
+              onClick={() =>
+                history.push(`/ticket-detail-page/${item.ticket_id}`)
+              }
             >
               OPEN
             </Button>
           </Col>
-        
+
           <Col xs={2}>
-            <div onClick={() => {
-              if (user) {
-                if (enabled) {
-                  setliked(liked + 1);
-                  setenabled(false);
-                  requestSendLike({
-                    variables: {
-                      ownerId: user.user_id,
-                      ticketId: item.ticket_id,
-                    },
-                  });
-                } else {
-                  setliked(liked - 1);
-                  setenabled(true);
-                  requestSendLike({
-                    variables: {
-                      ownerId: user.user_id,
-                      ticketId: item.ticket_id,
-                    },
-                  });
+            <div
+              onClick={() => {
+                if (user) {
+                  if (enabled) {
+                    setliked(liked + 1);
+                    setenabled(false);
+                    requestSendLike({
+                      variables: {
+                        ownerId: user.user_id,
+                        ticketId: item.ticket_id,
+                      },
+                    });
+                  } else {
+                    setliked(liked - 1);
+                    setenabled(true);
+                    requestSendLike({
+                      variables: {
+                        ownerId: user.user_id,
+                        ticketId: item.ticket_id,
+                      },
+                    });
+                  }
                 }
-              }
-            }}  className="btn">
-              <div style={{display: "flex"}}>
+              }}
+              className="btn"
+            >
+              <div style={{ display: 'flex' }}>
                 <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-              {liked}
+                {liked}
               </div>
-            
             </div>
-            
           </Col>
         </Row>
       </Card.Body>

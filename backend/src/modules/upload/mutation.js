@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import fsPromises from 'fs';
 import fs from 'fs';
 import path from 'path';
 import { TICKET_UPLOAD_DIR } from '../../constants';

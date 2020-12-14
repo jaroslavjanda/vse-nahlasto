@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Spinner} from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner, Button } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -36,13 +37,24 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
+const COMMUNITY_OWNER_ID = gql`
+  query CommunityOwnerId($communityId: Int!) {
+    communityOwnerId(communityId: $communityId)
+  }
+`;
+
+const COMMUNITY_MEMBERS_IDS = gql`
+  query CommunityMembersIds($communityId: Int!) {
+    communityMembersIds(communityId: $communityId)
+  }
+`;
+
 export const CommunityDetail = ({ match }) => {
-
   const { user } = useAuth();
-  var userId = user?.user_id;
+  const localStorage = getDataFromLocalStorage();
+  var userId = localStorage?.user?.user_id;
 
-  if (userId === null)
-    userId = 0
+  if (userId === null) userId = 0;
 
   const communityId = parseInt(match.params.communityId);
 
@@ -51,13 +63,14 @@ export const CommunityDetail = ({ match }) => {
   });
 
   const { isMember, isOwner } = useMemo(() => {
-    const isMember = !!communityState.data?.communityMembersIds.includes(userId);
-    const isOwner = (userId === communityState.data?.communityOwnerId);
-    return { isMember, isOwner }
-  }, [communityState, userId])
+    const isMember = !!communityState.data?.communityMembersIds.includes(
+      userId,
+    );
+    const isOwner = userId === communityState.data?.communityOwnerId;
+    return { isMember, isOwner };
+  }, [communityState, userId]);
 
-
-  console.log("Is member:", isMember, "Is owner:", isOwner)
+  console.log('Is member:', isMember, 'Is owner:', isOwner);
 
   const community = communityState.data?.community;
   const history = useHistory();
@@ -80,14 +93,13 @@ export const CommunityDetail = ({ match }) => {
           )}
           {community && (
             <CommunityDetailTemplate
-            community={community}
-            isMember={isMember}
-
-            isOwner={isOwner}
-
-            communityId={communityId}
-            userId={userId}
-            communityOwnerId={communityState}/>
+              community={community}
+              isMember={isMember}
+              isOwner={isOwner}
+              communityId={communityId}
+              userId={userId}
+              communityOwnerId={communityState}
+            />
           )}
         </div>
       )}

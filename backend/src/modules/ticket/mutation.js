@@ -14,7 +14,7 @@ export const addTicket = async (
   { user_id, title, image, community_id, content, status_id },
   { dbConnection },
 ) => {
-  var img = image? image :null
+  var img = image ? image : null;
 
   const dbResponse = await dbConnection.query(
     `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)

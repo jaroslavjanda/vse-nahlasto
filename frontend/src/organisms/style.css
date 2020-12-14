@@ -1,0 +1,10 @@
+.active {
+  border-bottom: 4px solid #dfe2f1;
+  border-radius: 2px;
+  padding-bottom: 9px;
+}
+
+.active-admin {
+  border-left: 4px solid #dfe2f1;
+  border-radius: 2px;
+}

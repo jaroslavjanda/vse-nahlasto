@@ -1,14 +1,13 @@
-import { Col, Row } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
-import { useAuth } from '../utils/auth'
+import { Col, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import { useAuth } from '../utils/auth';
 
 export const UserImageAndName = () => {
+  const { user } = useAuth();
 
-  const { user } = useAuth()
-
-  if ( user != null) {
+  if (user != null) {
     return (
       <Row>
         <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
@@ -16,10 +15,12 @@ export const UserImageAndName = () => {
         </Col>
         {/*TODO Umoznit vypis jmena a prijmeni prihlaseneho uzivatele*/}
 
-        <Col style={{ textAlign: 'left', fontWeight: "bold"}}>{user.name} {user.surname}</Col>
+        <Col style={{ textAlign: 'left', fontWeight: 'bold' }}>
+          {user.name} {user.surname}
+        </Col>
       </Row>
-    )
+    );
   } else {
-    return null
+    return null;
   }
-}
+};

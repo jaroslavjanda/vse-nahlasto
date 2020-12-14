@@ -61,11 +61,7 @@ export function AddCommunityForm({
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <FormikFile
-          id="file"
-          name="file"
-          label="File"
-        />
+        <FormikFile id="file" name="file" label="File" />
         <FormGroup>
           <Field
             type="checkbox"
@@ -78,7 +74,7 @@ export function AddCommunityForm({
             Make this community private
           </label>
         </FormGroup>
-        <div style={{textAlign:"right"}}>
+        <div style={{ textAlign: 'right' }}>
           <Button type="submit" className="mt2 mb3">
             Confirm request
           </Button>

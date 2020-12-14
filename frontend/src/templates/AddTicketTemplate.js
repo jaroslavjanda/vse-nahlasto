@@ -3,7 +3,12 @@ import React from 'react';
 import { Heading } from 'src/atoms';
 import { AddTicketForm } from '../organisms/AddTicketForm';
 
-export function AddTicketTemplate({ isDone, error, onSubmit, handleFileUpload }) {
+export function AddTicketTemplate({
+  isDone,
+  error,
+  onSubmit,
+  handleFileUpload,
+}) {
   // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {

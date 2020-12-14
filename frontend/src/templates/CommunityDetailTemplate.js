@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeadingWithButtons } from 'src/organisms/';
-import { Button, Alert } from 'react-bootstrap';
+import { Button, Alert, Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,17 +8,20 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Tickets } from 'src/organisms';
 
 export function CommunityDetailTemplate({
-                                          community,
-                                          isMember,
-                                          isOwner,
+  community,
+  isMember,
+  isOwner,
 
-                                          communityId,
-                                          userId,
-                                          communityOwnerId,
-                                        }) {
+  communityId,
+  userId,
+  communityOwnerId,
+}) {
   return (
-    <>
-      <HeadingWithButtons header={community.name} description={community.description}>
+    <Container>
+      <HeadingWithButtons
+        header={community.name}
+        description={community.description}
+      >
         <div>
           {!community.closed && !isMember && (
             <Button
@@ -66,7 +69,7 @@ export function CommunityDetailTemplate({
         </div>
       )}
 
-      {((!community.closed) || (isMember)) && (
+      {(!community.closed || isMember) && (
         <div>
           <div>{community.description}</div>
           <br />
@@ -99,6 +102,6 @@ export function CommunityDetailTemplate({
           </Button>
         </div>
       )}
-    </>
+    </Container>
   );
 }

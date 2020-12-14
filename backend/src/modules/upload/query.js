@@ -4,6 +4,6 @@
  * @param args
  * @returns {Promise<*>}
  */
-export const communityTicket = async ( _, { args }, { dbConnection }) => {
-  return {}
+export const communityTicket = async (_, { args }, { dbConnection }) => {
+  return {};
 };

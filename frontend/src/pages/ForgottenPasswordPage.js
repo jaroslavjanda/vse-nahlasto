@@ -62,13 +62,13 @@ export function ForgottenPasswordPage() {
             autoCorrect="off"
             autoCapitalize="off"
           />
-          <div style={{textAlign:"right"}}>
+          <div style={{ textAlign: 'right' }}>
             <Button type="submit" className="mt2 mb3">
               Odeslat žádost
             </Button>
           </div>
         </Form>
       </Formik>
-      </div>
+    </div>
   );
 }

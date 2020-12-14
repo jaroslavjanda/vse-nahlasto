@@ -13,16 +13,16 @@ export function AddCommunityTemplate({ isDone, error, onSubmit, user }) {
 
   return (
     <>
-    <div className="mw6 center">
-      <Heading>Přidat komunitu</Heading>
-      <AddCommunityForm
-        errorMessage={error && error.message}
-        successMessage={isDone}
-        onSubmit={onSubmit}
-        className="mt3"
-        user={user}
-      />
-    </div>
+      <div className="mw6 center">
+        <Heading>Přidat komunitu</Heading>
+        <AddCommunityForm
+          errorMessage={error && error.message}
+          successMessage={isDone}
+          onSubmit={onSubmit}
+          className="mt3"
+          user={user}
+        />
+      </div>
     </>
   );
 }

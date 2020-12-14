@@ -24,10 +24,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'src/templates/Homepage.css';
 
-export function HomeTemplate({
-  communitiesHomepage,
-  isMember,
-}) {
+export function HomeTemplate({ communitiesHomepage, isMember }) {
   const history = useHistory();
   return (
     <>
@@ -39,9 +36,7 @@ export function HomeTemplate({
               <br />
               &#9745;
             </h1>
-            <Link
-              to={route.signUp()}
-            >
+            <Link to={route.signUp()}>
               <Button className="homepageButton">To chci</Button>
             </Link>
           </div>
@@ -138,10 +133,17 @@ export function HomeTemplate({
       </Jumbotron>
 
       <Jumbotron className="jumbotronWhite">
-        <h2>Prozkoumejte komunity</h2>
-        <Container>
-          <CommunityCardsHomepage communitiesHomepage={communitiesHomepage} isMember={isMember}/>
-        </Container>
+        {communitiesHomepage && (
+          <>
+            <h2>Prozkoumejte komunity</h2>
+            <Container>
+              <CommunityCardsHomepage
+                communitiesHomepage={communitiesHomepage}
+                isMember={isMember}
+              />
+            </Container>
+          </>
+        )}
       </Jumbotron>
 
       <Jumbotron className="jumbotronBlue">
@@ -295,9 +297,7 @@ export function HomeTemplate({
             <h2>Zaujali jsme vás?</h2>
 
             <p>Pošlete nám mail a my se vám ozveme do 24 hodin.</p>
-            <Link
-              to={route.signUp()}
-            >
+            <Link to={route.signUp()}>
               <Button className="homepageButton">Vyzkoušet Nahlaš.To</Button>
             </Link>
           </div>

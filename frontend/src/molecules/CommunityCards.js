@@ -5,50 +5,98 @@ import { toast } from 'react-toastify';
 import { imgPath } from 'src/utils/imgPath';
 
 export const CommunityCards = ({
-                                 allCommunities,
-                                 communitiesAccessibleToUser,
-                               }) => {
+  allCommunities,
+  communitiesAccessibleToUser,
+  ownerOfCommunities,
+}) => {
   const history = useHistory();
 
   function isMemberCheck(commId) {
-    return !!communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds.includes(commId);
+    if (communitiesAccessibleToUser) {
+      return !!communitiesAccessibleToUser.data?.communitiesAccessibleToUserIds.includes(
+        commId,
+      );
+    }
   }
 
   return (
     <Row>
       <CardColumns>
-        {allCommunities.map((item) => (
-          <Card style={{ width: '100%' }} key={item.community_id}>
-            <Card.Img
-              variant="top"
-              src={imgPath('tickets', item.image)}
-            />
-            <Card.Body>
-              <h3>{item.name}</h3>
-              <Card.Text>{item.description}</Card.Text>
-              {item.closed && !isMemberCheck(item.community_id) && (
-                <Button
-                  variant="danger"
-                  onClick={() => toast.info('Požadavek byl odeslán')}
-                >
-                  PŘIPOJIT SE
-                </Button>
-              )}
-              {((!item.closed) || (isMemberCheck(item.community_id))) && (
-                <Button
-                  variant="success"
-                  onClick={() =>
-                    history.push(
-                      `community-detail/${item.community_id}`,
-                    )
-                  }
-                >
-                  OTEVŘÍT
-                </Button>
-              )}
-            </Card.Body>
-          </Card>
-        ))}
+        {allCommunities && (
+          <>
+            {allCommunities.map((item) => (
+              <Card
+                style={{ width: '100%' }}
+                key={item.community_id}
+                onClick={() =>
+                  isMemberCheck(item.community_id) || !item.closed
+                    ? history.push(`/community-detail/${item.community_id}`)
+                    : toast.info('Požadavek byl odeslán')
+                }
+              >
+                <Card.Img variant="top" src={imgPath('tickets', item.image)} />
+                <Card.Body>
+                  <h3>{item.name}</h3>
+                  <Card.Text>{item.description}</Card.Text>
+                  {item.closed && !isMemberCheck(item.community_id) && (
+                    <Button variant="danger">PŘIPOJIT SE</Button>
+                  )}
+                  {!item.closed && <Button variant="primary">OTEVŘÍT</Button>}
+                  {isMemberCheck(item.community_id) && <div>Jsi členem ✅</div>}
+                </Card.Body>
+              </Card>
+            ))}
+          </>
+        )}
+
+        {console.log('Owner of communities:', ownerOfCommunities)}
+
+        {console.log(
+          'communitiesAccessibleToUser of communities:',
+          communitiesAccessibleToUser,
+        )}
+
+        {!allCommunities && communitiesAccessibleToUser && (
+          <>
+            {communitiesAccessibleToUser.map((item) => (
+              <Card
+                style={{ width: '100%' }}
+                key={item.community_id}
+                onClick={() =>
+                  history.push(`/community-detail/${item.community_id}`)
+                }
+              >
+                <Card.Img variant="top" src={imgPath('tickets', item.image)} />
+                <Card.Body>
+                  <h3>{item.name}</h3>
+                  <Card.Text>{item.description}</Card.Text>
+                  <div>Jsi členem ✅</div>
+                </Card.Body>
+              </Card>
+            ))}
+          </>
+        )}
+
+        {!allCommunities && !communitiesAccessibleToUser && ownerOfCommunities && (
+          <>
+            {ownerOfCommunities.map((item) => (
+              <Card
+                style={{ width: '100%' }}
+                key={item.community_id}
+                onClick={() =>
+                  history.push(`/community-detail/${item.community_id}`)
+                }
+              >
+                <Card.Img variant="top" src={imgPath('tickets', item.image)} />
+                <Card.Body>
+                  <h3>{item.name}</h3>
+                  <Card.Text>{item.description}</Card.Text>
+                  <Button variant="primary">UPRAVIT</Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </>
+        )}
       </CardColumns>
     </Row>
   );

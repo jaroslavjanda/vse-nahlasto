@@ -88,11 +88,7 @@ export function AddTicketForm({
               autoCorrect="off"
               autoCapitalize="off"
             />
-            <FormikFile
-              id="file"
-              name="file"
-              label="File"
-            />
+            <FormikFile id="file" name="file" label="File" />
 
             <Button type="submit" className="mt2 mb3">
               Confirm request

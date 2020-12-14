@@ -7,6 +7,10 @@ code {
     monospace;
 }
 
+a:hover {
+  text-decoration: none !important;
+}
+
 .pre-line {
   white-space: pre-line;
 }
@@ -44,18 +48,17 @@ code {
 }
 
 .active_link {
-  border-top:5px solid #76a8d3;
+  border-top: 5px solid #76a8d3;
   margin-top: -10px;
   padding-top: 21px;
-  
 }
-.not-active{
-  border:none
+.not-active {
+  border: none;
 }
 .link {
   outline: none !important;
 }
-.card-img-top{
+.card-img-top {
   min-height: 350px;
   max-height: 600px;
   width: auto !important;

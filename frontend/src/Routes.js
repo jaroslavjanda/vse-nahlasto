@@ -17,6 +17,11 @@ import { SignUpPage } from 'src/pages/SignUpPage';
 import { TicketDetail } from './pages/TicketDetail';
 import { TicketDetailPage } from './pages/TicketDetailPage';
 import { TopNavigation } from './organisms';
+import Dashboard from './private/Dashboard';
+import { AdminAllCommunities } from './private/AllCommunities';
+import { MemberOfCommunities } from './private/MemberOfCommunities';
+import { OwnerOfCommunities } from './private/OwnerOfCommunities';
+import { MyAddedTickets } from './private/MyAddedTickets';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
@@ -34,12 +39,18 @@ export const route = {
   forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
+  communityDetailRaw: () => '/community-detail',
   addTicket: () => `${communityDetail()}/add`,
   listTicket: () => `${communityDetail()}/list`,
   editCommunity: () => `${communityDetail()}/edit_community`,
   communities: () => `/communities`,
   ticketDetail,
   ticketDetailPage,
+  admin: () => `/admin`,
+  adminAllCommunities: () => `/admin/all-communities`,
+  adminMemberOfCommunities: () => `/admin/member-of-communities`,
+  adminOwnerOfCommunities: () => `/admin/owner-of-communities`,
+  myAddedTickets: () => `/admin/my-added-tickets`,
 };
 
 export function Routes() {
@@ -61,7 +72,6 @@ export function Routes() {
           component={ForgottenPasswordPage}
         />
         <Route path={route.addCommunity()} exact component={AddCommunityPage} />
-        >}
         <Route
           path={route.communityDetail()}
           exact
@@ -70,13 +80,38 @@ export function Routes() {
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.ticketDetail()} exact component={TicketDetail} />
-        <Route path={route.ticketDetailPage()} exact component={TicketDetailPage} />
+        <Route
+          path={route.ticketDetailPage()}
+          exact
+          component={TicketDetailPage}
+        />
         <Route
           path={route.editCommunity()}
           exact
           component={EditCommunityPage}
         />
         <Route path={route.communities()} exact component={Communities} />
+        <Route
+          path={route.adminAllCommunities()}
+          exact
+          component={AdminAllCommunities}
+        />
+        <Route
+          path={route.adminMemberOfCommunities()}
+          exact
+          component={MemberOfCommunities}
+        />
+        <Route
+          path={route.adminOwnerOfCommunities()}
+          exact
+          component={OwnerOfCommunities}
+        />
+         <Route
+          path={route.myAddedTickets()}
+          exact
+          component={MyAddedTickets}
+        />
+        <Route path={route.admin()} exact component={Dashboard} />
         <Route path="*" component={PageNotFound} />
       </Switch>
     </TopNavigation>

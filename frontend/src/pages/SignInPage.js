@@ -27,6 +27,7 @@ export function SignInPage() {
     onCompleted: ({ signin: { user, token } }) => {
       auth.signin({ token, user });
       history.replace('/');
+      window.location.reload();
     },
     onError: () => {
       console.log('TEST Error while fetching the DB');

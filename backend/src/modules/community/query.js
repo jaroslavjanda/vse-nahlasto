@@ -29,7 +29,7 @@ export const communitiesHomepage = async (_, __, { dbConnection }) => {
     WHERE c.closed = '0'
     GROUP BY  c.community_id, c.name, c.description, c.closed
     ORDER BY countID DESC
-    LIMIT 3`, 
+    LIMIT 3`,
   );
 
   return communitiesHomepage;
@@ -91,11 +91,9 @@ export const communityMembersIds = async (
   { communityId },
   { dbConnection },
 ) => {
-  const membersObjects = (
-    await dbConnection.query(
-      `SELECT user_id FROM membership WHERE community_id = ?`,
-      [communityId],
-    )
+  const membersObjects = await dbConnection.query(
+    `SELECT user_id FROM membership WHERE community_id = ?`,
+    [communityId],
   );
 
   const idsArrayInt = [];
@@ -119,13 +117,12 @@ export const communityMembersIds = async (
 export const communitiesAccessibleToUserIds = async (
   _,
   { userId },
-  { dbConnection }
-  ) => {
-  const idsArrayObject = (await dbConnection.query(
-      // TODO solve 'accepted'
-      `SELECT community_id FROM membership WHERE user_id = ?`,
-      [userId],
-    )
+  { dbConnection },
+) => {
+  const idsArrayObject = await dbConnection.query(
+    // TODO solve 'accepted'
+    `SELECT community_id FROM membership WHERE user_id = ?`,
+    [userId],
   );
 
   const communityIdsArrayInt = [];
@@ -140,7 +137,7 @@ export const communitiesAccessibleToUserIds = async (
 };
 
 /**
- * Based on user_id, returns all communities in which is user a member or an admin.
+ * Based on user_id, returns all communities in which is user a member or an owner.
  * @param _
  * @param userId
  * @param dbConnection
@@ -149,17 +146,16 @@ export const communitiesAccessibleToUserIds = async (
 export const communitiesAccessibleToUser = async (
   _,
   { userId },
-  { dbConnection }
+  { dbConnection },
 ) => {
-  return (await dbConnection.query(
-      // TODO solve 'accepted'
-      'SELECT DISTINCT community.community_id, name, description, image, code, closed ' +
+  return await dbConnection.query(
+    // TODO solve 'accepted'
+    'SELECT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +
       'ON community.community_id = membership.community_id ' +
-      'WHERE user_id = ? AND role_id = 2 OR role_id = 3',
-      [userId],
-    )
+      'WHERE user_id = ?',
+    [userId],
   );
 };
 
@@ -170,20 +166,14 @@ export const communitiesAccessibleToUser = async (
  * @param dbConnection
  * @returns {Promise<*>}
  */
-export const communitiesUserOwns = async (
-  _,
-  { userId },
-  { dbConnection }
-) => {
-  return (await dbConnection.query(
-      // TODO solve 'accepted'
-      'SELECT community.community_id, name, description, image, code, closed ' +
+export const communitiesUserOwns = async (_, { userId }, { dbConnection }) => {
+  return await dbConnection.query(
+    // TODO solve 'accepted'
+    'SELECT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +
       'ON community.community_id = membership.community_id ' +
       'WHERE user_id = ? AND role_id = 1',
-      [userId],
-    )
+    [userId],
   );
 };
-

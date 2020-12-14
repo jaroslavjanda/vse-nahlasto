@@ -40,9 +40,7 @@ export const AddCommunityPage = () => {
     ADD_COMMUNITY_MUTATION,
     {
       onCompleted: ({ addCommunity: { community_id } }) => {
-        console.log(
-          "Community was added to the DB, its ID is " + community_id,
-        );
+        console.log('Community was added to the DB, its ID is ' + community_id);
         history.replace('/communities/');
       },
       onError: () => {
@@ -54,18 +52,17 @@ export const AddCommunityPage = () => {
 
   const handleAddCommunityFormSubmit = useCallback(
     (oldVariables) => {
-
-      var img = oldVariables.file?oldVariables.file.name:""
+      var img = oldVariables.file ? oldVariables.file.name : '';
 
       const variables = {
         name: oldVariables.name,
         description: oldVariables.description,
         image: img,
         owner_id: oldVariables.owner_id,
-        closed: oldVariables.closed
+        closed: oldVariables.closed,
       };
-      console.log(variables)
-      if(oldVariables.file){
+      console.log(variables);
+      if (oldVariables.file) {
         addFileRequest({ variables: { file: oldVariables.file } });
       }
       addCommunityRequest({
@@ -86,7 +83,9 @@ export const AddCommunityPage = () => {
     );
   } else {
     return (
-      <ErrorBanner title="Uživatel není přihlášen">Musíš se přihlásit.</ErrorBanner>
+      <ErrorBanner title="Uživatel není přihlášen">
+        Musíš se přihlásit.
+      </ErrorBanner>
     );
   }
 };

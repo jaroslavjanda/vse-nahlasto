@@ -80,10 +80,10 @@ const typeDefs = gql`
   }
 
   type AuthUser {
-  name: String!
-  surname: String!
-  email: String!
-  user_id: Int!
+    name: String!
+    surname: String!
+    email: String!
+    user_id: Int!
   }
 
   type AuthInfo {
@@ -115,6 +115,7 @@ const typeDefs = gql`
     comments: [Comment!]
     comment(commentId: Int!): [Comment!]
     ticketComment(ticketId: Int!): [Comment!]
+    ticketFromCommunitiesIAmAdminIn(userId: Int!): [Ticket]
   }
 
   type Mutation {
@@ -152,9 +153,9 @@ const typeDefs = gql`
       status_id: Int!
     ): Ticket!
 
-    addComment(content:String!, user_id:Int!, ticket_id:Int!): Comment
+    addComment(content: String!, user_id: Int!, ticket_id: Int!): Comment
 
-    deleteTicket(userId:Int!, communityId:Int!, ticketId: Int!): Ticket!
+    deleteTicket(userId: Int!, communityId: Int!, ticketId: Int!): Ticket!
 
     resetUserPassword(email: String!, newPassword: String!): AuthUser!
 
@@ -164,7 +165,7 @@ const typeDefs = gql`
 
 const main = async () => {
   const app = express();
-  
+
   app.disable('x-powered-by');
   app.use(cors());
 
@@ -189,7 +190,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
 
   const port = process.env.PORT || 4000;
-  app.use('/static',express.static('public/'));
+  app.use('/static', express.static('public/'));
   app.get('/', (_, res) => res.redirect('/graphql'));
 
   app.listen(port, () => {

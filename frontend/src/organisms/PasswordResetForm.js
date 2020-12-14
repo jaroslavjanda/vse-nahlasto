@@ -75,7 +75,7 @@ export function PasswordResetForm({
           autoCapitalize="off"
         />
         <Button type="submit" className="mt2 mb3">
-          Potvrdit žádost 
+          Potvrdit žádost
         </Button>
       </Form>
     </Formik>
