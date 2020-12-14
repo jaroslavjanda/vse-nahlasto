@@ -37,23 +37,23 @@ export function EditCommunityForm({
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
           <SuccessBanner
-            title={'Community description has been edited'}
+            title={'Popis komunity byl změněn.'}
             className="mb3"
           />
         )}
         <FormikTextArea
           id="description"
           name="description"
-          label="Description"
+          label="Popis"
           type="textArea"
           rows={5}
-          placeholder="Describe your community"
+          placeholder="Popište svoji komunitu"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
         />
         <Button type="submit" className="mt2 mb3">
-          Confirm request
+         Uložit změny
         </Button>
       </Form>
     </Formik>

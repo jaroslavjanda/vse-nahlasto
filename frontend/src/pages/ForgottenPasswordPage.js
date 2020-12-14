@@ -56,7 +56,7 @@ export function ForgottenPasswordPage() {
             name="email"
             label="Email"
             type="email"
-            placeholder="e.g. john@doe.com"
+            placeholder="např. jan@novak.cz"
             autoFocus="autofocus"
             autoComplete="on"
             autoCorrect="off"
