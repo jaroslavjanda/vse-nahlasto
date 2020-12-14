@@ -19,7 +19,7 @@ export function EditCommunityTemplate({
 
   return (
     <>
-      <Heading>Edit community</Heading>
+      <Heading>Upravit popis komunity</Heading>
       <EditCommunityForm
         errorMessage={error && error.message}
         successMessage={isDone}
