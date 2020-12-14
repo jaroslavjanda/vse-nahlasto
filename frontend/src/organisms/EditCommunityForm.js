@@ -47,7 +47,7 @@ export function EditCommunityForm({
           label="Popis"
           type="textArea"
           rows={5}
-          placeholder="Popiště svoji komunitu"
+          placeholder="Popište svoji komunitu"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
