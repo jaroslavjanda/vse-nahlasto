@@ -1,5 +1,5 @@
 import { Container, Image } from 'react-bootstrap';
-import { imgPath } from 'src/utils/imgPath';
+import { imgPathForTicket } from 'src/utils/imgPathForTickets';
 import React from 'react';
 
 export const TicketDetailContent = ({ ticket }) => {
@@ -8,7 +8,7 @@ export const TicketDetailContent = ({ ticket }) => {
       <h1>{ticket.title}</h1>
       <p align="left">{ticket.content}</p>
       {/*TODO ticket image placeholder*/}
-      <Image src={imgPath('tickets', ticket.image)} />
+      <Image src={imgPathForTicket('tickets', ticket.image)} />
     </Container>
   );
 };

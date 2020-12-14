@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Tickets } from 'src/organisms';
+import { imgPath } from 'src/utils/imgPath';
 
 export function CommunityDetailTemplate({
   community,
@@ -18,27 +19,30 @@ export function CommunityDetailTemplate({
 
   return (
     <Container>
-      <HeadingWithButtons
-        header={community.name}
-        description={community.description}
-      >
-        <div>
+      {(!community.closed || isMember) && (
+          <div className="container-image">
+          <img src={imgPath('tickets', community.image)} />
+        <div className="centered-image">
+        <h1>{community.name}</h1>
+        <div>{community.description}</div>
+        </div>
+    
+        </div>
+      )}
+
+<div>
           {!community.closed && !isMember && userId !== 0 && (
             <Button
               variant="primary"
+              style={{width: "150px"}} 
               onClick={() => {
                 handleJoinCommunity({ variables: {userId, communityId} })
               }}
             >
-              PŘIDAT SE
+              Přidat se
             </Button>
           )}
-          {/*TODO make this button accessible only for members*/}
-          {(!community.closed || (community.closed && isMember)) && (
-            <Link to={`/community-detail/${communityId}/add`}>
-              <Button variant="success">Přidat ticket</Button>
-            </Link>
-          )}
+        
 
           {isOwner && (
             <Link to={`/community-detail/${communityId}/edit_community`}>
@@ -49,44 +53,6 @@ export function CommunityDetailTemplate({
             </Link>
           )}
         </div>
-      </HeadingWithButtons>
-
-      {!community.closed && (
-        <div>
-          <Alert variant={'success'}>
-            <div>Vítej v {community.name} komunitě.</div>
-            <strong>Tato komunita je otevřená pro všechny.</strong>
-          </Alert>
-        </div>
-      )}
-      {community.closed && isMember && (
-        <div>
-          <Alert variant={'success'}>
-            <div>Vítej v {community.name} komunitě.</div>
-            <strong>Tato komunita je otevřena pouze pro její členy.</strong>
-          </Alert>
-        </div>
-      )}
-
-      {(!community.closed || isMember) && (
-        <div>
-          <div>{community.description}</div>
-          <br />
-          <div>Počet uživatelu: {community.users.length}</div>
-          <div>Počet ticketu: {community.tickets.length}</div>
-          <br />
-          <br />
-          <Link to={`/community-detail/${communityId}/add`}>
-            <Button variant="success">Přidat ticket</Button>
-          </Link>
-          <br />
-          <br />
-          <Tickets
-            tickets={community.tickets}
-            communityOwner={communityOwnerId.data?.communityOwnerId}
-          />
-        </div>
-      )}
 
       {community.closed && !isMember && (
         <div>
@@ -99,6 +65,21 @@ export function CommunityDetailTemplate({
           >
             Zažádat o přístup
           </Button>
+        </div>
+      )}
+
+      {(!community.closed || isMember) && (
+        <div>
+   
+          <Link to={`/community-detail/${communityId}/add`}>
+            <Button style={{width: "150px"}} variant="success">Přidat ticket</Button>
+          </Link>
+          <br />
+          <br />
+          <Tickets
+            tickets={community.tickets}
+            communityOwner={communityOwnerId.data?.communityOwnerId}
+          />
         </div>
       )}
     </Container>
