@@ -14,7 +14,7 @@ import { route } from '../../Routes';
 const Dashboard = () => {
   return (
     <>
-      <div className="main-content">
+{/*       <div className="main-content">
         <div className="container-fluid">
           <div className="header-body">
             <div className="row">
@@ -123,7 +123,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <br />
 
@@ -132,7 +132,7 @@ const Dashboard = () => {
           <Link to={route.adminAllCommunities()}>
             <DashboardCardWrapper>
               <img width="50%" src={organizationImage} />
-              <CardTitle>Hledat skupiny</CardTitle>
+              <CardTitle>Výpis komunit</CardTitle>
             </DashboardCardWrapper>
           </Link>
         </Col>
@@ -140,15 +140,15 @@ const Dashboard = () => {
           <Link to={route.adminMemberOfCommunities()}>
             <DashboardCardWrapper>
               <img width="50%" src={servicesImage} />
-              <CardTitle>Členství ve skupinách</CardTitle>
+              <CardTitle>Členství v komunitách</CardTitle>
             </DashboardCardWrapper>
           </Link>
         </Col>
         <Col lg={4}>
-          <Link to={''}>
+          <Link to={route.myAddedTickets()}>
             <DashboardCardWrapper>
               <img width="50%" src={messageImage} />
-              <CardTitle>Podané tickety</CardTitle>
+              <CardTitle>Vložené příspěvky</CardTitle>
             </DashboardCardWrapper>
           </Link>
         </Col>
@@ -156,7 +156,7 @@ const Dashboard = () => {
           <Link to={route.adminOwnerOfCommunities()}>
             <DashboardCardWrapper>
               <img width="50%" src={adminsImage} />
-              <CardTitle>Moje skupiny</CardTitle>
+              <CardTitle>Moje komunity</CardTitle>
             </DashboardCardWrapper>
           </Link>
         </Col>
@@ -165,7 +165,7 @@ const Dashboard = () => {
           <Link to={''}>
             <DashboardCardWrapper>
               <img width="50%" src={newsImage} />
-              <CardTitle>Moje tickety</CardTitle>
+              <CardTitle>Příspěvky na vyřešení</CardTitle>
             </DashboardCardWrapper>
           </Link>
         </Col>
