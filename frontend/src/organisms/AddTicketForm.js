@@ -56,9 +56,9 @@ export function AddTicketForm({
             <FormikField
               id="title"
               name="title"
-              label="Title"
+              label="Název"
               type="text"
-              placeholder="What's wrong?"
+              placeholder="Co se stalo?"
               autoFocus="autofocus"
               autoComplete="on"
               autoCorrect="off"
@@ -71,7 +71,7 @@ export function AddTicketForm({
                 label="Email"
                 type="text"
                 rows={3}
-                placeholder="Describe your problem further"
+                placeholder="email"
                 autoComplete="off"
                 autoCorrect="off"
                 autoCapitalize="off"
@@ -80,18 +80,18 @@ export function AddTicketForm({
             <FormikTextArea
               id="content"
               name="content"
-              label="Content"
+              label="Popis"
               type="textArea"
               rows={3}
-              placeholder="Describe your problem further"
+              placeholder="Popiš svůj problém níže"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
             />
-            <FormikFile id="file" name="file" label="File" />
+            <FormikFile id="file" name="file" label="Soubor" />
 
             <Button type="submit" className="mt2 mb3">
-              Confirm request
+              Přidat příspěvek
             </Button>
           </Form>
         </Col>
