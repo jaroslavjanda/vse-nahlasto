@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React, { useCallback, useMemo } from 'react';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { Spinner } from 'react-bootstrap';
-import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner, Button } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
+import { toast } from 'react-toastify';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -45,12 +45,43 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
+
+const JOIN_COMMUNITY_MUTATION = gql`
+  mutation JoinCommunity($userId: Int!, $communityId: Int!) {
+    joinPublicCommunity(userId: $userId, communityId: $communityId) {
+      community_id
+    }
+  }
+`;
+
 export const CommunityDetail = ({ match }) => {
-  const { user } = useAuth();
+  const [joinPublicCommunityRequest] = useMutation(
+    JOIN_COMMUNITY_MUTATION,
+    {
+      onCompleted: () => {
+        toast.success('Nyní jste součástí komunity!');
+        window.location.reload();
+      },
+      onError: () => {
+      },
+    },
+  );
+
+  const handleJoinCommunity = useCallback(
+    (oldVariables) => {
+      const variables = {
+        userId: oldVariables.variables.userId,
+        communityId: oldVariables.variables.communityId,
+      };
+      joinPublicCommunityRequest({ variables });
+    },
+    [joinPublicCommunityRequest],
+  );
+
   const localStorage = getDataFromLocalStorage();
   var userId = localStorage?.user?.user_id;
 
-  if (userId === null) userId = 0;
+  if (userId === undefined) userId = 0;
 
   const communityId = parseInt(match.params.communityId);
 
@@ -65,8 +96,6 @@ export const CommunityDetail = ({ match }) => {
     const isOwner = userId === communityState.data?.communityOwnerId;
     return { isMember, isOwner };
   }, [communityState, userId]);
-
-  console.log('Is member:', isMember, 'Is owner:', isOwner);
 
   const community = communityState.data?.community;
   const history = useHistory();
@@ -92,6 +121,7 @@ export const CommunityDetail = ({ match }) => {
               community={community}
               isMember={isMember}
               isOwner={isOwner}
+              handleJoinCommunity={handleJoinCommunity}
               communityId={communityId}
               userId={userId}
               communityOwnerId={communityState}

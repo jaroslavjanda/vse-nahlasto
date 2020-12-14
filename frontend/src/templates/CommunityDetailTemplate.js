@@ -1,4 +1,3 @@
-import React from 'react';
 import { HeadingWithButtons } from 'src/organisms/';
 import { Button, Alert, Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -11,11 +10,12 @@ export function CommunityDetailTemplate({
   community,
   isMember,
   isOwner,
-
   communityId,
+  handleJoinCommunity,
   userId,
   communityOwnerId,
 }) {
+
   return (
     <Container>
       <HeadingWithButtons
@@ -23,18 +23,17 @@ export function CommunityDetailTemplate({
         description={community.description}
       >
         <div>
-          {!community.closed && !isMember && (
+          {!community.closed && !isMember && userId !== 0 && (
             <Button
               variant="primary"
               onClick={() => {
-                toast.success('Nyní jste součástí komunity!');
-                // setIsMember(true);
+                handleJoinCommunity({ variables: {userId, communityId} })
               }}
             >
               PŘIDAT SE
             </Button>
           )}
-
+          {/*TODO make this button accessible only for members*/}
           {(!community.closed || (community.closed && isMember)) && (
             <Link to={`/community-detail/${communityId}/add`}>
               <Button variant="success">Přidat ticket</Button>
