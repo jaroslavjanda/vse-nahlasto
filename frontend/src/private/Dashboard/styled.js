@@ -7,7 +7,6 @@ export const DashboardCardWrapper = styled.div`
   background-color: ${theme.color.white};
   border: 2px solid ${theme.color.lightBlue};
   padding: 36px 16px;
-  height: 262px;
   margin-bottom: 36px;
   transition: 0.3s;
 
