@@ -21,7 +21,7 @@ export function MyAddedTicketsTemplate({
       <Row>
         {tickets.map((tickets) => (
           <Col lg={isPublic ? 4 : 6} md={12}>
-                <Card style={{ width: '100%' }}>
+                <Card style={{ width: '100%' }} className="myticket">
                       <Card.Img
                         variant="top"
                         src={imgPath('tickets', tickets.image)}
