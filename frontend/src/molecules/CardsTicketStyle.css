@@ -1,0 +1,17 @@
+.ticketCardHeaderGreen {
+  background-color: #28a745;
+}
+
+.ticketCardHeaderBlue {
+  background-color: #007bff;
+}
+
+.ticketImageNoBorders {
+  border-radius: 0 !important;
+}
+
+.ticketCardMaxSize {
+  max-height: 1200px;
+  max-width: 600px;
+  margin-bottom: 30px !important;
+}

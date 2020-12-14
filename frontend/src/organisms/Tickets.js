@@ -28,11 +28,13 @@ export function Tickets({ tickets, communityOwner }) {
   const [LikedRequest] = useMutation(LIKE_MUTATION);
   const [deleteRequest] = useMutation(DELETE_MUTATION);
 
+  let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id)
+
   return (
     <div style={{ textAlign: 'center' }}>
       <div>
         <CardColumns style={{ columnCount: '1' }}>
-          {tickets.filter(item => item.date).map((item) => (
+          {sortedTickets.map((item) => (
             <CardsTicket
               key={item.ticket_id}
               item={item}

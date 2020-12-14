@@ -15,6 +15,9 @@ const COMMUNITY_DETAIL_QUERY = gql`
       name
       description
       closed
+      owner {
+        user_id
+      }
       users {
         user_id
       }
