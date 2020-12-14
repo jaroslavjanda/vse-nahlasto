@@ -46,32 +46,24 @@ const JOIN_COMMUNITY_MUTATION = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
-
   const [joinPublicCommunityRequest] = useMutation(
     JOIN_COMMUNITY_MUTATION,
     {
-      onCompleted: ({ joinPublicCommunity: {community_id} }) => {
-        console.log("completed, comm id, user_id", community_id);
+      onCompleted: () => {
         toast.success('Nyní jste součástí komunity!');
         window.location.reload();
       },
       onError: () => {
-        console.log("error, comm id, user_id");
       },
-    }
+    },
   );
 
   const handleJoinCommunity = useCallback(
     (oldVariables) => {
-      console.log("variables userId", oldVariables.variables)
-
       const variables = {
         userId: oldVariables.variables.userId,
-        communityId: oldVariables.variables.communityId
-      }
-
-      console.log("new variables", variables)
-
+        communityId: oldVariables.variables.communityId,
+      };
       joinPublicCommunityRequest({ variables });
     },
     [joinPublicCommunityRequest],
@@ -80,7 +72,7 @@ export const CommunityDetail = ({ match }) => {
   const localStorage = getDataFromLocalStorage();
   var userId = localStorage?.user?.user_id;
 
-  if (userId === null) userId = 0;
+  if (userId === undefined) userId = 0;
 
   const communityId = parseInt(match.params.communityId);
 
@@ -95,8 +87,6 @@ export const CommunityDetail = ({ match }) => {
     const isOwner = userId === communityState.data?.communityOwnerId;
     return { isMember, isOwner };
   }, [communityState, userId]);
-
-  console.log('Is member:', isMember, 'Is owner:', isOwner);
 
   const community = communityState.data?.community;
   const history = useHistory();

@@ -23,7 +23,7 @@ export function CommunityDetailTemplate({
         description={community.description}
       >
         <div>
-          {!community.closed && !isMember && (
+          {!community.closed && !isMember && userId !== 0 && (
             <Button
               variant="primary"
               onClick={() => {
