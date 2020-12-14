@@ -16,12 +16,12 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
       >
         <div className="lh-copy">
           Nemáte účet?{' '}
-          <Link className="f5 dark-green" to={route.signUp()}>
+          <Link className="f5" to={route.signUp()}>
             Registrujte se.
           </Link>
         </div>
         <div className="lh-copy">
-          <Link className="f5 dark-green" to={route.forgottenPassword()}>
+          <Link className="f5" to={route.forgottenPassword()}>
             Zapomenuté heslo?
           </Link>
         </div>

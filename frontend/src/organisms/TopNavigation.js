@@ -97,7 +97,7 @@ export const TopNavigation = ({ children }) => {
         </Navbar.Collapse>
       </Navbar>
       {!isAuthenticated && (
-        <div setIsAuthenticated={setIsAuthenticated}>{children} </div>
+        <div setIsAuthenticated={setIsAuthenticated} className="startPageMarginTop">{children} </div>
       )}
 
       {isAuthenticated && (

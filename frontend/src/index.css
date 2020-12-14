@@ -43,6 +43,10 @@ a:hover {
 .container-header {
   margin-bottom: 2%;
 }
+
+.startPageMarginTop {
+  margin-top: 70px;
+}
 .btn {
   margin: 10px;
 }
