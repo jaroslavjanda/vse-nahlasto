@@ -17,7 +17,7 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
       >
         <div className="lh-copy">
           nebo máte již účet?{' '}
-          <Link className="f5 dark-green" to={route.signIn()}>
+          <Link className="f5" to={route.signIn()}>
             Přihlašte se.
           </Link>
         </div>
