@@ -45,7 +45,7 @@ a:hover {
 }
 
 .startPageMarginTop {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 .btn {
   margin: 10px;
@@ -138,7 +138,9 @@ a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
+OL { counter-reset: item }
+LI { display: block }
+LI:before { content: counters(item, ".") ". "; counter-increment: item }
 
 @media screen and (max-width: 900px) {
   .nav-item a {
