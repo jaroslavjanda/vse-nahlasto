@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { AboutPage } from 'src/pages/AboutPage';
+import { TermsOfServicePage } from 'src/pages/TermsOfServicePage';
 import { AddCommunityPage } from 'src/pages/AddCommunityPage';
 import { AddTicket } from './pages/AddTicketPage';
 import { Communities } from './pages/CommunitiesPage';
@@ -51,6 +52,7 @@ export const route = {
   adminMemberOfCommunities: () => `/admin/member-of-communities`,
   adminOwnerOfCommunities: () => `/admin/owner-of-communities`,
   myAddedTickets: () => `/admin/my-added-tickets`,
+  termsOfService: () => `/termsOfService`,
 };
 
 export function Routes() {
@@ -110,6 +112,11 @@ export function Routes() {
           path={route.myAddedTickets()}
           exact
           component={MyAddedTickets}
+        />
+        <Route
+          path={route.termsOfService()}
+          exact
+          component={TermsOfServicePage}
         />
         <Route path={route.admin()} exact component={Dashboard} />
         <Route path="*" component={PageNotFound} />

@@ -6,6 +6,7 @@ import { ErrorBanner } from 'src/atoms/';
 import { FormikField } from 'src/molecules';
 import { Button } from 'src/atoms/Button';
 import FormGroup from 'react-bootstrap/FormGroup';
+import { route } from 'src/Routes';
 
 const initialValues = {
   name: '',
@@ -100,7 +101,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
               className={'form-check-input'}
             />
             <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-              Vše přijmout
+              Souhlasím s <a href={route.termsOfService()}>podmínkami </a>a se zpracováním osobních údajů
             </label>
             <ErrorMessage
               name="checkboxAcceptTerms"

@@ -45,7 +45,7 @@ a:hover {
 }
 
 .startPageMarginTop {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 .btn {
   margin: 10px;
@@ -139,6 +139,18 @@ a:hover {
   transform: translate(-50%, -50%);
 }
 
+/* START - Terms of service */
+ol { 
+  counter-reset: item 
+}
+li { 
+  display: block 
+}
+li:before { 
+  content: counters(item, ".") ". "; 
+  counter-increment: item 
+}
+/* END - Terms of service */
 
 @media screen and (max-width: 900px) {
   .nav-item a {
