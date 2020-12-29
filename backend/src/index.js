@@ -7,11 +7,8 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import { getConnection } from './libs/connection';
 
 import rootResolver from './modules/rootResolver';
-import mockResolver from './__mocks__/mockResolver';
 
 dotenv.config();
-
-const MOCKS = process.env.MOCKS === 'true';
 
 const typeDefs = gql`
   scalar Date
@@ -173,11 +170,11 @@ const main = async () => {
   app.disable('x-powered-by');
   app.use(cors());
 
-  const dbConnection = MOCKS ? null : await getConnection();
+  const dbConnection = await getConnection();
 
   const apolloServer = new ApolloServer({
     typeDefs,
-    resolvers: MOCKS ? mockResolver : rootResolver,
+    resolvers: rootResolver,
     context: async ({ req, res }) => {
       const auth = req.headers.Authorization || '';
 

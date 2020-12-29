@@ -1,10 +1,40 @@
-.active {
-  border-bottom: 4px solid #dfe2f1;
-  border-radius: 2px;
-  padding-bottom: 9px;
-}
 
 .active-admin {
   border-left: 4px solid #dfe2f1;
   border-radius: 2px;
+}
+
+#admin-menu{
+  background: #343a40!important;
+  color: white;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+#admin-menu a{
+  color: white;
+  padding-left: 36px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flow-root;
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+}
+#admin-menu .submenu, .submenuButton{
+  text-transform: uppercase;
+  padding-left: 36px;
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+}
+
+#admin-menu a:hover{
+  border-left: 4px solid #76a8d3;
+  border-radius: 2px;
+  color: #76a8d3!important
+}
+
+.notVisible{
+  visibility: collapse;
+}
+.notVisibleText{
+  display: none;
 }

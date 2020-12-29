@@ -169,14 +169,6 @@ const Dashboard = () => {
             </DashboardCardWrapper>
           </Link>
         </Col>
-        <Col lg={4}>
-          <Link to={''}>
-            <DashboardCardWrapper>
-              <img width="50%" src={settingsImage} />
-              <CardTitle>Nastavení</CardTitle>
-            </DashboardCardWrapper>
-          </Link>
-        </Col>
       </Row>
     </>
   );
