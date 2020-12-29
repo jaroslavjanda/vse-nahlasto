@@ -138,9 +138,19 @@ a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-OL { counter-reset: item }
-LI { display: block }
-LI:before { content: counters(item, ".") ". "; counter-increment: item }
+
+/* START - Terms of service */
+ol { 
+  counter-reset: item 
+}
+li { 
+  display: block 
+}
+li:before { 
+  content: counters(item, ".") ". "; 
+  counter-increment: item 
+}
+/* END - Terms of service */
 
 @media screen and (max-width: 900px) {
   .nav-item a {

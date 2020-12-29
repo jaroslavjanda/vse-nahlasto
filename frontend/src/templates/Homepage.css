@@ -159,6 +159,10 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+footer a {
+  font-size: smaller;
+  color: white;
+}
 
 .cover-text {
   height: 100%;
