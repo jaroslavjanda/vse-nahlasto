@@ -4,9 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { MyAddedTicketsTemplate } from '../../templates/MyAddedTicketsTemplate';
 import { Spinner } from 'react-bootstrap';
 import { ErrorBanner, Button } from 'src/atoms/';
-import { useAuth } from '../../utils/auth';
 import { getDataFromLocalStorage } from './../../utils/localStorage';
-import { PreviewType } from '../../molecules/CommunityPreview';
 
 const USERS_TICKETS = gql`
   query UsersTickets($userId: Int!) {
@@ -25,13 +23,14 @@ const USERS_TICKETS = gql`
 export const MyAddedTickets = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
+  const history = useHistory();
   const quacksState = useQuery(USERS_TICKETS, {
     variables: { userId },
   });
 
   const [tickets, setTickets] = useState(null);
   useEffect(() => {
-    if (!quacksState.loading) {
+    if (!quacksState.loading && quacksState.data !=undefined) {
       const data = quacksState.data.usersTickets;
       setTickets(data);
     }
@@ -47,7 +46,11 @@ export const MyAddedTickets = () => {
       {!quacksState.loading && (
         <>
           {quacksState.error && (
-            <ErrorBanner title={quacksState.error.message}></ErrorBanner>
+            <ErrorBanner title={quacksState.error.message}>
+              <Button color="red" onClick={() => history.go(0)}>
+                Načíst znovu
+              </Button>
+            </ErrorBanner>
           )}
           {tickets && (
             <MyAddedTicketsTemplate

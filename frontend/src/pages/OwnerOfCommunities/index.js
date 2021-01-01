@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Link, useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-import { ErrorBanner } from 'src/atoms/';
-import { Button } from 'react-bootstrap';
+import { ErrorBanner, Button } from 'src/atoms/';
 import '../../molecules/CommunityPreview/styles.css';
-import { useAuth } from '../../utils/auth';
-import { imgPath } from '../../utils/imgPath';
 import { route } from '../../Routes';
 import { HeadingWithButtons } from './../../organisms';
 import { getDataFromLocalStorage } from '../../utils/localStorage';
@@ -29,13 +26,14 @@ const COMMUNITY_USER_OWNS = gql`
 export const OwnerOfCommunities = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
+  const history = useHistory();
   const communitiesUserOwnsState = useQuery(COMMUNITY_USER_OWNS, {
     variables: { userId },
   });
 
   const [communities, setCommunities] = useState(null);
   useEffect(() => {
-    if (!communitiesUserOwnsState.loading) {
+    if (!communitiesUserOwnsState.loading && communitiesUserOwnsState.data !=undefined) {
       const data = communitiesUserOwnsState.data.communitiesUserOwns;
       setCommunities(data);
     }
@@ -50,9 +48,11 @@ export const OwnerOfCommunities = () => {
       {!communitiesUserOwnsState.loading && (
         <>
           {communitiesUserOwnsState.error && (
-            <ErrorBanner
-              title={communitiesUserOwnsState.error.message}
-            ></ErrorBanner>
+            <ErrorBanner title={communitiesUserOwnsState.error.message}>
+              <Button color="red" onClick={() => history.go(0)}>
+                Načíst znovu
+              </Button>
+            </ErrorBanner>
           )}
           {communities && (
             <>

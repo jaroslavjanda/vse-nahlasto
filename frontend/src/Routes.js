@@ -29,11 +29,11 @@ import { ListOfTickets } from './pages/ListOfTicketsPage';
 /**
  * administration
  */
-import Dashboard from './private/Dashboard';
-import { AdminAllCommunities } from './private/AllCommunities';
-import { MemberOfCommunities } from './private/MemberOfCommunities';
-import { OwnerOfCommunities } from './private/OwnerOfCommunities';
-import { MyAddedTickets } from './private/MyAddedTickets';
+import { Dashboard } from 'src/pages/Dashboard';
+import { AdminAllCommunities } from 'src/pages/AllCommunities';
+import { MemberOfCommunities } from 'src/pages/MemberOfCommunities';
+import { OwnerOfCommunities } from 'src/pages/OwnerOfCommunities';
+import { MyAddedTickets } from 'src/pages/MyAddedTickets';
 /**
  * organism used
  */

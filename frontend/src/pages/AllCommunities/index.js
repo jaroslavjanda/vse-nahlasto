@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
@@ -31,7 +31,8 @@ export const AdminAllCommunities = () => {
   const communities = communitiesState.data?.communities;
 
   const user = useAuth();
-  var userId = 3;
+  console.log(user)
+  var userId;
   if (userId == null) userId = 0;
 
   const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
@@ -52,7 +53,7 @@ export const AdminAllCommunities = () => {
           {communitiesState.error && (
             <ErrorBanner title={communitiesState.error.message}>
               <Button color="red" onClick={() => history.go(0)}>
-                Reload
+                Načíst znovu
               </Button>
             </ErrorBanner>
           )}

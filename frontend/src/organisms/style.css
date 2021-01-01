@@ -9,8 +9,9 @@
   color: white;
   font-size: 20px;
   letter-spacing: 0;
-  min-height: calc(100vh - 4rem)!important;
-  padding-top: 15%;
+  min-height: 100vh;
+  height: 100%;
+  padding-top: 4rem;
 }
 
 #admin-menu a{
