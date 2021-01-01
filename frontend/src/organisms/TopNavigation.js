@@ -1,45 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from 'src/utils/auth';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 
 import { Link, NavLink } from 'src/atoms';
-import { useAuth } from 'src/utils/auth';
-import { route } from 'src/Routes';
-import logo from 'src/images/logo.png';
-
-import { MainSection } from 'src/atoms/';
-import { Nav, Navbar, Button, Dropdown } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Nav, Navbar, Button, Dropdown, Row, Col } from 'react-bootstrap';
 import { AdminBackground, AdminWrapper } from './styled';
 import PrivateStyledLink from './privateStyledLink';
+
+import { route } from 'src/Routes';
+import logo from 'src/images/logo.png';
 import './style.css';
-import { Row, Col } from 'react-grid-system';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBuilding,
   faNewspaper,
   faFileAlt,
   faFolderOpen,
-  faTools,
   faClipboardList,
   faTachometerAlt,
   faCaretDown,
   faCaretRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { getDataFromLocalStorage } from '../utils/localStorage';
 
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('quacker-auth'),
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('quacker-auth'));
   const [isShown, setIsShown] = useState(true);
-  console.log(isShown)
   var user = getDataFromLocalStorage()?.user;
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar expand="lg" bg="dark" variant="dark">
         <Navbar.Brand>
           <Link to={route.home()}>
             <img
@@ -106,63 +100,70 @@ export const TopNavigation = ({ children }) => {
       {isAuthenticated && (
         <AdminBackground>
           <>
-            <Row>
-              <Col id="admin-menu" xl={isShown ? 1 : 3} justify="center">
-                <div class="submenuButton" onClick={()=>setIsShown(!isShown)}>
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={isShown ? faCaretRight : faCaretDown}
-                  />
-                </div>
-                <PrivateStyledLink activeClassName="active-admin" to={route.admin()} >
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={faTachometerAlt}
-                  />{' '}
-                 <span className={`${isShown ? "notVisibleText" : ""}`}>Nástěnka</span>
-                </PrivateStyledLink>
-                
-                <div className={`submenu ${isShown ? "notVisible" : ""}`}>Uživatel</div>
+            <Row style={{marginRight:0,marginLeft:0}}>
+              <Col  lg={isShown ? 1 : 3} className={isShown ? "menuHide" : ""} style={{paddingLeft:0}} justify="center">
+                <Row>
+                  <Button className="submenuButton navButton" onClick={()=>setIsShown(!isShown)}>
+                    <FontAwesomeIcon
+                      style={{ fontSize: '18px', width: '25px' }}
+                      icon={isShown ? faCaretRight : faCaretDown}
+                    />
+                    Menu
+                  </Button>
+                </Row>
+                <Row id="admin-menu" className={"menuContent"}>
+                  <Col>
+                    <PrivateStyledLink exact activeClassName="active-admin" to={route.admin()}>
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faTachometerAlt}
+                      />{' '}
+                      <span className={`${isShown ? "notVisibleText" : ""}`}>Nástěnka</span>
+                    </PrivateStyledLink>
+                    
+                    <div className={`submenu ${isShown ? "notVisible" : ""}`}>Uživatel</div>
 
-                <PrivateStyledLink activeClassName="active-admin" to={route.adminAllCommunities()} >
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={faBuilding}
-                  />{' '}
-                  <span className={`${isShown ? "notVisibleText" : ""}`}>Výpis komunit</span>
-                </PrivateStyledLink>
-                <PrivateStyledLink activeClassName="active-admin" to={route.adminMemberOfCommunities()} >
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={faFolderOpen}
-                  />{' '}
-                  <span className={`${isShown ? "notVisibleText" : ""}`}>Členství v komunitách</span>
-                </PrivateStyledLink>
-                <PrivateStyledLink activeClassName="active-admin" to={route.myAddedTickets()}>
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={faNewspaper}
-                  />{' '}
-                  <span className={`${isShown ? "notVisibleText" : ""}`}>Vložené příspěvky</span>
-                </PrivateStyledLink>
-                <div className={`submenu ${isShown ? "notVisible" : ""}`}>Správce</div>
-                <PrivateStyledLink activeClassName="active-admin" to={route.adminOwnerOfCommunities()} >
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={faFileAlt}
-                  />{' '}
-                  <span className={`${isShown ? "notVisibleText" : ""}`}>Moje komunity</span>
-                </PrivateStyledLink>
-                <PrivateStyledLink activeClassName="active-admin" to={''}>
-                  <FontAwesomeIcon
-                    style={{ fontSize: '18px', width: '25px' }}
-                    icon={faClipboardList}
-                  />{' '}
-                  <span className={`${isShown ? "notVisibleText" : ""}`}>Příspěvky na vyřešení</span>
-                </PrivateStyledLink>
+                    <PrivateStyledLink exact activeClassName="active-admin" to={route.adminAllCommunities()} >
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faBuilding}
+                      />{' '}
+                      <span className={`${isShown ? "notVisibleText" : ""}`}>Výpis komunit</span>
+                    </PrivateStyledLink>
+                    <PrivateStyledLink exact activeClassName="active-admin" to={route.adminMemberOfCommunities()} >
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faFolderOpen}
+                      />{' '}
+                      <span className={`${isShown ? "notVisibleText" : ""}`}>Členství v komunitách</span>
+                    </PrivateStyledLink>
+                    <PrivateStyledLink exact activeClassName="active-admin" to={route.myAddedTickets()}>
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faNewspaper}
+                      />{' '}
+                      <span className={`${isShown ? "notVisibleText" : ""}`}>Vložené příspěvky</span>
+                    </PrivateStyledLink>
+                    <div className={`submenu ${isShown ? "notVisible" : ""}`}>Správce</div>
+                    <PrivateStyledLink exact activeClassName="active-admin" to={route.adminOwnerOfCommunities()} >
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faFileAlt}
+                      />{' '}
+                      <span className={`${isShown ? "notVisibleText" : ""}`}>Moje komunity</span>
+                    </PrivateStyledLink>
+                    <PrivateStyledLink exact activeClassName="active-admin" to={'route.ss()'}>
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faClipboardList}
+                      />{' '}
+                      <span className={`${isShown ? "notVisibleText" : ""}`}>Příspěvky na vyřešení</span>
+                    </PrivateStyledLink>
+                  </Col>
+                </Row>
               </Col>
-              <Col xl={isShown ? 11 : 8}>
-                <AdminWrapper>{children}</AdminWrapper>
+              <Col lg={isShown ? 11 : 8} >
+                <AdminWrapper >{children}</AdminWrapper>
               </Col>
             </Row>
           </>
