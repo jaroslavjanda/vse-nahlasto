@@ -30,7 +30,7 @@ export const MyAddedTickets = () => {
 
   const [tickets, setTickets] = useState(null);
   useEffect(() => {
-    if (!quacksState.loading && quacksState.data !=undefined) {
+    if (!quacksState.loading && quacksState.data != undefined) {
       const data = quacksState.data.usersTickets;
       setTickets(data);
     }

@@ -45,7 +45,6 @@ const COMMUNITY_DETAIL_QUERY = gql`
   }
 `;
 
-
 const JOIN_COMMUNITY_MUTATION = gql`
   mutation JoinCommunity($userId: Int!, $communityId: Int!) {
     joinPublicCommunity(userId: $userId, communityId: $communityId) {
@@ -55,18 +54,14 @@ const JOIN_COMMUNITY_MUTATION = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
-  console.log("match", match)
-  const [joinPublicCommunityRequest] = useMutation(
-    JOIN_COMMUNITY_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Nyní jste součástí komunity!');
-        window.location.reload();
-      },
-      onError: () => {
-      },
+  console.log('match', match);
+  const [joinPublicCommunityRequest] = useMutation(JOIN_COMMUNITY_MUTATION, {
+    onCompleted: () => {
+      toast.success('Nyní jste součástí komunity!');
+      window.location.reload();
     },
-  );
+    onError: () => {},
+  });
 
   const handleJoinCommunity = useCallback(
     (oldVariables) => {
@@ -83,9 +78,9 @@ export const CommunityDetail = ({ match }) => {
   var userId = localStorage?.user?.user_id;
 
   if (userId === undefined) userId = 0;
-  console.log("match")
+  console.log('match');
   const communityId = parseInt(match.params.communityId);
-  console.log(match)
+  console.log(match);
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });

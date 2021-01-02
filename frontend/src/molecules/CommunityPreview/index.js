@@ -7,6 +7,7 @@ export const PreviewType = {
   Owner: 'Owner',
   Basic: 'Basic',
 };
+
 export const CommunityPreview = ({
   communities,
   previewType,
