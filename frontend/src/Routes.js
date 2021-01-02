@@ -25,7 +25,6 @@ import { PageNotFound } from './pages/PageNotFound';
 // Components
 import { TopNavigation } from './organisms';
 
-
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
 const ticketDetail = () => `/ticket-detail/:ticketId`;

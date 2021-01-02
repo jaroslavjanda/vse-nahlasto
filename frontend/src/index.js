@@ -6,7 +6,7 @@ import { App } from './App';
 import { EnhancedAppoloProvider } from './utils/apollo';
 import { AuthProvider } from './utils/auth';
 
-import "tachyons"
+import 'tachyons';
 import './index.css';
 
 const render = () => {

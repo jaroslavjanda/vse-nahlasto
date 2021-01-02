@@ -132,7 +132,7 @@ export const TopNavigation = ({ children }) => {
               >
                 <Row>
                   <Button
-                    className="submenuButton navButton"
+                    className="navButton submenuButton"
                     onClick={() => setIsShown(!isShown)}
                   >
                     <FontAwesomeIcon
