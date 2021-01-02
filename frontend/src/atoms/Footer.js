@@ -7,7 +7,8 @@ export function Footer({ className, error, ...rest }) {
     <footer id="footer">
       <div className="container">
         <div className="col col-md-auto text-center">
-          <a href={route.termsOfService()}>Smluvní podmínky</a><br/>
+          <a href={route.termsOfService()}>Smluvní podmínky</a>
+          <br />
           <a className="text-muted">©2020 Nahlaš.To</a>
         </div>
       </div>

@@ -30,7 +30,7 @@ export const MemberOfCommunities = () => {
   const [community, setCommunity] = useState(null);
 
   useEffect(() => {
-    if (!quacksState.loading && quacksState.data !=undefined) {
+    if (!quacksState.loading && quacksState.data != undefined) {
       const data = quacksState.data.communitiesAccessibleToUser;
       setCommunity(data);
     }
@@ -46,7 +46,7 @@ export const MemberOfCommunities = () => {
       )}
       {!quacksState.loading && (
         <>
-          {quacksState.error  && (
+          {quacksState.error && (
             <ErrorBanner title={quacksState.error.message}>
               <Button color="red" onClick={() => history.go(0)}>
                 Načíst znovu

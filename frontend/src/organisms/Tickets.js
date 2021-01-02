@@ -28,7 +28,7 @@ export function Tickets({ tickets, communityOwner }) {
   const [LikedRequest] = useMutation(LIKE_MUTATION);
   const [deleteRequest] = useMutation(DELETE_MUTATION);
 
-  let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id)
+  let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id);
 
   return (
     <div style={{ textAlign: 'center' }}>

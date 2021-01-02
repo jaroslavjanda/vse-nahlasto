@@ -12,19 +12,18 @@ import { ForgottenPasswordPage } from './pages/ForgottenPasswordPage';
 import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 
 /**
- * Communities pages 
+ * Communities pages
  */
 import { Communities } from './pages/CommunitiesPage';
 import { AddCommunityPage } from 'src/pages/AddCommunityPage';
 
 /**
- * Community detail pages 
+ * Community detail pages
  */
 import { CommunityDetail } from 'src/pages/CommunityDetailPage';
 import { EditCommunityPage } from './pages/EditCommunityPage';
 import { AddTicket } from './pages/AddTicketPage';
 import { ListOfTickets } from './pages/ListOfTicketsPage';
-
 
 /**
  * administration
@@ -87,21 +86,57 @@ export function Routes() {
         <Route path={route.home()} exact component={HomePage} />
         <Route path={route.signIn()} exact component={SignInPage} />
         <Route path={route.signUp()} exact component={SignUpPage} />
-        <Route path={route.resetPassword()} exact component={PasswordResetPage}/>
-        <Route path={route.forgottenPassword()} exact component={ForgottenPasswordPage}/>
+        <Route
+          path={route.resetPassword()}
+          exact
+          component={PasswordResetPage}
+        />
+        <Route
+          path={route.forgottenPassword()}
+          exact
+          component={ForgottenPasswordPage}
+        />
         <Route path={route.addCommunity()} exact component={AddCommunityPage} />
-        <Route path={route.communityDetail()} exact component={CommunityDetail}  />
+        <Route
+          path={route.communityDetail()}
+          exact
+          component={CommunityDetail}
+        />
         <Route path={route.addTicket()} exact component={AddTicket} />
         <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.ticketDetail()} exact component={TicketDetail} />
-        <Route path={route.ticketDetailPage()} exact component={TicketDetailPage} />
-        <Route path={route.editCommunity()} exact component={EditCommunityPage} />
+        <Route
+          path={route.ticketDetailPage()}
+          exact
+          component={TicketDetailPage}
+        />
+        <Route
+          path={route.editCommunity()}
+          exact
+          component={EditCommunityPage}
+        />
         <Route path={route.communities()} exact component={Communities} />
-        <Route path={route.adminAllCommunities()} exact component={AdminAllCommunities} />
-        <Route path={route.adminMemberOfCommunities()} exact component={MemberOfCommunities} />
-        <Route path={route.adminOwnerOfCommunities()} exact component={OwnerOfCommunities} />
+        <Route
+          path={route.adminAllCommunities()}
+          exact
+          component={AdminAllCommunities}
+        />
+        <Route
+          path={route.adminMemberOfCommunities()}
+          exact
+          component={MemberOfCommunities}
+        />
+        <Route
+          path={route.adminOwnerOfCommunities()}
+          exact
+          component={OwnerOfCommunities}
+        />
         <Route path={route.myAddedTickets()} exact component={MyAddedTickets} />
-        <Route path={route.termsOfService()} exact component={TermsOfServicePage} />
+        <Route
+          path={route.termsOfService()}
+          exact
+          component={TermsOfServicePage}
+        />
         <Route path={route.admin()} exact component={Dashboard} />
         <Route path="*" exact component={PageNotFound} />
       </Switch>

@@ -115,15 +115,14 @@ export const ticketFromCommunitiesIAmAdminIn = async (
   { userId },
   { dbConnection },
 ) => {
-  const ticketsFromCommunitiesIAmAdminIn = ( await dbConnection.query(
+  const ticketsFromCommunitiesIAmAdminIn = await dbConnection.query(
     `SELECT DISTINCT ticket_id FROM membership 
     JOIN ticket ON membership.community_id = ticket.community_id 
     WHERE membership.user_id = ? AND membership.role_id = 1 OR membership.role_id = 2`,
     [userId],
-  )
-);
+  );
 
-  console.log("Admin Comms Ids", ticketsFromCommunitiesIAmAdminIn)
+  console.log('Admin Comms Ids', ticketsFromCommunitiesIAmAdminIn);
 
   return ticketsFromCommunitiesIAmAdminIn;
 };

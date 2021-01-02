@@ -131,7 +131,6 @@ a:hover {
   width: 100%;
 }
 
-
 .centered-image {
   position: absolute;
   top: 50%;
@@ -140,15 +139,15 @@ a:hover {
 }
 
 /* START - Terms of service */
-ol { 
-  counter-reset: item 
+ol {
+  counter-reset: item;
 }
-li { 
-  display: block 
+li {
+  display: block;
 }
-li:before { 
-  content: counters(item, ".") ". "; 
-  counter-increment: item 
+li:before {
+  content: counters(item, '.') '. ';
+  counter-increment: item;
 }
 /* END - Terms of service */
 

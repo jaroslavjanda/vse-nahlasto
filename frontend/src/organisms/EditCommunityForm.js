@@ -36,10 +36,7 @@ export function EditCommunityForm({
       <Form className={className}>
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
-          <SuccessBanner
-            title={'Popis komunity byl změněn.'}
-            className="mb3"
-          />
+          <SuccessBanner title={'Popis komunity byl změněn.'} className="mb3" />
         )}
         <FormikTextArea
           id="description"
@@ -53,7 +50,7 @@ export function EditCommunityForm({
           autoCapitalize="off"
         />
         <Button type="submit" className="mt2 mb3">
-         Uložit změny
+          Uložit změny
         </Button>
       </Form>
     </Formik>

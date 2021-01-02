@@ -31,7 +31,7 @@ export const AdminAllCommunities = () => {
   const communities = communitiesState.data?.communities;
 
   const user = useAuth();
-  console.log(user)
+  console.log(user);
   var userId;
   if (userId == null) userId = 0;
 

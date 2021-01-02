@@ -33,7 +33,10 @@ export const OwnerOfCommunities = () => {
 
   const [communities, setCommunities] = useState(null);
   useEffect(() => {
-    if (!communitiesUserOwnsState.loading && communitiesUserOwnsState.data !=undefined) {
+    if (
+      !communitiesUserOwnsState.loading &&
+      communitiesUserOwnsState.data != undefined
+    ) {
       const data = communitiesUserOwnsState.data.communitiesUserOwns;
       setCommunities(data);
     }

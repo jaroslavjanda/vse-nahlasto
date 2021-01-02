@@ -28,7 +28,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
   const history = useHistory();
   return (
     <>
-      <Jumbotron className="cover" style={{marginTop: "-5rem"}}>
+      <Jumbotron className="cover" style={{ marginTop: '-5rem' }}>
         <Container>
           <div className="cover-text">
             <h1>

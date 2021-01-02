@@ -11,7 +11,6 @@ import messageImage from './../../resources/pages/Dashboard/message.svg';
 import newsImage from './../../resources/pages/Dashboard/news.svg';
 import servicesImage from './../../resources/pages/Dashboard/services.svg';
 
-
 export const Dashboard = () => {
   return (
     <>
@@ -27,7 +26,11 @@ export const Dashboard = () => {
         <Col lg={4}>
           <Link to={route.adminMemberOfCommunities()}>
             <DashboardCardWrapper>
-              <img width="50%" src={servicesImage} alt="Členství v komunitách"/>
+              <img
+                width="50%"
+                src={servicesImage}
+                alt="Členství v komunitách"
+              />
               <CardTitle>Členství v komunitách</CardTitle>
             </DashboardCardWrapper>
           </Link>
@@ -35,7 +38,7 @@ export const Dashboard = () => {
         <Col lg={4}>
           <Link to={route.myAddedTickets()}>
             <DashboardCardWrapper>
-              <img width="50%" src={messageImage} alt="Vložené příspěvky"/>
+              <img width="50%" src={messageImage} alt="Vložené příspěvky" />
               <CardTitle>Vložené příspěvky</CardTitle>
             </DashboardCardWrapper>
           </Link>
@@ -43,7 +46,7 @@ export const Dashboard = () => {
         <Col lg={4}>
           <Link to={route.adminOwnerOfCommunities()}>
             <DashboardCardWrapper>
-              <img width="50%" src={adminsImage} alt="Moje komunity"/>
+              <img width="50%" src={adminsImage} alt="Moje komunity" />
               <CardTitle>Moje komunity</CardTitle>
             </DashboardCardWrapper>
           </Link>
@@ -51,7 +54,7 @@ export const Dashboard = () => {
         <Col lg={4}>
           <Link to={''}>
             <DashboardCardWrapper>
-              <img width="50%" src={newsImage} alt="Příspěvky na vyřešení"/>
+              <img width="50%" src={newsImage} alt="Příspěvky na vyřešení" />
               <CardTitle>Příspěvky na vyřešení</CardTitle>
             </DashboardCardWrapper>
           </Link>
@@ -59,4 +62,4 @@ export const Dashboard = () => {
       </Row>
     </>
   );
-}
+};

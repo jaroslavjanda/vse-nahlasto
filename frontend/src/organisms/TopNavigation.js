@@ -27,7 +27,9 @@ import {
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('quacker-auth'));
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem('quacker-auth'),
+  );
   const [isShown, setIsShown] = useState(true);
   var user = getDataFromLocalStorage()?.user;
 
@@ -63,16 +65,32 @@ export const TopNavigation = ({ children }) => {
               </>
             )}
             {isAuthenticated ? (
-              <>   
+              <>
                 <Dropdown>
-                  <Dropdown.Toggle id="dropdown-custom-1"  className="navButton"> {user.name}<span> </span>{user.surname}</Dropdown.Toggle>
+                  <Dropdown.Toggle id="dropdown-custom-1" className="navButton">
+                    {' '}
+                    {user.name}
+                    <span> </span>
+                    {user.surname}
+                  </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} exact to={route.forgottenPassword()}>Změna hesla</Dropdown.Item>
-                    <Dropdown.Item onClick={() => {
-                                    signout();
-                                    history.push(route.home());
-                                    window.location.reload();
-                                  }}> Odhlásit se</Dropdown.Item>
+                    <Dropdown.Item
+                      as={Link}
+                      exact
+                      to={route.forgottenPassword()}
+                    >
+                      Změna hesla
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        signout();
+                        history.push(route.home());
+                        window.location.reload();
+                      }}
+                    >
+                      {' '}
+                      Odhlásit se
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -94,16 +112,29 @@ export const TopNavigation = ({ children }) => {
         </Navbar.Collapse>
       </Navbar>
       {!isAuthenticated && (
-        <div setIsAuthenticated={setIsAuthenticated} className="startPageMarginTop">{children} </div>
+        <div
+          setIsAuthenticated={setIsAuthenticated}
+          className="startPageMarginTop"
+        >
+          {children}{' '}
+        </div>
       )}
 
       {isAuthenticated && (
         <AdminBackground>
           <>
-            <Row style={{marginRight:0,marginLeft:0}}>
-              <Col  lg={isShown ? 1 : 3} className={isShown ? "menuHide" : ""} style={{paddingLeft:0}} justify="center">
+            <Row style={{ marginRight: 0, marginLeft: 0 }}>
+              <Col
+                lg={isShown ? 1 : 3}
+                className={isShown ? 'menuHide' : ''}
+                style={{ paddingLeft: 0 }}
+                justify="center"
+              >
                 <Row>
-                  <Button className="submenuButton navButton" onClick={()=>setIsShown(!isShown)}>
+                  <Button
+                    className="submenuButton navButton"
+                    onClick={() => setIsShown(!isShown)}
+                  >
                     <FontAwesomeIcon
                       style={{ fontSize: '18px', width: '25px' }}
                       icon={isShown ? faCaretRight : faCaretDown}
@@ -111,59 +142,99 @@ export const TopNavigation = ({ children }) => {
                     Menu
                   </Button>
                 </Row>
-                <Row id="admin-menu" className={"menuContent"}>
+                <Row id="admin-menu" className={'menuContent'}>
                   <Col>
-                    <PrivateStyledLink exact activeClassName="active-admin" to={route.admin()}>
+                    <PrivateStyledLink
+                      exact
+                      activeClassName="active-admin"
+                      to={route.admin()}
+                    >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
                         icon={faTachometerAlt}
                       />{' '}
-                      <span className={`${isShown ? "notVisibleText" : ""}`}>Nástěnka</span>
+                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
+                        Nástěnka
+                      </span>
                     </PrivateStyledLink>
-                    
-                    <div className={`submenu ${isShown ? "notVisible" : ""}`}>Uživatel</div>
 
-                    <PrivateStyledLink exact activeClassName="active-admin" to={route.adminAllCommunities()} >
+                    <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
+                      Uživatel
+                    </div>
+
+                    <PrivateStyledLink
+                      exact
+                      activeClassName="active-admin"
+                      to={route.adminAllCommunities()}
+                    >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
                         icon={faBuilding}
                       />{' '}
-                      <span className={`${isShown ? "notVisibleText" : ""}`}>Výpis komunit</span>
+                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
+                        Výpis komunit
+                      </span>
                     </PrivateStyledLink>
-                    <PrivateStyledLink exact activeClassName="active-admin" to={route.adminMemberOfCommunities()} >
+                    <PrivateStyledLink
+                      exact
+                      activeClassName="active-admin"
+                      to={route.adminMemberOfCommunities()}
+                    >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
                         icon={faFolderOpen}
                       />{' '}
-                      <span className={`${isShown ? "notVisibleText" : ""}`}>Členství v komunitách</span>
+                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
+                        Členství v komunitách
+                      </span>
                     </PrivateStyledLink>
-                    <PrivateStyledLink exact activeClassName="active-admin" to={route.myAddedTickets()}>
+                    <PrivateStyledLink
+                      exact
+                      activeClassName="active-admin"
+                      to={route.myAddedTickets()}
+                    >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
                         icon={faNewspaper}
                       />{' '}
-                      <span className={`${isShown ? "notVisibleText" : ""}`}>Vložené příspěvky</span>
+                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
+                        Vložené příspěvky
+                      </span>
                     </PrivateStyledLink>
-                    <div className={`submenu ${isShown ? "notVisible" : ""}`}>Správce</div>
-                    <PrivateStyledLink exact activeClassName="active-admin" to={route.adminOwnerOfCommunities()} >
+                    <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
+                      Správce
+                    </div>
+                    <PrivateStyledLink
+                      exact
+                      activeClassName="active-admin"
+                      to={route.adminOwnerOfCommunities()}
+                    >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
                         icon={faFileAlt}
                       />{' '}
-                      <span className={`${isShown ? "notVisibleText" : ""}`}>Moje komunity</span>
+                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
+                        Moje komunity
+                      </span>
                     </PrivateStyledLink>
-                    <PrivateStyledLink exact activeClassName="active-admin" to={'route.ss()'}>
+                    <PrivateStyledLink
+                      exact
+                      activeClassName="active-admin"
+                      to={'route.ss()'}
+                    >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
                         icon={faClipboardList}
                       />{' '}
-                      <span className={`${isShown ? "notVisibleText" : ""}`}>Příspěvky na vyřešení</span>
+                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
+                        Příspěvky na vyřešení
+                      </span>
                     </PrivateStyledLink>
                   </Col>
                 </Row>
               </Col>
-              <Col lg={isShown ? 11 : 8} >
-                <AdminWrapper >{children}</AdminWrapper>
+              <Col lg={isShown ? 11 : 8}>
+                <AdminWrapper>{children}</AdminWrapper>
               </Col>
             </Row>
           </>
