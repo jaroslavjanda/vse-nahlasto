@@ -53,7 +53,7 @@ export const AddTicket = ({ match }) => {
     },
   );
 
-  var user = getDataFromLocalStorage()?.user;
+  let user = getDataFromLocalStorage()?.user;
   const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddTicketFormSubmit = useCallback(

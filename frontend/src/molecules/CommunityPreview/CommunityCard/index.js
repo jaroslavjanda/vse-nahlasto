@@ -4,6 +4,7 @@ import { imgPath } from '../../../utils/imgPath';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { PreviewType } from './../index';
+
 export const CommunityCard = ({ community, previewType }) => {
   const resolveType = () => {
     switch (previewType) {
