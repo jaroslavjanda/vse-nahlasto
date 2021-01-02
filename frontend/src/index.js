@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import 'tachyons';
-import './index.css';
-
-import { App } from 'src/App';
+import { App } from './App';
 import { EnhancedAppoloProvider } from './utils/apollo';
 import { AuthProvider } from './utils/auth';
+
+import "tachyons"
+import './index.css';
 
 const render = () => {
   ReactDOM.render(
