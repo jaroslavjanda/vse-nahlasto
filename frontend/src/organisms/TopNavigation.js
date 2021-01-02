@@ -4,7 +4,7 @@ import { useAuth } from 'src/utils/auth';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 
 import { Link, NavLink } from 'src/atoms';
-import { Nav, Navbar, Button, Dropdown, Row, Col } from 'react-bootstrap';
+import { Button, Col, Dropdown, Nav, Navbar, Row } from 'react-bootstrap';
 import { AdminBackground, AdminWrapper } from './styled';
 import PrivateStyledLink from './privateStyledLink';
 
@@ -15,13 +15,13 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBuilding,
-  faNewspaper,
-  faFileAlt,
-  faFolderOpen,
-  faClipboardList,
-  faTachometerAlt,
   faCaretDown,
   faCaretRight,
+  faClipboardList,
+  faFileAlt,
+  faFolderOpen,
+  faNewspaper,
+  faTachometerAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const TopNavigation = ({ children }) => {

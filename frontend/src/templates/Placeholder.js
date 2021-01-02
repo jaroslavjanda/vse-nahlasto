@@ -8,7 +8,7 @@ export function Placeholder({ title, children }) {
       <Heading>{title}</Heading>
 
       {typeof children === 'undefined' ? (
-        <p>This page is empty for now...</p>
+        <p>Tady není vůbec nic...</p>
       ) : (
         children
       )}

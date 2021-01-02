@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErrorMessage, Label, FileInput } from 'src/atoms/';
+import { ErrorMessage, FileInput, Label } from 'src/atoms/';
 
 export function File({ id, label, error, ...props }) {
   return (

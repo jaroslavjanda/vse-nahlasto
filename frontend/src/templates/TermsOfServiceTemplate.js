@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Container,
-  Row,
-} from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 export function TermsOfServiceTemplate() {
   return (

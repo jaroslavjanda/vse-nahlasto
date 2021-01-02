@@ -1,8 +1,8 @@
-import { useQuery, gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { CommunitiesTemplate } from '../templates/CommunitiesTemplate';
 import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms';
+import { Button, ErrorBanner } from 'src/atoms';
 import { useAuth } from '../utils/auth';
 
 const COMMUNITY_LIST_QUERY = gql`
@@ -42,7 +42,7 @@ export const Communities = () => {
           {communitiesState.error && (
             <ErrorBanner title={communitiesState.error.message}>
               <Button color="red" onClick={() => history.go(0)}>
-                Reload
+                Načíst znovu
               </Button>
             </ErrorBanner>
           )}

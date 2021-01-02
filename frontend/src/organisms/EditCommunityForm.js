@@ -2,15 +2,15 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-import { ErrorBanner, SuccessBanner, Button } from 'src/atoms';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 
 const schema = yup.object().shape({
   description: yup
     .string()
     .required()
-    .label('Description')
-    .max(500, 'Too long! Please use max 500 characters.'),
+    .label('Popis')
+    .max(500, 'Popis je příliš dlouhý. Použij maximálně 500 znaků.'),
 });
 
 export function EditCommunityForm({

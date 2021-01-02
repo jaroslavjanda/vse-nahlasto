@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { ErrorBanner, Button } from 'src/atoms';
+import { Button, ErrorBanner } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 import { toast } from 'react-toastify';
@@ -113,7 +113,7 @@ export const CommunityDetail = ({ match }) => {
           {communityState.error && (
             <ErrorBanner title={communityState.error.message}>
               <Button color="red" onClick={() => history.go(0)}>
-                Reload
+                Načíst znovu
               </Button>
             </ErrorBanner>
           )}

@@ -1,11 +1,12 @@
 import { HeadingWithButtons } from 'src/organisms/';
-import { Button, Alert, Container } from 'react-bootstrap';
+import { Alert, Button, Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Tickets } from 'src/organisms';
 import { imgPath } from 'src/utils/imgPath';
+import React from 'react';
 
 export function CommunityDetailTemplate({
   community,

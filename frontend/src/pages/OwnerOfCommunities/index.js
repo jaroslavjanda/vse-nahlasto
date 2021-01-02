@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Link, useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
+import { Button, ErrorBanner } from 'src/atoms/';
 import '../../molecules/CommunityPreview/styles.css';
 import { route } from '../../Routes';
 import { HeadingWithButtons } from './../../organisms';
 import { getDataFromLocalStorage } from '../../utils/localStorage';
-import {
-  CommunityPreview,
-  PreviewType,
-} from '../../molecules/CommunityPreview';
+import { CommunityPreview, PreviewType } from '../../molecules/CommunityPreview';
+
 const COMMUNITY_USER_OWNS = gql`
   query CommunitiesUserOwns($userId: Int!) {
     communitiesUserOwns(userId: $userId) {

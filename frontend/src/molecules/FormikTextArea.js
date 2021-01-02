@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField } from 'formik';
 
-import { TextArea, Label } from '../atoms';
+import { Label, TextArea } from '../atoms';
 
 export function FormikTextArea({ id, label, name, ...props }) {
   const [field, meta] = useField(name);

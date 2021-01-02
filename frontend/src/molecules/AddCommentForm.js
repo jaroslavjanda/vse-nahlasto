@@ -1,14 +1,9 @@
 import { Form } from 'react-bootstrap';
-import { Button, ErrorBanner, SuccessBanner } from '../atoms';
-import { toast } from 'react-toastify';
-import React, { useCallback } from 'react';
-import { useAuth } from '../utils/auth';
+import { Button, ErrorBanner } from '../atoms';
+import React from 'react';
 
-import { Formik, FormikConsumer } from 'formik';
-import { FormikField } from './FormikField';
-import { text } from '@fortawesome/fontawesome-svg-core';
+import { Formik } from 'formik';
 import { FormikTextArea } from './FormikTextArea';
-import * as yup from 'yup';
 
 export function AddCommentForm({
   isLoading,

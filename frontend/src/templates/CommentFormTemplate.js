@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { AddCommentForm, UserImageAndName } from '../molecules';
-import { Loading } from '../atoms';
 import { gql, useMutation } from '@apollo/client';
 import { useAuth } from '../utils/auth';
 import { useHistory } from 'react-router-dom';

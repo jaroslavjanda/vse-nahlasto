@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
 import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
+import { Button, ErrorBanner } from 'src/atoms/';
 import { getDataFromLocalStorage } from './../../utils/localStorage';
 import { PreviewType } from '../../molecules/CommunityPreview';
 

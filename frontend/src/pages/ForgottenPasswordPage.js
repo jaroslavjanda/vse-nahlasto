@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Form, Formik } from 'formik';
-import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
 import { FormikField } from '../molecules';
 import * as yup from 'yup';
 import { errorMessage } from 'jest-validate';

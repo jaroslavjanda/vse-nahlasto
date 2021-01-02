@@ -8,7 +8,7 @@ export function Footer({ className, error, ...rest }) {
       <div className="container">
         <div className="col col-md-auto text-center">
           <a href={route.termsOfService()}>Smluvní podmínky</a><br/>
-          <a className="text-muted">©2020 Nahlaš.To</a>
+          <p className="text-muted">©2020 Nahlaš.To</p>
         </div>
       </div>
     </footer>

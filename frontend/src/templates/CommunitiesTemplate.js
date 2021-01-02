@@ -1,12 +1,10 @@
 import React from 'react';
-import { CommunityCards } from 'src/molecules';
 import { HeadingWithButtons } from 'src/organisms/';
 import { Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { CommunityPreview } from './../molecules/CommunityPreview/';
+import { CommunityPreview } from '../molecules/CommunityPreview';
+
 export function CommunitiesTemplate({
-  allCommunities,
-  communitiesAccessibleToUser,
   previewType,
   communities,
   ownerOfCommunities,
@@ -33,14 +31,6 @@ export function CommunitiesTemplate({
         previewType={previewType}
         isPublic={isPublic}
       />
-
-      {/*
-      <CommunityCards
-        allCommunities={allCommunities}
-        communitiesAccessibleToUser={communitiesAccessibleToUser}
-        ownerOfCommunities={ownerOfCommunities}
-      />
-      */}
     </Container>
   );
 }
