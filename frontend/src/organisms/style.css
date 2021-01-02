@@ -1,10 +1,64 @@
-.active {
-  border-bottom: 4px solid #dfe2f1;
-  border-radius: 2px;
-  padding-bottom: 9px;
-}
-
 .active-admin {
   border-left: 4px solid #dfe2f1;
   border-radius: 2px;
+}
+
+#admin-menu{
+  background-color: #343a40!important;
+  opacity: 0.95;
+  color: white;
+  font-size: 20px;
+  letter-spacing: 0;
+  min-height: 100vh;
+  height: 100%;
+  padding-top: 4rem;
+}
+
+#admin-menu a{
+  color: white;
+  padding-left: 36px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flow-root;
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+}
+
+#admin-menu .submenu{
+  text-transform: uppercase;
+  padding-left: 36px;
+  margin-bottom: 16px;
+  border-left: 4px solid transparent;
+}
+.submenuButton{
+  padding-left: 0;
+  margin-left: 30px;
+  background-color: #76a8d3;
+  border-color: #76a8d3;
+  z-index: 100;
+  position: absolute;
+}
+
+#admin-menu a:hover, .active-admin{
+  border-left: 4px solid #76a8d3!important;
+  border-radius: 2px!important;
+  color: #76a8d3!important
+}
+
+.notVisible{
+  visibility: collapse;
+}
+
+.notVisibleText{
+  display: none;
+}
+
+@media screen and (max-width: 991px) {
+
+  .menuHide .menuContent{
+    display: none!important;
+  }
+  #admin-menu a{
+    padding-left: 15px;
+  }
 }

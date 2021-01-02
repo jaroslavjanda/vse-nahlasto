@@ -55,6 +55,7 @@ const JOIN_COMMUNITY_MUTATION = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
+  console.log("match", match)
   const [joinPublicCommunityRequest] = useMutation(
     JOIN_COMMUNITY_MUTATION,
     {
@@ -82,9 +83,9 @@ export const CommunityDetail = ({ match }) => {
   var userId = localStorage?.user?.user_id;
 
   if (userId === undefined) userId = 0;
-
+  console.log("match")
   const communityId = parseInt(match.params.communityId);
-
+  console.log(match)
   const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
