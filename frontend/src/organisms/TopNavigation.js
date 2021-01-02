@@ -220,7 +220,7 @@ export const TopNavigation = ({ children }) => {
                     <PrivateStyledLink
                       exact
                       activeClassName="active-admin"
-                      to={'route.ss()'}
+                      to={route.ticketsToSolve()}
                     >
                       <FontAwesomeIcon
                         style={{ fontSize: '18px', width: '25px' }}
