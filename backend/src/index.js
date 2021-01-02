@@ -1,7 +1,6 @@
 import dotenv from 'dotenv-flow';
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 
 import { getConnection } from './libs/connection';

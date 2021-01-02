@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardColumns } from 'react-bootstrap';
-import { useMutation, gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 import { CardsTicket } from 'src/molecules/CardsTicket';
 

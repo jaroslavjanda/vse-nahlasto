@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, Button, Row, CardColumns, Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { CommunityCard } from './CommunityCard';
+
 export const PreviewType = {
   Member: 'Member',
   Owner: 'Owner',
