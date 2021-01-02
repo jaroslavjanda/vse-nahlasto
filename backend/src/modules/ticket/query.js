@@ -98,6 +98,9 @@ export const communityTicket = async (
   return ticket;
 };
 
+/**
+ * Returns tickets from logged user.
+ */
 export const usersTickets = async (_, { userId }, { dbConnection }) => {
   return await dbConnection.query(`SELECT * from ticket WHERE user_id = ?`, [
     userId,
