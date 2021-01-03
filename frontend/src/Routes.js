@@ -13,7 +13,6 @@ import { AddCommunityPage } from './pages/AddCommunityPage';
 import { CommunityDetail } from './pages/CommunityDetailPage';
 import { EditCommunityPage } from './pages/EditCommunityPage';
 import { AddTicket } from './pages/AddTicketPage';
-import { ListOfTickets } from './pages/ListOfTicketsPage';
 import { Dashboard } from './pages/Dashboard';
 import { AdminAllCommunities } from './pages/AllCommunities';
 import { MemberOfCommunities } from './pages/MemberOfCommunities';
@@ -41,7 +40,6 @@ export const route = {
   communityDetail,
   communityDetailRaw: () => '/community-detail',
   addTicket: () => `${communityDetail()}/add`,
-  listTicket: () => `${communityDetail()}/list`,
   editCommunity: () => `${communityDetail()}/edit_community`,
   communities: () => `/communities`,
   ticketDetail,
@@ -78,7 +76,6 @@ export function Routes() {
           component={CommunityDetail}
         />
         <Route path={route.addTicket()} exact component={AddTicket} />
-        <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.ticketDetail()} exact component={TicketDetail} />
         <Route
           path={route.editCommunity()}
