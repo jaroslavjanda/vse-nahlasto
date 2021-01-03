@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate';
 import { Spinner } from 'react-bootstrap';
@@ -23,10 +23,23 @@ const TICKETS_TO_RESOLVE = gql`
   }
 `;
 
+const DELETE_MUTATION = gql`
+  mutation deleteTicket($userId: Int!, $communityId: Int!, $ticketId: Int!) {
+    deleteTicket(
+      userId: $userId
+      communityId: $communityId
+      ticketId: $ticketId
+    ) {
+      ticket_id
+    }
+  }
+`;
+
 export const TicketsToSolve = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
   const history = useHistory();
+  const [deleteRequest] = useMutation(DELETE_MUTATION);
   const quacksState = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
   });
@@ -59,6 +72,7 @@ export const TicketsToSolve = () => {
             <TicketsToSolveTemplate
               tickets={tickets}
               title={'Příspěvky k vyřešení'}
+              requestDelete={deleteRequest}
             />
           )}
         </>

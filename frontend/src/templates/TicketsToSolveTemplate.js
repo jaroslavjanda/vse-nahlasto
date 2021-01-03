@@ -1,13 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { route } from 'src/Routes';
 import { HeadingWithButtons } from 'src/organisms/';
 import { Button, Container, Col, Row, Card, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { random } from 'lodash';
 import { imgPathForTicket } from 'src/utils/imgPathForTickets';
 import 'src/molecules/CardsTicketStyle.css';
 
@@ -20,10 +17,11 @@ const RESOLVE_TICKET_MUTATION = gql`
 `;
 
 export function TicketsToSolveTemplate({
-ticketsToResolve,
+  ticketsToResolve,
   tickets,
   title,
   isPublic,
+  requestDelete,
 }) {
 
     const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
@@ -50,38 +48,16 @@ ticketsToResolve,
         },
         [resolveTicketRequest],
       );
-    
-
 
   const history = useHistory();
+  let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id);
   return (
     <Container>
       <HeadingWithButtons header={title ? title : ''}></HeadingWithButtons>
 
       <Row>
-        {tickets.map((tickets) => (
+        {sortedTickets.map((tickets) => (
           <Col lg={isPublic ? 4 : 6} md={12}>
-            {/* <Card style={{ width: '100%' }} className="myTicket">
-              <Card.Img
-                variant="top"
-                src={imgPathForTicket('tickets', tickets.image)}
-              />
-              <Card.Body>
-                <h3>{tickets.title}</h3>
-                <Card.Text>{tickets.content}</Card.Text>
-                <div>👍 {random(15)}</div>
-                <Button
-                  variant="success"
-                  onClick={() =>
-                    history.push(`/community-detail/${tickets.community_id}`)
-                  }
-                >
-                  Do komunity
-                </Button>
-              </Card.Body>
-            </Card> */}
-
-
 <Card
  className="ticketCardMaxSize"
 style={{ width: '100%', border: '3px solid rgb(0 123 254)' }}
@@ -101,16 +77,14 @@ key={tickets.title}
               icon={faTrashAlt}
               className="f4"
               onClick={() => {
-                if ('ss') {
-                 /*  requestDelete({
+                 requestDelete({
                     variables: {
                       ticketId: tickets.ticket_id,
                       communityId: tickets.community_id,
                       userId: tickets.user_id,
                     },
-                  }); */
+                  });
                   history.go(0);
-                }
               }}
             />
           </Button>
@@ -149,13 +123,7 @@ key={tickets.title}
   </Row>
 </Card.Body>
 </Card>
-
-
           </Col>
-
-
-
-
         ))}
       </Row>
     </Container>
