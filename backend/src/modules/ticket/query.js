@@ -125,8 +125,6 @@ export const ticketFromCommunitiesIAmAdminIn = async (
     [userId],
   );
 
-  console.log('Admin Comms Ids', ticketsFromCommunitiesIAmAdminIn);
-
   return ticketsFromCommunitiesIAmAdminIn;
 };
 

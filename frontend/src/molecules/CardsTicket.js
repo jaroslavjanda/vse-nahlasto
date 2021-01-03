@@ -29,7 +29,6 @@ export const CardsTicket = ({
   
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
     onCompleted: ({ setTicketResolved: ticket_id }) => {
-      console.log('Completed', ticket_id);
       window.location.reload();
     },
     onError: ({ setTicketResolved: ticket_id }) => {
@@ -39,13 +38,9 @@ export const CardsTicket = ({
 
   const handleResolveTicket = useCallback(
     (oldVariables) => {
-      console.log('variables ticketId', oldVariables.variables);
-
       const variables = {
         ticketId: oldVariables.variables.ticket_id,
       };
-
-      console.log('new variables', variables.ticket_id);
 
       resolveTicketRequest({ variables });
     },
