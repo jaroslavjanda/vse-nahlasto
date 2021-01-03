@@ -1,11 +1,10 @@
 import React from 'react';
-import { route } from 'src/Routes';
 import { HeadingWithButtons } from 'src/organisms/';
-import { Button, Container, Col, Row, Card } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { random } from 'lodash';
 import { imgPathForTicket } from 'src/utils/imgPathForTickets';
+
 export function MyAddedTicketsTemplate({
   usersTickets,
   tickets,

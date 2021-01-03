@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-import { ErrorBanner, SuccessBanner, Button } from 'src/atoms';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 import { FormikFile } from '../molecules/FormikFile';
@@ -62,7 +62,7 @@ export function AddCommunityForm({
           autoCapitalize="off"
         />
         <FormikFile id="file" name="file" label="File" />
-        <FormGroup>
+        <FormGroup style={{ textAlign: 'left' }}>
           <Field
             type="checkbox"
             id="closed"
@@ -74,7 +74,7 @@ export function AddCommunityForm({
             Make this community private
           </label>
         </FormGroup>
-        <div style={{ textAlign: 'right' }}>
+        <div>
           <Button type="submit" className="mt2 mb3">
             Confirm request
           </Button>

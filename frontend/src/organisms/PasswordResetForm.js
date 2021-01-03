@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
 import { Spinner } from 'react-bootstrap';
 
@@ -10,16 +10,12 @@ const schema = yup.object().shape({
     .string()
     .required()
     .label('Password')
-    .test(
-      'len',
-      'Must be at least 6 characters long',
-      (val) => val.length >= 6,
-    ),
+    .test('len', 'Heslo musí mít alespoň 6 znaků.', (val) => val.length >= 6),
   passwordConfirmation: yup
     .string()
     .required()
-    .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
-    .label('Password Confirmation'),
+    .oneOf([yup.ref('newPassword'), null], 'Hesla se musí shodovat.')
+    .label('Potvrzení hesla'),
 });
 
 export function PasswordResetForm({
@@ -59,7 +55,7 @@ export function PasswordResetForm({
         <FormikField
           id="newPassword"
           name="newPassword"
-          label="Password"
+          label="Heslo"
           type="password"
           autoComplete="off"
           autoCorrect="off"
@@ -68,7 +64,7 @@ export function PasswordResetForm({
         <FormikField
           id="passwordConfirmation"
           name="passwordConfirmation"
-          label="Password Confirmation"
+          label="Potvrzení hesla"
           type="password"
           autoComplete="off"
           autoCorrect="off"

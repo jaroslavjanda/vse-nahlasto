@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer } from 'src/atoms/';
+import { Footer, Link } from 'src/atoms/';
 import icon1 from 'src/images/icon1.PNG';
 import icon2 from 'src/images/icon2.PNG';
 import icon3 from 'src/images/icon3.PNG';
@@ -9,16 +9,15 @@ import testimonial2 from 'src/images/testimonial2.jpg';
 import { CommunityCardsHomepage } from 'src/molecules/';
 import { useHistory } from 'react-router-dom';
 import { route } from 'src/Routes';
-import { Link } from 'src/atoms/';
 
 import {
-  Jumbotron,
   Button,
-  Container,
   Card,
   CardDeck,
-  Row,
   Col,
+  Container,
+  Jumbotron,
+  Row,
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -209,7 +208,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
           <Card>
             <div className="text-center">
               <Card.Header className="homePageHeader">
-                <h3>Free</h3>
+                <h3>Zdarma</h3>
               </Card.Header>
               <div className="text-center">
                 <Card.Body>

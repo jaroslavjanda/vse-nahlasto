@@ -1,20 +1,8 @@
-import { queries as UserQueries, mutations as UserMutations } from './user';
-import {
-  queries as CommunityQueries,
-  mutations as CommunityMutations,
-} from './community';
-import {
-  queries as TicketQueries,
-  mutations as TicketMutations,
-} from './ticket';
-import {
-  queries as CommentQueries,
-  mutations as CommentMutations,
-} from './comment';
-import {
-  queries as UploadQueries,
-  mutations as UploadMutations,
-} from './upload';
+import { mutations as UserMutations, queries as UserQueries } from './user';
+import { mutations as CommunityMutations, queries as CommunityQueries } from './community';
+import { mutations as TicketMutations, queries as TicketQueries } from './ticket';
+import { mutations as CommentMutations, queries as CommentQueries } from './comment';
+import { mutations as UploadMutations, queries as UploadQueries } from './upload';
 
 const { GraphQLScalarType } = require('graphql');
 

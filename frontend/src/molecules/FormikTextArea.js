@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField } from 'formik';
 
-import { TextArea, Label } from '../atoms';
+import { Label, TextArea } from '../atoms';
 
 export function FormikTextArea({ id, label, name, ...props }) {
   const [field, meta] = useField(name);
@@ -9,7 +9,7 @@ export function FormikTextArea({ id, label, name, ...props }) {
   const error = meta.touched && meta.error;
 
   return (
-    <div className="measure mb2">
+    <div className="measure mb2" style={{ textAlign: 'left' }}>
       <Label htmlFor={id}>{label}</Label>
       <TextArea {...field} error={error} {...props} />
     </div>

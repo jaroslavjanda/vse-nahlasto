@@ -1,7 +1,6 @@
 import dotenv from 'dotenv-flow';
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 
 import { getConnection } from './libs/connection';
@@ -105,6 +104,7 @@ const typeDefs = gql`
     tickets: [Ticket!]
     ticket(ticketId: Int!): Ticket!
     usersTickets(userId: Int!): [Ticket]
+    ticketsToResolve(userId: Int!): [Ticket]
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
     communityOwnerId(communityId: Int!): Int!

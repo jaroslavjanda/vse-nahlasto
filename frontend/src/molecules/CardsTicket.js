@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Card, Badge, Row, Col, Button } from 'react-bootstrap';
+import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
@@ -25,11 +25,10 @@ export const CardsTicket = ({
 }) => {
   const [liked, setliked] = useState(like);
   const [enabled, setenabled] = useState(true);
-  const user = getDataFromLocalStorage();
+  const { user } = getDataFromLocalStorage();
 
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
     onCompleted: ({ setTicketResolved: ticket_id }) => {
-      console.log('Completed', ticket_id);
       window.location.reload();
     },
     onError: ({ setTicketResolved: ticket_id }) => {
@@ -39,56 +38,18 @@ export const CardsTicket = ({
 
   const handleResolveTicket = useCallback(
     (oldVariables) => {
-      console.log('variables ticketId', oldVariables.variables);
-
       const variables = {
         ticketId: oldVariables.variables.ticket_id,
       };
-
-      console.log('new variables', variables.ticket_id);
 
       resolveTicketRequest({ variables });
     },
     [resolveTicketRequest],
   );
 
-  // handleJoinCommunity({ variables: {userId, communityId} })
-
-  // const handleJoinCommunity = useCallback(
-  //   (oldVariables) => {
-  //     console.log("variables userId", oldVariables.variables)
-  //
-  //     const variables = {
-  //       userId: oldVariables.variables.userId,
-  //       communityId: oldVariables.variables.communityId
-  //     }
-  //
-  //     console.log("new variables", variables)
-  //
-  //     joinPublicCommunityRequest({ variables });
-  //   },
-  //   [joinPublicCommunityRequest],
-  // );
-  //
-  // const [ joinPublicCommunityRequest ] = useMutation(
-  //   JOIN_COMMUNITY_MUTATION,
-  //   {
-  //     onCompleted: ({ joinPublicCommunity: {community_id} }) => {
-  //       console.log("completed, comm id, user_id", community_id);
-  //       toast.success('Nyní jste součástí komunity!');
-  //       isMemberCheck = true;
-  //       // window.location.reload();
-  //     },
-  //     onError: () => {
-  //       console.log("error, comm id, user_id");
-  //     },
-  //   }
-  // );
-
   const history = useHistory();
 
   if (item.status[0].status_id === 1) {
-    const { user } = localStorage;
     return (
       <Card
         className="ticketCardMaxSize"
@@ -104,7 +65,7 @@ export const CardsTicket = ({
           <Row>
             <Col align="left">
               <Row className="card-header-items">
-                {user && user.user.user_id === communityOwner && (
+                {user && user.user_id === communityOwner && (
                   <Button variant="danger" className="btn-sm">
                     <FontAwesomeIcon
                       icon={faTrashAlt}
@@ -176,7 +137,7 @@ export const CardsTicket = ({
         </Card.Body>
       </Card>
     );
-  } else if (user && user.user.user_id === communityOwner) {
+  } else if (user && user.user_id === communityOwner) {
     return (
       <Card
         className="ticketCardMaxSize"

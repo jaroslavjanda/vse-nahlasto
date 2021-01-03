@@ -48,7 +48,7 @@ export const Dashboard = () => {
         </Link>
       </Col>
       <Col lg={4}>
-        <Link to={''}>
+        <Link to={route.ticketsToSolve()}>
           <DashboardCardWrapper>
             <img width="50%" src={newsImage} alt="Příspěvky na vyřešení" />
             <CardTitle>Příspěvky na vyřešení</CardTitle>

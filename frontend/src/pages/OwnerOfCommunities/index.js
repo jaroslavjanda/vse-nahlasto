@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { Link, useHistory } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
-import '../../molecules/CommunityPreview/styles.css';
-import { route } from '../../Routes';
-import { HeadingWithButtons } from './../../organisms';
+import React from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
 import { getDataFromLocalStorage } from '../../utils/localStorage';
-import {
-  CommunityPreview,
-  PreviewType,
-} from '../../molecules/CommunityPreview';
+import { PreviewType } from '../../molecules/CommunityPreview';
+import { ErrorType } from '../../utils/Error';
+import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
+import { Loading } from '../../atoms';
+
 const COMMUNITY_USER_OWNS = gql`
   query CommunitiesUserOwns($userId: Int!) {
     communitiesUserOwns(userId: $userId) {
@@ -26,11 +22,13 @@ const COMMUNITY_USER_OWNS = gql`
 export const OwnerOfCommunities = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
-  const history = useHistory();
-  const communitiesUserOwnsState = useQuery(COMMUNITY_USER_OWNS, {
+  const state = useQuery(COMMUNITY_USER_OWNS, {
     variables: { userId },
   });
+  const communities = state.data?.communitiesUserOwns;
 
+  //TODO delete
+  /*
   const [communities, setCommunities] = useState(null);
   useEffect(() => {
     if (
@@ -40,37 +38,23 @@ export const OwnerOfCommunities = () => {
       const data = communitiesUserOwnsState.data.communitiesUserOwns;
       setCommunities(data);
     }
-  }, [communitiesUserOwnsState]);
+  }, [communitiesUserOwnsState]);*/
   return (
     <div style={{ textAlign: 'center' }}>
-      {communitiesUserOwnsState.loading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
-      )}
-      {!communitiesUserOwnsState.loading && (
+      {state.loading && <Loading />}
+      {!state.loading && (
         <>
-          {communitiesUserOwnsState.error && (
-            <ErrorBanner title={communitiesUserOwnsState.error.message}>
-              <Button color="red" onClick={() => history.go(0)}>
-                Načíst znovu
-              </Button>
-            </ErrorBanner>
+          {state.error && (
+            <ErrorBannerWithRefreshButton
+              errorType={ErrorType.LOAD_DATA_FAILED}
+            />
           )}
           {communities && (
-            <>
-              <HeadingWithButtons header={'Moje komunity'}>
-                <div>
-                  <Link to={route.addCommunity()}>
-                    <Button variant="success">Přidat komunitu</Button>
-                  </Link>
-                </div>
-              </HeadingWithButtons>
-              <CommunityPreview
-                communities={communities}
-                previewType={PreviewType.Owner}
-              />
-            </>
+            <CommunitiesTemplate
+              communities={communities}
+              title={'Výpis mých komunit'}
+              previewType={PreviewType.Owner}
+            />
           )}
         </>
       )}

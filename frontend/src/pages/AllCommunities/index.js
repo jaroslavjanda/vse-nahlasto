@@ -1,6 +1,5 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-
+import { gql, useQuery } from '@apollo/client';
 import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
 import { PreviewType } from '../../molecules/CommunityPreview';
 import { ErrorType } from '../../utils/Error';
@@ -20,15 +19,15 @@ const COMMUNITY_LIST_QUERY = gql`
 `;
 
 export const AdminAllCommunities = () => {
-  const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const communities = communitiesState.data?.communities;
+  const state = useQuery(COMMUNITY_LIST_QUERY);
+  const communities = state.data?.communities;
 
   return (
     <div className="center">
-      {communitiesState.loading && <Loading />}
-      {!communitiesState.loading && (
+      {state.loading && <Loading />}
+      {!state.loading && (
         <>
-          {communitiesState.error && (
+          {state.error && (
             <ErrorBannerWithRefreshButton
               errorType={ErrorType.LOAD_DATA_FAILED}
             />

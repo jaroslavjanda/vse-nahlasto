@@ -98,6 +98,9 @@ export const communityTicket = async (
   return ticket;
 };
 
+/**
+ * Returns tickets from logged user.
+ */
 export const usersTickets = async (_, { userId }, { dbConnection }) => {
   return await dbConnection.query(`SELECT * from ticket WHERE user_id = ?`, [
     userId,
@@ -122,7 +125,21 @@ export const ticketFromCommunitiesIAmAdminIn = async (
     [userId],
   );
 
-  console.log('Admin Comms Ids', ticketsFromCommunitiesIAmAdminIn);
-
   return ticketsFromCommunitiesIAmAdminIn;
+};
+
+/**
+ * Returns tickets which are not solved and only from communities where I am an admin.
+ */
+export const ticketsToResolve = async (_, { userId }, { dbConnection }) => {
+  const ticketsToResolve = await dbConnection.query(
+    `SELECT ticket.community_id, ticket.content, ticket.date, ticket.image, ticket.status_id, ticket.ticket_id, ticket.title, ticket.user_id, COUNT(like.ticket_id) likes_count 
+    FROM ticket 
+    LEFT JOIN membership ON ticket.community_id = membership.community_id 
+    LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
+    WHERE membership.user_id = ? AND (membership.role_id = 1 OR membership.role_id = 2) AND status_id = 3 
+    GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+    [userId],
+  );
+  return ticketsToResolve;
 };
