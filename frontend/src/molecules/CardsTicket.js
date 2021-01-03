@@ -26,7 +26,7 @@ export const CardsTicket = ({
   const [liked, setliked] = useState(like);
   const [enabled, setenabled] = useState(true);
   const { user } = getDataFromLocalStorage();
-  
+
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
     onCompleted: ({ setTicketResolved: ticket_id }) => {
       window.location.reload();
@@ -47,7 +47,7 @@ export const CardsTicket = ({
     [resolveTicketRequest],
   );
 
-  const history = useHistory()
+  const history = useHistory();
 
   if (item.status[0].status_id === 1) {
     return (

@@ -2,7 +2,12 @@ import React, { useCallback } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Container } from 'react-bootstrap';
 import { Loading } from '../atoms';
-import { AddCommentForm, Comment, TicketDetailContent, UserImageAndName } from '../molecules';
+import {
+  AddCommentForm,
+  Comment,
+  TicketDetailContent,
+  UserImageAndName,
+} from '../molecules';
 
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {
@@ -86,10 +91,10 @@ export const TicketDetail = ({ match }) => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {ticketState.loading && (<Loading />)}
+      {ticketState.loading && <Loading />}
       {!ticketState.loading && (
         <div>
-          {commentState.loading && (<Loading />)}
+          {commentState.loading && <Loading />}
           {!commentState.loading && (
             <div>
               <TicketDetailContent ticket={ticket} />

@@ -28,9 +28,7 @@ export const HomePage = () => {
     <div style={{ textAlign: 'center' }}>
       {!localStorage && (
         <>
-          {state.loading && (
-            (<Loading />)
-          )}
+          {state.loading && <Loading />}
           {!state.loading && (
             <>
               <HomeTemplate

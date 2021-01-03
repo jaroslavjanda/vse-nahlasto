@@ -16,15 +16,17 @@ export const CommunityCard = ({ community, previewType }) => {
         <Button variant="primary">Připojit se</Button>;
     }
   };
-  return <Link to={`${route.communityDetailRaw()}/${community.community_id}`}>
-    <h4 className="header-card">{community.name}</h4>
-    <figure className="article">
-      <img src={imgPath('tickets', community.image)} alt=""/>
-      <figcaption>
-        <h3>{community.name}</h3>
-        <p>{community.description}</p>
-        {resolveType()}
-      </figcaption>
-    </figure>
-  </Link>;
+  return (
+    <Link to={`${route.communityDetailRaw()}/${community.community_id}`}>
+      <h4 className="header-card">{community.name}</h4>
+      <figure className="article">
+        <img src={imgPath('tickets', community.image)} alt="" />
+        <figcaption>
+          <h3>{community.name}</h3>
+          <p>{community.description}</p>
+          {resolveType()}
+        </figcaption>
+      </figure>
+    </Link>
+  );
 };

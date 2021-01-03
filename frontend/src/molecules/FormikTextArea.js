@@ -9,7 +9,7 @@ export function FormikTextArea({ id, label, name, ...props }) {
   const error = meta.touched && meta.error;
 
   return (
-    <div className="measure mb2" style={{textAlign:"left"}}>
+    <div className="measure mb2" style={{ textAlign: 'left' }}>
       <Label htmlFor={id}>{label}</Label>
       <TextArea {...field} error={error} {...props} />
     </div>

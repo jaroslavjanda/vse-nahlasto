@@ -37,7 +37,7 @@ export function CommentFormTemplate({ ticketId }) {
     user_id: 77,
     ticket_id: ticketId,
   };
-  
+
   return (
     <>
       <div className="mw8 center">

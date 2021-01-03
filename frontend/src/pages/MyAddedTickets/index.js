@@ -38,7 +38,7 @@ export const MyAddedTickets = () => {
   }, [quacksState]);*/
   return (
     <div style={{ textAlign: 'center' }}>
-      {state.loading && (<Loading />)}
+      {state.loading && <Loading />}
       {!state.loading && (
         <>
           {state.error && (

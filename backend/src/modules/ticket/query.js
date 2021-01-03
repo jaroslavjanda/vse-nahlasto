@@ -131,11 +131,7 @@ export const ticketFromCommunitiesIAmAdminIn = async (
 /**
  * Returns tickets which are not solved and only from communities where I am an admin.
  */
-export const ticketsToResolve = async (
-  _,
-  { userId },
-  { dbConnection },
-) => {
+export const ticketsToResolve = async (_, { userId }, { dbConnection }) => {
   const ticketsToResolve = await dbConnection.query(
     `SELECT ticket.community_id, ticket.content, ticket.date, ticket.image, ticket.status_id, ticket.ticket_id, ticket.title, ticket.user_id, COUNT(like.ticket_id) likes_count 
     FROM ticket 
@@ -147,11 +143,3 @@ export const ticketsToResolve = async (
   );
   return ticketsToResolve;
 };
-
-
-
-
-
-
-
- 

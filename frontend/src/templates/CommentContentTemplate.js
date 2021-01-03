@@ -21,7 +21,7 @@ export function CommentContentTemplate({ ticketId }) {
   const comments = commentState.data?.ticketComment;
   return (
     <>
-      {commentState.loading && (<Loading />)}
+      {commentState.loading && <Loading />}
       {!commentState.loading && (
         <div className="mw8 center">
           <CommentsContent comments={comments} />

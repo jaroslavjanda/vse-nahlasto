@@ -24,7 +24,7 @@ export function TicketDetailContentTemplate({ ticketId }) {
   const ticket = ticketState.data?.ticket;
   return (
     <>
-      {ticketState.loading && (<Loading />)}
+      {ticketState.loading && <Loading />}
       {!ticketState.loading && (
         <div className="mw8 center">
           <TicketDetailContent ticket={ticket} />

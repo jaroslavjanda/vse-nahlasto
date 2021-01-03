@@ -24,7 +24,7 @@ export const Communities = () => {
 
   return (
     <div className="center">
-      {state.loading && (<Loading />)}
+      {state.loading && <Loading />}
       {!state.loading && (
         <>
           {state.error && (

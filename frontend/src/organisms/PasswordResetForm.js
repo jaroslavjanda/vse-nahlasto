@@ -10,11 +10,7 @@ const schema = yup.object().shape({
     .string()
     .required()
     .label('Password')
-    .test(
-      'len',
-      'Heslo musí mít alespoň 6 znaků.',
-      (val) => val.length >= 6,
-    ),
+    .test('len', 'Heslo musí mít alespoň 6 znaků.', (val) => val.length >= 6),
   passwordConfirmation: yup
     .string()
     .required()

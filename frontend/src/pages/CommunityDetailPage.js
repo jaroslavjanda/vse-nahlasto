@@ -83,9 +83,7 @@ export const CommunityDetail = ({ match }) => {
   });
 
   const { isMember, isOwner } = useMemo(() => {
-    const isMember = !!state.data?.communityMembersIds.includes(
-      userId,
-    );
+    const isMember = !!state.data?.communityMembersIds.includes(userId);
     const isOwner = userId === state.data?.communityOwnerId;
     return { isMember, isOwner };
   }, [state, userId]);
@@ -94,7 +92,7 @@ export const CommunityDetail = ({ match }) => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {state.loading && (<Loading />)}
+      {state.loading && <Loading />}
       {!state.loading && (
         <div>
           {state.error && (
