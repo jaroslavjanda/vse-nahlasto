@@ -16,7 +16,7 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
         className="mt3"
       >
         <div className="lh-copy">
-          nebo máte již účet?{' '}
+          Máte již účet?{' '}
           <Link className="f5" to={route.signIn()}>
             Přihlašte se.
           </Link>

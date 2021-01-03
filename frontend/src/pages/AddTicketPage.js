@@ -37,7 +37,6 @@ const UPLOAD_MUTATION = gql`
 
 export const AddTicket = ({ match }) => {
   const communityId = parseInt(match.params.communityId);
-  const auth = useAuth();
   const history = useHistory();
 
   const [addTicketRequest, addTicketRequestState] = useMutation(

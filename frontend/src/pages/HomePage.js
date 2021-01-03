@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
+import { gql, useQuery } from '@apollo/client';
 import { Redirect } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import { Button, ErrorBanner } from 'src/atoms/';
 
 import { HomeTemplate } from 'src/templates/HomeTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
@@ -24,7 +23,6 @@ export const HomePage = () => {
   const localStorage = getDataFromLocalStorage();
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
   const [isMember] = useState(false);
-  const history = useHistory();
   const communitiesHomepage = communitiesState.data?.communitiesHomepage;
 
   return (

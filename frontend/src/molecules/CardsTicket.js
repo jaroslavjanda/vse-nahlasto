@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Card, Badge, Row, Col, Button } from 'react-bootstrap';
+import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
@@ -52,40 +52,7 @@ export const CardsTicket = ({
     [resolveTicketRequest],
   );
 
-  // handleJoinCommunity({ variables: {userId, communityId} })
-
-  // const handleJoinCommunity = useCallback(
-  //   (oldVariables) => {
-  //     console.log("variables userId", oldVariables.variables)
-  //
-  //     const variables = {
-  //       userId: oldVariables.variables.userId,
-  //       communityId: oldVariables.variables.communityId
-  //     }
-  //
-  //     console.log("new variables", variables)
-  //
-  //     joinPublicCommunityRequest({ variables });
-  //   },
-  //   [joinPublicCommunityRequest],
-  // );
-  //
-  // const [ joinPublicCommunityRequest ] = useMutation(
-  //   JOIN_COMMUNITY_MUTATION,
-  //   {
-  //     onCompleted: ({ joinPublicCommunity: {community_id} }) => {
-  //       console.log("completed, comm id, user_id", community_id);
-  //       toast.success('Nyní jste součástí komunity!');
-  //       isMemberCheck = true;
-  //       // window.location.reload();
-  //     },
-  //     onError: () => {
-  //       console.log("error, comm id, user_id");
-  //     },
-  //   }
-  // );
-
-  const history = useHistory();
+  const history = useHistory()
 
   if (item.status[0].status_id === 1) {
     const { user } = localStorage;

@@ -2,8 +2,8 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-import { Row, Col } from 'react-bootstrap';
-import { ErrorBanner, SuccessBanner, Button } from 'src/atoms/';
+import { Col, Row } from 'react-bootstrap';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 import { FormikFile } from '../molecules/FormikFile';
@@ -22,7 +22,7 @@ export function AddTicketForm({
     content: '',
     file: '',
     email: '',
-    showEmail: user ? false : true,
+    showEmail: !user,
   };
 
   const schema = yup.object().shape({
@@ -71,7 +71,7 @@ export function AddTicketForm({
                 label="Email"
                 type="text"
                 rows={3}
-                placeholder="email"
+                placeholder="Email"
                 autoComplete="off"
                 autoCorrect="off"
                 autoCapitalize="off"
@@ -83,7 +83,7 @@ export function AddTicketForm({
               label="Popis"
               type="textArea"
               rows={3}
-              placeholder="Popiš svůj problém níže"
+              placeholder="Zde popiš svůj problém"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"

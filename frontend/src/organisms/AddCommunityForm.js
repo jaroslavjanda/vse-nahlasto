@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-import { ErrorBanner, SuccessBanner, Button } from 'src/atoms';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms';
 import { FormikField } from 'src/molecules/FormikField';
 import { FormikTextArea } from '../molecules/FormikTextArea';
 import { FormikFile } from '../molecules/FormikFile';

@@ -1,16 +1,9 @@
 import React, { useCallback } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { Container } from 'react-bootstrap';
 import { Loading } from '../atoms';
-import {
-  AddCommentForm,
-  TicketDetailContent,
-  Comment,
-  UserImageAndName,
-} from '../molecules';
+import { AddCommentForm, Comment, TicketDetailContent, UserImageAndName } from '../molecules';
 import { useAuth } from '../utils/auth';
-import { useMutation } from '@apollo/client';
-import { parseValue } from 'graphql';
 
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {
@@ -63,21 +56,13 @@ export const TicketDetail = ({ match }) => {
   const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId } });
   const comments = commentState.data?.ticketComment;
 
-  const { user } = useAuth();
-
   const communityId = ticket?.community_id;
-
-  console.log('co je kurva', communityId);
 
   const communityOwnerState = useQuery(COMMUNITY_OWNER_QUERY, {
     variables: { communityId: communityId },
   });
 
-  console.log(communityOwnerState);
-
   const communityOwner = communityOwnerState.data?.communityOwnerId;
-
-  console.log(communityOwner);
 
   const [addCommentRequest, addCommentRequestState] = useMutation(
     ADD_COMMENT_MUTATION,
@@ -93,8 +78,6 @@ export const TicketDetail = ({ match }) => {
 
   const handleAddCommentFormSubmit = useCallback(
     (variables) => {
-      console.log('KURVAAAA', variables);
-
       addCommentRequest({
         variables: variables,
       });
@@ -120,7 +103,6 @@ export const TicketDetail = ({ match }) => {
                   onSubmit={handleAddCommentFormSubmit}
                   isLoading={addCommentRequestState.loading}
                   error={addCommentRequestState.error}
-                  // user = { user }
                 />
               </Container>
 
