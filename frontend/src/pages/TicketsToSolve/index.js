@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useMutation, useQuery, gql } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate';
-import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
 import { getDataFromLocalStorage } from './../../utils/localStorage';
+import { ErrorType } from '../../utils/Error';
+import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
+import { Loading } from '../../atoms';
 
 const TICKETS_TO_RESOLVE = gql`
   query TicketsToResolve($userId: Int!) {
@@ -38,12 +38,15 @@ const DELETE_MUTATION = gql`
 export const TicketsToSolve = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
-  const history = useHistory();
-  const [deleteRequest] = useMutation(DELETE_MUTATION);
-  const quacksState = useQuery(TICKETS_TO_RESOLVE, {
+  const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
   });
+  const tickets = state.data?.ticketsToResolve;
 
+  const [deleteRequest] = useMutation(DELETE_MUTATION);
+
+  //TODO delete
+  /*
   const [tickets, setTickets] = useState(null);
   useEffect(() => {
     if (!quacksState.loading && quacksState.data != undefined) {
@@ -51,22 +54,16 @@ export const TicketsToSolve = () => {
       setTickets(data);
     }
   }, [quacksState]);
+  */
   return (
     <div style={{ textAlign: 'center' }}>
-      {console.log(tickets)}
-      {quacksState.loading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
-      )}
-      {!quacksState.loading && (
+      {state.loading && <Loading />}
+      {!state.loading && (
         <>
-          {quacksState.error && (
-            <ErrorBanner title={quacksState.error.message}>
-              <Button color="red" onClick={() => history.go(0)}>
-                Načíst znovu
-              </Button>
-            </ErrorBanner>
+          {state.error && (
+            <ErrorBannerWithRefreshButton
+              errorType={ErrorType.LOAD_DATA_FAILED}
+            />
           )}
           {tickets && (
             <TicketsToSolveTemplate

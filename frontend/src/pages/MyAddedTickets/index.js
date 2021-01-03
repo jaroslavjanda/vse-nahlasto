@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 import { MyAddedTicketsTemplate } from '../../templates/MyAddedTicketsTemplate';
-import { Spinner } from 'react-bootstrap';
-import { ErrorBanner, Button } from 'src/atoms/';
 import { getDataFromLocalStorage } from './../../utils/localStorage';
+import { ErrorType } from '../../utils/Error';
+import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
+import { Loading } from '../../atoms';
 
 const USERS_TICKETS = gql`
   query UsersTickets($userId: Int!) {
@@ -23,34 +23,28 @@ const USERS_TICKETS = gql`
 export const MyAddedTickets = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
-  const history = useHistory();
-  const quacksState = useQuery(USERS_TICKETS, {
+  const state = useQuery(USERS_TICKETS, {
     variables: { userId },
   });
-
+  const tickets = state.data?.usersTickets;
+  //TODO Delete
+  /*
   const [tickets, setTickets] = useState(null);
   useEffect(() => {
     if (!quacksState.loading && quacksState.data != undefined) {
       const data = quacksState.data.usersTickets;
       setTickets(data);
     }
-  }, [quacksState]);
+  }, [quacksState]);*/
   return (
     <div style={{ textAlign: 'center' }}>
-      {console.log(tickets)}
-      {quacksState.loading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
-      )}
-      {!quacksState.loading && (
+      {state.loading && <Loading />}
+      {!state.loading && (
         <>
-          {quacksState.error && (
-            <ErrorBanner title={quacksState.error.message}>
-              <Button color="red" onClick={() => history.go(0)}>
-                Načíst znovu
-              </Button>
-            </ErrorBanner>
+          {state.error && (
+            <ErrorBannerWithRefreshButton
+              errorType={ErrorType.LOAD_DATA_FAILED}
+            />
           )}
           {tickets && (
             <MyAddedTicketsTemplate

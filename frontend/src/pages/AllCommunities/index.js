@@ -1,10 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
-import { Spinner } from 'react-bootstrap';
-import { Button, ErrorBanner } from 'src/atoms/';
-import { useAuth } from '../../utils/auth';
 import { PreviewType } from '../../molecules/CommunityPreview';
 import { ErrorType } from '../../utils/Error';
 import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
@@ -23,15 +19,15 @@ const COMMUNITY_LIST_QUERY = gql`
 `;
 
 export const AdminAllCommunities = () => {
-  const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const communities = communitiesState.data?.communities;
+  const state = useQuery(COMMUNITY_LIST_QUERY);
+  const communities = state.data?.communities;
 
   return (
     <div className="center">
-      {communitiesState.loading && <Loading />}
-      {!communitiesState.loading && (
+      {state.loading && <Loading />}
+      {!state.loading && (
         <>
-          {communitiesState.error && (
+          {state.error && (
             <ErrorBannerWithRefreshButton
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
