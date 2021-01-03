@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
 import { AddCommentForm, UserImageAndName } from '../molecules';
 import { gql, useMutation } from '@apollo/client';
-import { useAuth } from '../utils/auth';
-import { useHistory } from 'react-router-dom';
 
 const ADD_COMMENT_MUTATION = gql`
   mutation AddComment($content: String!, $user_id: Int!, $ticket_id: Int!) {
@@ -13,9 +11,6 @@ const ADD_COMMENT_MUTATION = gql`
 `;
 
 export function CommentFormTemplate({ ticketId }) {
-  const { user } = useAuth();
-  const history = useHistory();
-
   const [addCommentRequest, addCommentRequestState] = useMutation(
     ADD_COMMENT_MUTATION,
     {
@@ -30,8 +25,6 @@ export function CommentFormTemplate({ ticketId }) {
 
   const handleAddCommentFormSubmit = useCallback(
     (variables) => {
-      console.log('KURVAAAA', variables);
-
       addCommentRequest({
         variables: variables,
       });
@@ -44,7 +37,7 @@ export function CommentFormTemplate({ ticketId }) {
     user_id: 77,
     ticket_id: ticketId,
   };
-  console.log(user);
+  
   return (
     <>
       <div className="mw8 center">
