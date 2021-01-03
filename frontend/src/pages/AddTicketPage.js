@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
-import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 
