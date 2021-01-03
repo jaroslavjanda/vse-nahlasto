@@ -25,8 +25,8 @@ export const CardsTicket = ({
 }) => {
   const [liked, setliked] = useState(like);
   const [enabled, setenabled] = useState(true);
-  const user = getDataFromLocalStorage();
-
+  const { user } = getDataFromLocalStorage();
+  
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
     onCompleted: ({ setTicketResolved: ticket_id }) => {
       console.log('Completed', ticket_id);
@@ -55,7 +55,6 @@ export const CardsTicket = ({
   const history = useHistory()
 
   if (item.status[0].status_id === 1) {
-    const { user } = localStorage;
     return (
       <Card
         className="ticketCardMaxSize"
@@ -71,7 +70,7 @@ export const CardsTicket = ({
           <Row>
             <Col align="left">
               <Row className="card-header-items">
-                {user && user.user.user_id === communityOwner && (
+                {user && user.user_id === communityOwner && (
                   <Button variant="danger" className="btn-sm">
                     <FontAwesomeIcon
                       icon={faTrashAlt}
@@ -143,7 +142,7 @@ export const CardsTicket = ({
         </Card.Body>
       </Card>
     );
-  } else if (user && user.user.user_id === communityOwner) {
+  } else if (user && user.user_id === communityOwner) {
     return (
       <Card
         className="ticketCardMaxSize"
