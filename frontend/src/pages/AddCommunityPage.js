@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { AddCommunityTemplate } from '../templates/AddCommunityTemplate';
-import { useAuth } from '../utils/auth';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner } from '../atoms';
 
@@ -33,7 +33,7 @@ const UPLOAD_MUTATION = gql`
   }
 `;
 export const AddCommunityPage = () => {
-  const { user } = useAuth();
+  const { user } = getDataFromLocalStorage();
   const history = useHistory();
 
   const [addCommunityRequest, addCommunityRequestState] = useMutation(

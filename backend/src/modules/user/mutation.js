@@ -162,8 +162,6 @@ export const joinPublicCommunity = async (
   { userId, communityId },
   { dbConnection },
 ) => {
-  console.log('userId:', userId, 'commId:', communityId);
-
   await dbConnection.query(
     `INSERT INTO membership (role_id, community_id, user_id, accepted)
       VALUES (?, ?, ?, ?)`,

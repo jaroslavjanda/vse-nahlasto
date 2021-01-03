@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { CommunityCard } from './CommunityCard';
 
 export const PreviewType = {
@@ -17,7 +17,7 @@ export const CommunityPreview = ({
     <div className="news">
       <Row>
         {communities.map((community) => (
-          <Col lg={isPublic ? 4 : 6} md={12}>
+          <Col lg={isPublic ? 4 : 6} md={12} key={community.community_id}>
             <CommunityCard community={community} previewType={previewType} />
           </Col>
         ))}

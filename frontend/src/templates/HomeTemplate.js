@@ -10,7 +10,15 @@ import { CommunityCardsHomepage } from 'src/molecules/';
 import { useHistory } from 'react-router-dom';
 import { route } from 'src/Routes';
 
-import { Button, Card, CardDeck, Col, Container, Jumbotron, Row } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  CardDeck,
+  Col,
+  Container,
+  Jumbotron,
+  Row,
+} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'src/templates/Homepage.css';

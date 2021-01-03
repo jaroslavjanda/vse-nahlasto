@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Spinner } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-import { Button, ErrorBanner } from 'src/atoms';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 import { toast } from 'react-toastify';
+import { ErrorType } from '../utils/Error';
+import { ErrorBannerWithRefreshButton } from '../atoms/ErrorBannerWithRefreshButton';
+import { Loading } from '../atoms';
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -54,7 +54,6 @@ const JOIN_COMMUNITY_MUTATION = gql`
 `;
 
 export const CommunityDetail = ({ match }) => {
-  console.log('match', match);
   const [joinPublicCommunityRequest] = useMutation(JOIN_COMMUNITY_MUTATION, {
     onCompleted: () => {
       toast.success('Nyní jste součástí komunity!');
@@ -74,43 +73,32 @@ export const CommunityDetail = ({ match }) => {
     [joinPublicCommunityRequest],
   );
 
-  const localStorage = getDataFromLocalStorage();
-  var userId = localStorage?.user?.user_id;
-
+  const { user } = getDataFromLocalStorage();
+  const userId = parseInt(user.user_id);
   if (userId === undefined) userId = 0;
-  console.log('match');
+
   const communityId = parseInt(match.params.communityId);
-  console.log(match);
-  const communityState = useQuery(COMMUNITY_DETAIL_QUERY, {
+  const state = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
   });
 
   const { isMember, isOwner } = useMemo(() => {
-    const isMember = !!communityState.data?.communityMembersIds.includes(
-      userId,
-    );
-    const isOwner = userId === communityState.data?.communityOwnerId;
+    const isMember = !!state.data?.communityMembersIds.includes(userId);
+    const isOwner = userId === state.data?.communityOwnerId;
     return { isMember, isOwner };
-  }, [communityState, userId]);
+  }, [state, userId]);
 
-  const community = communityState.data?.community;
-  const history = useHistory();
+  const community = state.data?.community;
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {communityState.loading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
-      )}
-      {!communityState.loading && (
+      {state.loading && <Loading />}
+      {!state.loading && (
         <div>
-          {communityState.error && (
-            <ErrorBanner title={communityState.error.message}>
-              <Button color="red" onClick={() => history.go(0)}>
-                Načíst znovu
-              </Button>
-            </ErrorBanner>
+          {state.error && (
+            <ErrorBannerWithRefreshButton
+              errorType={ErrorType.LOAD_DATA_FAILED}
+            />
           )}
           {community && (
             <CommunityDetailTemplate
@@ -120,7 +108,7 @@ export const CommunityDetail = ({ match }) => {
               handleJoinCommunity={handleJoinCommunity}
               communityId={communityId}
               userId={userId}
-              communityOwnerId={communityState}
+              communityOwnerId={state}
             />
           )}
         </div>

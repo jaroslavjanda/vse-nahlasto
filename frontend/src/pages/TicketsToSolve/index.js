@@ -1,14 +1,14 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { MyAddedTicketsTemplate } from '../../templates/MyAddedTicketsTemplate';
+import { useMutation, useQuery, gql } from '@apollo/client';
+import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate';
 import { getDataFromLocalStorage } from './../../utils/localStorage';
 import { ErrorType } from '../../utils/Error';
 import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
 import { Loading } from '../../atoms';
 
-const USERS_TICKETS = gql`
-  query UsersTickets($userId: Int!) {
-    usersTickets(userId: $userId) {
+const TICKETS_TO_RESOLVE = gql`
+  query TicketsToResolve($userId: Int!) {
+    ticketsToResolve(userId: $userId) {
       ticket_id
       title
       image
@@ -16,26 +16,45 @@ const USERS_TICKETS = gql`
       user_id
       status_id
       community_id
+      likes_count
+      content
+      date
     }
   }
 `;
 
-export const MyAddedTickets = () => {
+const DELETE_MUTATION = gql`
+  mutation deleteTicket($userId: Int!, $communityId: Int!, $ticketId: Int!) {
+    deleteTicket(
+      userId: $userId
+      communityId: $communityId
+      ticketId: $ticketId
+    ) {
+      ticket_id
+    }
+  }
+`;
+
+export const TicketsToSolve = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
-  const state = useQuery(USERS_TICKETS, {
+  const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
   });
-  const tickets = state.data?.usersTickets;
-  //TODO Delete
+  const tickets = state.data?.ticketsToResolve;
+
+  const [deleteRequest] = useMutation(DELETE_MUTATION);
+
+  //TODO delete
   /*
   const [tickets, setTickets] = useState(null);
   useEffect(() => {
     if (!quacksState.loading && quacksState.data != undefined) {
-      const data = quacksState.data.usersTickets;
+      const data = quacksState.data.ticketsToResolve;
       setTickets(data);
     }
-  }, [quacksState]);*/
+  }, [quacksState]);
+  */
   return (
     <div style={{ textAlign: 'center' }}>
       {state.loading && <Loading />}
@@ -47,9 +66,10 @@ export const MyAddedTickets = () => {
             />
           )}
           {tickets && (
-            <MyAddedTicketsTemplate
+            <TicketsToSolveTemplate
               tickets={tickets}
-              title={'Vložené příspěvky'}
+              title={'Příspěvky k vyřešení'}
+              requestDelete={deleteRequest}
             />
           )}
         </>

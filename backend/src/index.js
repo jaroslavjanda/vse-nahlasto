@@ -104,6 +104,7 @@ const typeDefs = gql`
     tickets: [Ticket!]
     ticket(ticketId: Int!): Ticket!
     usersTickets(userId: Int!): [Ticket]
+    ticketsToResolve(userId: Int!): [Ticket]
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
     communityOwnerId(communityId: Int!): Int!

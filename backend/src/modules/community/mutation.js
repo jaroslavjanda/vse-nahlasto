@@ -18,9 +18,7 @@ export const addCommunity = async (
 ) => {
   // adds community to DB
   // TODO prevent creating communities with same name
-  console.log(image);
   var img = image ? image : null;
-  console.log(img);
   const addCommunityDbResponse = await dbConnection.query(
     `INSERT INTO community (name, description, image, closed)
     VALUES (?, ?, ?, ?);`,

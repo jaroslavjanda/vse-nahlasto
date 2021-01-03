@@ -13,12 +13,12 @@ import { AddCommunityPage } from './pages/AddCommunityPage';
 import { CommunityDetail } from './pages/CommunityDetailPage';
 import { EditCommunityPage } from './pages/EditCommunityPage';
 import { AddTicket } from './pages/AddTicketPage';
-import { ListOfTickets } from './pages/ListOfTicketsPage';
 import { Dashboard } from './pages/Dashboard';
 import { AdminAllCommunities } from './pages/AllCommunities';
 import { MemberOfCommunities } from './pages/MemberOfCommunities';
 import { OwnerOfCommunities } from './pages/OwnerOfCommunities';
 import { MyAddedTickets } from './pages/MyAddedTickets';
+import { TicketsToSolve } from './pages/TicketsToSolve';
 import { TicketDetail } from './pages/TicketDetail';
 import { PageNotFound } from './pages/PageNotFound';
 
@@ -40,7 +40,6 @@ export const route = {
   communityDetail,
   communityDetailRaw: () => '/community-detail',
   addTicket: () => `${communityDetail()}/add`,
-  listTicket: () => `${communityDetail()}/list`,
   editCommunity: () => `${communityDetail()}/edit_community`,
   communities: () => `/communities`,
   ticketDetail,
@@ -49,6 +48,7 @@ export const route = {
   adminMemberOfCommunities: () => `/admin/member-of-communities`,
   adminOwnerOfCommunities: () => `/admin/owner-of-communities`,
   myAddedTickets: () => `/admin/my-added-tickets`,
+  ticketsToSolve: () => `/admin/tickets-to-solve`,
   termsOfService: () => `/termsOfService`,
 };
 
@@ -76,7 +76,6 @@ export function Routes() {
           component={CommunityDetail}
         />
         <Route path={route.addTicket()} exact component={AddTicket} />
-        <Route path={route.listTicket()} exact component={ListOfTickets} />
         <Route path={route.ticketDetail()} exact component={TicketDetail} />
         <Route
           path={route.editCommunity()}
@@ -100,6 +99,7 @@ export function Routes() {
           component={OwnerOfCommunities}
         />
         <Route path={route.myAddedTickets()} exact component={MyAddedTickets} />
+        <Route path={route.ticketsToSolve()} exact component={TicketsToSolve} />
         <Route
           path={route.termsOfService()}
           exact

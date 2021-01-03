@@ -6,6 +6,8 @@ import { HeadingWithButtons } from './../organisms/';
 import { CommunityPreview } from './../molecules/CommunityPreview/';
 import { route } from '../Routes';
 
+import '../molecules/CommunityPreview/styles.css';
+
 export const CommunitiesTemplate = ({
   previewType,
   communities,

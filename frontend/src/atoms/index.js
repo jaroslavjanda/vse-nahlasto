@@ -1,4 +1,3 @@
-export { AvatarPhoto } from './AvatarPhoto';
 export { Button } from './Button';
 export { ErrorBanner } from './ErrorBanner';
 export { ErrorMessage } from './ErrorMessage';
@@ -14,7 +13,6 @@ export { Spinner } from './Spinner';
 export { SuccessBanner } from './SuccessBanner';
 export { TextArea } from './TextArea';
 export { TextInput } from './TextInput';
-export { TransparentButton } from './TransparentButton';
 export { UserName } from './UserName';
 export { UserUserName } from './UserUserName';
 export { Footer } from './Footer';

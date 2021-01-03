@@ -2,8 +2,12 @@ import React, { useCallback } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { Container } from 'react-bootstrap';
 import { Loading } from '../atoms';
-import { AddCommentForm, Comment, TicketDetailContent, UserImageAndName } from '../molecules';
-import { useAuth } from '../utils/auth';
+import {
+  AddCommentForm,
+  Comment,
+  TicketDetailContent,
+  UserImageAndName,
+} from '../molecules';
 
 const TICKET_DETAIL_QUERY = gql`
   query TicketDetail($ticketId: Int!) {

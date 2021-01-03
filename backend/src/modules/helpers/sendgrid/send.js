@@ -25,7 +25,7 @@ export function send(email, type, link = '') {
     })
     .catch((error) => {
       //Log friendly error
-      // FIXME this alert causes crash
+      // TODO this alert causes crash
       // alert(error);
       console.log('Submit failed');
       console.error(error.toString());
