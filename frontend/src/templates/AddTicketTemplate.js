@@ -13,7 +13,7 @@ export function AddTicketTemplate({
   if (error) {
     switch (error.message) {
       case 'Cannot return null for non-nullable field Mutation.resetUserPassword.':
-        error.message = 'User not found. Have you signed up yet?';
+        error.message = 'Uživatel nebyl nalezen. Jste přihlášen?';
         break;
       default:
     }

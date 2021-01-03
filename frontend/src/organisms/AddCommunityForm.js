@@ -9,8 +9,8 @@ import { FormikFile } from '../molecules/FormikFile';
 import FormGroup from 'react-bootstrap/FormGroup';
 
 const schema = yup.object().shape({
-  description: yup.string().required().label('Content'),
-  name: yup.string().required().label('Title'),
+  description: yup.string().required('Popis je povinný.').label('Popis'),
+  name: yup.string().required('Název je povinný.').label('Název'),
 });
 
 export function AddCommunityForm({
@@ -37,14 +37,14 @@ export function AddCommunityForm({
       <Form className={className}>
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
-          <SuccessBanner title={'Community has been created'} className="mb3" />
+          <SuccessBanner title={'Komunita byla vytvořena.'} className="mb3" />
         )}
         <FormikField
           id="name"
           name="name"
-          label="Name"
+          label="Název"
           type="text"
-          placeholder="Name of your community"
+          placeholder="Název Vaší komunity"
           autoFocus="autofocus"
           autoComplete="on"
           autoCorrect="off"
@@ -53,15 +53,15 @@ export function AddCommunityForm({
         <FormikTextArea
           id="description"
           name="description"
-          label="Description"
+          label="Popis"
           type="textArea"
           rows={5}
-          placeholder="Describe your community"
+          placeholder="Popište Vaši komunitu"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <FormikFile id="file" name="file" label="File" />
+        <FormikFile id="file" name="file" label="Obrázek" />
         <FormGroup style={{ textAlign: 'left' }}>
           <Field
             type="checkbox"
@@ -71,12 +71,12 @@ export function AddCommunityForm({
             className="pl-5 mr-2"
           />
           <label htmlFor="closed" className="form-check-label">
-            Make this community private
+            Soukromá komunita
           </label>
         </FormGroup>
         <div>
           <Button type="submit" className="mt2 mb3">
-            Confirm request
+            Přidat komunitu
           </Button>
         </div>
       </Form>

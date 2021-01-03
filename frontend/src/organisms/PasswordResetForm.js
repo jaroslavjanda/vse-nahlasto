@@ -8,12 +8,12 @@ import { Spinner } from 'react-bootstrap';
 const schema = yup.object().shape({
   newPassword: yup
     .string()
-    .required()
-    .label('Password')
+    .required('Heslo je povinné')
+    .label('Heslo')
     .test('len', 'Heslo musí mít alespoň 6 znaků.', (val) => val.length >= 6),
   passwordConfirmation: yup
     .string()
-    .required()
+    .required('Zopakujte heslo')
     .oneOf([yup.ref('newPassword'), null], 'Hesla se musí shodovat.')
     .label('Potvrzení hesla'),
 });
