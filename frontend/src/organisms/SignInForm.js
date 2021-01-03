@@ -58,7 +58,7 @@ export function SignInForm({
             type="submit"
             variant="success"
             size="lg"
-            style={{ marginBottom: '10px' }}
+            style={{ margin:0, marginBottom: '10px' }}
           >
             Přihlásit se
           </Button>
