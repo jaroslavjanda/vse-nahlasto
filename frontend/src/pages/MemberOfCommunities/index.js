@@ -23,31 +23,31 @@ export const MemberOfCommunities = () => {
   const { user } = getDataFromLocalStorage();
   const userId = parseInt(user.user_id);
   const history = useHistory();
-  const quacksState = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
+  const state = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
     variables: { userId },
   });
 
   const [community, setCommunity] = useState(null);
 
   useEffect(() => {
-    if (!quacksState.loading && quacksState.data !=undefined) {
-      const data = quacksState.data.communitiesAccessibleToUser;
+    if (!state.loading && state.data != undefined) {
+      const data = state.data.communitiesAccessibleToUser;
       setCommunity(data);
     }
-  }, [quacksState]);
+  }, [state]);
 
   return (
     <div style={{ textAlign: 'center' }}>
       {console.log(community)}
-      {quacksState.loading && (
+      {state.loading && (
         <Spinner animation="border" role="status">
           <span className="sr-only">Načítání...</span>
         </Spinner>
       )}
-      {!quacksState.loading && (
+      {!state.loading && (
         <>
-          {quacksState.error  && (
-            <ErrorBanner title={quacksState.error.message}>
+          {state.error && (
+            <ErrorBanner title={state.error.message}>
               <Button color="red" onClick={() => history.go(0)}>
                 Načíst znovu
               </Button>

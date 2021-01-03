@@ -157,9 +157,12 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
   )[0];
 };
 
-export const joinPublicCommunity = async (_, { userId, communityId }, { dbConnection }) => {
-
-  console.log("userId:", userId, "commId:", communityId)
+export const joinPublicCommunity = async (
+  _,
+  { userId, communityId },
+  { dbConnection },
+) => {
+  console.log('userId:', userId, 'commId:', communityId);
 
   await dbConnection.query(
     `INSERT INTO membership (role_id, community_id, user_id, accepted)

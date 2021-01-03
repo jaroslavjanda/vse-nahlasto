@@ -17,43 +17,40 @@ export function CommunityDetailTemplate({
   userId,
   communityOwnerId,
 }) {
-
   return (
     <Container>
       {(!community.closed || isMember) && (
-          <div className="container-image">
+        <div className="container-image">
           <img src={imgPath('tickets', community.image)} />
-        <div className="centered-image">
-        <h1>{community.name}</h1>
-        <div>{community.description}</div>
-        </div>
-    
+          <div className="centered-image">
+            <h1>{community.name}</h1>
+            <div>{community.description}</div>
+          </div>
         </div>
       )}
 
-<div>
-          {!community.closed && !isMember && userId !== 0 && (
-            <Button
-              variant="primary"
-              style={{width: "150px"}} 
-              onClick={() => {
-                handleJoinCommunity({ variables: {userId, communityId} })
-              }}
-            >
-              Přidat se
-            </Button>
-          )}
-        
+      <div>
+        {!community.closed && !isMember && userId !== 0 && (
+          <Button
+            variant="primary"
+            style={{ width: '150px' }}
+            onClick={() => {
+              handleJoinCommunity({ variables: { userId, communityId } });
+            }}
+          >
+            Přidat se
+          </Button>
+        )}
 
-          {isOwner && (
-            <Link to={`/community-detail/${communityId}/edit_community`}>
-              <Button variant="primary">
-                <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" />{' '}
-                Upravit popis
-              </Button>
-            </Link>
-          )}
-        </div>
+        {isOwner && (
+          <Link to={`/community-detail/${communityId}/edit_community`}>
+            <Button variant="primary">
+              <FontAwesomeIcon icon={faPencilAlt} className="mr2 f4" /> Upravit
+              popis
+            </Button>
+          </Link>
+        )}
+      </div>
 
       {community.closed && !isMember && (
         <div>
@@ -71,9 +68,10 @@ export function CommunityDetailTemplate({
 
       {(!community.closed || isMember) && (
         <div>
-   
           <Link to={`/community-detail/${communityId}/add`}>
-            <Button style={{width: "150px"}} variant="success">Přidat příspěvek</Button>
+            <Button style={{ width: '150px' }} variant="success">
+              Přidat příspěvek
+            </Button>
           </Link>
           <br />
           <br />

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
+import { Card, Badge, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
@@ -58,7 +58,7 @@ export const CardsTicket = ({
   const history = useHistory()
 
   if (item.status[0].status_id === 1) {
-    const {user} = localStorage
+    const { user } = localStorage;
     return (
       <Card className="ticketCardMaxSize" style={{ width: '100%', border: '3px solid rgb(40 167 69)' }} key={item.title}>
         <Card.Img style={{ width: '100%' }} src={imgPathForTicket('tickets', item.image)} className="ticketImageNoBorders" />
@@ -238,7 +238,7 @@ export const CardsTicket = ({
           </Row>
         </Card.Body>
       </Card>
-    )
+    );
   } else {
     return (
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { CommunityCard } from './CommunityCard';
 
 export const PreviewType = {
@@ -7,6 +7,7 @@ export const PreviewType = {
   Owner: 'Owner',
   Basic: 'Basic',
 };
+
 export const CommunityPreview = ({
   communities,
   previewType,

@@ -1,11 +1,11 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useQuery, gql } from '@apollo/client';
+
 import { CommunitiesTemplate } from '../../templates/CommunitiesTemplate';
-import { Spinner } from 'react-bootstrap';
-import { Button, ErrorBanner } from 'src/atoms/';
-import { useAuth } from '../../utils/auth';
 import { PreviewType } from '../../molecules/CommunityPreview';
+import { ErrorType } from '../../utils/Error';
+import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
+import { Loading } from '../../atoms';
 
 const COMMUNITY_LIST_QUERY = gql`
   query Communities {
@@ -19,43 +19,19 @@ const COMMUNITY_LIST_QUERY = gql`
   }
 `;
 
-const USER_ACCESSIBLE_COMMUNITIES = gql`
-  query UserAccessibleCommunities($userId: Int!) {
-    communitiesAccessibleToUserIds(userId: $userId)
-  }
-`;
-
 export const AdminAllCommunities = () => {
   const communitiesState = useQuery(COMMUNITY_LIST_QUERY);
-  const history = useHistory();
   const communities = communitiesState.data?.communities;
 
-  const user = useAuth();
-  console.log(user)
-  var userId;
-  if (userId == null) userId = 0;
-
-  const communitiesAccessibleToUser = useQuery(USER_ACCESSIBLE_COMMUNITIES, {
-    variables: { userId },
-  });
-  const communitiesAccessibleToUserState = communitiesAccessibleToUser.data;
-
   return (
-    <div style={{ textAlign: 'center' }}>
-      {console.log(communitiesAccessibleToUserState)}
-      {communitiesState.loading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Načítání...</span>
-        </Spinner>
-      )}
+    <div className="center">
+      {communitiesState.loading && <Loading />}
       {!communitiesState.loading && (
         <>
           {communitiesState.error && (
-            <ErrorBanner title={communitiesState.error.message}>
-              <Button color="red" onClick={() => history.go(0)}>
-                Načíst znovu
-              </Button>
-            </ErrorBanner>
+            <ErrorBannerWithRefreshButton
+              errorType={ErrorType.LOAD_DATA_FAILED}
+            />
           )}
           {communities && (
             <CommunitiesTemplate

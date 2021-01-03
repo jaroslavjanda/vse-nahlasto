@@ -101,7 +101,8 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
               className={'form-check-input'}
             />
             <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-              Souhlasím s <a href={route.termsOfService()}>podmínkami </a>a se zpracováním osobních údajů
+              Souhlasím s <a href={route.termsOfService()}>podmínkami </a>a se
+              zpracováním osobních údajů
             </label>
             <ErrorMessage
               name="checkboxAcceptTerms"
