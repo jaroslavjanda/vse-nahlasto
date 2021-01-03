@@ -7,21 +7,33 @@ export const TYPE = {
   ADD_COMMUNITY_CONFIRMATION: 'ADD_COMMUNITY_CONFIRMATION',
 };
 
-export function send(email, type, link = '') {
+export function send(emailData) {
+
   const sgMail = require('@sendgrid/mail');
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const msg = {
-    to: email,
-    from: 'tym7nahlasto@gmail.com', // Nemenit!
-    subject: resolveSubject(type),
-    text: resolveText(type, link),
-    // html: '<strong>You have successfully registered to Nahlas.to</strong>',
+  let templates;
+  templates = {
+    passwordreset_confirm: 'd-cb10662bffea4380a20ece2d0ffdfc6f',
+    passwordreset_request: 'd-b8097738e729419b9fd445e1ac6f8daa',
   };
+
+  const msg = {
+    //extract the email details
+    to: emailData.receiver,
+    from: emailData.sender,
+    templateId: templates[emailData.templateName],
+    //extract the custom fields
+    dynamic_template_data: {
+      link: emailData.link,
+    },
+  };
+
+  //send the email
   sgMail
     .send(msg)
     .then(() => {
-      console.log(`${type} operation was successful`);
+      console.log(`operation was successful`);
     })
     .catch((error) => {
       //Log friendly error

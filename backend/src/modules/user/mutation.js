@@ -146,7 +146,20 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
       '/' +
       code;
 
-    send(email, TYPE.SEND_LINK_TO_CHANGE_PASSWORD, link);
+    // send(email, TYPE.SEND_LINK_TO_CHANGE_PASSWORD, link);
+
+    var data = {
+      //name of the email template that we will be using
+      templateName: "passwordreset_request",
+      //sender's and receiver's email
+      sender: "tym7nahlasto@gmail.com",
+      receiver: email,
+      //unique url for the user to confirm the account
+      link: link
+    };
+    //pass the data object to send the email
+    send(data);
+
   }
 
   return (
