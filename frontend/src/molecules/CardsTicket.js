@@ -7,6 +7,7 @@ import { gql, useMutation } from '@apollo/client';
 import './CardsTicketStyle.css';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 import { imgPathForTicket } from 'src/utils/imgPathForTickets';
+import { HeartWithNumber } from 'src/atoms/HeartWithNumber';
 
 const RESOLVE_TICKET_MUTATION = gql`
   mutation setTicketResolved($ticketId: Int!) {
@@ -24,7 +25,7 @@ export const CardsTicket = ({
   communityOwner,
 }) => {
   const [liked, setliked] = useState(like);
-  const [enabled, setenabled] = useState(true);
+  const [enabled, setenabled] = useState();
   let user = getDataFromLocalStorage()?.user;
 
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
@@ -129,10 +130,7 @@ export const CardsTicket = ({
             }}
             className="btn"
           >
-            <div style={{ display: 'flex' }}>
-              <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-              {liked}
-            </div>
+            <HeartWithNumber enabled={enabled} liked={liked} />
           </div>
         </Card.Body>
       </Card>
@@ -238,10 +236,7 @@ export const CardsTicket = ({
                 }}
                 className="btn"
               >
-                <div style={{ display: 'flex' }}>
-                  <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-                  {liked}
-                </div>
+                <HeartWithNumber enabled={enabled} liked={liked} />
               </div>
             </Col>
           </Row>
@@ -329,10 +324,7 @@ export const CardsTicket = ({
             }}
             className="btn"
           >
-            <div style={{ display: 'flex' }}>
-              <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-              {liked}
-            </div>
+            <HeartWithNumber enabled={enabled} liked={liked} />
           </div>
         </Card.Body>
       </Card>
