@@ -164,10 +164,9 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
                         className="avatar"
                         src={testimonial}
                       />
-                      <div className="ml-2">
+                      <div className="ml-2" style={{ marginTop: '5px' }}>
                         <h6>
-                          zaměstnankyně <br />
-                          korporátu
+                          zaměstnankyně korporátu
                         </h6>
                       </div>
                     </div>
@@ -187,10 +186,9 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
                         className="avatar"
                         src={testimonial2}
                       />
-                      <div className="ml-2">
+                      <div className="ml-2" style={{ marginTop: '5px' }}>
                         <h6>
-                          běžný <br />
-                          uživatel
+                          běžný uživatel
                         </h6>
                       </div>
                     </div>
@@ -213,7 +211,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
               <div className="text-center">
                 <Card.Body>
                   <Card.Text>
-                    <ul className="list-unstyled">
+                    <ul style={{ listStyle: 'none' }}>
                       <li>5 uživatelů</li>
                       <li>účet správce</li>
                     </ul>
@@ -236,7 +234,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
           </Card>
           <Card>
             <div className="text-center">
-              <Card.Header>
+              <Card.Header className="homePageHeader">
                 <h3>Pro</h3>
               </Card.Header>
               <div className="text-center">
@@ -263,7 +261,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
           </Card>
           <Card>
             <div className="text-center">
-              <Card.Header>
+              <Card.Header className="homePageHeader">
                 <h3>Ultimate</h3>
               </Card.Header>
               <div className="text-center">
