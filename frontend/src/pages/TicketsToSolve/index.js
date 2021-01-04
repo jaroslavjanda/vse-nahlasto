@@ -36,8 +36,10 @@ const DELETE_MUTATION = gql`
 `;
 
 export const TicketsToSolve = () => {
-  const { user } = getDataFromLocalStorage();
-  const userId = parseInt(user.user_id);
+  let user = getDataFromLocalStorage()?.user;
+  var userId = user? parseInt(user.user_id):undefined;
+  if (userId === undefined) userId = 0;
+  
   const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
   });
