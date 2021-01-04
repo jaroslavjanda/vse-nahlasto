@@ -232,5 +232,52 @@ export const joinPrivateCommunity = async (
   { userId, communityId },
   { dbConnection },
 ) => {
-  console.log("This is a message that request can be sent.")
+
+  const usersCredentials = (await dbConnection.query(
+    'SELECT name, email FROM user WHERE user_id = ?',
+    [userId]
+  ))[0]
+
+  const communityName = (await dbConnection.query(
+    'SELECT name FROM community WHERE community_id = ?',
+    [communityId]
+  ))[0]
+
+  // TODO roles can be 1 and 2, but more than 1 email should be sent then - we do not use role 2 for now
+  const communityOwnerId = (await dbConnection.query(
+    'SELECT user_id FROM `membership` WHERE community_id = ? AND role_id = 1',
+    [communityId]
+  ))[0].user_id
+
+  const communityOwnerCredentials = (await dbConnection.query(
+    'SELECT name, email FROM `user` WHERE user_id = ?',
+    [communityOwnerId]
+  ))[0]
+
+  const acceptance_link = "www.seznam.cz"
+
+  const applicantEmailData = {
+    type: TYPE.JOIN_COMMUNITY_REQUEST,
+    receiver: usersCredentials.email,
+    receiverName: usersCredentials.name,
+    communityName: communityName.name,
+  };
+
+  const communityOwnerEmailData = {
+    type: TYPE.JOIN_COMMUNITY_REQUEST_ADMIN,
+    receiver: communityOwnerCredentials.email,
+    receiverName: communityOwnerCredentials.name,
+    communityName: communityName.name,
+    applicantEmail: usersCredentials.email,
+    link: acceptance_link
+  };
+
+  //send emails
+  send(applicantEmailData);
+  send(communityOwnerEmailData);
+
+
+
+  console.log(usersCredentials , communityOwnerId, communityOwnerCredentials)
+  console.log("This is a message that request can be sent.", usersCredentials.email, usersCredentials.name, communityName.name)
 };
