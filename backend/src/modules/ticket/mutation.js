@@ -9,12 +9,41 @@
  * @param status_id
  * @returns {Promise<*>}
  */
+import { singleUpload } from '../upload/mutation';
 export const addTicket = async (
   _,
   { user_id, title, image, community_id, content, status_id },
   { dbConnection },
 ) => {
   var img = image ? image : null;
+  console.log("hiiii")
+  console.log("img", img)
+  console.log("ffffff")
+  const imgPath = (await singleUpload({"file":img}))
+  console.log("imgPath",imgPath)
+  const dbResponse = await dbConnection.query(
+    `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
+    VALUES (?, ?, ?, ?, ?, ?);`,
+    [user_id, title, imgPath, community_id, content, status_id],
+  );
+  console.log(dbResponse)
+  console.log("hiiiddsši")
+  const ticket = (
+    await dbConnection.query(
+      `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
+      COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+      FROM ticket 
+      LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
+      LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
+      WHERE ticket.ticket_id = ?
+      GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+      [dbResponse.insertId],
+    )
+  )[0];
+
+  return ticket;
+  
+  /*
 
   const dbResponse = await dbConnection.query(
     `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
@@ -35,7 +64,7 @@ export const addTicket = async (
     )
   )[0];
 
-  return ticket;
+  return ticket;*/
 };
 
 /**
