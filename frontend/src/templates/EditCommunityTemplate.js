@@ -18,7 +18,7 @@ export function EditCommunityTemplate({
   }
 
   return (
-    <>
+    <div className="mw6 center">
       <Heading>Upravit popis komunity</Heading>
       <EditCommunityForm
         errorMessage={error && error.message}
@@ -28,6 +28,6 @@ export function EditCommunityTemplate({
         community_id={community_id}
         currentDescription={currentDescription}
       />
-    </>
+    </div>
   );
 }

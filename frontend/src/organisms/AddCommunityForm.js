@@ -74,11 +74,9 @@ export function AddCommunityForm({
             Soukromá komunita
           </label>
         </FormGroup>
-        <div>
-          <Button type="submit" className="mt2 mb3">
-            Přidat komunitu
-          </Button>
-        </div>
+        <Button type="submit" className="mt2 mb3">
+          Přidat komunitu
+        </Button>
       </Form>
     </Formik>
   );

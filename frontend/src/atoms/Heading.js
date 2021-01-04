@@ -16,6 +16,7 @@ export function Heading({ children, className, size = 'xl', ...rest }) {
   return (
     <Component
       className={classNames(headingClasses, 'ma0 tracked-tight', className)}
+      style={{textAlign:"left"}}
       {...rest}
     >
       {children}
