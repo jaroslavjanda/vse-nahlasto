@@ -165,9 +165,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
                         src={testimonial}
                       />
                       <div className="ml-2" style={{ marginTop: '5px' }}>
-                        <h6>
-                          zaměstnankyně korporátu
-                        </h6>
+                        <h6>zaměstnankyně korporátu</h6>
                       </div>
                     </div>
                   </Card.Body>
@@ -187,9 +185,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
                         src={testimonial2}
                       />
                       <div className="ml-2" style={{ marginTop: '5px' }}>
-                        <h6>
-                          běžný uživatel
-                        </h6>
+                        <h6>běžný uživatel</h6>
                       </div>
                     </div>
                   </Card.Body>
