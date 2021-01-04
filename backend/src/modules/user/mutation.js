@@ -66,7 +66,17 @@ export const signup = async (
   );
 
   if (dbResponse.insertId) {
-    send(email, TYPE.REGISTRATION);
+
+    console.log("receiver email: ", email)
+
+    const emailData = {
+      type: TYPE.REGISTRATION,
+      receiver: email,
+      receiverName: name,
+    };
+
+    send(emailData);
+
   }
 
   const token = createToken({ id: dbResponse.insertId });
@@ -97,9 +107,23 @@ export const resetUserPassword = async (
     [await argon2.hash(newPassword), email],
   );
 
+  const userName = await dbConnection.query(
+    'SELECT userName FROM user WhERE email = ?',
+    [email]
+  )
+
   if (dbResponse) {
+
+    console.log("receiver email: ", email)
+
+    const emailData = {
+      type: TYPE.CHANGE_PASSWORD,
+      receiver: email,
+      receiverName: userName
+    };
+
     //send email
-    send(email, TYPE.CHANGE_PASSWORD);
+    send(emailData);
   }
 
   // deletes completed request from the DB
@@ -146,7 +170,19 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
       '/' +
       code;
 
-    send(email, TYPE.SEND_LINK_TO_CHANGE_PASSWORD, link);
+    const userName = await dbConnection.query(
+      'SELECT userName FROM user WhERE email = ?',
+      [email]
+    )
+
+    const emailData = {
+      type: TYPE.SEND_LINK_TO_CHANGE_PASSWORD,
+      receiver: email,
+      receiverName: userName,
+      link: link
+    };
+
+    send(emailData);
   }
 
   return (

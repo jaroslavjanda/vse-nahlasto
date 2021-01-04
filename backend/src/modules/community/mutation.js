@@ -53,7 +53,20 @@ export const addCommunity = async (
       ])
     )[0];
 
-    send(email, TYPE.ADD_COMMUNITY_CONFIRMATION);
+    const userName = (
+      await dbConnection.query(`SELECT name FROM user WHERE user_id = ?`, [
+        ownerId,
+      ])
+    )[0];
+
+    const emailData = {
+      type: TYPE.ADD_COMMUNITY_CONFIRMATION,
+      receiver: email,
+      communityName: name,
+      receiverName: userName
+    };
+
+    send(emailData);
 
     return community;
   }
