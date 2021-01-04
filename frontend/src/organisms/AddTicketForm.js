@@ -14,7 +14,7 @@ export function AddTicketForm({
   onSubmit,
   className,
 }) {
-  const { user } = getDataFromLocalStorage();
+  let user = getDataFromLocalStorage()?.user;
 
   const initialValues = {
     title: '',

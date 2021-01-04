@@ -27,7 +27,7 @@ const ADD_COMMUNITY_MUTATION = gql`
 `;
 
 export const AddCommunityPage = () => {
-  const { user } = getDataFromLocalStorage();
+  let user = getDataFromLocalStorage()?.user;
   const history = useHistory();
 
   const [addCommunityRequest, addCommunityRequestState] = useMutation(

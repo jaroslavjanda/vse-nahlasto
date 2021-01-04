@@ -31,7 +31,7 @@ export const TopNavigation = ({ children }) => {
     localStorage.getItem('quacker-auth'),
   );
   const [isShown, setIsShown] = useState(true);
-  var user = getDataFromLocalStorage()?.user;
+  let user = getDataFromLocalStorage()?.user;
 
   return (
     <>
