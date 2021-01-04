@@ -146,7 +146,7 @@ const typeDefs = gql`
       community_id: Int!
       title: String!
       content: String!
-      image: Upload!
+      image: Upload
       status_id: Int!
     ): Ticket!
 

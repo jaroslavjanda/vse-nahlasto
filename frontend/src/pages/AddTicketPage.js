@@ -10,7 +10,7 @@ const ADD_TICKET_MUTATION = gql`
     $community_id: Int!
     $title: String!
     $content: String!
-    $image: Upload!
+    $image: Upload
     $status: Int!
   ) {
     addTicket(

@@ -1,7 +1,7 @@
 import fsPromises from 'fs';
 import fs from 'fs';
 import path from 'path';
-import { TICKET_UPLOAD_DIR } from '../../constants';
+import { resolverDIR } from '../../constants';
 import { random } from 'lodash';
 
 /**
@@ -18,7 +18,8 @@ export const singleUpload = async (args) => {
     var month = d.getMonth() + 1;
     var year = d.getFullYear();
     const fullDate = year+'-'+month+'-'+date;
-    fsPromises.mkdir(path.join(TICKET_UPLOAD_DIR, fullDate), { recursive: true }, (err) => { 
+    const type = resolverDIR(args.type)
+    fsPromises.mkdir(path.join(type, fullDate), { recursive: true }, (err) => { 
       if (err) { 
         console.log(err); 
       } 
@@ -29,9 +30,9 @@ export const singleUpload = async (args) => {
         const betterName = Date.now()+'-'+random(99999999)+'-'+filename;
         pathImage = path.join(fullDate, betterName)
         const fileStream = createReadStream();
-        const filePath = path.join(TICKET_UPLOAD_DIR, filename);
+        const filePath = path.join(type, filename);
         
-        const filePathNew = path.join(TICKET_UPLOAD_DIR, fullDate, betterName);
+        const filePathNew = path.join(type, fullDate, betterName);
         const returnPath = path.join(fullDate, betterName)
 
         fileStream.pipe(fs.createWriteStream(filePath))
