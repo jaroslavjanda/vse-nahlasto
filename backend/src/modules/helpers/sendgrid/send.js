@@ -1,5 +1,3 @@
-import { resolveSubject, resolveText } from './typeResolver';
-
 export const TYPE = {
   REGISTRATION: 'REGISTRATION',
   CHANGE_PASSWORD: 'CHANGE_PASSWORD',
@@ -14,17 +12,19 @@ export function send(emailData) {
 
   let templates;
   templates = {
-    passwordreset_confirm: 'd-cb10662bffea4380a20ece2d0ffdfc6f',
-    passwordreset_request: 'd-b8097738e729419b9fd445e1ac6f8daa',
+    REGISTRATION: 'd-05ecc56913034bc0bf829bfba09f72a9',
+    CHANGE_PASSWORD: 'd-cb10662bffea4380a20ece2d0ffdfc6f',
+    SEND_LINK_TO_CHANGE_PASSWORD: 'd-b8097738e729419b9fd445e1ac6f8daa',
+    ADD_COMMUNITY_CONFIRMATION: 'd-9db61fbe2ea14a01ae5f58e1ab930e6b'
   };
 
   const msg = {
-    //extract the email details
     to: emailData.receiver,
-    from: emailData.sender,
-    templateId: templates[emailData.templateName],
-    //extract the custom fields
+    from: "tym7nahlasto@gmail.com",
+    templateId: templates[emailData.type],
     dynamic_template_data: {
+      community_name: emailData.communityName,
+      user_name: emailData.userName,
       link: emailData.link,
     },
   };
