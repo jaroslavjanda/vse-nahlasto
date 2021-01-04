@@ -160,6 +160,9 @@ const typeDefs = gql`
 
     joinPublicCommunity(userId: Int!, communityId: Int!): Community
 
+#    TODO this is the same as that one above - can it be united?
+    joinPrivateCommunity(userId: Int!, communityId: Int!): Community
+
     setTicketResolved(ticketId: Int!): Ticket
   }
 `;

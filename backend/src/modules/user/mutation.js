@@ -193,6 +193,14 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
   )[0];
 };
 
+/**
+ *
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
 export const joinPublicCommunity = async (
   _,
   { userId, communityId },
@@ -210,4 +218,19 @@ export const joinPublicCommunity = async (
       [communityId, userId],
     )
   )[0];
+};
+/**
+ *
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const joinPrivateCommunity = async (
+  _,
+  { userId, communityId },
+  { dbConnection },
+) => {
+  console.log("This is a message that request can be sent.")
 };

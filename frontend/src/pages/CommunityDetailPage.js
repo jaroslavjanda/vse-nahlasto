@@ -53,13 +53,31 @@ const JOIN_COMMUNITY_MUTATION = gql`
   }
 `;
 
+const JOIN_PRIVATE_COMMUNITY_MUTATION = gql`
+  mutation  JoinPrivateCommunity($userId: Int!, $communityId: Int!) {
+    joinPrivateCommunity(userId: $userId, communityId: $communityId) {
+      community_id
+    }
+  }
+`;
+
 export const CommunityDetail = ({ match }) => {
   const [joinPublicCommunityRequest] = useMutation(JOIN_COMMUNITY_MUTATION, {
     onCompleted: () => {
       toast.success('Nyní jste součástí komunity!');
       window.location.reload();
     },
-    onError: () => {},
+    onError: () => {
+    },
+  });
+
+  const [joinPrivateCommunityRequest] = useMutation(JOIN_PRIVATE_COMMUNITY_MUTATION, {
+    onCompleted: () => {
+      toast.info('Požadavek byl odeslán.')
+    },
+    onError: () => {
+      console.log("Error while performing request: ")
+    },
   });
 
   const handleJoinCommunity = useCallback(
@@ -73,8 +91,19 @@ export const CommunityDetail = ({ match }) => {
     [joinPublicCommunityRequest],
   );
 
+  const handlePrivateCommunityJoinRequest = useCallback(
+    (oldVariables) => {
+      const variables = {
+        userId: oldVariables.variables.userId,
+        communityId: oldVariables.variables.communityId,
+      };
+      joinPrivateCommunityRequest({ variables });
+    },
+    [joinPublicCommunityRequest],
+  );
+
   let user = getDataFromLocalStorage()?.user;
-  var userId = user? parseInt(user.user_id):undefined;
+  var userId = user ? parseInt(user.user_id) : undefined;
   if (userId === undefined) userId = 0;
 
   const communityId = parseInt(match.params.communityId);
@@ -106,6 +135,7 @@ export const CommunityDetail = ({ match }) => {
               isMember={isMember}
               isOwner={isOwner}
               handleJoinCommunity={handleJoinCommunity}
+              handlePrivateCommunityJoinRequest={handlePrivateCommunityJoinRequest}
               communityId={communityId}
               userId={userId}
               communityOwnerId={state}

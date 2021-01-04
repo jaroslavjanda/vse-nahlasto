@@ -37,8 +37,6 @@ export function send(emailData) {
     }
   }
 
-
-
   //send the email
   sgMail
     .send(msg)
