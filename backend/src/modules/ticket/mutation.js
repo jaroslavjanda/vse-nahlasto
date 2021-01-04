@@ -9,19 +9,21 @@
  * @param status_id
  * @returns {Promise<*>}
  */
+import { singleUpload } from '../upload/mutation';
+import { DirType } from '../../constants';
 export const addTicket = async (
   _,
   { user_id, title, image, community_id, content, status_id },
   { dbConnection },
 ) => {
   var img = image ? image : null;
-
+  const imgPath = (await singleUpload({"file":img, "type":DirType.TICKET_UPLOAD_DIR}))
   const dbResponse = await dbConnection.query(
     `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
     VALUES (?, ?, ?, ?, ?, ?);`,
-    [user_id, title, img, community_id, content, status_id],
+    [user_id, title, imgPath, community_id, content, status_id],
   );
-
+  
   const ticket = (
     await dbConnection.query(
       `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 

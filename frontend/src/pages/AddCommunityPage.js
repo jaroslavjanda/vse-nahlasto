@@ -4,12 +4,13 @@ import { AddCommunityTemplate } from '../templates/AddCommunityTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner } from '../atoms';
+import { route } from 'src/Routes';
 
 const ADD_COMMUNITY_MUTATION = gql`
   mutation AddCommunity(
     $name: String!
     $description: String
-    $image: String
+    $image: Upload
     $closed: Boolean!
     $owner_id: Int!
   ) {
@@ -25,13 +26,6 @@ const ADD_COMMUNITY_MUTATION = gql`
   }
 `;
 
-const UPLOAD_MUTATION = gql`
-  mutation SingleUpload($file: Upload!) {
-    singleUpload(file: $file) {
-      filename
-    }
-  }
-`;
 export const AddCommunityPage = () => {
   const { user } = getDataFromLocalStorage();
   const history = useHistory();
@@ -41,35 +35,28 @@ export const AddCommunityPage = () => {
     {
       onCompleted: ({ addCommunity: { community_id } }) => {
         console.log('Community was added to the DB, its ID is ' + community_id);
-        history.replace('/communities/');
+        history.replace(route.adminAllCommunities());
       },
       onError: () => {
         console.log('Error while adding the community to DB');
       },
     },
   );
-  const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddCommunityFormSubmit = useCallback(
     (oldVariables) => {
-      var img = oldVariables.file ? oldVariables.file.name : '';
-
       const variables = {
         name: oldVariables.name,
         description: oldVariables.description,
-        image: img,
+        image: oldVariables.file,
         owner_id: oldVariables.owner_id,
         closed: oldVariables.closed,
       };
       console.log(variables);
-      if (oldVariables.file) {
-        addFileRequest({ variables: { file: oldVariables.file } });
-      }
-      addCommunityRequest({
-        variables,
-      });
+
+      addCommunityRequest({ variables });
     },
-    [addCommunityRequest, addFileRequest],
+    [addCommunityRequest],
   );
 
   if (user != null) {

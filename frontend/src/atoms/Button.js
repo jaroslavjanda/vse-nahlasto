@@ -31,6 +31,7 @@ export function Button({
         colorClasses,
         className,
       )}
+      style={{ float: 'right' }}
       type="button"
       disabled={disabled}
       {...rest}

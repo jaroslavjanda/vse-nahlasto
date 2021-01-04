@@ -143,7 +143,6 @@
 }
 
 .avatar-author {
-  display: flex !important;
   justify-content: initial !important;
 }
 
@@ -173,3 +172,13 @@ footer a {
   align-items: center;
   padding: 10% 10%;
 }
+
+li::before {
+  content: "•" !important;
+  color: #76a8d3;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em
+}
+
+

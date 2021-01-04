@@ -4,7 +4,7 @@ import * as yup from 'yup';
 
 import { ErrorBanner } from 'src/atoms/';
 import { FormikField } from 'src/molecules';
-import { Button } from 'src/atoms/Button';
+import { Button } from 'react-bootstrap';
 import FormGroup from 'react-bootstrap/FormGroup';
 import { route } from 'src/Routes';
 
@@ -18,20 +18,20 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-  name: yup.string().required().label('Name'),
-  surname: yup.string().required().label('Surname'),
-  email: yup.string().email().required().label('Email'),
+  name: yup.string().required('Jméno je povinné.').label('Jméno'),
+  surname: yup.string().required('Příjmení je povinné.').label('Příjmení'),
+  email: yup.string().email('Tohle není validní emailová adresa').required('Email je povinný.').label('Email'),
   password: yup
     .string()
-    .required()
-    .label('Password')
-    .test('len', 'Musí mít alespoň 6 znaků', (val) => val.length >= 6),
+    .required('Heslo je povinné.')
+    .label('Heslo')
+    .test('len', 'Heslo musí mít alespoň 6 znaků.', (val) => val.length >= 6),
   passwordConfirmation: yup
     .string()
-    .required()
-    .oneOf([yup.ref('password'), null], 'Hesla se musí shodovat')
-    .label('Password Confirmation'),
-  checkboxAcceptTerms: yup.bool().oneOf([true], 'Musíte přijmout podmínky'),
+    .required('Zopakujte heslo.')
+    .oneOf([yup.ref('password'), null], 'Hesla se musí shodovat.')
+    .label('Potvrzení hesla'),
+  checkboxAcceptTerms: yup.bool().oneOf([true], 'Musíte přijmout podmínky.'),
 });
 
 export function SignUpForm({ errorMessage, className, onSubmit, children }) {
@@ -92,24 +92,22 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <FormGroup>
-          <div style={{ marginLeft: '20px' }}>
-            <Field
-              type="checkbox"
-              id="checkboxAcceptTerms"
-              name="checkboxAcceptTerms"
-              className={'form-check-input'}
-            />
-            <label htmlFor="checkboxAcceptTerms" className="form-check-label">
-              Souhlasím s <a href={route.termsOfService()}>podmínkami </a>a se
-              zpracováním osobních údajů
-            </label>
-            <ErrorMessage
-              name="checkboxAcceptTerms"
-              component="div"
-              className="mb1 f6 dark-red f5"
-            />
-          </div>
+        <FormGroup style={{ textAlign: 'right' }}>
+          <Field
+            type="checkbox"
+            id="checkboxAcceptTerms"
+            name="checkboxAcceptTerms"
+            className={'form-check-input'}
+          />
+          <label htmlFor="checkboxAcceptTerms" className="form-check-label">
+            Souhlasím s <a href={route.termsOfService()}>podmínkami </a>a se
+            zpracováním osobních údajů
+          </label>
+          <ErrorMessage
+            name="checkboxAcceptTerms"
+            component="div"
+            className="mb1 f6 dark-red f5"
+          />
         </FormGroup>
         <div style={{ textAlign: 'right' }}>
           <Button
@@ -117,7 +115,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
             type="submit"
             variant="success"
             size="lg"
-            style={{ marginBottom: '10px' }}
+            style={{ margin:0, marginBottom: '10px' }}
           >
             Registrovat se
           </Button>

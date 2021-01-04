@@ -25,14 +25,14 @@ export function AddTicketForm({
   };
   //TODO překlad - "is a required field", jak přeložit
   const schema = yup.object().shape({
-    content: yup.string().required().label('Popis'),
-    title: yup.string().required().label('Název'),
+    content: yup.string().required('Obsah je povinný').label('Popis'),
+    title: yup.string().required('Název je povinný.').label('Název'),
     email: yup
       .string()
       .email()
       .when('showEmail', {
         is: true,
-        then: yup.string().required('Must enter email address'),
+        then: yup.string().required('Tohle není validní emailová adresa.'),
       }),
   });
 
@@ -50,7 +50,7 @@ export function AddTicketForm({
               <ErrorBanner title={errorMessage} className="mb3" />
             )}
             {successMessage && (
-              <SuccessBanner title={'Ticket has been sent'} className="mb3" />
+              <SuccessBanner title={'Příspěvek byl přidán.'} className="mb3" />
             )}
             <FormikField
               id="title"
@@ -87,7 +87,7 @@ export function AddTicketForm({
               autoCorrect="off"
               autoCapitalize="off"
             />
-            <FormikFile id="file" name="file" label="Soubor" />
+            <FormikFile id="file" name="file" label="Obrázek" />
 
             <Button type="submit" className="mt2 mb3">
               Přidat příspěvek
