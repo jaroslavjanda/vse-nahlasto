@@ -1,71 +1,43 @@
-import { Form } from 'react-bootstrap';
-import { Button, ErrorBanner } from '../atoms';
-import React from 'react';
+import { Form } from 'react-bootstrap'
+import { Button } from '../atoms'
+import React from 'react'
 
-import { Formik } from 'formik';
-import { FormikTextArea } from './FormikTextArea';
+import { Formik } from 'formik'
+import { FormikTextArea } from './FormikTextArea'
+import * as yup from 'yup'
 
-export function AddCommentForm({
-  isLoading,
-  errorMessage,
-  className,
-  initialValues,
-  onSubmit,
-  children,
-}) {
-  // if (user_id != null) {
+export function AddCommentForm({ onSubmit, initialValues }) {
+
+  const schema = yup.object().shape({
+    content: yup.string().required('Vlož komentář.').label('Komentář'),
+  })
+
   return (
     <Formik
       onSubmit={onSubmit}
       initialValues={initialValues}
       validateOnBlur={false}
+      validationSchema={schema}
     >
       <Form>
-        {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
-
         <FormikTextArea
+          style={{ marginLeft: '40px' }}
           id="content"
           name="content"
           type="textArea"
           rows={3}
           placeholder="Vlož komentář"
-          autoFocus="autofocus"
           autoComplete="off"
           autoCorrect="on"
           autoCapitalize="off"
         />
-        <div style={{ textAlign: 'right' }}>
-          <Button
-            type="submit"
-            className="mt2 mb3"
-            onSubmit={console.log(initialValues)}
-          >
-            ODESLAT
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          className="mt2 mb3"
+        >
+          PŘIDAT KOMENTÁŘ
+        </Button>
       </Form>
     </Formik>
-
-    // <Form onSubmit={handleAddCommentFormSubmit}>
-    //   <Form.Group controlId="ControlInput1">
-    //     <Form.Control
-    //       as="textarea"
-    //       rows={3}
-    //       placeholder="Vlož komentář"
-    //
-    //     />
-    //   </Form.Group>
-    //   <Button
-    //     className="pull-right"
-    //     type="submit"
-    //     variant="success"
-    //   >
-    //     POTVRDIT
-    //   </Button>
-    // </Form>
-  );
-
-  // } else {
-  //   return null
-  // }
+  )
 }

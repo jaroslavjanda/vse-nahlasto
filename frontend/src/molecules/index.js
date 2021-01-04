@@ -7,3 +7,5 @@ export { TicketDetailContent } from './TicketDetailContent';
 export { AddCommentForm } from './AddCommentForm';
 export { Comment } from './Comment';
 export { CommunityCardsHomepage } from './CommunityCardsHomepage';
+export { CardsTicketHeader } from './CardsTicketHeader';
+export { LikeLogic } from './LikeLogic';

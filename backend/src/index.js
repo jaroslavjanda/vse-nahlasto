@@ -41,7 +41,7 @@ const typeDefs = gql`
 
   type Comment {
     comment_id: Int!
-    date: String!
+    date: Date!
     content: String!
     closed: Boolean!
     user_id: Int!

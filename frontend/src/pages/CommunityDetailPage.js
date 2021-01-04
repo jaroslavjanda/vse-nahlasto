@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
-import { getDataFromLocalStorage } from '../utils/localStorage';
-import { toast } from 'react-toastify';
-import { ErrorType } from '../utils/Error';
-import { ErrorBannerWithRefreshButton } from '../atoms/ErrorBannerWithRefreshButton';
-import { Loading } from '../atoms';
+import React, { useCallback, useMemo } from 'react'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate'
+import { getDataFromLocalStorage } from '../utils/localStorage'
+import { toast } from 'react-toastify'
+import { ErrorType } from '../utils/Error'
+import { ErrorBannerWithRefreshButton } from '../atoms/ErrorBannerWithRefreshButton'
+import { Loading } from '../atoms'
 
 const COMMUNITY_DETAIL_QUERY = gql`
   query CommunityList($communityId: Int!) {
@@ -43,7 +43,7 @@ const COMMUNITY_DETAIL_QUERY = gql`
       }
     }
   }
-`;
+`
 
 const JOIN_COMMUNITY_MUTATION = gql`
   mutation JoinCommunity($userId: Int!, $communityId: Int!) {
@@ -51,44 +51,45 @@ const JOIN_COMMUNITY_MUTATION = gql`
       community_id
     }
   }
-`;
+`
 
 export const CommunityDetail = ({ match }) => {
   const [joinPublicCommunityRequest] = useMutation(JOIN_COMMUNITY_MUTATION, {
     onCompleted: () => {
-      toast.success('Nyní jste součástí komunity!');
-      window.location.reload();
+      toast.success('Nyní jste součástí komunity!')
+      window.location.reload()
     },
-    onError: () => {},
-  });
+    onError: () => {
+    },
+  })
 
   const handleJoinCommunity = useCallback(
     (oldVariables) => {
       const variables = {
         userId: oldVariables.variables.userId,
         communityId: oldVariables.variables.communityId,
-      };
-      joinPublicCommunityRequest({ variables });
+      }
+      joinPublicCommunityRequest({ variables })
     },
     [joinPublicCommunityRequest],
-  );
+  )
 
   let user = getDataFromLocalStorage()?.user;
   var userId = user? parseInt(user.user_id):undefined;
   if (userId === undefined) userId = 0;
 
-  const communityId = parseInt(match.params.communityId);
+  const communityId = parseInt(match.params.communityId)
   const state = useQuery(COMMUNITY_DETAIL_QUERY, {
     variables: { communityId },
-  });
+  })
 
   const { isMember, isOwner } = useMemo(() => {
-    const isMember = !!state.data?.communityMembersIds.includes(userId);
-    const isOwner = userId === state.data?.communityOwnerId;
-    return { isMember, isOwner };
-  }, [state, userId]);
+    const isMember = !!state.data?.communityMembersIds.includes(userId)
+    const isOwner = userId === state.data?.communityOwnerId
+    return { isMember, isOwner }
+  }, [state, userId])
 
-  const community = state.data?.community;
+  const community = state.data?.community
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -114,5 +115,5 @@ export const CommunityDetail = ({ match }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
