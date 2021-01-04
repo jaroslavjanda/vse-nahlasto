@@ -10,7 +10,7 @@ const ADD_TICKET_MUTATION = gql`
     $community_id: Int!
     $title: String!
     $content: String!
-    $image: String!
+    $image: Upload
     $status: Int!
   ) {
     addTicket(
@@ -22,14 +22,6 @@ const ADD_TICKET_MUTATION = gql`
       status_id: $status
     ) {
       ticket_id
-    }
-  }
-`;
-
-const UPLOAD_MUTATION = gql`
-  mutation SingleUpload($file: Upload!) {
-    singleUpload(file: $file) {
-      filename
     }
   }
 `;
@@ -52,27 +44,20 @@ export const AddTicket = ({ match }) => {
   );
 
   let user = getDataFromLocalStorage()?.user;
-  const [addFileRequest] = useMutation(UPLOAD_MUTATION);
 
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
-      var img = oldVariables.file ? oldVariables.file.name : '';
-
       const variables = {
         user_id: user ? user.user_id : 1,
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: img,
+        image: oldVariables.file,
         status: 3,
       };
-
-      if (oldVariables.file) {
-        addFileRequest({ variables: { file: oldVariables.file } });
-      }
       addTicketRequest({ variables });
     },
-    [addTicketRequest, addFileRequest],
+    [addTicketRequest]
   );
 
   return (

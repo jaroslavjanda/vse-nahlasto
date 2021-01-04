@@ -11,6 +11,8 @@ import { send, TYPE } from '../helpers/sendgrid/send';
  * @param ownerId
  * @returns {Promise<*>}
  */
+import { singleUpload } from '../upload/mutation';
+import { DirType } from '../../constants';
 export const addCommunity = async (
   _,
   { name, description, image, code, closed, ownerId },
@@ -19,15 +21,15 @@ export const addCommunity = async (
   // adds community to DB
   // TODO prevent creating communities with same name
   var img = image ? image : null;
-  const addCommunityDbResponse = await dbConnection.query(
+  const imgPath = (await singleUpload({"file":img, "type":DirType.COMMUNITY_UPLOAD_DIR}))
+  const dbResponse = await dbConnection.query(
     `INSERT INTO community (name, description, image, closed)
     VALUES (?, ?, ?, ?);`,
-    [name, description, img, closed],
+    [name, description, imgPath, closed],
   );
-
   // if community inserted successfully
-  if (addCommunityDbResponse.insertId) {
-    const communityId = addCommunityDbResponse.insertId;
+  if (dbResponse.insertId) {
+    const communityId = dbResponse.insertId;
 
     // fetches added community from DB
     const community = (
