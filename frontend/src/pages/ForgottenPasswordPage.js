@@ -35,7 +35,7 @@ export function ForgottenPasswordPage() {
   };
 
   const schema = yup.object().shape({
-    email: yup.string().email().required().label('Email'),
+    email: yup.string().email('Tohle není validní emailová adresa.').required('Zadejte svůj email.').label('Email'),
   });
 
   return (
@@ -55,9 +55,8 @@ export function ForgottenPasswordPage() {
             id="email"
             name="email"
             label="Email"
-            type="email"
+            type="text"
             placeholder="např. jan@novak.cz"
-            autoFocus="autofocus"
             autoComplete="on"
             autoCorrect="off"
             autoCapitalize="off"
