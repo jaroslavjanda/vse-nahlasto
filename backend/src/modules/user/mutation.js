@@ -67,13 +67,16 @@ export const signup = async (
 
   if (dbResponse.insertId) {
 
+    console.log("receiver email: ", email)
+
     const emailData = {
       type: TYPE.REGISTRATION,
       receiver: email,
-      userName: name,
+      receiverName: name,
     };
 
     send(emailData);
+
   }
 
   const token = createToken({ id: dbResponse.insertId });
@@ -110,10 +113,13 @@ export const resetUserPassword = async (
   )
 
   if (dbResponse) {
+
+    console.log("receiver email: ", email)
+
     const emailData = {
       type: TYPE.CHANGE_PASSWORD,
       receiver: email,
-      userName: userName,
+      receiverName: userName
     };
 
     //send email
@@ -172,7 +178,7 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
     const emailData = {
       type: TYPE.SEND_LINK_TO_CHANGE_PASSWORD,
       receiver: email,
-      userName: userName,
+      receiverName: userName,
       link: link
     };
 

@@ -18,16 +18,20 @@ export function send(emailData) {
     ADD_COMMUNITY_CONFIRMATION: 'd-9db61fbe2ea14a01ae5f58e1ab930e6b'
   };
 
+  console.log("receiverName: ", emailData.receiverName, "communityName", emailData.communityName, "link", emailData.link)
+
   const msg = {
-    to: emailData.receiver,
+    to: emailData.receiver.toString(),
     from: "tym7nahlasto@gmail.com",
     templateId: templates[emailData.type],
     dynamic_template_data: {
       community_name: emailData.communityName,
-      user_name: emailData.userName,
+      receiver_name: emailData.receiverName,
       link: emailData.link,
-    },
-  };
+    }
+  }
+
+
 
   //send the email
   sgMail
@@ -39,7 +43,7 @@ export function send(emailData) {
       //Log friendly error
       // TODO this alert causes crash
       // alert(error);
-      console.log('Submit failed');
+      console.log('Submit failed', "receiver: ", emailData.receiverName);
       console.error(error.toString());
     });
 }
