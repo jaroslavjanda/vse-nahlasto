@@ -44,13 +44,10 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
-        COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+        `SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
         FROM ticket 
-        LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-        LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-        WHERE ticket.user_id = ?
-        GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+        WHERE user_id = ?
+        ORDER BY ticket.date desc
         `,
         [parent.user_id],
       );
@@ -68,6 +65,28 @@ export default {
       return await dbConnection.query(
         `SELECT comment_id, date, content, user_id, ticket_id FROM comment
         WHERE ticket_id = ?`,
+        [parent.ticket_id],
+      );
+    },
+    async likes(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT ticket.ticket_id,
+        COUNT(like.ticket_id) likes_count
+        FROM ticket
+        LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
+        WHERE ticket.ticket_id = ?
+        GROUP BY ticket.ticket_id
+          `,
+        [parent.ticket_id],
+      );
+    }
+  },
+  Likes:{
+    async likes_users(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT user.user_id, name, surname, email FROM user 
+          JOIN \`like\` on user.user_id = like.user_id 
+          WHERE like.ticket_id = ?`,
         [parent.ticket_id],
       );
     },
@@ -100,13 +119,10 @@ export default {
     },
     async tickets(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
-        COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+        `SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
         FROM ticket 
-        LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-        LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-        WHERE ticket.community_id = ?
-        GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+        WHERE community_id = ?
+        ORDER BY ticket.date desc
         `,
         [parent.community_id],
       );

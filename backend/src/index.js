@@ -41,7 +41,7 @@ const typeDefs = gql`
 
   type Comment {
     comment_id: Int!
-    date: String!
+    date: Date!
     content: String!
     closed: Boolean!
     user_id: Int!
@@ -58,10 +58,15 @@ const typeDefs = gql`
     status_id: Int!
     user_id: Int!
     community_id: Int!
-    likes_count: Int
-    comment_count: Int
     comments: [Comment!]!
     status: [Status!]
+    likes: [Likes!]
+  }
+
+  type Likes {
+    ticket_id: Int!
+    likes_count: Int
+    likes_users: [User]
   }
 
   type Status {
