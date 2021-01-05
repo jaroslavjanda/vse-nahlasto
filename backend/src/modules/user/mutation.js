@@ -67,7 +67,7 @@ export const signup = async (
 
   if (dbResponse.insertId) {
 
-    console.log("receiver email: ", email)
+    console.log('receiver email: ', email);
 
     const emailData = {
       type: TYPE.REGISTRATION,
@@ -109,17 +109,17 @@ export const resetUserPassword = async (
 
   const userName = await dbConnection.query(
     'SELECT userName FROM user WhERE email = ?',
-    [email]
-  )
+    [email],
+  );
 
   if (dbResponse) {
 
-    console.log("receiver email: ", email)
+    console.log('receiver email: ', email);
 
     const emailData = {
       type: TYPE.CHANGE_PASSWORD,
       receiver: email,
-      receiverName: userName
+      receiverName: userName,
     };
 
     //send email
@@ -172,14 +172,14 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
 
     const userName = await dbConnection.query(
       'SELECT userName FROM user WhERE email = ?',
-      [email]
-    )
+      [email],
+    );
 
     const emailData = {
       type: TYPE.SEND_LINK_TO_CHANGE_PASSWORD,
       receiver: email,
       receiverName: userName,
-      link: link
+      link: link,
     };
 
     send(emailData);
@@ -193,6 +193,14 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
   )[0];
 };
 
+/**
+ *
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
 export const joinPublicCommunity = async (
   _,
   { userId, communityId },
@@ -208,6 +216,169 @@ export const joinPublicCommunity = async (
     await dbConnection.query(
       `SELECT community_id FROM membership WHERE community_id = ? AND user_id = ?`,
       [communityId, userId],
+    )
+  )[0];
+};
+/**
+ * Creates request with code and sends emails with the unique link.
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const joinPrivateCommunityRequest = async (
+  _,
+  { userId, communityId },
+  { dbConnection },
+) => {
+  const usersCredentials = (await dbConnection.query(
+    'SELECT name, email FROM user WHERE user_id = ?',
+    [userId],
+  ))[0];
+
+  const communityName = (await dbConnection.query(
+    'SELECT name FROM community WHERE community_id = ?',
+    [communityId],
+  ))[0];
+
+  // TODO roles can be 1 and 2, but more than 1 email should be sent then - we do not use role 2 for now
+  const communityOwnerId = (await dbConnection.query(
+    'SELECT user_id FROM `membership` WHERE community_id = ? AND role_id = 1',
+    [communityId],
+  ))[0].user_id;
+
+  const communityOwnerCredentials = (await dbConnection.query(
+    'SELECT name, email FROM `user` WHERE user_id = ?',
+    [communityOwnerId],
+  ))[0];
+
+  // ################### LINK STUFF ###################
+  // 1. check if the request is first, if not, delete the previous one
+  const uniqueCheckDbResponse = (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request WHERE user_email = ?`,
+      [usersCredentials.email],
+    )
+  )[0];
+
+  if (uniqueCheckDbResponse) {
+    await dbConnection.query(
+      `DELETE FROM join_private_community_request WHERE user_email = ?`,
+      [usersCredentials.email],
+    );
+  }
+
+  // 2. create random code
+  const code = random(99999999);
+
+  // 3. insert email $ code into DB table 'forgotten'
+  const setResetCodeDbResponse = await dbConnection.query(
+    `INSERT INTO join_private_community_request (communityId, user_email, code)
+      VALUES (?, ?, ?)`,
+    [communityId, usersCredentials.email, code],
+  );
+
+  if (setResetCodeDbResponse.insertId) {
+    const acceptance_link =
+      // TODO change localhost to dev.frontend
+      'http://localhost:3000/join_private_community_request/' +
+      communityId + '/' +
+      usersCredentials.email +
+      '/' +
+      code;
+
+    // ################### END OF THE LINK STUFF ###################
+
+    const applicantEmailData = {
+      type: TYPE.JOIN_COMMUNITY_REQUEST,
+      receiver: usersCredentials.email,
+      receiverName: usersCredentials.name,
+      communityName: communityName.name,
+    };
+
+    const communityOwnerEmailData = {
+      type: TYPE.JOIN_COMMUNITY_REQUEST_ADMIN,
+      receiver: communityOwnerCredentials.email,
+      receiverName: communityOwnerCredentials.name,
+      communityName: communityName.name,
+      applicantEmail: usersCredentials.email,
+      link: acceptance_link,
+    };
+
+    //send emails
+    send(applicantEmailData);
+    send(communityOwnerEmailData);
+  }
+
+  return (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request WHERE code = ?`,
+      [code],
+    )
+  )[0];
+};
+
+/**
+ * Handles valid 'join private community' request. Deletes the request when done.
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<void>}
+ */
+export const handleValidJoinPrivateCommunityRequest = async (
+  _,
+  { userEmail, communityId },
+  { dbConnection },
+) => {
+
+  const userCredentials = (
+    await dbConnection.query(
+      `SELECT user_id, name FROM user WHERE email = ?`,
+      [userEmail],
+    )
+  )[0];
+
+  console.log("UC:", userCredentials)
+
+  const communityCredentials = (
+    await dbConnection.query(
+      `SELECT name FROM community WHERE community_id = ?`,
+      [communityId],
+    )
+  )[0];
+
+  console.log("CC:", communityCredentials)
+
+  const dbResponse = await dbConnection.query(
+    `INSERT INTO membership (role_id, community_id, user_id, accepted)
+    VALUES (?, ?, ?, ?);`,
+    [3, communityId, userCredentials.user_id, 1],
+  );
+
+  console.log('insert ID', dbResponse.insertId);
+
+  // deletes completed request from the DB
+  await dbConnection.query(
+    `DELETE FROM join_private_community_request WHERE user_email = ?`,
+    [userEmail],
+  );
+
+  const emailData = {
+    type: TYPE.JOIN_COMMUNITY_CONFIRM,
+    receiver: userEmail,
+    receiverName: userCredentials.name,
+    communityName: communityCredentials.name,
+  };
+
+  //send emails
+  send(emailData);
+
+  return (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request WHERE user_email = ?`,
+      [userEmail],
     )
   )[0];
 };

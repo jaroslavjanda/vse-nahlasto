@@ -13,6 +13,7 @@ export function CommunityDetailTemplate({
   isOwner,
   communityId,
   handleJoinCommunity,
+  handlePrivateCommunityJoinRequest,
   userId,
   communityOwnerId,
 }) {
@@ -55,14 +56,22 @@ export function CommunityDetailTemplate({
       {community.closed && !isMember && (
         <div>
           <Alert variant={'danger'}>
-            <div>Komunita {community.name} vyžaduje žádost o přístup.</div>
+            <div>Komunita {community.name} je soukromá. Pokud k ní chcete mít přístup, pošlete prosím žádost jejím administrátorům. Nejdříve se ale musíte přihlásit.</div>
           </Alert>
-          <Button
-            variant="danger"
-            onClick={() => toast.info('Požadavek byl odeslán.')}
-          >
-            Zažádat o přístup
-          </Button>
+          { userId !== 0 && (
+            <Button
+              variant="danger"
+
+              // TODO tady je onclick
+              onClick={() => {
+                handlePrivateCommunityJoinRequest({ variables: { userId, communityId} })
+              }}
+            >
+              Zažádat o přístup
+            </Button>
+          )
+          }
+
         </div>
       )}
 

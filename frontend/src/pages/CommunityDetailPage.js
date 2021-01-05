@@ -58,6 +58,14 @@ const JOIN_COMMUNITY_MUTATION = gql`
   }
 `
 
+const JOIN_PRIVATE_COMMUNITY_MUTATION = gql`
+  mutation  JoinPrivateCommunityRequest($userId: Int!, $communityId: Int!) {
+    joinPrivateCommunityRequest(userId: $userId, communityId: $communityId) {
+      communityId
+    }
+  }
+`;
+
 export const CommunityDetail = ({ match }) => {
   const [joinPublicCommunityRequest] = useMutation(JOIN_COMMUNITY_MUTATION, {
     onCompleted: () => {
@@ -66,7 +74,16 @@ export const CommunityDetail = ({ match }) => {
     },
     onError: () => {
     },
-  })
+  });
+
+  const [joinPrivateCommunityRequest] = useMutation(JOIN_PRIVATE_COMMUNITY_MUTATION, {
+    onCompleted: () => {
+      toast.info('Požadavek byl odeslán.')
+    },
+    onError: () => {
+      console.log("Error while performing request: ")
+    },
+  });
 
   const handleJoinCommunity = useCallback(
     (oldVariables) => {
@@ -78,6 +95,17 @@ export const CommunityDetail = ({ match }) => {
     },
     [joinPublicCommunityRequest],
   )
+
+  const handlePrivateCommunityJoinRequest = useCallback(
+    (oldVariables) => {
+      const variables = {
+        userId: oldVariables.variables.userId,
+        communityId: oldVariables.variables.communityId,
+      };
+      joinPrivateCommunityRequest({ variables });
+    },
+    [joinPublicCommunityRequest],
+  );
 
   let user = getDataFromLocalStorage()?.user;
   var userId = user ? parseInt(user.user_id) : undefined;
@@ -112,6 +140,7 @@ export const CommunityDetail = ({ match }) => {
               isMember={isMember}
               isOwner={isOwner}
               handleJoinCommunity={handleJoinCommunity}
+              handlePrivateCommunityJoinRequest={handlePrivateCommunityJoinRequest}
               communityId={communityId}
               userId={userId}
               communityOwnerId={state}
