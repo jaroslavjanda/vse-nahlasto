@@ -1,22 +1,15 @@
 import React from 'react';
-import { HeadingWithButtons } from 'src/organisms/';
+import { HeadingWithButtons, Tickets } from 'src/organisms/';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { random } from 'lodash';
 import { imgPathForTicket } from 'src/utils/imgPathForTickets';
 
 export function MyAddedTicketsTemplate({
-  usersTickets,
   tickets,
-  title,
-  isPublic,
+  title
 }) {
-  const history = useHistory();
-  return (
-    <Container>
-      <HeadingWithButtons header={title ? title : ''}></HeadingWithButtons>
-
-      <Row>
+  /**
         {tickets.map((tickets) => (
           <Col lg={isPublic ? 4 : 6} md={12}>
             <Card style={{ width: '100%' }} className="myTicket">
@@ -39,7 +32,16 @@ export function MyAddedTicketsTemplate({
               </Card.Body>
             </Card>
           </Col>
-        ))}
+        ))} */
+  const history = useHistory();
+  return (
+    <Container>
+      <HeadingWithButtons header={title ? title : ''}></HeadingWithButtons>
+
+      <Row>
+        <Tickets
+          tickets={tickets}
+        />
       </Row>
     </Container>
   );

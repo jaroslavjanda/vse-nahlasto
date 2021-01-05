@@ -102,9 +102,14 @@ export const communityTicket = async (
  * Returns tickets from logged user.
  */
 export const usersTickets = async (_, { userId }, { dbConnection }) => {
-  return await dbConnection.query(`SELECT * from ticket WHERE user_id = ?`, [
-    userId,
-  ]);
+  
+  return await dbConnection.query(`SELECT ticket.community_id, ticket.content, ticket.date, ticket.image, ticket.status_id, ticket.ticket_id, ticket.title, ticket.user_id, COUNT(like.ticket_id) likes_count 
+  FROM ticket 
+  LEFT JOIN membership ON ticket.community_id = membership.community_id 
+  LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
+  WHERE ticket.user_id = ?
+  GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+  [userId]);
 };
 
 /**
