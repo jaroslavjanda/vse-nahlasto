@@ -114,8 +114,6 @@ export const resetUserPassword = async (
 
   if (dbResponse) {
 
-    console.log('receiver email: ', email);
-
     const emailData = {
       type: TYPE.CHANGE_PASSWORD,
       receiver: email,
@@ -282,7 +280,8 @@ export const joinPrivateCommunityRequest = async (
   if (setResetCodeDbResponse.insertId) {
     const acceptance_link =
       // TODO change localhost to dev.frontend
-      'http://localhost:3000/join_private_community_request/' +
+      //'http://localhost:3000/join_private_community_request/' +
+      'http://dev.backend.team07.vse.handson.pro/join_private_community_request/' +
       communityId + '/' +
       usersCredentials.email +
       '/' +
@@ -340,8 +339,6 @@ export const handleValidJoinPrivateCommunityRequest = async (
     )
   )[0];
 
-  console.log("UC:", userCredentials)
-
   const communityCredentials = (
     await dbConnection.query(
       `SELECT name FROM community WHERE community_id = ?`,
@@ -349,15 +346,11 @@ export const handleValidJoinPrivateCommunityRequest = async (
     )
   )[0];
 
-  console.log("CC:", communityCredentials)
-
   const dbResponse = await dbConnection.query(
     `INSERT INTO membership (role_id, community_id, user_id, accepted)
     VALUES (?, ?, ?, ?);`,
     [3, communityId, userCredentials.user_id, 1],
   );
-
-  console.log('insert ID', dbResponse.insertId);
 
   // deletes completed request from the DB
   await dbConnection.query(
