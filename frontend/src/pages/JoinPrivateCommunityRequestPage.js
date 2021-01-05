@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { ErrorBanner, Loading, SuccessBanner } from '../atoms';
-import { useAuth } from '../utils/auth';
+import { useAuth } from 'src/utils/auth';
+
 
 const CODE_VALIDATION_QUERY = gql`
     query CodeValidation($communityId: Int!, $userEmail: String!, $code: Int!) {
@@ -19,24 +19,24 @@ const HANDLE_VALID_REQUEST_MUTATION = gql`
   }
 `;
 
-var isCodeValid = false
-
-function validateCode(codeValidation) {
-  if (codeValidation.data?.validateJoinCommunityRequestCode?.code === undefined) {
-    if (!codeValidation.loading) {
-      isCodeValid = false
-      return false
-    }
-  } else {
-    isCodeValid = true
-    return true
-  }
-}
-
 export function JoinPrivateCommunityRequestPage({ match }) {
 
-  const auth = useAuth();
-  auth.signout()
+  // FIXME signout immediately, do not load name into the top bar
+  const { signout } = useAuth();
+  signout();
+
+  function validateCode(codeValidation) {
+    if (codeValidation.data?.validateJoinCommunityRequestCode?.code === undefined) {
+      if (!codeValidation.loading) {
+        return false
+      }
+    } else {
+      // FIXME the mutation is called multiple times with errors (duplicated inserts) - why?
+      // use some hook ore something?
+      requestHandlingMutation({ variables: { userEmail, communityId } })
+      return true
+    }
+  }
 
   const communityId = parseInt(match.params.communityId)
   const userEmail = match.params.email.toString()
@@ -51,39 +51,25 @@ export function JoinPrivateCommunityRequestPage({ match }) {
     {
       onCompleted: () => {
         console.log("done")
-        return true
       },
       onError: (error) => {
-
         console.error(error)
-        return false
       },
     },
-  );
-
-  useEffect(() => {
-    console.log("effect used")
-    if(isCodeValid)
-      requestHandlingMutation({ variables: { userEmail, communityId } })
-    },
-    [isCodeValid],
   );
 
   return (
     <div className="mw6 center">
       {codeValidation.loading && <Loading />}
       {!codeValidation.loading && validateCode(codeValidation) && (
-          // handleRequestHandlingMutation
         <SuccessBanner title={'Požadavek byl potvrzen'} className="mb3">
           Uživatel { userEmail } byl přidán do komunity s ID { communityId }.
-          Z důvodu bezpečnosti jste byli odhlášeni.
         </SuccessBanner>
 
         )}
       {!codeValidation.loading && !validateCode(codeValidation) && (
         <ErrorBanner title="Neplatný odkaz.">
           Je nám líto, ale tento odkaz je neplatný.
-          Z důvodu bezpečnosti jste byli odhlášeni.
         </ErrorBanner>
       )
       }

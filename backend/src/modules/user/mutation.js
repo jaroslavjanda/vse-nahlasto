@@ -220,7 +220,7 @@ export const joinPublicCommunity = async (
   )[0];
 };
 /**
- *
+ * Creates request with code and sends emails with the unique link.
  * @param _
  * @param userId
  * @param communityId
@@ -333,17 +333,28 @@ export const handleValidJoinPrivateCommunityRequest = async (
   { dbConnection },
 ) => {
 
-  const userId = (
+  const userCredentials = (
     await dbConnection.query(
-      `SELECT user_id FROM user WHERE email = ?`,
+      `SELECT user_id, name FROM user WHERE email = ?`,
       [userEmail],
     )
-  )[0].user_id;
+  )[0];
+
+  console.log("UC:", userCredentials)
+
+  const communityCredentials = (
+    await dbConnection.query(
+      `SELECT name FROM community WHERE community_id = ?`,
+      [communityId],
+    )
+  )[0];
+
+  console.log("CC:", communityCredentials)
 
   const dbResponse = await dbConnection.query(
     `INSERT INTO membership (role_id, community_id, user_id, accepted)
     VALUES (?, ?, ?, ?);`,
-    [3, communityId, userId, 1],
+    [3, communityId, userCredentials.user_id, 1],
   );
 
   console.log('insert ID', dbResponse.insertId);
@@ -353,6 +364,16 @@ export const handleValidJoinPrivateCommunityRequest = async (
     `DELETE FROM join_private_community_request WHERE user_email = ?`,
     [userEmail],
   );
+
+  const emailData = {
+    type: TYPE.JOIN_COMMUNITY_CONFIRM,
+    receiver: userEmail,
+    receiverName: userCredentials.name,
+    communityName: communityCredentials.name,
+  };
+
+  //send emails
+  send(emailData);
 
   return (
     await dbConnection.query(
