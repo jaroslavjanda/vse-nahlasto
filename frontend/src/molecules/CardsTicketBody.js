@@ -16,7 +16,7 @@ export const CardsTicketBody = ({
                               like,
                               requestSendLike,
                               requestDelete,
-                              communityOwner,
+                              isOwner,
                               toCommunityButton,
                               toSolveButton,
                               handleResolveTicket
@@ -28,8 +28,6 @@ let cardHeader = item.status[0].status_id === 1? "ticketCardHeaderGreen":"ticket
 let user = getDataFromLocalStorage()?.user
 var userId = user ? parseInt(user.user_id) : undefined;
 if (userId === undefined) userId = 0;
-
-let isOwner = userId === communityOwner
 const history = useHistory()
 const [liked, setliked] = useState(like)
 const [enabled, setenabled] = useState(true)
@@ -49,7 +47,7 @@ return(
     <Card.Header className={cardHeader}>
       <CardsTicketHeader
         user={user}
-        communityOwner={communityOwner}
+        isOwner={isOwner}
         item={item}
         enabled={enabled}
         requestDelete={requestDelete}
@@ -109,162 +107,4 @@ return(
     </Card.Body>
   </Card>
 
-                              )
-
-  //if status is completed
-  if (item.status[0].status_id === 1) {
-    return (
-      <Card
-        className="ticketCardMaxSize"
-        style={{ width: '100%', border: '3px solid rgb(40 167 69)' }}
-        key={item.title}
-      >
-        <Card.Img
-          style={{ width: '100%' }}
-          src={imgPathForTicket('tickets', item.image)}
-          className="ticketImageNoBorders"
-        />
-        <Card.Header className="ticketCardHeaderGreen">
-          <CardsTicketHeader
-            user={user}
-            communityOwner={communityOwner}
-            item={item}
-            enabled={enabled}
-            requestDelete={requestDelete}
-            history={history}
-          />
-        </Card.Header>
-
-        <Card.Body>
-          <h3>{item.title}</h3>
-          <Card.Text>{item.content}</Card.Text>
-
-          <LikeLogic
-            className="mb-3"
-            item={item}
-            user={user}
-            enabled={enabled}
-            setliked={setliked}
-            setenabled={setenabled}
-            liked={liked}
-            requestSendLike={requestSendLike}
-          />
-
-          <TicketComment
-            ticket={item}
-          />        
-        </Card.Body>
-      </Card>
-    )
-  }
-  // if user is owner of the ticket 
-  else if (user && user.user_id === communityOwner) {
-    return (
-      <Card
-        className="ticketCardMaxSize"
-        style={{ width: '100%', border: '3px solid rgb(0 123 254)' }}
-        key={item.title}
-      >
-        <Card.Img
-          style={{ width: '100%' }}
-          src={imgPathForTicket('tickets', item.image)}
-          className="ticketImageNoBorders"
-        />
-        <Card.Header className="ticketCardHeaderBlue">
-          <CardsTicketHeader
-            user={user}
-            communityOwner={communityOwner}
-            item={item}
-            enabled={enabled}
-            requestDelete={requestDelete}
-            history={history}
-          />
-        </Card.Header>
-        <Card.Body>
-          <h3>{item.title}</h3>
-          <Card.Text>{item.content}</Card.Text>
-
-          <Col className="mb-3">
-              <Button
-                variant="success"
-                onClick={() => {
-                  console.log(item.ticket_id)
-
-                  let ticket_id = item.ticket_id
-
-                  console.log('item.ticket_id', ticket_id)
-
-                  handleResolveTicket({ variables: { ticket_id } })
-                }}
-              >
-                VYŘEŠIT PROBLÉM
-              </Button>
-              <LikeLogic
-                item={item}
-                user={user}
-                enabled={enabled}
-                setliked={setliked}
-                setenabled={setenabled}
-                liked={liked}
-                requestSendLike={requestSendLike}
-              />
-          </Col>
-
-          <TicketComment
-            user={user}
-            ticket={item}
-          />
-
-          <AddCommentForm
-            ticket={item}
-          />
-
-        </Card.Body>
-      </Card>
-    )
-  } else {
-    return (
-      <Card
-        className="ticketCardMaxSize"
-        style={{ width: '100%', border: '3px solid rgb(0 123 254)' }}
-        key={item.title}
-      >
-        <Card.Img
-          style={{ width: '100%' }}
-          src={imgPathForTicket('tickets', item.image)}
-          className="ticketImageNoBorders"
-        />
-        <Card.Header className="ticketCardHeaderBlue">
-          <CardsTicketHeader
-              user={user}
-              communityOwner={communityOwner}
-              item={item}
-              enabled={enabled}
-              requestDelete={requestDelete}
-              history={history}
-            />
-        </Card.Header>
-        <Card.Body>
-
-          <h3>{item.title}</h3>
-          <Card.Text>{item.content}</Card.Text>
-
-          <LikeLogic
-            className="mb-3"
-            item={item}
-            user={user}
-            enabled={enabled}
-            setliked={setliked}
-            setenabled={setenabled}
-            liked={liked}
-            requestSendLike={requestSendLike}
-          />
-
-          <TicketComment
-            ticket={item}
-          />
-        </Card.Body>
-      </Card>
-    )
-  }
-}
+)}

@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
-export const CardsTicketHeader = ({ user, communityOwner, item, enabled, requestDelete, history }) => {
+export const CardsTicketHeader = ({ user, isOwner, item, enabled, requestDelete, history }) => {
   return (
     <>
       <Col align="left">
         <Row className="card-header-items">
-        {user && user.user_id === communityOwner && (
+        {isOwner && (
             <Button variant="danger" className="btn-sm">
               <FontAwesomeIcon
                 icon={faTrashAlt}

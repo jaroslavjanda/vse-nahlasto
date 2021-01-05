@@ -30,7 +30,7 @@ const RESOLVE_TICKET_MUTATION = gql`
     }
   }
 `
-export function Tickets({ tickets, communityOwner, toCommunityButton, toSolveButton }) {
+export function Tickets({ tickets, isOwner, toCommunityButton, toSolveButton }) {
   const [likedRequest] = useMutation(LIKE_MUTATION);
   const [deleteRequest] = useMutation(DELETE_MUTATION);
   let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id);
@@ -59,20 +59,17 @@ export function Tickets({ tickets, communityOwner, toCommunityButton, toSolveBut
       <div>
         <CardColumns style={{ columnCount: '1' }}>
           {sortedTickets.map((item) => (
-            
             <CardsTicket
               key={item.ticket_id}
               item={item}
               like={item.likes[0].likes_count}
               requestSendLike={likedRequest}
               requestDelete={deleteRequest}
-              communityOwner={communityOwner}
+              isOwner={isOwner}
               toCommunityButton={toCommunityButton}
               toSolveButton={toSolveButton}
               handleResolveTicket={handleResolveTicket}
-            >
-              {console.log(item)}
-            </CardsTicket>
+            />
           ))}
         </CardColumns>
       </div>

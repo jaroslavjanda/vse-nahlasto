@@ -77,7 +77,7 @@ export function CommunityDetailTemplate({
           <br />
           <Tickets
             tickets={community.tickets}
-            communityOwner={communityOwnerId.data?.communityOwnerId}
+            isCommunity={isOwner}
           />
         </div>
       )}
