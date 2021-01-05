@@ -15,3 +15,25 @@
   max-width: 600px;
   margin-bottom: 30px !important;
 }
+
+.heart {
+  width: 100px;
+  height: 100px;
+  background: url(https://cssanimation.rocks/images/posts/steps/heart.png)
+    no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+}
+.heart-activate {
+  background-position: -2800px 0;
+  transition: background 1s steps(28);
+  animation: fave-heart 1s steps(28);
+}
+@keyframes fave-heart {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -2800px 0;
+  }
+}

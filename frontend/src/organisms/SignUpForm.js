@@ -20,7 +20,11 @@ const initialValues = {
 const schema = yup.object().shape({
   name: yup.string().required('Jméno je povinné.').label('Jméno'),
   surname: yup.string().required('Příjmení je povinné.').label('Příjmení'),
-  email: yup.string().email('Tohle není validní emailová adresa').required('Email je povinný.').label('Email'),
+  email: yup
+    .string()
+    .email('Tohle není validní emailová adresa')
+    .required('Email je povinný.')
+    .label('Email'),
   password: yup
     .string()
     .required('Heslo je povinné.')
@@ -115,7 +119,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
             type="submit"
             variant="success"
             size="lg"
-            style={{ margin:0, marginBottom: '10px' }}
+            style={{ margin: 0, marginBottom: '10px' }}
           >
             Registrovat se
           </Button>

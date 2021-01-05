@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { Badge, Button, Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import './CardsTicketStyle.css';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 import { imgPathForTicket } from 'src/utils/imgPathForTickets';
+import { LikeLogic } from './LikeLogic'
 
 const RESOLVE_TICKET_MUTATION = gql`
   mutation setTicketResolved($ticketId: Int!) {
@@ -24,7 +25,7 @@ export const CardsTicket = ({
   communityOwner,
 }) => {
   const [liked, setliked] = useState(like);
-  const [enabled, setenabled] = useState(true);
+  const [enabled, setenabled] = useState();
   let user = getDataFromLocalStorage()?.user;
 
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
@@ -103,37 +104,16 @@ export const CardsTicket = ({
           <h3>{item.title}</h3>
           <Card.Text>{item.content}</Card.Text>
 
-          <div
-            onClick={() => {
-              if (user) {
-                if (enabled) {
-                  setliked(liked + 1);
-                  setenabled(false);
-                  requestSendLike({
-                    variables: {
-                      ownerId: user.user_id,
-                      ticketId: item.ticket_id,
-                    },
-                  });
-                } else {
-                  setliked(liked - 1);
-                  setenabled(true);
-                  requestSendLike({
-                    variables: {
-                      ownerId: user.user_id,
-                      ticketId: item.ticket_id,
-                    },
-                  });
-                }
-              }
-            }}
-            className="btn"
-          >
-            <div style={{ display: 'flex' }}>
-              <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-              {liked}
-            </div>
-          </div>
+          <LikeLogic
+            user={user}
+            item={item}
+            enabled={enabled}
+            setliked={setliked}
+            liked={liked}
+            setenabled={setenabled}
+            requestSendLike={requestSendLike}
+          />
+
         </Card.Body>
       </Card>
     );
@@ -212,37 +192,16 @@ export const CardsTicket = ({
             </Col>
 
             <Col xs={2}>
-              <div
-                onClick={() => {
-                  if (user) {
-                    if (enabled) {
-                      setliked(liked + 1);
-                      setenabled(false);
-                      requestSendLike({
-                        variables: {
-                          ownerId: user.user_id,
-                          ticketId: item.ticket_id,
-                        },
-                      });
-                    } else {
-                      setliked(liked - 1);
-                      setenabled(true);
-                      requestSendLike({
-                        variables: {
-                          ownerId: user.user_id,
-                          ticketId: item.ticket_id,
-                        },
-                      });
-                    }
-                  }
-                }}
-                className="btn"
-              >
-                <div style={{ display: 'flex' }}>
-                  <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-                  {liked}
-                </div>
-              </div>
+              <LikeLogic
+                user={user}
+                item={item}
+                enabled={enabled}
+                setliked={setliked}
+                liked={liked}
+                setenabled={setenabled}
+                requestSendLike={requestSendLike}
+              />
+
             </Col>
           </Row>
         </Card.Body>
@@ -303,37 +262,16 @@ export const CardsTicket = ({
           <h3>{item.title}</h3>
           <Card.Text>{item.content}</Card.Text>
 
-          <div
-            onClick={() => {
-              if (user) {
-                if (enabled) {
-                  setliked(liked + 1);
-                  setenabled(false);
-                  requestSendLike({
-                    variables: {
-                      ownerId: user.user_id,
-                      ticketId: item.ticket_id,
-                    },
-                  });
-                } else {
-                  setliked(liked - 1);
-                  setenabled(true);
-                  requestSendLike({
-                    variables: {
-                      ownerId: user.user_id,
-                      ticketId: item.ticket_id,
-                    },
-                  });
-                }
-              }
-            }}
-            className="btn"
-          >
-            <div style={{ display: 'flex' }}>
-              <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-              {liked}
-            </div>
-          </div>
+          <LikeLogic
+            user={user}
+            item={item}
+            enabled={enabled}
+            setliked={setliked}
+            liked={liked}
+            setenabled={setenabled}
+            requestSendLike={requestSendLike}
+          />
+
         </Card.Body>
       </Card>
     );
