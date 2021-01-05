@@ -12,7 +12,11 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-  email: yup.string().email('Tohle není validní emailová adresa.').required('Email je povinný.').label('Email'),
+  email: yup
+    .string()
+    .email('Tohle není validní emailová adresa.')
+    .required('Email je povinný.')
+    .label('Email'),
   password: yup.string().required('Heslo je povinné.').label('Password'),
 });
 
@@ -58,7 +62,7 @@ export function SignInForm({
             type="submit"
             variant="success"
             size="lg"
-            style={{ margin:0, marginBottom: '10px' }}
+            style={{ margin: 0, marginBottom: '10px' }}
           >
             Přihlásit se
           </Button>

@@ -21,7 +21,7 @@ const USER_ACCESSIBLE_COMMUNITIES = gql`
 
 export const MemberOfCommunities = () => {
   let user = getDataFromLocalStorage()?.user;
-  var userId = user? parseInt(user.user_id):undefined;
+  var userId = user ? parseInt(user.user_id) : undefined;
   if (userId === undefined) userId = 0;
 
   const state = useQuery(USER_ACCESSIBLE_COMMUNITIES, {

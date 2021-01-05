@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { HeartWithNumber } from '../atoms/HeartWithNumber'
 import React from 'react'
 
-export const LikeLogic = ({ item, user, enabled, setliked, setenabled, liked, requestSendLike }) => {
+export const LikeLogic = ({ item, user, enabled, setliked, liked, setenabled, requestSendLike }) => {
   return (
     <div
       onClick={() => {
@@ -30,10 +29,12 @@ export const LikeLogic = ({ item, user, enabled, setliked, setenabled, liked, re
       }}
       className="btn"
     >
-      <div style={{ display: 'flex' }}>
-        <FontAwesomeIcon icon={faThumbsUp} className="mr2 f4" />
-        {liked}
-      </div>
+      <HeartWithNumber enabled={enabled} liked={liked} />
     </div>
   )
+
+
 }
+
+
+

@@ -21,7 +21,10 @@ export const addCommunity = async (
   // adds community to DB
   // TODO prevent creating communities with same name
   var img = image ? image : null;
-  const imgPath = (await singleUpload({"file":img, "type":DirType.COMMUNITY_UPLOAD_DIR}))
+  const imgPath = await singleUpload({
+    file: img,
+    type: DirType.COMMUNITY_UPLOAD_DIR,
+  });
   const dbResponse = await dbConnection.query(
     `INSERT INTO community (name, description, image, closed)
     VALUES (?, ?, ?, ?);`,
@@ -53,7 +56,20 @@ export const addCommunity = async (
       ])
     )[0];
 
-    send(email, TYPE.ADD_COMMUNITY_CONFIRMATION);
+    const userName = (
+      await dbConnection.query(`SELECT name FROM user WHERE user_id = ?`, [
+        ownerId,
+      ])
+    )[0];
+
+    const emailData = {
+      type: TYPE.ADD_COMMUNITY_CONFIRMATION,
+      receiver: email,
+      communityName: name,
+      receiverName: userName
+    };
+
+    send(emailData);
 
     return community;
   }

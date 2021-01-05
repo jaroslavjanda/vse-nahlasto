@@ -21,9 +21,9 @@ const COMMUNITY_USER_OWNS = gql`
 
 export const OwnerOfCommunities = () => {
   let user = getDataFromLocalStorage()?.user;
-  var userId = user? parseInt(user.user_id):undefined;
+  var userId = user ? parseInt(user.user_id) : undefined;
   if (userId === undefined) userId = 0;
-  
+
   const state = useQuery(COMMUNITY_USER_OWNS, {
     variables: { userId },
   });

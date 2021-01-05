@@ -75,7 +75,7 @@ export const CommunityDetail = ({ match }) => {
   )
 
   let user = getDataFromLocalStorage()?.user;
-  var userId = user? parseInt(user.user_id):undefined;
+  var userId = user ? parseInt(user.user_id) : undefined;
   if (userId === undefined) userId = 0;
 
   const communityId = parseInt(match.params.communityId)

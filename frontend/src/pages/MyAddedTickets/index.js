@@ -22,9 +22,9 @@ const USERS_TICKETS = gql`
 
 export const MyAddedTickets = () => {
   let user = getDataFromLocalStorage()?.user;
-  var userId = user? parseInt(user.user_id):undefined;
+  var userId = user ? parseInt(user.user_id) : undefined;
   if (userId === undefined) userId = 0;
-  
+
   const state = useQuery(USERS_TICKETS, {
     variables: { userId },
   });

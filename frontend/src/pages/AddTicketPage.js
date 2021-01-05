@@ -57,7 +57,7 @@ export const AddTicket = ({ match }) => {
       };
       addTicketRequest({ variables });
     },
-    [addTicketRequest]
+    [addTicketRequest],
   );
 
   return (
