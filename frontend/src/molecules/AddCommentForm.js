@@ -76,7 +76,6 @@ export function AddCommentForm({ ticket }) {
     >
       <Form>
         <FormikTextArea
-          style={{ marginLeft: '40px' }}
           id="content"
           name="content"
           type="textArea"
