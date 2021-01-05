@@ -25,8 +25,6 @@ export const CardsTicketBody = ({
 let cardBorder = item.status[0].status_id === 1? '3px solid rgb(40 167 69)':'3px solid rgb(0 123 254)'
 let cardHeader = item.status[0].status_id === 1? "ticketCardHeaderGreen":"ticketCardHeaderBlue"
 let user = getDataFromLocalStorage()?.user
-var userId = user ? parseInt(user.user_id) : undefined;
-if (userId === undefined) userId = 0;
 const history = useHistory()
 const [liked, setliked] = useState(like)
 const [enabled, setenabled] = useState(true)
@@ -80,7 +78,7 @@ return(
         </Button>
       </Col>
       )} 
-      {toSolveButton && (
+      {(toSolveButton && isOwner && item.status[0].status_id != 1)  && (
       <Col className="mb-3">
         <Button
           variant="success"
@@ -93,12 +91,10 @@ return(
         </Button>
       </Col>
       )} 
-
       <TicketComment
         ticket={item}
-        user={user}
       />  
-      {isOwner && (
+      {(isOwner && item.status[0].status_id != 1) && (
         <AddCommentForm
           ticket={item}
         /> 
