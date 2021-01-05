@@ -6,12 +6,9 @@
  */
 export const tickets = async (_, __, { dbConnection }) => {
   const tickets = await dbConnection.query(
-    `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
-    COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+    `SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
     FROM ticket 
-    LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-    LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-    GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+    ORDER BY ticket.date desc`,
   );
 
   return tickets;
@@ -25,13 +22,10 @@ export const tickets = async (_, __, { dbConnection }) => {
  */
 export const ticket = async (_, { ticketId }, { dbConnection }) => {
   const tickets = await dbConnection.query(
-    `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
-    COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+    `SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
     FROM ticket 
-    LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-    LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-    WHERE ticket.ticket_id = ?
-    GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+    WHERE ticket_id = ?
+    ORDER BY ticket.date desc
     `,
     [ticketId],
   );
@@ -51,13 +45,9 @@ export const communityTickets = async (
   { dbConnection },
 ) => {
   const tickets = await dbConnection.query(
-    `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id, 
-    COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
+    `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id 
     FROM ticket 
-    LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-    LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-    WHERE community_id = ? 
-    GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+    WHERE community_id = ?
     ORDER BY ticket.date desc
     `,
     [communityId],
@@ -80,13 +70,10 @@ export const communityTicket = async (
 ) => {
   const ticket = (
     await dbConnection.query(
-      `SELECT ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id,  ticket.user_id, community_id, 
-    COUNT(like.ticket_id) likes_count, COUNT(comment.ticket_id) comments_count 
-    FROM ticket 
-    LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-    LEFT JOIN comment on ticket.ticket_id = comment.ticket_id
-    WHERE community_id = ? AND ticket.ticket_id = ?
-    GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+      `SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+      FROM ticket 
+      WHERE community_id = ? AND ticket_id = ?
+      ORDER BY ticket.date desc
     `,
       [ticketId, communityId],
     )
@@ -103,12 +90,11 @@ export const communityTicket = async (
  */
 export const usersTickets = async (_, { userId }, { dbConnection }) => {
   
-  return await dbConnection.query(`SELECT ticket.community_id, ticket.content, ticket.date, ticket.image, ticket.status_id, ticket.ticket_id, ticket.title, ticket.user_id, COUNT(like.ticket_id) likes_count 
-  FROM ticket 
-  LEFT JOIN membership ON ticket.community_id = membership.community_id 
-  LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-  WHERE ticket.user_id = ?
-  GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+  return await dbConnection.query(
+    ` SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
+      FROM ticket 
+      WHERE user_id = ?
+      ORDER BY ticket.date desc`,
   [userId]);
 };
 
@@ -138,12 +124,11 @@ export const ticketFromCommunitiesIAmAdminIn = async (
  */
 export const ticketsToResolve = async (_, { userId }, { dbConnection }) => {
   const ticketsToResolve = await dbConnection.query(
-    `SELECT ticket.community_id, ticket.content, ticket.date, ticket.image, ticket.status_id, ticket.ticket_id, ticket.title, ticket.user_id, COUNT(like.ticket_id) likes_count 
-    FROM ticket 
-    LEFT JOIN membership ON ticket.community_id = membership.community_id 
-    LEFT JOIN \`like\` on ticket.ticket_id = like.ticket_id 
-    WHERE membership.user_id = ? AND (membership.role_id = 1 OR membership.role_id = 2) AND status_id = 3 
-    GROUP BY ticket.ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id`,
+    ` SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, ticket.community_id
+      FROM ticket
+      LEFT JOIN membership ON ticket.community_id = membership.community_id  
+      WHERE membership.user_id = ? AND (membership.role_id = 1 OR membership.role_id = 2) AND status_id = 3 
+      ORDER BY ticket.date desc`,
     [userId],
   );
   return ticketsToResolve;

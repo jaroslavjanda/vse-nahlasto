@@ -25,8 +25,6 @@ const COMMUNITY_DETAIL_QUERY = gql`
         ticket_id
         title
         content
-        likes_count
-        comment_count
         image
         status_id
         community_id
@@ -39,6 +37,13 @@ const COMMUNITY_DETAIL_QUERY = gql`
           status
           status_id
           code_class
+        }
+        likes{
+          ticket_id
+          likes_count
+          likes_users{
+            user_id
+          }
         }
       }
     }

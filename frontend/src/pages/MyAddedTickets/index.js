@@ -23,8 +23,14 @@ const USERS_TICKETS = gql`
         comment_id
         content
       }
+      likes{
+        ticket_id
+        likes_count
+        likes_users{
+          user_id
+        }
+      }
       community_id
-      likes_count
       content
       date
     }

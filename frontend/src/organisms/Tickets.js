@@ -59,17 +59,20 @@ export function Tickets({ tickets, communityOwner, toCommunityButton, toSolveBut
       <div>
         <CardColumns style={{ columnCount: '1' }}>
           {sortedTickets.map((item) => (
+            
             <CardsTicket
               key={item.ticket_id}
               item={item}
-              like={item.likes_count}
+              like={item.likes[0].likes_count}
               requestSendLike={likedRequest}
               requestDelete={deleteRequest}
               communityOwner={communityOwner}
               toCommunityButton={toCommunityButton}
               toSolveButton={toSolveButton}
               handleResolveTicket={handleResolveTicket}
-            />
+            >
+              {console.log(item)}
+            </CardsTicket>
           ))}
         </CardColumns>
       </div>
