@@ -56,18 +56,22 @@ export function CommunityDetailTemplate({
       {community.closed && !isMember && (
         <div>
           <Alert variant={'danger'}>
-            <div>Komunita {community.name} je soukromá. Pokud k ní chcete mít přístup, pošlete prosím žádost jejím administrátorům.</div>
+            <div>Komunita {community.name} je soukromá. Pokud k ní chcete mít přístup, pošlete prosím žádost jejím administrátorům. Nejdříve se ale musíte přihlásit.</div>
           </Alert>
-          <Button
-            variant="danger"
+          { userId !== 0 && (
+            <Button
+              variant="danger"
 
-            // TODO tady je onclick
-            onClick={() => {
-              handlePrivateCommunityJoinRequest({ variables: { userId, communityId} })
-            }}
-          >
-            Zažádat o přístup
-          </Button>
+              // TODO tady je onclick
+              onClick={() => {
+                handlePrivateCommunityJoinRequest({ variables: { userId, communityId} })
+              }}
+            >
+              Zažádat o přístup
+            </Button>
+          )
+          }
+
         </div>
       )}
 
