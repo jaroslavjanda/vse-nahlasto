@@ -17,7 +17,6 @@ export const CommunitiesTemplate = ({
   const history = useHistory();
   return (
     <Container>
-      {console.log(communities)}
       <HeadingWithButtons header={title ? title : ''}>
         <>
           {!isPublic && (

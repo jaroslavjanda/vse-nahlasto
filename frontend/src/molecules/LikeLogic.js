@@ -32,8 +32,6 @@ export const LikeLogic = ({ item, user, enabled, setliked, liked, setenabled, re
       <HeartWithNumber enabled={enabled} liked={liked} />
     </div>
   )
-
-
 }
 
 
