@@ -24,9 +24,11 @@ import { PageNotFound } from './pages/PageNotFound';
 
 // Components
 import { TopNavigation } from './organisms';
+import { JoinPrivateCommunityRequestPage } from './pages/JoinPrivateCommunityRequestPage';
 
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
+const joinPrivateCommunityRequest = () => ':communityId/:email/:code';
 const ticketDetail = () => `/ticket-detail/:ticketId`;
 
 export const route = {
@@ -38,6 +40,7 @@ export const route = {
   forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
+  joinPrivateCommunityRequest: () => `/join_private_community_request/${joinPrivateCommunityRequest()}`,
   communityDetailRaw: () => '/community-detail',
   addTicket: () => `${communityDetail()}/add`,
   editCommunity: () => `${communityDetail()}/edit_community`,
@@ -68,6 +71,11 @@ export function Routes() {
           path={route.forgottenPassword()}
           exact
           component={ForgottenPasswordPage}
+        />
+        <Route
+          path={route.joinPrivateCommunityRequest()}
+          exact
+          component={JoinPrivateCommunityRequestPage}
         />
         <Route path={route.addCommunity()} exact component={AddCommunityPage} />
         <Route

@@ -297,7 +297,7 @@ export const joinPrivateCommunity = async (
 
     const acceptance_link =
       // TODO change localhost to dev.frontend
-      'http://localhost:3000/join_community_request/' +
+      'http://localhost:3000/join_private_community_request/' +
       communityId + '/' +
       usersCredentials.email +
       '/' +
