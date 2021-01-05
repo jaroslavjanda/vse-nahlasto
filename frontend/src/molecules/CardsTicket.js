@@ -122,9 +122,7 @@ export const CardsTicket = ({
           <h3>{item.title}</h3>
           <Card.Text>{item.content}</Card.Text>
 
-          <Row className="mb-3">
-            <Col xs={2}></Col>
-            <Col xs={8}>
+          <Col className="mb-3">
               <Button
                 variant="success"
                 onClick={() => {
@@ -139,9 +137,6 @@ export const CardsTicket = ({
               >
                 VYŘEŠIT PROBLÉM
               </Button>
-            </Col>
-
-            <Col xs={2}>
               <LikeLogic
                 item={item}
                 user={user}
@@ -151,8 +146,7 @@ export const CardsTicket = ({
                 liked={liked}
                 requestSendLike={requestSendLike}
               />
-            </Col>
-          </Row>
+          </Col>
 
           <TicketComment
             user={user}
