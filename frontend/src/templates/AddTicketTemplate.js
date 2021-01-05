@@ -6,8 +6,7 @@ import { AddTicketForm } from '../organisms/AddTicketForm';
 export function AddTicketTemplate({
   isDone,
   error,
-  onSubmit,
-  handleFileUpload,
+  onSubmit
 }) {
   // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {

@@ -280,8 +280,8 @@ export const joinPrivateCommunityRequest = async (
   if (setResetCodeDbResponse.insertId) {
     const acceptance_link =
       // TODO change localhost to dev.frontend
-      //'http://localhost:3000/join_private_community_request/' +
-      'http://dev.backend.team07.vse.handson.pro/join_private_community_request/' +
+      'http://localhost:3000/join_private_community_request/' +
+      //'http://frontend.team07.vse.handson.pro/join_private_community_request/' +
       communityId + '/' +
       usersCredentials.email +
       '/' +

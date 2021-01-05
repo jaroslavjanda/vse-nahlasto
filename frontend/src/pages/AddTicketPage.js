@@ -52,7 +52,7 @@ export const AddTicket = ({ match }) => {
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: oldVariables.file,
+        image: oldVariables.file? oldVariables.file: null,
         status: 3,
       };
       addTicketRequest({ variables });
