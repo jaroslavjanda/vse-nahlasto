@@ -11,7 +11,7 @@ export const PreviewType = {
 export const CommunityPreview = ({
   communities,
   previewType,
-  isPublic = false,
+  isPublic,
 }) => {
   return (
     <div className="news">

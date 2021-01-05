@@ -21,8 +21,9 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'src/templates/Homepage.css';
+import 'src/molecules/CommunityPreview/styles.css';
 
-export function HomeTemplate({ communitiesHomepage, isMember }) {
+export function HomeTemplate({ communitiesHomepage }) {
   return (
     <>
       <Jumbotron className="cover" style={{ marginTop: '-5rem' }}>
@@ -136,7 +137,6 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
             <Container>
               <CommunityCardsHomepage
                 communitiesHomepage={communitiesHomepage}
-                isMember={isMember}
               />
             </Container>
           </>
