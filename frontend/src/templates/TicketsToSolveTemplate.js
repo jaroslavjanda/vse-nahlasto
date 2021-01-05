@@ -11,6 +11,7 @@ export function TicketsToSolveTemplate({ tickets, title, userOwner }) {
         <Tickets
             tickets={tickets}
             communityOwner={userOwner}
+            toSolveButton={true}
           />
       </Row>
     </Container>

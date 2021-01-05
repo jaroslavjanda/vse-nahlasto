@@ -1,9 +1,9 @@
 .ticketCardHeaderGreen {
-  background-color: #28a745;
+  background-color: #28a745 !important;
 }
 
 .ticketCardHeaderBlue {
-  background-color: #007bff;
+  background-color: #007bff !important;
 }
 
 .ticketImageNoBorders {

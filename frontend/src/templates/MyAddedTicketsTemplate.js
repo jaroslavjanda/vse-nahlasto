@@ -9,30 +9,6 @@ export function MyAddedTicketsTemplate({
   tickets,
   title
 }) {
-  /**
-        {tickets.map((tickets) => (
-          <Col lg={isPublic ? 4 : 6} md={12}>
-            <Card style={{ width: '100%' }} className="myTicket">
-              <Card.Img
-                variant="top"
-                src={imgPathForTicket('tickets', tickets.image)}
-              />
-              <Card.Body>
-                <h3>{tickets.title}</h3>
-                <Card.Text>{tickets.content}</Card.Text>
-                <div>👍 {random(15)}</div>
-                <Button
-                  variant="success"
-                  onClick={() =>
-                    history.push(`/community-detail/${tickets.community_id}`)
-                  }
-                >
-                  Do komunity
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))} */
   const history = useHistory();
   return (
     <Container>
@@ -41,6 +17,7 @@ export function MyAddedTicketsTemplate({
       <Row>
         <Tickets
           tickets={tickets}
+          toCommunityButton={true}
         />
       </Row>
     </Container>
