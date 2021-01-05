@@ -1,13 +1,7 @@
-import { Form } from 'react-bootstrap'
-import { Button } from '../atoms'
-import React, { useCallback } from 'react'
-
-import { Formik } from 'formik'
-import { FormikTextArea } from './FormikTextArea'
-import * as yup from 'yup'
 import { gql, useMutation } from '@apollo/client'
 import { getDataFromLocalStorage } from '../utils/localStorage'
-
+import React, { useCallback } from 'react'
+import { AddCommentForm } from '../molecules'
 
 const ADD_COMMENT_MUTATION = gql`
   mutation AddComment(
@@ -25,9 +19,9 @@ const ADD_COMMENT_MUTATION = gql`
   }
 `
 
-export function AddCommentForm({ ticket }) {
+export const AddCommentTemplate = ({ ticket }) => {
 
-  let user = getDataFromLocalStorage()?.user;
+  const { user } = getDataFromLocalStorage()
 
   const initialValues = { content: '' }
 
@@ -54,43 +48,18 @@ export function AddCommentForm({ ticket }) {
         comment_id: ticket.ticket_id,
         content: oldVariables.variables.content,
       }
+
       console.log(variables)
+
       resolveAddCommentRequest({ variables })
-    
     },
     [resolveAddCommentRequest],
   )
 
-
-  const schema = yup.object().shape({
-    content: yup.string().required('Vlož komentář.').label('Komentář'),
-  })
-
   return (
-    <Formik
+    <AddCommentForm
       onSubmit={handleAddComment}
       initialValues={initialValues}
-      validateOnBlur={false}
-      validationSchema={schema}
-    >
-      <Form>
-        <FormikTextArea
-          id="content"
-          name="content"
-          type="textArea"
-          placeholder="Vlož komentář"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
-        <Button
-          style={{ float: 'middle' }}
-          type="submit"
-          className="mt2 mb3"
-        >
-          PŘIDAT KOMENTÁŘ
-        </Button>
-      </Form>
-    </Formik>
+    />
   )
 }

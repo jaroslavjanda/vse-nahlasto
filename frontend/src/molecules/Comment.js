@@ -1,7 +1,7 @@
-import { Col, Row } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import { Col, Row } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import React from 'react'
 
 export const Comment = ({ comments }) => {
   return (
@@ -12,15 +12,19 @@ export const Comment = ({ comments }) => {
             <Col style={{ textAlign: 'left', maxWidth: '25px' }}>
               <FontAwesomeIcon icon={faUserCircle} />
             </Col>
-            <Col style={{ textAlign: 'left' }}>
-              <p className="mb-2" style={{ fontWeight: 'bold' }}>
+
+            <Col className='ml-3' style={{ textAlign: 'left' }}>
+              <Row style={{ fontWeight: 'bold' }}>
                 {item.user[0].name} {item.user[0].surname}
-              </p>
-              <p>{item.content}</p>
+              </Row>
+              <Row style={{ fontSize: 'small', color: 'grey' }}>
+                {item.date}
+              </Row>
+              <Row className="mt-2 mb-3">{item.content}</Row>
             </Col>
           </Row>
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

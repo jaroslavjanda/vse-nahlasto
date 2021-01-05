@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate';
 import { getDataFromLocalStorage } from './../../utils/localStorage';
 import { ErrorType } from '../../utils/Error';
@@ -14,23 +14,25 @@ const TICKETS_TO_RESOLVE = gql`
       image
       content
       user_id
-      status_id
+      status{
+        status
+        status_id
+        code_class
+      }
+      comments {
+        comment_id
+        content
+      }
+      likes{
+        ticket_id
+        likes_count
+        likes_users{
+          user_id
+        }
+      }
       community_id
-      likes_count
       content
       date
-    }
-  }
-`;
-
-const DELETE_MUTATION = gql`
-  mutation deleteTicket($userId: Int!, $communityId: Int!, $ticketId: Int!) {
-    deleteTicket(
-      userId: $userId
-      communityId: $communityId
-      ticketId: $ticketId
-    ) {
-      ticket_id
     }
   }
 `;
@@ -45,18 +47,6 @@ export const TicketsToSolve = () => {
   });
   const tickets = state.data?.ticketsToResolve;
 
-  const [deleteRequest] = useMutation(DELETE_MUTATION);
-
-  //TODO delete
-  /*
-  const [tickets, setTickets] = useState(null);
-  useEffect(() => {
-    if (!quacksState.loading && quacksState.data != undefined) {
-      const data = quacksState.data.ticketsToResolve;
-      setTickets(data);
-    }
-  }, [quacksState]);
-  */
   return (
     <div style={{ textAlign: 'center' }}>
       {state.loading && <Loading />}
@@ -71,7 +61,7 @@ export const TicketsToSolve = () => {
             <TicketsToSolveTemplate
               tickets={tickets}
               title={'Příspěvky k vyřešení'}
-              requestDelete={deleteRequest}
+              userOwner={userId}
             />
           )}
         </>

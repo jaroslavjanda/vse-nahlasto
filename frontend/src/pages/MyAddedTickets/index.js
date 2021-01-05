@@ -14,8 +14,25 @@ const USERS_TICKETS = gql`
       image
       content
       user_id
-      status_id
+      status{
+        status
+        status_id
+        code_class
+      }
+      comments {
+        comment_id
+        content
+      }
+      likes{
+        ticket_id
+        likes_count
+        likes_users{
+          user_id
+        }
+      }
       community_id
+      content
+      date
     }
   }
 `;
