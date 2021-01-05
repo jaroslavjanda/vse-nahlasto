@@ -67,7 +67,7 @@ export const signup = async (
 
   if (dbResponse.insertId) {
 
-    console.log("receiver email: ", email)
+    console.log('receiver email: ', email);
 
     const emailData = {
       type: TYPE.REGISTRATION,
@@ -109,17 +109,17 @@ export const resetUserPassword = async (
 
   const userName = await dbConnection.query(
     'SELECT userName FROM user WhERE email = ?',
-    [email]
-  )
+    [email],
+  );
 
   if (dbResponse) {
 
-    console.log("receiver email: ", email)
+    console.log('receiver email: ', email);
 
     const emailData = {
       type: TYPE.CHANGE_PASSWORD,
       receiver: email,
-      receiverName: userName
+      receiverName: userName,
     };
 
     //send email
@@ -172,14 +172,14 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
 
     const userName = await dbConnection.query(
       'SELECT userName FROM user WhERE email = ?',
-      [email]
-    )
+      [email],
+    );
 
     const emailData = {
       type: TYPE.SEND_LINK_TO_CHANGE_PASSWORD,
       receiver: email,
       receiverName: userName,
-      link: link
+      link: link,
     };
 
     send(emailData);
@@ -233,51 +233,99 @@ export const joinPrivateCommunity = async (
   { dbConnection },
 ) => {
 
+  console.log("step 1");
+
   const usersCredentials = (await dbConnection.query(
     'SELECT name, email FROM user WHERE user_id = ?',
-    [userId]
-  ))[0]
+    [userId],
+  ))[0];
 
   const communityName = (await dbConnection.query(
     'SELECT name FROM community WHERE community_id = ?',
-    [communityId]
-  ))[0]
+    [communityId],
+  ))[0];
 
   // TODO roles can be 1 and 2, but more than 1 email should be sent then - we do not use role 2 for now
   const communityOwnerId = (await dbConnection.query(
     'SELECT user_id FROM `membership` WHERE community_id = ? AND role_id = 1',
-    [communityId]
-  ))[0].user_id
+    [communityId],
+  ))[0].user_id;
 
   const communityOwnerCredentials = (await dbConnection.query(
     'SELECT name, email FROM `user` WHERE user_id = ?',
-    [communityOwnerId]
-  ))[0]
+    [communityOwnerId],
+  ))[0];
 
-  const acceptance_link = "www.seznam.cz"
+  console.log("step 2");
 
-  const applicantEmailData = {
-    type: TYPE.JOIN_COMMUNITY_REQUEST,
-    receiver: usersCredentials.email,
-    receiverName: usersCredentials.name,
-    communityName: communityName.name,
-  };
+  // ################### LINK STUFF ###################
+  // 1. check if the request is first, if not, delete the previous one
+  const uniqueCheckDbResponse = (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request WHERE user_email = ?`,
+      [usersCredentials.email],
+    )
+  )[0];
 
-  const communityOwnerEmailData = {
-    type: TYPE.JOIN_COMMUNITY_REQUEST_ADMIN,
-    receiver: communityOwnerCredentials.email,
-    receiverName: communityOwnerCredentials.name,
-    communityName: communityName.name,
-    applicantEmail: usersCredentials.email,
-    link: acceptance_link
-  };
+  console.log("step 3");
 
-  //send emails
-  send(applicantEmailData);
-  send(communityOwnerEmailData);
+  if (uniqueCheckDbResponse) {
+    await dbConnection.query(
+      `DELETE FROM join_private_community_request WHERE user_email = ?`,
+      [usersCredentials.email],
+    );
+  }
 
+  console.log("step 4");
 
+  // 2. create random code
+  const code = random(99999999);
 
-  console.log(usersCredentials , communityOwnerId, communityOwnerCredentials)
-  console.log("This is a message that request can be sent.", usersCredentials.email, usersCredentials.name, communityName.name)
+  console.log("step 4.5");
+
+  // 3. insert email $ code into DB table 'forgotten'
+  const setResetCodeDbResponse = await dbConnection.query(
+    `INSERT INTO join_private_community_request (communityId, user_email, code)
+      VALUES (?, ?, ?)`,
+    [communityId, usersCredentials.email, code],
+  );
+
+  console.log("step 5");
+
+  if (setResetCodeDbResponse.insertId) {
+    console.log("step 6");
+
+    const acceptance_link =
+      // TODO change localhost to dev.frontend
+      'http://localhost:3000/join_community_request/' +
+      communityId + '/' +
+      usersCredentials.email +
+      '/' +
+      code;
+
+    // ################### END OF THE LINK STUFF ###################
+
+    const applicantEmailData = {
+      type: TYPE.JOIN_COMMUNITY_REQUEST,
+      receiver: usersCredentials.email,
+      receiverName: usersCredentials.name,
+      communityName: communityName.name,
+    };
+
+    const communityOwnerEmailData = {
+      type: TYPE.JOIN_COMMUNITY_REQUEST_ADMIN,
+      receiver: communityOwnerCredentials.email,
+      receiverName: communityOwnerCredentials.name,
+      communityName: communityName.name,
+      applicantEmail: usersCredentials.email,
+      link: acceptance_link,
+    };
+
+    //send emails
+    send(applicantEmailData);
+    send(communityOwnerEmailData);
+
+    console.log(usersCredentials, communityOwnerId, communityOwnerCredentials);
+    console.log('This is a message that request can be sent.', usersCredentials.email, usersCredentials.name, communityName.name);
+  }
 };
