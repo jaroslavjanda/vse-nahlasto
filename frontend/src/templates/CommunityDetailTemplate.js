@@ -1,4 +1,3 @@
-import { HeadingWithButtons } from 'src/organisms/';
 import { Alert, Button, Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -17,6 +16,7 @@ export function CommunityDetailTemplate({
   userId,
   communityOwnerId,
 }) {
+  console.log()
   return (
     <Container>
       {(!community.closed || isMember) && (

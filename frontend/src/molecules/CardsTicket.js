@@ -43,7 +43,6 @@ export const CardsTicket = ({
       const variables = {
         ticketId: oldVariables.variables.ticket_id,
       }
-
       resolveTicketRequest({ variables })
     },
     [resolveTicketRequest],
@@ -75,7 +74,6 @@ export const CardsTicket = ({
         </Card.Header>
 
         <Card.Body>
-
           <h3>{item.title}</h3>
           <Card.Text>{item.content}</Card.Text>
 
@@ -92,7 +90,7 @@ export const CardsTicket = ({
 
           <TicketComment
             ticket={item}
-          />
+          />        
         </Card.Body>
       </Card>
     )
@@ -174,13 +172,13 @@ export const CardsTicket = ({
         />
         <Card.Header className="ticketCardHeaderBlue">
           <CardsTicketHeader
-            user={user}
-            communityOwner={communityOwner}
-            item={item}
-            enabled={enabled}
-            requestDelete={requestDelete}
-            history={history}
-          />
+              user={user}
+              communityOwner={communityOwner}
+              item={item}
+              enabled={enabled}
+              requestDelete={requestDelete}
+              history={history}
+            />
         </Card.Header>
         <Card.Body>
 

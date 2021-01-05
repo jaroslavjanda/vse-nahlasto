@@ -102,8 +102,8 @@ export const TicketDetail = ({ match }) => {
               <Container className="mt-4">
                 <UserImageAndName />
                 <AddCommentForm
-                  ticket_id={1}
-                  user_id={77}
+                  ticket_id={ticketId}
+                  user_id={communityOwner}
                   onSubmit={handleAddCommentFormSubmit}
                   isLoading={addCommentRequestState.loading}
                   error={addCommentRequestState.error}

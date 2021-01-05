@@ -5,10 +5,10 @@ import React from 'react'
 
 export const CardsTicketHeader = ({ user, communityOwner, item, enabled, requestDelete, history }) => {
   return (
-    <Row>
+    <>
       <Col align="left">
         <Row className="card-header-items">
-          {user && user.user_id === communityOwner && (
+        {user && user.user_id === communityOwner && (
             <Button variant="danger" className="btn-sm">
               <FontAwesomeIcon
                 icon={faTrashAlt}
@@ -40,6 +40,6 @@ export const CardsTicketHeader = ({ user, communityOwner, item, enabled, request
           </Col>
         </Row>
       </Col>
-    </Row>
+    </>
   )
 }
