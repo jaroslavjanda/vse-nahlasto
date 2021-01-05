@@ -54,9 +54,9 @@ const JOIN_COMMUNITY_MUTATION = gql`
 `;
 
 const JOIN_PRIVATE_COMMUNITY_MUTATION = gql`
-  mutation  JoinPrivateCommunity($userId: Int!, $communityId: Int!) {
-    joinPrivateCommunity(userId: $userId, communityId: $communityId) {
-      community_id
+  mutation  JoinPrivateCommunityRequest($userId: Int!, $communityId: Int!) {
+    joinPrivateCommunityRequest(userId: $userId, communityId: $communityId) {
+      communityId
     }
   }
 `;

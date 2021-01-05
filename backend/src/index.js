@@ -74,6 +74,12 @@ const typeDefs = gql`
     user_email: String!
     code: Int!
   }
+  
+  type JoinPrivateCommunityRequest {
+    communityId: Int!
+    applicant_email: String!
+    code: Int!
+  }
 
   type AuthUser {
     name: String!
@@ -113,6 +119,7 @@ const typeDefs = gql`
     comment(commentId: Int!): [Comment!]
     ticketComment(ticketId: Int!): [Comment!]
     ticketFromCommunitiesIAmAdminIn(userId: Int!): [Ticket]
+    validateJoinCommunityRequestCode(communityId: Int!, applicant_email: String!, code: Int!): JoinPrivateCommunityRequest
   }
 
   type Mutation {
@@ -160,10 +167,11 @@ const typeDefs = gql`
 
     joinPublicCommunity(userId: Int!, communityId: Int!): Community
 
-#    TODO this is the same as that one above - can it be united?
-    joinPrivateCommunity(userId: Int!, communityId: Int!): Community
+    joinPrivateCommunityRequest(userId: Int!, communityId: Int!): JoinPrivateCommunityRequest
 
     setTicketResolved(ticketId: Int!): Ticket
+
+    handleValidJoinPrivateCommunityRequest(userEmail: String!, communityId: Int!): JoinPrivateCommunityRequest
   }
 `;
 

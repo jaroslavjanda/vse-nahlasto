@@ -1,29 +1,92 @@
-import React from 'react';
-import { Button } from 'src/atoms';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { ErrorBanner, Loading, SuccessBanner } from '../atoms';
+import { useAuth } from '../utils/auth';
+
+const CODE_VALIDATION_QUERY = gql`
+    query CodeValidation($communityId: Int!, $userEmail: String!, $code: Int!) {
+      validateJoinCommunityRequestCode(communityId: $communityId, applicant_email: $userEmail, code: $code) {
+        code
+      }
+    }
+`
+
+const HANDLE_VALID_REQUEST_MUTATION = gql`
+  mutation HandleValidRequestMutation($userEmail: String!, $communityId: Int!) {
+    handleValidJoinPrivateCommunityRequest(userEmail: $userEmail, communityId: $communityId) {
+      communityId
+    }
+  }
+`;
+
+var isCodeValid = false
+
+function validateCode(codeValidation) {
+  if (codeValidation.data?.validateJoinCommunityRequestCode?.code === undefined) {
+    if (!codeValidation.loading) {
+      isCodeValid = false
+      return false
+    }
+  } else {
+    isCodeValid = true
+    return true
+  }
+}
 
 export function JoinPrivateCommunityRequestPage({ match }) {
 
+  const auth = useAuth();
+  auth.signout()
+
   const communityId = parseInt(match.params.communityId)
-  const userEmail = match.params.email
+  const userEmail = match.params.email.toString()
   const code = parseInt(match.params.code)
 
+  const codeValidation = useQuery(CODE_VALIDATION_QUERY, {
+    variables: { communityId, userEmail, code }
+  })
 
-  // TODO 1: overit ze code je stale validni, pokud ne, neukazat stranku s potvrzovacim tlacitkem
-  // TODO 2: admin komunity by mel byt na teto strance automaticky prihlasen
-  // TODO 3: mutace na potvrzeni pozadavku
-  // TODO 4: hezci FE
+  const [requestHandlingMutation] = useMutation(
+    HANDLE_VALID_REQUEST_MUTATION,
+    {
+      onCompleted: () => {
+        console.log("done")
+        return true
+      },
+      onError: (error) => {
+
+        console.error(error)
+        return false
+      },
+    },
+  );
+
+  useEffect(() => {
+    console.log("effect used")
+    if(isCodeValid)
+      requestHandlingMutation({ variables: { userEmail, communityId } })
+    },
+    [isCodeValid],
+  );
 
   return (
     <div className="mw6 center">
-      <div>
-        Kliknutím na tlačítko níže povrdíte přístup uživateli k Vaší privátní komunitě.
-        ID komunity: { communityId },
-        user email: { userEmail },
-        code: { code }
-      </div>
-      <Button type="submit" className="mt2 mb3">
-        Potvrdit žádost
-      </Button>
+      {codeValidation.loading && <Loading />}
+      {!codeValidation.loading && validateCode(codeValidation) && (
+          // handleRequestHandlingMutation
+        <SuccessBanner title={'Požadavek byl potvrzen'} className="mb3">
+          Uživatel { userEmail } byl přidán do komunity s ID { communityId }.
+          Z důvodu bezpečnosti jste byli odhlášeni.
+        </SuccessBanner>
+
+        )}
+      {!codeValidation.loading && !validateCode(codeValidation) && (
+        <ErrorBanner title="Neplatný odkaz.">
+          Je nám líto, ale tento odkaz je neplatný.
+          Z důvodu bezpečnosti jste byli odhlášeni.
+        </ErrorBanner>
+      )
+      }
     </div>
   );
 }

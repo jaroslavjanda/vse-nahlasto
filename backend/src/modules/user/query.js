@@ -56,3 +56,35 @@ export const changePasswordRequest = async (
   }
   return request;
 };
+
+/**
+ * Checks if there is an 'join private community' request with these credentials
+ * and returns it when there is one.
+ * @param _
+ * @param communityId
+ * @param applicant_email
+ * @param code
+ * @param dbConnection
+ * @returns {Promise<null|*>}
+ */
+export const validateJoinCommunityRequestCode = async (
+  _,
+  { communityId, applicant_email, code },
+  { dbConnection },
+) => {
+  const request = (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request 
+      WHERE communityId = ? 
+      AND user_email = ? 
+      AND code = ?`,
+      [communityId, applicant_email, code],
+    )
+  )[0];
+
+  //if user do not exist
+  if (!request) {
+    return null;
+  }
+  return request;
+};

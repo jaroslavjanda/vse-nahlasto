@@ -227,14 +227,11 @@ export const joinPublicCommunity = async (
  * @param dbConnection
  * @returns {Promise<*>}
  */
-export const joinPrivateCommunity = async (
+export const joinPrivateCommunityRequest = async (
   _,
   { userId, communityId },
   { dbConnection },
 ) => {
-
-  console.log("step 1");
-
   const usersCredentials = (await dbConnection.query(
     'SELECT name, email FROM user WHERE user_id = ?',
     [userId],
@@ -256,8 +253,6 @@ export const joinPrivateCommunity = async (
     [communityOwnerId],
   ))[0];
 
-  console.log("step 2");
-
   // ################### LINK STUFF ###################
   // 1. check if the request is first, if not, delete the previous one
   const uniqueCheckDbResponse = (
@@ -267,8 +262,6 @@ export const joinPrivateCommunity = async (
     )
   )[0];
 
-  console.log("step 3");
-
   if (uniqueCheckDbResponse) {
     await dbConnection.query(
       `DELETE FROM join_private_community_request WHERE user_email = ?`,
@@ -276,12 +269,8 @@ export const joinPrivateCommunity = async (
     );
   }
 
-  console.log("step 4");
-
   // 2. create random code
   const code = random(99999999);
-
-  console.log("step 4.5");
 
   // 3. insert email $ code into DB table 'forgotten'
   const setResetCodeDbResponse = await dbConnection.query(
@@ -290,11 +279,7 @@ export const joinPrivateCommunity = async (
     [communityId, usersCredentials.email, code],
   );
 
-  console.log("step 5");
-
   if (setResetCodeDbResponse.insertId) {
-    console.log("step 6");
-
     const acceptance_link =
       // TODO change localhost to dev.frontend
       'http://localhost:3000/join_private_community_request/' +
@@ -324,8 +309,55 @@ export const joinPrivateCommunity = async (
     //send emails
     send(applicantEmailData);
     send(communityOwnerEmailData);
-
-    console.log(usersCredentials, communityOwnerId, communityOwnerCredentials);
-    console.log('This is a message that request can be sent.', usersCredentials.email, usersCredentials.name, communityName.name);
   }
+
+  return (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request WHERE code = ?`,
+      [code],
+    )
+  )[0];
+};
+
+/**
+ * Handles valid 'join private community' request. Deletes the request when done.
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<void>}
+ */
+export const handleValidJoinPrivateCommunityRequest = async (
+  _,
+  { userEmail, communityId },
+  { dbConnection },
+) => {
+
+  const userId = (
+    await dbConnection.query(
+      `SELECT user_id FROM user WHERE email = ?`,
+      [userEmail],
+    )
+  )[0].user_id;
+
+  const dbResponse = await dbConnection.query(
+    `INSERT INTO membership (role_id, community_id, user_id, accepted)
+    VALUES (?, ?, ?, ?);`,
+    [3, communityId, userId, 1],
+  );
+
+  console.log('insert ID', dbResponse.insertId);
+
+  // deletes completed request from the DB
+  await dbConnection.query(
+    `DELETE FROM join_private_community_request WHERE user_email = ?`,
+    [userEmail],
+  );
+
+  return (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request WHERE user_email = ?`,
+      [userEmail],
+    )
+  )[0];
 };
