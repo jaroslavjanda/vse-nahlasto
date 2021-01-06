@@ -27,7 +27,7 @@ import {
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(
+  const [isAuthenticated, setisauthenticated] = useState(
     localStorage.getItem('quacker-auth'),
   );
   const [isShown, setIsShown] = useState(true);
@@ -75,9 +75,9 @@ export const TopNavigation = ({ children }) => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item
-                      as={Link}
-                      exact
-                      to={route.forgottenPassword()}
+                      onClick={() => {
+                        history.push(route.forgottenPassword());
+                      }}
                     >
                       Změna hesla
                     </Dropdown.Item>
@@ -113,7 +113,7 @@ export const TopNavigation = ({ children }) => {
       </Navbar>
       {!isAuthenticated && (
         <div
-          setIsAuthenticated={setIsAuthenticated}
+          //setisauthenticated={setisauthenticated}
           className="startPageMarginTop"
         >
           {children}{' '}

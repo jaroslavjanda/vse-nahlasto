@@ -7,7 +7,6 @@ import mobile from 'src/images/mobile.jpg';
 import testimonial from 'src/images/testimonial1.jpg';
 import testimonial2 from 'src/images/testimonial2.jpg';
 import { CommunityCardsHomepage } from 'src/molecules/';
-import { useHistory } from 'react-router-dom';
 import { route } from 'src/Routes';
 
 import {
@@ -22,9 +21,9 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'src/templates/Homepage.css';
+import 'src/molecules/CommunityPreview/styles.css';
 
-export function HomeTemplate({ communitiesHomepage, isMember }) {
-  const history = useHistory();
+export function HomeTemplate({ communitiesHomepage }) {
   return (
     <>
       <Jumbotron className="cover" style={{ marginTop: '-5rem' }}>
@@ -130,7 +129,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
           </Row>
         </Container>
       </Jumbotron>
-
+      
       <Jumbotron className="jumbotronWhite">
         {communitiesHomepage && (
           <>
@@ -138,7 +137,6 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
             <Container>
               <CommunityCardsHomepage
                 communitiesHomepage={communitiesHomepage}
-                isMember={isMember}
               />
             </Container>
           </>
@@ -195,7 +193,6 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
           </CardDeck>
         </Container>
       </Jumbotron>
-
       <Jumbotron className="jumbotronWhite">
         <h2>Ceník</h2>
         <CardDeck className="">
@@ -206,12 +203,10 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                  <Card.Text>
                     <ul style={{ listStyle: 'none' }}>
                       <li>5 uživatelů</li>
                       <li>účet správce</li>
                     </ul>
-                  </Card.Text>
                   <div className="text-center">
                     <Card.Title>
                       <h3>0 €</h3>
@@ -235,12 +230,10 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                  <Card.Text>
                     <ul className="list-unstyled">
                       <li>25 uživatelů</li>
                       <li>účet správce</li>
                     </ul>
-                  </Card.Text>
                   <Card.Title>
                     <h3>8 €</h3>
                   </Card.Title>
@@ -262,11 +255,9 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                  <Card.Text>
                     <ul className="list-unstyled">
                       <li>dle domluvy</li>
                     </ul>
-                  </Card.Text>
                   <Card.Title>
                     <h3>20 €</h3>
                   </Card.Title>
@@ -283,7 +274,7 @@ export function HomeTemplate({ communitiesHomepage, isMember }) {
           </Card>
         </CardDeck>
       </Jumbotron>
-
+      
       <Jumbotron className="jumbotronBlue">
         <Container>
           <div className="text-center">

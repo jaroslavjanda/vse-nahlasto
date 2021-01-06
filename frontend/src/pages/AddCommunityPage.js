@@ -48,12 +48,10 @@ export const AddCommunityPage = () => {
       const variables = {
         name: oldVariables.name,
         description: oldVariables.description,
-        image: oldVariables.file,
+        image: oldVariables.file? oldVariables.file: null,
         owner_id: oldVariables.owner_id,
         closed: oldVariables.closed,
       };
-      console.log(variables);
-
       addCommunityRequest({ variables });
     },
     [addCommunityRequest],

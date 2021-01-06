@@ -7,7 +7,8 @@ import { imgPathForTicket } from 'src/utils/imgPathForTickets';
 
 export function MyAddedTicketsTemplate({
   tickets,
-  title
+  title,
+  isOwner
 }) {
   const history = useHistory();
   return (
@@ -18,6 +19,7 @@ export function MyAddedTicketsTemplate({
         <Tickets
           tickets={tickets}
           toCommunityButton={true}
+          isOwner={isOwner}
         />
       </Row>
     </Container>
