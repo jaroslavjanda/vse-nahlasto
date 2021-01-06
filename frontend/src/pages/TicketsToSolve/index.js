@@ -57,13 +57,20 @@ export const TicketsToSolve = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {tickets && (
-            <TicketsToSolveTemplate
-              tickets={tickets}
-              title={'Příspěvky k vyřešení'}
-              userOwner={userId}
-            />
-          )}
+          
+    {tickets.length ? (
+        <TicketsToSolveTemplate
+          tickets={tickets}
+          title={'Příspěvky k vyřešení'}
+          userOwner={userId}
+        />
+    ) : (
+       <TicketsToSolveTemplate
+          tickets={tickets}
+          title={'Žádné přípěvky k vyřešení'}
+          userOwner={userId}
+      />
+    )}     
         </>
       )}
     </div>
