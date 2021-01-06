@@ -1,19 +1,15 @@
-import React from 'react';
-import { HeadingWithButtons, Tickets } from 'src/organisms/';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-import { random } from 'lodash';
-import { imgPathForTicket } from 'src/utils/imgPathForTickets';
+import React from 'react'
+import { HeadingWithButtons, Tickets } from 'src/organisms/'
+import { Container, Row } from 'react-bootstrap'
 
 export function MyAddedTicketsTemplate({
-  tickets,
-  title,
-  isOwner
-}) {
-  const history = useHistory();
+                                         tickets,
+                                         title,
+                                         isOwner,
+                                       }) {
   return (
     <Container>
-      <HeadingWithButtons header={title ? title : ''}></HeadingWithButtons>
+      <HeadingWithButtons header={title ? title : ''} />
 
       <Row>
         <Tickets
@@ -23,5 +19,5 @@ export function MyAddedTicketsTemplate({
         />
       </Row>
     </Container>
-  );
+  )
 }
