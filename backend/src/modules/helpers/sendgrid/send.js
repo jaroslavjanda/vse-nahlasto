@@ -22,7 +22,7 @@ export function send(emailData) {
     JOIN_COMMUNITY_REQUEST: 'd-62001517260f44edb11df44033ef63b8',
     JOIN_COMMUNITY_REQUEST_ADMIN: 'd-c5f4c90180c146a8ba3b53c9e41516bc',
     JOIN_COMMUNITY_CONFIRM: 'd-f116656350a44091878c57cce7346de3',
-    RESOLVE_TICKET:''
+    RESOLVE_TICKET:'d-dd214182e74147e384cb27e6bc02d3be'
   };
   console.log("receiverName: ", emailData.receiverName, "communityName", emailData.communityName, "link", emailData.link)
 
