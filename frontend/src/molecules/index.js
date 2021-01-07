@@ -9,3 +9,4 @@ export { CommunityCardsHomepage } from './CommunityCardsHomepage';
 export { CardsTicketHeader } from './CardsTicketHeader';
 export { CardsTicketBody } from './CardsTicketBody';
 export { LikeLogic } from './LikeLogic';
+export { SideMenu } from './SideMenu';

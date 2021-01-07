@@ -153,10 +153,6 @@ li:before {
 /* END - Terms of service */
 
 @media screen and (max-width: 900px) {
-  .nav-item a {
-    justify-content: center;
-    text-align: center;
-  }
   .container-image {
     overflow: none;
     position: relative;
