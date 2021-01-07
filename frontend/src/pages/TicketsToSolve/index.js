@@ -1,10 +1,11 @@
-import React from 'react'
-import { gql, useQuery } from '@apollo/client'
-import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate'
-import { getDataFromLocalStorage } from '../../utils/localStorage'
-import { ErrorType } from '../../utils/Error'
-import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton'
-import { Loading } from '../../atoms'
+import React from 'react';
+import { useQuery, gql } from '@apollo/client';
+import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate';
+import { getDataFromLocalStorage } from './../../utils/localStorage';
+import { ErrorType } from '../../utils/Error';
+import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
+import { Loading } from '../../atoms';
+import { Alert } from 'react-bootstrap';
 
 const TICKETS_TO_RESOLVE = gql`
   query TicketsToResolve($userId: Int!) {
@@ -58,13 +59,19 @@ export const TicketsToSolve = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {tickets && (
-            <TicketsToSolveTemplate
-              tickets={tickets}
-              title={'Příspěvky k vyřešení'}
-              isOwner={true}
-            />
-          )}
+    {tickets.length ? (
+        <TicketsToSolveTemplate
+          tickets={tickets}
+          title={'Příspěvky k vyřešení'}
+          isOwner={true}
+        />
+    ) : (
+       <div>   
+         <Alert variant={'success'}>
+         Máš vyřešené všechny příspěvky &#9745;
+       </Alert>     
+      </div>
+    )} 
         </>
       )}
     </div>

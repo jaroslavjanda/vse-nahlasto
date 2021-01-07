@@ -1,4 +1,4 @@
-import fsPromises from 'fs';
+import fsPromises from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
 import { resolverDIR } from '../../constants';
@@ -19,7 +19,7 @@ export const singleUpload = async (args) => {
     var year = d.getFullYear();
     const fullDate = year + '-' + month + '-' + date;
     const type = resolverDIR(args.type);
-    fsPromises.mkdir(path.join(type, fullDate), { recursive: true }, (err) => {
+    await fsPromises.mkdir(path.join(type, fullDate), { recursive: true }, (err) => {
       if (err) {
         console.log(err);
       }

@@ -6,9 +6,9 @@ export function HeadingWithButtons({ header, children }) {
   return (
     <Container fluid className="container-header">
       <Row margin="50px">
-        <Col align="left">
-          <h1>{header}</h1>
-        </Col>
+        <div text-align="center">
+          <h1 text-align="center">{header}</h1>
+        </div>
         <Col align="right">{children}</Col>
       </Row>
     </Container>

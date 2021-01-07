@@ -25,8 +25,8 @@ const ADD_COMMENT_MUTATION = gql`
 
 export function AddCommentForm({ ticket, onCommentSuccess }) {
 
+  let user = getDataFromLocalStorage()?.user
   const [formKey, setFormKey] = useState(0)
-
   const initialValues = { content: '' }
 
   const [resolveAddCommentRequest] = useMutation(
