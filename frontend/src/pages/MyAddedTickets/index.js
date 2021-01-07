@@ -5,6 +5,7 @@ import { getDataFromLocalStorage } from './../../utils/localStorage';
 import { ErrorType } from '../../utils/Error';
 import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
 import { Loading } from '../../atoms';
+import { Alert } from 'react-bootstrap';
 
 const USERS_TICKETS = gql`
   query UsersTickets($userId: Int!) {
@@ -65,11 +66,17 @@ export const MyAddedTickets = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {tickets && (
+         {tickets.length ? (
             <MyAddedTicketsTemplate
               tickets={tickets}
               title={'Vložené příspěvky'}
             />
+            ) : (
+              <div>   
+                <Alert variant={'success'}>
+                Zatím jsi nepřidal žádný příspěvek 💬
+              </Alert>     
+             </div>
           )}
         </>
       )}
