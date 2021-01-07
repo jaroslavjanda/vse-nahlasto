@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from 'src/utils/auth';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 
@@ -26,15 +26,28 @@ import {
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
+  const location = useLocation();
   const [isAuthenticated, setisauthenticated] = useState(
     localStorage.getItem('quacker-auth'),
   );
   const [isShown, setIsShown] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   let user = getDataFromLocalStorage()?.user;
+
+  useEffect(() => {
+    setIsShown(false);
+    setExpanded(false);
+  }, [location]);
 
   return (
     <>
-      <Navbar expand="lg" bg="dark" variant="dark">
+      <Navbar
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        expanded={expanded}
+        onToggle={() => setExpanded(!expanded)}
+      >
         <Navbar.Brand>
           <Link to={route.home()}>
             <img
