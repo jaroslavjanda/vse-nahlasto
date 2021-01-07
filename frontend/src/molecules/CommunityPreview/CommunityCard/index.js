@@ -13,7 +13,9 @@ export const CommunityCard = ({ community, previewType }) => {
       case PreviewType.Member:
         return <Button variant="primary">Otevřít</Button>;
       case PreviewType.Basic:
-        <Button variant="primary">Připojit se</Button>;
+        return <Button variant="primary">Připojit se</Button>;
+      default:
+        break;
     }
   };
   return (

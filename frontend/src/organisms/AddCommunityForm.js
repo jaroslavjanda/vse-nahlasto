@@ -67,7 +67,6 @@ export function AddCommunityForm({
             type="checkbox"
             id="closed"
             name="closed"
-            className={'form-check-input'}
             className="pl-5 mr-2"
           />
           <label htmlFor="closed" className="form-check-label">

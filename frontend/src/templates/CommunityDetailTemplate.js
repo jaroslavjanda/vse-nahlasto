@@ -1,5 +1,4 @@
 import { Alert, Button, Container } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +19,7 @@ export function CommunityDetailTemplate({
     <Container>
       {(!community.closed || isMember) && (
         <div className="container-image">
-          <img src={imgPath('tickets', community.image)} />
+          <img src={imgPath('tickets', community.image)} alt="ticket" />
           <div className="centered-image">
             <h1>{community.name}</h1>
             <div>{community.description}</div>

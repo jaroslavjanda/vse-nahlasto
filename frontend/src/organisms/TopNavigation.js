@@ -6,7 +6,6 @@ import { getDataFromLocalStorage } from '../utils/localStorage';
 import { Link, NavLink } from 'src/atoms';
 import { Button, Col, Dropdown, Nav, Navbar, Row } from 'react-bootstrap';
 import { AdminBackground, AdminWrapper } from './styled';
-import PrivateStyledLink from './privateStyledLink';
 
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
@@ -113,7 +112,7 @@ export const TopNavigation = ({ children }) => {
       </Navbar>
       {!isAuthenticated && (
         <div
-          //setisauthenticated={setisauthenticated}
+          setisauthenticated={setisauthenticated}
           className="startPageMarginTop"
         >
           {children}{' '}
@@ -144,7 +143,7 @@ export const TopNavigation = ({ children }) => {
                 </Row>
                 <Row id="admin-menu" className={'menuContent'}>
                   <Col>
-                    <PrivateStyledLink
+                    <NavLink
                       exact
                       activeClassName="active-admin"
                       to={route.admin()}
@@ -156,13 +155,13 @@ export const TopNavigation = ({ children }) => {
                       <span className={`${isShown ? 'notVisibleText' : ''}`}>
                         Nástěnka
                       </span>
-                    </PrivateStyledLink>
+                    </NavLink>
 
                     <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
                       Uživatel
                     </div>
 
-                    <PrivateStyledLink
+                    <NavLink
                       exact
                       activeClassName="active-admin"
                       to={route.adminAllCommunities()}
@@ -174,8 +173,8 @@ export const TopNavigation = ({ children }) => {
                       <span className={`${isShown ? 'notVisibleText' : ''}`}>
                         Výpis komunit
                       </span>
-                    </PrivateStyledLink>
-                    <PrivateStyledLink
+                    </NavLink>
+                    <NavLink
                       exact
                       activeClassName="active-admin"
                       to={route.adminMemberOfCommunities()}
@@ -187,8 +186,8 @@ export const TopNavigation = ({ children }) => {
                       <span className={`${isShown ? 'notVisibleText' : ''}`}>
                         Členství v komunitách
                       </span>
-                    </PrivateStyledLink>
-                    <PrivateStyledLink
+                    </NavLink>
+                    <NavLink
                       exact
                       activeClassName="active-admin"
                       to={route.myAddedTickets()}
@@ -200,11 +199,11 @@ export const TopNavigation = ({ children }) => {
                       <span className={`${isShown ? 'notVisibleText' : ''}`}>
                         Vložené příspěvky
                       </span>
-                    </PrivateStyledLink>
+                    </NavLink>
                     <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
                       Správce
                     </div>
-                    <PrivateStyledLink
+                    <NavLink
                       exact
                       activeClassName="active-admin"
                       to={route.adminOwnerOfCommunities()}
@@ -216,8 +215,8 @@ export const TopNavigation = ({ children }) => {
                       <span className={`${isShown ? 'notVisibleText' : ''}`}>
                         Moje komunity
                       </span>
-                    </PrivateStyledLink>
-                    <PrivateStyledLink
+                    </NavLink>
+                    <NavLink
                       exact
                       activeClassName="active-admin"
                       to={route.ticketsToSolve()}
@@ -229,7 +228,7 @@ export const TopNavigation = ({ children }) => {
                       <span className={`${isShown ? 'notVisibleText' : ''}`}>
                         Příspěvky na vyřešení
                       </span>
-                    </PrivateStyledLink>
+                    </NavLink>
                   </Col>
                 </Row>
               </Col>

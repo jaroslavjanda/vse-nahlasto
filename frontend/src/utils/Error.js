@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const ErrorType = {
   LOAD_DATA_FAILED: 'LOAD_DATA_FAILED',
   SENDING_FAILED: 'SENDING_FAILED',
