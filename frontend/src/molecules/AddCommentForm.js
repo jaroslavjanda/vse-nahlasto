@@ -26,7 +26,7 @@ const ADD_COMMENT_MUTATION = gql`
 `
 
 export function AddCommentForm({ ticket }) {
-
+  let user = getDataFromLocalStorage()?.user;
   const initialValues = { content: '' }
 
   const [resolveAddCommentRequest] = useMutation(
@@ -41,21 +41,20 @@ export function AddCommentForm({ ticket }) {
       },
     },
   )
-
+    
+  const {ticket_id} = ticket.ticket_id
   const handleAddComment = useCallback(
     (oldVariables) => {
-      let user = getDataFromLocalStorage()?.user;
       const variables = {
         user_id: user.user_id,
-        comment_id: ticket.ticket_id,
+        comment_id: ticket_id,
         content: oldVariables.variables.content,
       }
       resolveAddCommentRequest({ variables })
     
     },
-    [resolveAddCommentRequest],
+    [resolveAddCommentRequest, ticket_id, user],
   )
-
 
   const schema = yup.object().shape({
     content: yup.string().required('Vlož komentář.').label('Komentář'),

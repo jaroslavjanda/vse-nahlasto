@@ -13,18 +13,20 @@ import { singleUpload } from '../upload/mutation';
 import { DirType } from '../../constants';
 export const addTicket = async (
   _,
-  { user_id, title, image, community_id, content, status_id },
+  { user_id, title, image, community_id, content, status_id, email },
   { dbConnection },
 ) => {
   var img = image=!null? image : null;
+
   const imgPath = await singleUpload({
     file: img,
     type: DirType.TICKET_UPLOAD_DIR,
   });
+
   const dbResponse = await dbConnection.query(
-    `INSERT INTO ticket (user_id, title, image, community_id, content, status_id)
-    VALUES (?, ?, ?, ?, ?, ?);`,
-    [user_id, title, imgPath, community_id, content, status_id],
+    `INSERT INTO ticket (user_id, title, image, community_id, content, status_id, anonym_email)
+    VALUES (?, ?, ?, ?, ?, ?, ?);`,
+    [user_id, title, imgPath, community_id, content, status_id, email],
   );
 
   const ticket = (
