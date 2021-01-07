@@ -14,10 +14,8 @@ export function CommunityDetailTemplate({
   communityId,
   handleJoinCommunity,
   handlePrivateCommunityJoinRequest,
-  userId,
-  communityOwnerId,
+  userId
 }) {
-  console.log()
   return (
     <Container>
       {(!community.closed || isMember) && (
@@ -86,7 +84,7 @@ export function CommunityDetailTemplate({
           <br />
           <Tickets
             tickets={community.tickets}
-            isCommunity={isOwner}
+            isOwner={isOwner}
           />
         </div>
       )}

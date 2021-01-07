@@ -143,7 +143,6 @@ export const CommunityDetail = ({ match }) => {
               handlePrivateCommunityJoinRequest={handlePrivateCommunityJoinRequest}
               communityId={communityId}
               userId={userId}
-              communityOwnerId={state}
             />
           )}
         </div>

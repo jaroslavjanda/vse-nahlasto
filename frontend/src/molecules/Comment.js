@@ -15,7 +15,7 @@ export const Comment = ({ comments }) => {
 
             <Col className='ml-3' style={{ textAlign: 'left' }}>
               <Row style={{ fontWeight: 'bold' }}>
-                {item.user[0].name} {item.user[0].surname}
+                {item.user[0].name} {item.user[0].surname} (správce komunity)
               </Row>
               <Row style={{ fontSize: 'small', color: 'grey' }}>
                 {item.date}

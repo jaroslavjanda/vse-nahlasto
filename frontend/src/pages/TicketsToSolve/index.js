@@ -37,6 +37,7 @@ const TICKETS_TO_RESOLVE = gql`
   }
 `;
 
+
 export const TicketsToSolve = () => {
   let user = getDataFromLocalStorage()?.user;
   var userId = user ? parseInt(user.user_id) : undefined;
@@ -57,20 +58,13 @@ export const TicketsToSolve = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          
-    {tickets.length ? (
-        <TicketsToSolveTemplate
-          tickets={tickets}
-          title={'Příspěvky k vyřešení'}
-          userOwner={userId}
-        />
-    ) : (
-       <TicketsToSolveTemplate
-          tickets={tickets}
-          title={'Žádné přípěvky k vyřešení'}
-          userOwner={userId}
-      />
-    )}     
+          {tickets && (
+            <TicketsToSolveTemplate
+              tickets={tickets}
+              title={'Příspěvky k vyřešení'}
+              isOwner={true}
+            />
+          )}
         </>
       )}
     </div>

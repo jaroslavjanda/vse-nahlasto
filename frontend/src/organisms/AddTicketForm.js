@@ -23,7 +23,6 @@ export function AddTicketForm({
     email: '',
     showEmail: !user,
   }
-  //TODO překlad - "is a required field", jak přeložit
   const schema = yup.object().shape({
     content: yup.string().required('Obsah je povinný.').label('Popis'),
     title: yup.string().required('Název je povinný.').label('Název'),

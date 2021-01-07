@@ -16,7 +16,7 @@ export const addTicket = async (
   { user_id, title, image, community_id, content, status_id },
   { dbConnection },
 ) => {
-  var img = image ? image : null;
+  var img = image=!null? image : null;
   const imgPath = await singleUpload({
     file: img,
     type: DirType.TICKET_UPLOAD_DIR,

@@ -12,7 +12,7 @@ import { random } from 'lodash';
  */
 export const singleUpload = async (args) => {
   var pathImage = '';
-  if (args != undefined) {
+  if (args.file != null) {
     const d = new Date();
     var date = d.getDate();
     var month = d.getMonth() + 1;

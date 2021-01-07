@@ -3,16 +3,15 @@ import { HeadingWithButtons, Tickets } from 'src/organisms/'
 import { Container, Row } from 'react-bootstrap'
 import 'src/molecules/styles.css'
 
-export function TicketsToSolveTemplate({ tickets, title, userOwner }) {
+export function TicketsToSolveTemplate({ tickets, title, isOwner }) {
   return (
     <Container>
-      <HeadingWithButtons header={title ? title : ''}></HeadingWithButtons>
+      <HeadingWithButtons header={title ? title : ''} />
       <Row>
         <Tickets
-            tickets={tickets}
-            communityOwner={userOwner}
-            toSolveButton={true}
-          />
+          tickets={tickets}
+          isOwner={isOwner}
+        />
       </Row>
     </Container>
   )
