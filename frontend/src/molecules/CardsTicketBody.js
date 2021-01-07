@@ -7,7 +7,6 @@ import { imgPathForTicket } from 'src/utils/imgPathForTickets'
 import { CardsTicketHeader } from './CardsTicketHeader'
 import { LikeLogic } from './LikeLogic'
 import { TicketComment } from './TicketComment'
-import { AddCommentForm } from './AddCommentForm'
 
 
 export const CardsTicketBody = ({
@@ -79,23 +78,23 @@ export const CardsTicketBody = ({
             </Button>
           </Col>
         )}
+        <TicketComment
+          ticket={item}
+          canUserResolveOrComment={canUserResolveOrComment}
+        />
         {canUserResolveOrComment && (
           <Col className="mb-3">
             <Button
-              variant="success"
+              className="resolveTicketButton"
               onClick={() => {
-                let ticket_id = item.ticket_id
-                handleResolveTicket({ variables: { ticket_id } })
-              }}
+              let ticket_id = item.ticket_id
+              handleResolveTicket({ variables: { ticket_id } })
+            }}
             >
               VYŘEŠIT PROBLÉM
             </Button>
           </Col>
         )}
-        <TicketComment
-          ticket={item}
-          canUserResolveOrComment={canUserResolveOrComment}
-        />
       </Card.Body>
     </Card>
 

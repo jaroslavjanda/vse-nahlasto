@@ -34,7 +34,7 @@ export const TicketComment = ({ ticket, canUserResolveOrComment }) => {
           <Comment comments={comments} />
           {canUserResolveOrComment && (
             <AddCommentForm
-              onCommentSuccess={commentState.refetch()}
+              onCommentSuccess={() => commentState.refetch()}
               ticket={ticket}
             />
           )}

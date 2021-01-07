@@ -23,6 +23,11 @@
   border: 3px solid rgb(0 123 254);
 }
 
+.resolveTicketButton {
+  color: #007bff;
+  width: 207px;
+}
+
 .heart {
   width: 100px;
   height: 100px;
