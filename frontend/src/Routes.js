@@ -19,7 +19,6 @@ import { MemberOfCommunities } from './pages/MemberOfCommunities';
 import { OwnerOfCommunities } from './pages/OwnerOfCommunities';
 import { MyAddedTickets } from './pages/MyAddedTickets';
 import { TicketsToSolve } from './pages/TicketsToSolve';
-import { TicketDetail } from './pages/TicketDetail';
 import { PageNotFound } from './pages/PageNotFound';
 
 // Components
@@ -29,7 +28,6 @@ import { JoinPrivateCommunityRequestPage } from './pages/JoinPrivateCommunityReq
 const communityDetail = () => `/community-detail/:communityId`;
 const forgottenPasswordRequest = () => ':email/:code';
 const joinPrivateCommunityRequest = () => ':communityId/:email/:code';
-const ticketDetail = () => `/ticket-detail/:ticketId`;
 
 export const route = {
   home: () => `/`,
@@ -45,7 +43,6 @@ export const route = {
   addTicket: () => `${communityDetail()}/add`,
   editCommunity: () => `${communityDetail()}/edit_community`,
   communities: () => `/communities`,
-  ticketDetail,
   admin: () => `/admin`,
   adminAllCommunities: () => `/admin/all-communities`,
   adminMemberOfCommunities: () => `/admin/member-of-communities`,
@@ -84,7 +81,6 @@ export function Routes() {
           component={CommunityDetail}
         />
         <Route path={route.addTicket()} exact component={AddTicket} />
-        <Route path={route.ticketDetail()} exact component={TicketDetail} />
         <Route
           path={route.editCommunity()}
           exact

@@ -11,7 +11,6 @@
 }
 
 .ticketCardMaxSize {
-  max-height: 1200px;
   max-width: 600px;
   margin-bottom: 30px !important;
 }
@@ -22,6 +21,11 @@
 
 .blueBorder {
   border: 3px solid rgb(0 123 254);
+}
+
+.resolveTicketButton {
+  color: #007bff;
+  width: 207px;
 }
 
 .heart {

@@ -36,18 +36,18 @@ const TICKETS_TO_RESOLVE = gql`
       date
     }
   }
-`;
+`
 
 
 export const TicketsToSolve = () => {
-  let user = getDataFromLocalStorage()?.user;
-  var userId = user ? parseInt(user.user_id) : undefined;
-  if (userId === undefined) userId = 0;
+  let user = getDataFromLocalStorage()?.user
+  var userId = user ? parseInt(user.user_id) : undefined
+  if (userId === undefined) userId = 0
 
   const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
-  });
-  const tickets = state.data?.ticketsToResolve;
+  })
+  const tickets = state.data?.ticketsToResolve
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -75,5 +75,5 @@ export const TicketsToSolve = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
