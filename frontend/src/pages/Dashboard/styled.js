@@ -9,6 +9,7 @@ export const DashboardCardWrapper = styled.div`
   padding: 36px 16px;
   margin-bottom: 36px;
   transition: 0.3s;
+  min-height: 280px;
 
   &:hover {
     background: #dfe2f1;
