@@ -9,7 +9,7 @@ export function HeadingWithButtons({ header, children }) {
         <div text-align="center">
           <h1 text-align="center">{header}</h1>
         </div>
-        <Col align="right">{children}</Col>
+        <Col align="right" style={{paddingTop:"7px"}}>{children}</Col>
       </Row>
     </Container>
   );
