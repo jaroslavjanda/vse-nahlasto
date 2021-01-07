@@ -56,7 +56,7 @@ export const CardsTicketBody = ({
       <Card.Body>
         <h3>{item.title}</h3>
         <Card.Text>{item.content}</Card.Text>
-        <Col className="mb-3">
+        <Col>
           <LikeLogic
             item={item}
             user={user}
