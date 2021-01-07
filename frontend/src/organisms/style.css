@@ -14,7 +14,7 @@
 }
 
 #admin-menu a {
-  font-size: 20px;
+  font-size: 16px;
   color: white;
   padding-left: 36px;
   cursor: pointer;
@@ -32,8 +32,7 @@
 }
 .submenuButton {
   text-align: center;
-  padding-left: 0 !important;
-  margin-left: 30px !important;
+  margin-left: 25px !important;
   background-color: #76a8d3;
   border-color: #76a8d3;
   z-index: 100;
@@ -54,10 +53,26 @@
 .notVisibleText {
   display: none;
 }
+.menuShow{
+  flex-grow: 0.6 !important;
+}
+.menuHide{
+  flex-grow: 0 !important;
+}
+
+.side {
+  display: block !important;
+}
+.top {
+  display: none !important;
+}
 
 @media screen and (max-width: 991px) {
-  .menuHide .menuContent {
+  .side {
     display: none !important;
+  }
+  .top {
+    display: block !important;
   }
   #admin-menu a {
     padding-left: 15px;
