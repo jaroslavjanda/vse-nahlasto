@@ -115,6 +115,8 @@ export const deleteTicket = async (
   };
 };
 
+import { send, TYPE } from '../helpers/sendgrid/send';
+
 export const setTicketResolved = async (_, { ticketId }, { dbConnection }) => {
   await dbConnection.query(
     `UPDATE ticket SET status_id = 1 WHERE ticket_id = ?`,
@@ -128,7 +130,38 @@ export const setTicketResolved = async (_, { ticketId }, { dbConnection }) => {
     ])
   )[0];
 
-  console.log('SELECT', ticket);
+  // fetches user info email from DB to be able to send him an email
+  const checkInTicket = parseInt(ticket.user_id)===25086 ? true: false
+
+  let email
+  let userName
+
+  if (checkInTicket){
+    email = ticket.anonym_email;
+    userName = "anonym"
+  }
+  else{
+    email = (
+      await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [
+        ticket.user_id,
+      ])
+    )[0].email;
+
+    userName = (
+      await dbConnection.query(`SELECT name FROM user WHERE user_id = ?`, [
+        ticket.user_id,
+      ])
+    )[0].name;
+  }
+  
+  const emailData = {
+    type: TYPE.RESOLVE_TICKET,
+    receiver: email,
+    ticketTitle: ticket.title,
+    receiverName: userName
+  };
+  
+  send(emailData);
 
   return ticket;
 };
