@@ -58,6 +58,7 @@ const typeDefs = gql`
     status_id: Int!
     user_id: Int!
     community_id: Int!
+    anonym_email:String
     comments: [Comment!]!
     status: [Status!]
     likes: [Likes!]
@@ -128,7 +129,6 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    singleUploadStream(file: Upload!): File!
     singleUpload(file: Upload!): File!
 
     signin(email: String!, password: String!): AuthInfo!
@@ -160,6 +160,7 @@ const typeDefs = gql`
       content: String!
       image: Upload
       status_id: Int!
+      email:String
     ): Ticket!
 
     addComment(content: String!, user_id: Int!, ticket_id: Int!): Comment
