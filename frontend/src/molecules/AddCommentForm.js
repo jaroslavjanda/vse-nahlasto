@@ -27,8 +27,6 @@ const ADD_COMMENT_MUTATION = gql`
 
 export function AddCommentForm({ ticket }) {
 
-  let user = getDataFromLocalStorage()?.user;
-
   const initialValues = { content: '' }
 
   const [resolveAddCommentRequest] = useMutation(
@@ -44,17 +42,14 @@ export function AddCommentForm({ ticket }) {
     },
   )
 
-  console.log(user.user_id)
-  console.log(ticket.ticket_id)
-
   const handleAddComment = useCallback(
     (oldVariables) => {
+      let user = getDataFromLocalStorage()?.user;
       const variables = {
         user_id: user.user_id,
         comment_id: ticket.ticket_id,
         content: oldVariables.variables.content,
       }
-      console.log(variables)
       resolveAddCommentRequest({ variables })
     
     },
