@@ -11,6 +11,7 @@
   min-height: 100vh;
   height: 100%;
   padding-top: 4rem;
+  position: absolute;
 }
 
 #admin-menu a {
@@ -53,13 +54,6 @@
 .notVisibleText {
   display: none;
 }
-.menuShow{
-  flex-grow: 0.6 !important;
-}
-.menuHide{
-  flex-grow: 0 !important;
-}
-
 .side {
   display: block !important;
 }
@@ -68,6 +62,10 @@
 }
 
 @media screen and (max-width: 991px) {
+  #admin-menu {
+    position: inherit;
+    padding-top: 0;
+  }
   .side {
     display: none !important;
   }

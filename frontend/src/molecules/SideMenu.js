@@ -3,17 +3,14 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from 'src/utils/auth';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 
-import { Link, NavLink } from 'src/atoms';
-import { Button, Col, Dropdown, Nav, Navbar, Row } from 'react-bootstrap';
+import { NavLink } from 'src/atoms';
+import { Col, Nav, Row } from 'react-bootstrap';
 
 import { route } from 'src/Routes';
-import logo from 'src/images/logo.png';
 import '../organisms/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBuilding,
-  faCaretDown,
-  faCaretRight,
   faClipboardList,
   faFileAlt,
   faFolderOpen,
@@ -22,13 +19,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export const SideMenu = ({ isShown, classN, children }) => {
-  const { signout } = useAuth();
-  const history = useHistory();
-  const [isAuthenticated, setisauthenticated] = useState(
-    localStorage.getItem('quacker-auth'),
-  );
-  let user = getDataFromLocalStorage()?.user;
-  console.log(classN)
 return (
     <div className={classN}>
         {children}

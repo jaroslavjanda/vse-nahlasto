@@ -13,14 +13,6 @@ import './style.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBuilding,
-  faCaretDown,
-  faCaretRight,
-  faClipboardList,
-  faFileAlt,
-  faFolderOpen,
-  faNewspaper,
-  faTachometerAlt,
   faBars
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -35,11 +27,10 @@ export const TopNavigation = ({ children }) => {
   const [expanded, setExpanded] = useState(false);
   let user = getDataFromLocalStorage()?.user;
 
-  /*useEffect(() => {
-    console.log(location)
+  useEffect(() => {
     setIsShown(false);
-    setExpanded(true);
-  }, [location]);*/
+    setExpanded(false);
+  }, [location]);
   return (
     <>
       <Navbar  expand="lg"
@@ -140,7 +131,6 @@ export const TopNavigation = ({ children }) => {
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
               <Col
-                className={isShown ? 'menuHide' : 'menuShow'}
                 style={{ paddingLeft: 0 }}
                 justify="center"
               >
@@ -155,7 +145,7 @@ export const TopNavigation = ({ children }) => {
                   </Nav>
                 </SideMenu>
               </Col>
-              <Col lg={isShown ? 11 : 9}>
+              <Col lg={isShown ? 11 : 10}>
                 <AdminWrapper>{children}</AdminWrapper>
               </Col>
             </Row>
