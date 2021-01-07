@@ -14,7 +14,6 @@ export function CommunityDetailTemplate({
                                           handleJoinCommunity,
                                           handlePrivateCommunityJoinRequest,
                                           userId,
-                                          onCommentSuccess,
                                         }) {
   return (
     <Container>
@@ -85,7 +84,6 @@ export function CommunityDetailTemplate({
           <Tickets
             tickets={community.tickets}
             isOwner={isOwner}
-            onCommentSuccess={onCommentSuccess}
           />
         </div>
       )}

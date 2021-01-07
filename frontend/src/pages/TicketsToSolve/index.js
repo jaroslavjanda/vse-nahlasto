@@ -63,7 +63,6 @@ export const TicketsToSolve = () => {
               tickets={tickets}
               title={'Příspěvky k vyřešení'}
               isOwner={true}
-              onCommentSuccess={() => state.refetch()}
             />
           )}
         </>

@@ -2,6 +2,7 @@ import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { Loading } from '../atoms'
 import { Comment } from './Comment'
+import { AddCommentForm } from './AddCommentForm'
 
 
 const COMMENT_QUERY = gql`
@@ -18,19 +19,26 @@ const COMMENT_QUERY = gql`
   }
 `
 
-export const TicketComment = ({ ticket }) => {
+export const TicketComment = ({ ticket, canUserResolveOrComment }) => {
 
   const ticketId = ticket.ticket_id
   const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId } })
   const comments = commentState.data?.ticketComment
 
-  
 
   return (
     <>
       {commentState.loading && <Loading />}
       {!commentState.loading && (
-        <Comment comments={comments} />
+        <>
+          <Comment comments={comments} />
+          {canUserResolveOrComment && (
+            <AddCommentForm
+              onCommentSuccess={commentState.refetch()}
+              ticket={ticket}
+            />
+          )}
+        </>
       )}
     </>
   )

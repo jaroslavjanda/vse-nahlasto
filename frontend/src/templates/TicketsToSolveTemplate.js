@@ -3,7 +3,7 @@ import { HeadingWithButtons, Tickets } from 'src/organisms/'
 import { Container, Row } from 'react-bootstrap'
 import 'src/molecules/styles.css'
 
-export function TicketsToSolveTemplate({ tickets, title, isOwner, onCommentSuccess }) {
+export function TicketsToSolveTemplate({ tickets, title, isOwner }) {
   return (
     <Container>
       <HeadingWithButtons header={title ? title : ''} />
@@ -11,7 +11,6 @@ export function TicketsToSolveTemplate({ tickets, title, isOwner, onCommentSucce
         <Tickets
           tickets={tickets}
           isOwner={isOwner}
-          onCommentSuccess={onCommentSuccess}
         />
       </Row>
     </Container>
