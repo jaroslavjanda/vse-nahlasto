@@ -143,6 +143,7 @@ export const CommunityDetail = ({ match }) => {
               handlePrivateCommunityJoinRequest={handlePrivateCommunityJoinRequest}
               communityId={communityId}
               userId={userId}
+              onCommentSuccess={() => state.refetch()}
             />
           )}
         </div>

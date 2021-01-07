@@ -18,6 +18,7 @@ export const CardsTicketBody = ({
                                   isOwner,
                                   toCommunityButton,
                                   handleResolveTicket,
+                                  onCommentSuccess,
                                 }) => {
 
 //border of card
@@ -94,9 +95,11 @@ export const CardsTicketBody = ({
         )}
         <TicketComment
           ticket={item}
+          onCommentSuccess={onCommentSuccess}
         />
         {canUserResolveOrComment && (
           <AddCommentForm
+            onCommentSuccess={onCommentSuccess}
             ticket={item}
           />
         )}

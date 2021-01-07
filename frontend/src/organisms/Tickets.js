@@ -31,7 +31,7 @@ const RESOLVE_TICKET_MUTATION = gql`
   }
 `
 
-export function Tickets({ tickets, isOwner, toCommunityButton }) {
+export function Tickets({ tickets, isOwner, toCommunityButton, onCommentSuccess }) {
   const [likedRequest] = useMutation(LIKE_MUTATION)
   const [deleteRequest] = useMutation(DELETE_MUTATION)
   let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id)
@@ -69,6 +69,7 @@ export function Tickets({ tickets, isOwner, toCommunityButton }) {
               isOwner={isOwner}
               toCommunityButton={toCommunityButton}
               handleResolveTicket={handleResolveTicket}
+              onCommentSuccess={onCommentSuccess}
             />
           ))}
         </CardColumns>

@@ -24,6 +24,8 @@ export const TicketComment = ({ ticket }) => {
   const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId } })
   const comments = commentState.data?.ticketComment
 
+  
+
   return (
     <>
       {commentState.loading && <Loading />}

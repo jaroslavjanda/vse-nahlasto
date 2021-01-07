@@ -1,10 +1,10 @@
-import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate';
-import { getDataFromLocalStorage } from './../../utils/localStorage';
-import { ErrorType } from '../../utils/Error';
-import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
-import { Loading } from '../../atoms';
+import React from 'react'
+import { gql, useQuery } from '@apollo/client'
+import { TicketsToSolveTemplate } from '../../templates/TicketsToSolveTemplate'
+import { getDataFromLocalStorage } from '../../utils/localStorage'
+import { ErrorType } from '../../utils/Error'
+import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton'
+import { Loading } from '../../atoms'
 
 const TICKETS_TO_RESOLVE = gql`
   query TicketsToResolve($userId: Int!) {
@@ -35,18 +35,18 @@ const TICKETS_TO_RESOLVE = gql`
       date
     }
   }
-`;
+`
 
 
 export const TicketsToSolve = () => {
-  let user = getDataFromLocalStorage()?.user;
-  var userId = user ? parseInt(user.user_id) : undefined;
-  if (userId === undefined) userId = 0;
+  let user = getDataFromLocalStorage()?.user
+  var userId = user ? parseInt(user.user_id) : undefined
+  if (userId === undefined) userId = 0
 
   const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
-  });
-  const tickets = state.data?.ticketsToResolve;
+  })
+  const tickets = state.data?.ticketsToResolve
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -63,10 +63,11 @@ export const TicketsToSolve = () => {
               tickets={tickets}
               title={'Příspěvky k vyřešení'}
               isOwner={true}
+              onCommentSuccess={() => state.refetch()}
             />
           )}
         </>
       )}
     </div>
-  );
-};
+  )
+}
