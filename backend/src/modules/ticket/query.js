@@ -133,3 +133,15 @@ export const ticketsToResolve = async (_, { userId }, { dbConnection }) => {
   );
   return ticketsToResolve;
 };
+
+/**
+ * Returns tickets which are liked by user.
+ */
+export const ticketsLiked = async (_, { userId }, { dbConnection }) => {
+  const ticketsToResolve = await dbConnection.query(
+    `SELECT ticket_id FROM  \`like\` 
+    WHERE user_id = ?`,
+    [userId],
+  );
+  return ticketsToResolve;
+};

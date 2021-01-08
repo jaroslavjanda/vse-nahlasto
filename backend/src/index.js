@@ -125,6 +125,7 @@ const typeDefs = gql`
     comment(commentId: Int!): [Comment!]
     ticketComment(ticketId: Int!): [Comment!]
     ticketFromCommunitiesIAmAdminIn(userId: Int!): [Ticket]
+    ticketsLiked(userId:Int!):[Ticket]
     validateJoinCommunityRequestCode(communityId: Int!, applicant_email: String!, code: Int!): JoinPrivateCommunityRequest
   }
 
