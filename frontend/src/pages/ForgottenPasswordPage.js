@@ -5,6 +5,7 @@ import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
 import { FormikField } from '../molecules';
 import * as yup from 'yup';
 import { errorMessage } from 'jest-validate';
+import { Container } from 'react-bootstrap';
 
 const PASSWORD_CHANGE_REQUEST_MUTATION = gql`
   mutation SetResetCode($email: String!) {
@@ -43,7 +44,7 @@ export function ForgottenPasswordPage() {
   });
 
   return (
-    <div className="mw6 center">
+    <Container>
       <Formik
         onSubmit={handleChangePasswordRequest}
         initialValues={initialValues}
@@ -72,6 +73,6 @@ export function ForgottenPasswordPage() {
           </div>
         </Form>
       </Formik>
-    </div>
+    </Container>
   );
 }

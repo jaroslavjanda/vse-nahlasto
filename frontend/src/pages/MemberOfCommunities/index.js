@@ -28,17 +28,7 @@ export const MemberOfCommunities = () => {
     variables: { userId },
   });
   const communities = state.data?.communitiesAccessibleToUser;
-
-  //TODO Delete
-  /*const [community, setCommunity] = useState(null);
-
-  useEffect(() => {
-    if (!state.loading && state.data != undefined) {
-      const data = state.data.communitiesAccessibleToUser;
-      setCommunity(data);
-    }
-  }, [state]);
-*/
+  
   return (
     <div className="center">
       {state.loading && <Loading />}

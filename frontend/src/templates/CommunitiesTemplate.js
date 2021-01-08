@@ -18,16 +18,14 @@ export const CommunitiesTemplate = ({
   return (
     <Container>
       <HeadingWithButtons header={title ? title : ''}>
-        <>
-          {!isPublic && (
-            <Button
-              variant="success"
-              onClick={() => history.push(route.addCommunity())}
-            >
-              Přidat komunitu
-            </Button>
-          )}
-        </>
+        {!isPublic && (
+          <Button
+            variant="success"
+            onClick={() => history.push(route.addCommunity())}
+          >
+            Přidat komunitu
+          </Button>
+        )}
       </HeadingWithButtons>
       <CommunityPreview
         communities={communities}

@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 
 export function TermsOfServiceTemplate() {
   return (
-    <Container>
+    <Container className={"termsOfService"}>
       <Row>
         <p>
           <h1>Ochrana osobních údajů</h1>
@@ -33,7 +33,7 @@ export function TermsOfServiceTemplate() {
         <h2>Informace o zpracování osobních údajů </h2>
       </Row>
       <Row>
-        <ol>
+        <ol style={{marginRight:"25px"}}>
           <li id="one">
             Správce osobních údajů
             <ol>
