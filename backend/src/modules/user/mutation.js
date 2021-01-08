@@ -166,7 +166,7 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
       code;
 
     const userName = await dbConnection.query(
-      'SELECT userName FROM user WhERE email = ?',
+      'SELECT name FROM user WHERE email = ?',
       [email],
     );
 
@@ -294,11 +294,14 @@ export const joinPrivateCommunityRequest = async (
 
     // ################### END OF THE LINK STUFF ###################
 
+    const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+
     const applicantEmailData = {
       type: TYPE.JOIN_COMMUNITY_REQUEST,
       receiver: usersCredentials.email,
       receiverName: usersCredentials.name,
       communityName: communityName.name,
+      communityLink: communityLink,
     };
 
     const communityOwnerEmailData = {
@@ -308,6 +311,7 @@ export const joinPrivateCommunityRequest = async (
       communityName: communityName.name,
       applicantEmail: usersCredentials.email,
       link: acceptance_link,
+      communityLink: communityLink,
     };
 
     //send emails
@@ -361,11 +365,14 @@ export const handleValidJoinPrivateCommunityRequest = async (
     [userEmail],
   );
 
+  const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+
   const emailData = {
     type: TYPE.JOIN_COMMUNITY_CONFIRM,
     receiver: userEmail,
     receiverName: userCredentials.name,
     communityName: communityCredentials.name,
+    communityLink: communityLink,
   };
 
   //send emails

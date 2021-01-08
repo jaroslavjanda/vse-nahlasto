@@ -129,8 +129,13 @@ export const TopNavigation = ({ children }) => {
         <AdminBackground>
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
-              <Col style={{ paddingLeft: 0 }} justify="center">
-                <SideMenu isShown={isShown} classN={'side'}>
+              <Col
+                style={{ paddingLeft: 0 }}
+                justify="center"
+                lg={isShown ? 1 : 2} 
+                xs={0}
+              >
+                <SideMenu isShown={isShown} classN={"side"}>
                   <Nav>
                     <Button
                       className="navButton submenuButton"
@@ -144,7 +149,7 @@ export const TopNavigation = ({ children }) => {
                   </Nav>
                 </SideMenu>
               </Col>
-              <Col lg={isShown ? 11 : 10}>
+              <Col lg={isShown ? 11 : 10} xs={0}>
                 <AdminWrapper>{children}</AdminWrapper>
               </Col>
             </Row>

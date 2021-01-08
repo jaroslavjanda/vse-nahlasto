@@ -61,11 +61,14 @@ export const addCommunity = async (
       ])
     )[0].name;
 
+    const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+
     const emailData = {
       type: TYPE.ADD_COMMUNITY_CONFIRMATION,
       receiver: email,
       communityName: name,
       receiverName: userName,
+      communityLink: communityLink
     };
 
     send(emailData);

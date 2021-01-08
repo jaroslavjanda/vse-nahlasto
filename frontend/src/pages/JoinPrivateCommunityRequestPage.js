@@ -1,6 +1,6 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { ErrorBanner, Loading, SuccessBanner } from '../atoms';
-import { useAuth } from 'src/utils/auth';
+import { useState } from 'react';
 
 const CODE_VALIDATION_QUERY = gql`
   query CodeValidation($communityId: Int!, $userEmail: String!, $code: Int!) {
@@ -26,24 +26,7 @@ const HANDLE_VALID_REQUEST_MUTATION = gql`
 `;
 
 export function JoinPrivateCommunityRequestPage({ match }) {
-  // FIXME signout immediately, do not load name into the top bar
-  const { signout } = useAuth();
-  signout();
-
-  function validateCode(codeValidation) {
-    if (
-      codeValidation.data?.validateJoinCommunityRequestCode?.code === undefined
-    ) {
-      if (!codeValidation.loading) {
-        return false;
-      }
-    } else {
-      // FIXME the mutation is called multiple times with errors (duplicated inserts) - why?
-      // use some hook ore something?
-      requestHandlingMutation({ variables: { userEmail, communityId } });
-      return true;
-    }
-  }
+  const [isCodeValid, setIsCodeValid] = useState(null)
 
   const communityId = parseInt(match.params.communityId);
   const userEmail = match.params.email.toString();
@@ -51,7 +34,15 @@ export function JoinPrivateCommunityRequestPage({ match }) {
 
   const codeValidation = useQuery(CODE_VALIDATION_QUERY, {
     variables: { communityId, userEmail, code },
-  });
+    onCompleted: ( data ) => {
+      if (data.validateJoinCommunityRequestCode?.code !== undefined) {
+        requestHandlingMutation({ variables: { userEmail, communityId } })
+        setIsCodeValid(true)
+      } else {
+        setIsCodeValid(false)
+      }
+    }
+  })
 
   const [requestHandlingMutation] = useMutation(HANDLE_VALID_REQUEST_MUTATION, {
     onCompleted: () => {
@@ -64,13 +55,13 @@ export function JoinPrivateCommunityRequestPage({ match }) {
 
   return (
     <div className="mw6 center">
-      {codeValidation.loading && <Loading />}
-      {!codeValidation.loading && validateCode(codeValidation) && (
+      {(isCodeValid == null || codeValidation.loading) && <Loading />}
+      {!codeValidation.loading && isCodeValid && (
         <SuccessBanner title={'Požadavek byl potvrzen'} className="mb3">
           Uživatel {userEmail} byl přidán do komunity s ID {communityId}.
         </SuccessBanner>
-      )}
-      {!codeValidation.loading && !validateCode(codeValidation) && (
+        )}
+      {!codeValidation.loading && !isCodeValid && (
         <ErrorBanner title="Neplatný odkaz.">
           Je nám líto, ale tento odkaz je neplatný.
         </ErrorBanner>

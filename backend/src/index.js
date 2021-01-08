@@ -130,6 +130,7 @@ const typeDefs = gql`
       applicant_email: String!
       code: Int!
     ): JoinPrivateCommunityRequest
+    ticketsLiked(userId:Int!):[Ticket]
   }
 
   type Mutation {

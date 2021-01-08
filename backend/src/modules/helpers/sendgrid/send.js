@@ -43,9 +43,9 @@ export function send(emailData) {
       receiver_name: emailData.receiverName,
       link: emailData.link,
       applicant_email: emailData.applicantEmail,
-    },
-  };
-
+      community_link: emailData.communityLink
+    }
+  }
   //send the email
   sgMail
     .send(msg)

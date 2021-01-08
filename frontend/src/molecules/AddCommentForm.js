@@ -33,7 +33,6 @@ export function AddCommentForm({ ticket, onCommentSuccess }) {
 
   const handleAddComment = useCallback(
     (values) => {
-      let user = getDataFromLocalStorage()?.user;
       const variables = {
         user_id: user.user_id,
         ticket_id: ticket.ticket_id,
@@ -41,8 +40,8 @@ export function AddCommentForm({ ticket, onCommentSuccess }) {
       };
       resolveAddCommentRequest({ variables });
     },
-    [resolveAddCommentRequest],
-  );
+    [resolveAddCommentRequest, ticket, user],
+  )
 
   const schema = yup.object().shape({
     content: yup.string().required('Vlož komentář.').label('Komentář'),

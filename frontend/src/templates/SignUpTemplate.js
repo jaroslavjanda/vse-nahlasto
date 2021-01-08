@@ -1,12 +1,12 @@
 import React from 'react';
-
+import { Container } from 'react-bootstrap';
 import { Heading, Link } from 'src/atoms/';
 import { SignUpForm } from 'src/organisms/';
 import { route } from 'src/Routes';
 
 export function SignUpTemplate({ isLoading, error, onSubmit }) {
   return (
-    <div className="mw6 center">
+    <Container>
       <Heading>Registrace</Heading>
 
       <SignUpForm
@@ -22,6 +22,6 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
           </Link>
         </div>
       </SignUpForm>
-    </div>
+    </Container>
   );
 }
