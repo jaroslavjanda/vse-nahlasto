@@ -23,10 +23,6 @@ a:hover {
   text-align: center;
 }
 
-.card {
-  min-width: 300px;
-}
-
 .card-body .row .col-2 {
   display: flex;
   justify-content: flex-end;

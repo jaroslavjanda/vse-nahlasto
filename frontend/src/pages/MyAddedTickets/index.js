@@ -47,15 +47,7 @@ export const MyAddedTickets = () => {
     variables: { userId },
   });
   const tickets = state.data?.usersTickets;
-  //TODO Delete
-  /*
-  const [tickets, setTickets] = useState(null);
-  useEffect(() => {
-    if (!quacksState.loading && quacksState.data != undefined) {
-      const data = quacksState.data.usersTickets;
-      setTickets(data);
-    }
-  }, [quacksState]);*/
+  
   return (
     <div style={{ textAlign: 'center' }}>
       {state.loading && <Loading />}
