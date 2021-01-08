@@ -36,11 +36,14 @@ export const CardsTicketBody = ({
       style={{ width: '100%', border: cardBorder }}
       key={item.title}
     >
+      <div className="image-overflow-wrapper">
       <Card.Img
         style={{ width: '100%' }}
         src={imgPathForTicket('tickets', item.image)}
         className="ticketImageNoBorders"
       />
+      </div>
+  
       <Card.Header className={cardHeader}>
         <CardsTicketHeader
           user={user}
