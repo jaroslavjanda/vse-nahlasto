@@ -1,41 +1,44 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from 'src/utils/auth';
 import { getDataFromLocalStorage } from '../utils/localStorage';
 
 import { Link, NavLink } from 'src/atoms';
 import { Button, Col, Dropdown, Nav, Navbar, Row } from 'react-bootstrap';
 import { AdminBackground, AdminWrapper } from './styled';
-import PrivateStyledLink from './privateStyledLink';
-
+import {SideMenu} from 'src/molecules';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
 import './style.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBuilding,
-  faCaretDown,
-  faCaretRight,
-  faClipboardList,
-  faFileAlt,
-  faFolderOpen,
-  faNewspaper,
-  faTachometerAlt,
+  faBars
 } from '@fortawesome/free-solid-svg-icons';
 
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
-  const [isAuthenticated, setIsAuthenticated] = useState(
+  const location = useLocation();
+  const [isAuthenticated, setisauthenticated] = useState(
     localStorage.getItem('quacker-auth'),
   );
   const [isShown, setIsShown] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   let user = getDataFromLocalStorage()?.user;
 
+  useEffect(() => {
+    setIsShown(false);
+    setExpanded(false);
+  }, [location]);
   return (
     <>
-      <Navbar expand="lg" bg="dark" variant="dark">
+      <Navbar  expand="lg"
+        bg="dark"
+        variant="dark"
+        expanded={expanded}
+        onToggle={() => setExpanded(!expanded)}>
+
         <Navbar.Brand>
           <Link to={route.home()}>
             <img
@@ -47,7 +50,9 @@ export const TopNavigation = ({ children }) => {
             />
           </Link>
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             {!isAuthenticated && (
@@ -75,9 +80,9 @@ export const TopNavigation = ({ children }) => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item
-                      as={Link}
-                      exact
-                      to={route.forgottenPassword()}
+                      onClick={() => {
+                        history.push(route.forgottenPassword());
+                      }}
                     >
                       Změna hesla
                     </Dropdown.Item>
@@ -93,6 +98,7 @@ export const TopNavigation = ({ children }) => {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+                <SideMenu classN={"top"}/>
               </>
             ) : (
               <>
@@ -113,7 +119,7 @@ export const TopNavigation = ({ children }) => {
       </Navbar>
       {!isAuthenticated && (
         <div
-          setIsAuthenticated={setIsAuthenticated}
+          setisauthenticated={setisauthenticated}
           className="startPageMarginTop"
         >
           {children}{' '}
@@ -125,115 +131,21 @@ export const TopNavigation = ({ children }) => {
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
               <Col
-                lg={isShown ? 1 : 3}
-                className={isShown ? 'menuHide' : ''}
                 style={{ paddingLeft: 0 }}
                 justify="center"
               >
-                <Row>
-                  <Button
-                    className="navButton submenuButton"
-                    onClick={() => setIsShown(!isShown)}
-                  >
+                <SideMenu isShown={isShown} classN={"side"}>
+                  <Nav>
+                    <Button className="navButton submenuButton" onClick={() => setIsShown(!isShown)} >
                     <FontAwesomeIcon
                       style={{ fontSize: '18px', width: '25px' }}
-                      icon={isShown ? faCaretRight : faCaretDown}
-                    />
-                    Menu
-                  </Button>
-                </Row>
-                <Row id="admin-menu" className={'menuContent'}>
-                  <Col>
-                    <PrivateStyledLink
-                      exact
-                      activeClassName="active-admin"
-                      to={route.admin()}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: '18px', width: '25px' }}
-                        icon={faTachometerAlt}
-                      />{' '}
-                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                        Nástěnka
-                      </span>
-                    </PrivateStyledLink>
-
-                    <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
-                      Uživatel
-                    </div>
-
-                    <PrivateStyledLink
-                      exact
-                      activeClassName="active-admin"
-                      to={route.adminAllCommunities()}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: '18px', width: '25px' }}
-                        icon={faBuilding}
-                      />{' '}
-                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                        Výpis komunit
-                      </span>
-                    </PrivateStyledLink>
-                    <PrivateStyledLink
-                      exact
-                      activeClassName="active-admin"
-                      to={route.adminMemberOfCommunities()}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: '18px', width: '25px' }}
-                        icon={faFolderOpen}
-                      />{' '}
-                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                        Členství v komunitách
-                      </span>
-                    </PrivateStyledLink>
-                    <PrivateStyledLink
-                      exact
-                      activeClassName="active-admin"
-                      to={route.myAddedTickets()}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: '18px', width: '25px' }}
-                        icon={faNewspaper}
-                      />{' '}
-                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                        Vložené příspěvky
-                      </span>
-                    </PrivateStyledLink>
-                    <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
-                      Správce
-                    </div>
-                    <PrivateStyledLink
-                      exact
-                      activeClassName="active-admin"
-                      to={route.adminOwnerOfCommunities()}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: '18px', width: '25px' }}
-                        icon={faFileAlt}
-                      />{' '}
-                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                        Moje komunity
-                      </span>
-                    </PrivateStyledLink>
-                    <PrivateStyledLink
-                      exact
-                      activeClassName="active-admin"
-                      to={route.ticketsToSolve()}
-                    >
-                      <FontAwesomeIcon
-                        style={{ fontSize: '18px', width: '25px' }}
-                        icon={faClipboardList}
-                      />{' '}
-                      <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                        Příspěvky na vyřešení
-                      </span>
-                    </PrivateStyledLink>
-                  </Col>
-                </Row>
+                      icon={faBars}
+                      />
+                    </Button>
+                  </Nav>
+                </SideMenu>
               </Col>
-              <Col lg={isShown ? 11 : 8}>
+              <Col lg={isShown ? 11 : 10}>
                 <AdminWrapper>{children}</AdminWrapper>
               </Col>
             </Row>

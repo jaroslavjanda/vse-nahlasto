@@ -1,13 +1,11 @@
-import { Form } from 'react-bootstrap'
 import { Button } from '../atoms'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
-import { Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { FormikTextArea } from './FormikTextArea'
 import * as yup from 'yup'
 import { gql, useMutation } from '@apollo/client'
 import { getDataFromLocalStorage } from '../utils/localStorage'
-
 
 const ADD_COMMENT_MUTATION = gql`
   mutation AddComment(
@@ -25,17 +23,18 @@ const ADD_COMMENT_MUTATION = gql`
   }
 `
 
-export function AddCommentForm({ ticket }) {
+export function AddCommentForm({ ticket, onCommentSuccess }) {
 
-  let user = getDataFromLocalStorage()?.user;
-
+  let user = getDataFromLocalStorage()?.user
+  const [formKey, setFormKey] = useState(0)
   const initialValues = { content: '' }
 
   const [resolveAddCommentRequest] = useMutation(
     ADD_COMMENT_MUTATION,
     {
       onCompleted: ({ addComment: comment_id }) => {
-        window.location.reload()
+        setFormKey(formKey + 1)
+        onCommentSuccess()
         console.log('Comment was added to the DB, it\'s ID is ' + comment_id)
       },
       onError: () => {
@@ -44,23 +43,19 @@ export function AddCommentForm({ ticket }) {
     },
   )
 
-  console.log(user.user_id)
-  console.log(ticket.ticket_id)
-
   const handleAddComment = useCallback(
-    (oldVariables) => {
+    (values) => {
+      let user = getDataFromLocalStorage()?.user
       const variables = {
         user_id: user.user_id,
-        comment_id: ticket.ticket_id,
-        content: oldVariables.variables.content,
+        ticket_id: ticket.ticket_id,
+        content: values.content,
       }
-      console.log(variables)
       resolveAddCommentRequest({ variables })
-    
+
     },
     [resolveAddCommentRequest],
   )
-
 
   const schema = yup.object().shape({
     content: yup.string().required('Vlož komentář.').label('Komentář'),
@@ -68,6 +63,7 @@ export function AddCommentForm({ ticket }) {
 
   return (
     <Formik
+      key={formKey}
       onSubmit={handleAddComment}
       initialValues={initialValues}
       validateOnBlur={false}

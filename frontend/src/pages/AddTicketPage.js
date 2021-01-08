@@ -12,6 +12,7 @@ const ADD_TICKET_MUTATION = gql`
     $content: String!
     $image: Upload
     $status: Int!
+    $email: String
   ) {
     addTicket(
       user_id: $user_id
@@ -20,6 +21,7 @@ const ADD_TICKET_MUTATION = gql`
       content: $content
       image: $image
       status_id: $status
+      email: $email
     ) {
       ticket_id
     }
@@ -27,6 +29,7 @@ const ADD_TICKET_MUTATION = gql`
 `;
 
 export const AddTicket = ({ match }) => {
+  let user = getDataFromLocalStorage()?.user;
   const communityId = parseInt(match.params.communityId);
   const history = useHistory();
 
@@ -43,21 +46,21 @@ export const AddTicket = ({ match }) => {
     },
   );
 
-  let user = getDataFromLocalStorage()?.user;
-
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
+      console.log(oldVariables)
       const variables = {
-        user_id: user ? user.user_id : 1,
+        user_id: user ? user.user_id : 25085,
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: oldVariables.file,
+        image: oldVariables.file? oldVariables.file: null,
         status: 3,
+        email:oldVariables.email
       };
       addTicketRequest({ variables });
     },
-    [addTicketRequest],
+    [addTicketRequest, communityId, user],
   );
 
   return (

@@ -18,9 +18,9 @@ export const addCommunity = async (
   { name, description, image, code, closed, ownerId },
   { dbConnection },
 ) => {
+  
   // adds community to DB
-  // TODO prevent creating communities with same name
-  var img = image ? image : null;
+  var img = image=!null? image : null;
   const imgPath = await singleUpload({
     file: img,
     type: DirType.COMMUNITY_UPLOAD_DIR,
@@ -54,13 +54,13 @@ export const addCommunity = async (
       await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [
         ownerId,
       ])
-    )[0];
+    )[0].email;
 
     const userName = (
       await dbConnection.query(`SELECT name FROM user WHERE user_id = ?`, [
         ownerId,
       ])
-    )[0];
+    )[0].name;
 
     const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
 
@@ -71,7 +71,7 @@ export const addCommunity = async (
       receiverName: userName,
       communityLink: communityLink
     };
-
+    
     send(emailData);
 
     return community;

@@ -5,6 +5,7 @@ import { getDataFromLocalStorage } from './../../utils/localStorage';
 import { ErrorType } from '../../utils/Error';
 import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
 import { Loading } from '../../atoms';
+import { Alert } from 'react-bootstrap';
 
 const TICKETS_TO_RESOLVE = gql`
   query TicketsToResolve($userId: Int!) {
@@ -35,17 +36,18 @@ const TICKETS_TO_RESOLVE = gql`
       date
     }
   }
-`;
+`
+
 
 export const TicketsToSolve = () => {
-  let user = getDataFromLocalStorage()?.user;
-  var userId = user ? parseInt(user.user_id) : undefined;
-  if (userId === undefined) userId = 0;
+  let user = getDataFromLocalStorage()?.user
+  var userId = user ? parseInt(user.user_id) : undefined
+  if (userId === undefined) userId = 0
 
   const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
-  });
-  const tickets = state.data?.ticketsToResolve;
+  })
+  const tickets = state.data?.ticketsToResolve
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -57,15 +59,21 @@ export const TicketsToSolve = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {tickets && (
-            <TicketsToSolveTemplate
-              tickets={tickets}
-              title={'Příspěvky k vyřešení'}
-              userOwner={userId}
-            />
-          )}
+    {tickets.length ? (
+        <TicketsToSolveTemplate
+          tickets={tickets}
+          title={'Příspěvky k vyřešení'}
+          isOwner={true}
+        />
+    ) : (
+       <div>   
+         <Alert variant={'success'}>
+         Máš vyřešené všechny příspěvky &#9745;
+       </Alert>     
+      </div>
+    )} 
         </>
       )}
     </div>
-  );
-};
+  )
+}

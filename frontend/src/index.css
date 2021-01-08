@@ -22,12 +22,11 @@ a:hover {
 .center {
   text-align: center;
 }
+
 .card {
   min-width: 300px;
 }
-.card-text {
-  min-height: 100px;
-}
+
 .card-body .row .col-2 {
   display: flex;
   justify-content: flex-end;
@@ -36,10 +35,12 @@ a:hover {
 .card-columns {
   margin: auto;
 }
+
 .card-header-items {
   display: flex;
   align-items: center;
 }
+
 .container-header {
   margin-bottom: 2%;
 }
@@ -47,6 +48,7 @@ a:hover {
 .startPageMarginTop {
   margin-top: 30px;
 }
+
 .btn {
   margin: 10px;
 }
@@ -56,17 +58,21 @@ a:hover {
   margin-top: -10px;
   padding-top: 21px;
 }
+
 .not-active {
   border: none;
 }
+
 .link {
   outline: none !important;
 }
+
 .card-img-top {
   min-height: 350px;
   max-height: 600px;
   width: auto !important;
 }
+
 @media screen and (max-width: 1000px) {
   .container-header .row .col {
     text-align: center;
@@ -147,10 +153,6 @@ li:before {
 /* END - Terms of service */
 
 @media screen and (max-width: 900px) {
-  .nav-item a {
-    justify-content: center;
-    text-align: center;
-  }
   .container-image {
     overflow: none;
     position: relative;

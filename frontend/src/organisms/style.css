@@ -7,14 +7,15 @@
   background-color: #343a40 !important;
   opacity: 0.95;
   color: white;
-  font-size: 20px;
   letter-spacing: 0;
   min-height: 100vh;
   height: 100%;
   padding-top: 4rem;
+  position: absolute;
 }
 
 #admin-menu a {
+  font-size: 16px;
   color: white;
   padding-left: 36px;
   cursor: pointer;
@@ -32,8 +33,7 @@
 }
 .submenuButton {
   text-align: center;
-  padding-left: 0 !important;
-  margin-left: 30px !important;
+  margin-left: 25px !important;
   background-color: #76a8d3;
   border-color: #76a8d3;
   z-index: 100;
@@ -54,10 +54,23 @@
 .notVisibleText {
   display: none;
 }
+.side {
+  display: block !important;
+}
+.top {
+  display: none !important;
+}
 
 @media screen and (max-width: 991px) {
-  .menuHide .menuContent {
+  #admin-menu {
+    position: inherit;
+    padding-top: 0;
+  }
+  .side {
     display: none !important;
+  }
+  .top {
+    display: block !important;
   }
   #admin-menu a {
     padding-left: 15px;

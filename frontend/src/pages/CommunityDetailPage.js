@@ -104,7 +104,7 @@ export const CommunityDetail = ({ match }) => {
       };
       joinPrivateCommunityRequest({ variables });
     },
-    [joinPublicCommunityRequest],
+    [joinPrivateCommunityRequest],
   );
 
   let user = getDataFromLocalStorage()?.user;
@@ -143,7 +143,6 @@ export const CommunityDetail = ({ match }) => {
               handlePrivateCommunityJoinRequest={handlePrivateCommunityJoinRequest}
               communityId={communityId}
               userId={userId}
-              communityOwnerId={state}
             />
           )}
         </div>

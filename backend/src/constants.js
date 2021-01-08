@@ -10,10 +10,6 @@ const COMMUNITY_UPLOAD_DIR = path.resolve(
   ROOT_DIR,
   'public/images/uploads/communities',
 );
-const COMMENT_UPLOAD_DIR = path.resolve(
-  ROOT_DIR,
-  'public/images/uploads/comments',
-);
 
 export const DirType = {
   TICKET_UPLOAD_DIR: 'TICKET_UPLOAD_DIR',

@@ -1,28 +1,25 @@
-import { Alert, Button, Container } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { Tickets } from 'src/organisms';
-import { imgPath } from 'src/utils/imgPath';
-import React from 'react';
+import { Alert, Button, Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { Tickets } from 'src/organisms'
+import { imgPath } from 'src/utils/imgPath'
+import React from 'react'
 
 export function CommunityDetailTemplate({
-  community,
-  isMember,
-  isOwner,
-  communityId,
-  handleJoinCommunity,
-  handlePrivateCommunityJoinRequest,
-  userId,
-  communityOwnerId,
-}) {
-  console.log()
+                                          community,
+                                          isMember,
+                                          isOwner,
+                                          communityId,
+                                          handleJoinCommunity,
+                                          handlePrivateCommunityJoinRequest,
+                                          userId,
+                                        }) {
   return (
     <Container>
       {(!community.closed || isMember) && (
         <div className="container-image">
-          <img src={imgPath('tickets', community.image)} />
+          <img src={imgPath('tickets', community.image)} alt="ticket" />
           <div className="centered-image">
             <h1>{community.name}</h1>
             <div>{community.description}</div>
@@ -36,7 +33,7 @@ export function CommunityDetailTemplate({
             variant="primary"
             style={{ width: '150px' }}
             onClick={() => {
-              handleJoinCommunity({ variables: { userId, communityId } });
+              handleJoinCommunity({ variables: { userId, communityId } })
             }}
           >
             Přidat se
@@ -86,10 +83,10 @@ export function CommunityDetailTemplate({
           <br />
           <Tickets
             tickets={community.tickets}
-            isCommunity={isOwner}
+            isOwner={isOwner}
           />
         </div>
       )}
     </Container>
-  );
+  )
 }
