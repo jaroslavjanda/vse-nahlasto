@@ -34,7 +34,8 @@ export function send(emailData) {
       community_name: emailData.communityName,
       receiver_name: emailData.receiverName,
       link: emailData.link,
-      applicant_email: emailData.applicantEmail
+      applicant_email: emailData.applicantEmail,
+      community_link: emailData.communityLink
     }
   }
 
