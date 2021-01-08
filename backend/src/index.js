@@ -58,7 +58,7 @@ const typeDefs = gql`
     status_id: Int!
     user_id: Int!
     community_id: Int!
-    anonym_email:String
+    anonym_email: String
     comments: [Comment!]!
     status: [Status!]
     likes: [Likes!]
@@ -80,7 +80,7 @@ const typeDefs = gql`
     user_email: String!
     code: Int!
   }
-  
+
   type JoinPrivateCommunityRequest {
     communityId: Int!
     applicant_email: String!
@@ -125,7 +125,11 @@ const typeDefs = gql`
     comment(commentId: Int!): [Comment!]
     ticketComment(ticketId: Int!): [Comment!]
     ticketFromCommunitiesIAmAdminIn(userId: Int!): [Ticket]
-    validateJoinCommunityRequestCode(communityId: Int!, applicant_email: String!, code: Int!): JoinPrivateCommunityRequest
+    validateJoinCommunityRequestCode(
+      communityId: Int!
+      applicant_email: String!
+      code: Int!
+    ): JoinPrivateCommunityRequest
   }
 
   type Mutation {
@@ -160,7 +164,7 @@ const typeDefs = gql`
       content: String!
       image: Upload
       status_id: Int!
-      email:String
+      email: String
     ): Ticket!
 
     addComment(content: String!, user_id: Int!, ticket_id: Int!): Comment
@@ -173,11 +177,17 @@ const typeDefs = gql`
 
     joinPublicCommunity(userId: Int!, communityId: Int!): Community
 
-    joinPrivateCommunityRequest(userId: Int!, communityId: Int!): JoinPrivateCommunityRequest
+    joinPrivateCommunityRequest(
+      userId: Int!
+      communityId: Int!
+    ): JoinPrivateCommunityRequest
 
     setTicketResolved(ticketId: Int!): Ticket
 
-    handleValidJoinPrivateCommunityRequest(userEmail: String!, communityId: Int!): JoinPrivateCommunityRequest
+    handleValidJoinPrivateCommunityRequest(
+      userEmail: String!
+      communityId: Int!
+    ): JoinPrivateCommunityRequest
   }
 `;
 

@@ -6,15 +6,13 @@ import { getDataFromLocalStorage } from '../utils/localStorage';
 import { Link, NavLink } from 'src/atoms';
 import { Button, Col, Dropdown, Nav, Navbar, Row } from 'react-bootstrap';
 import { AdminBackground, AdminWrapper } from './styled';
-import {SideMenu} from 'src/molecules';
+import { SideMenu } from 'src/molecules';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
 import './style.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faBars
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
@@ -33,12 +31,13 @@ export const TopNavigation = ({ children }) => {
   }, [location]);
   return (
     <>
-      <Navbar  expand="lg"
+      <Navbar
+        expand="lg"
         bg="dark"
         variant="dark"
         expanded={expanded}
-        onToggle={() => setExpanded(!expanded)}>
-
+        onToggle={() => setExpanded(!expanded)}
+      >
         <Navbar.Brand>
           <Link to={route.home()}>
             <img
@@ -98,7 +97,7 @@ export const TopNavigation = ({ children }) => {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                <SideMenu classN={"top"}/>
+                <SideMenu classN={'top'} />
               </>
             ) : (
               <>
@@ -130,16 +129,16 @@ export const TopNavigation = ({ children }) => {
         <AdminBackground>
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
-              <Col
-                style={{ paddingLeft: 0 }}
-                justify="center"
-              >
-                <SideMenu isShown={isShown} classN={"side"}>
+              <Col style={{ paddingLeft: 0 }} justify="center">
+                <SideMenu isShown={isShown} classN={'side'}>
                   <Nav>
-                    <Button className="navButton submenuButton" onClick={() => setIsShown(!isShown)} >
-                    <FontAwesomeIcon
-                      style={{ fontSize: '18px', width: '25px' }}
-                      icon={faBars}
+                    <Button
+                      className="navButton submenuButton"
+                      onClick={() => setIsShown(!isShown)}
+                    >
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faBars}
                       />
                     </Button>
                   </Nav>

@@ -15,7 +15,7 @@ const TICKETS_TO_RESOLVE = gql`
       image
       content
       user_id
-      status{
+      status {
         status
         status_id
         code_class
@@ -24,10 +24,10 @@ const TICKETS_TO_RESOLVE = gql`
         comment_id
         content
       }
-      likes{
+      likes {
         ticket_id
         likes_count
-        likes_users{
+        likes_users {
           user_id
         }
       }
@@ -36,18 +36,17 @@ const TICKETS_TO_RESOLVE = gql`
       date
     }
   }
-`
-
+`;
 
 export const TicketsToSolve = () => {
-  let user = getDataFromLocalStorage()?.user
-  var userId = user ? parseInt(user.user_id) : undefined
-  if (userId === undefined) userId = 0
+  let user = getDataFromLocalStorage()?.user;
+  var userId = user ? parseInt(user.user_id) : undefined;
+  if (userId === undefined) userId = 0;
 
   const state = useQuery(TICKETS_TO_RESOLVE, {
     variables: { userId },
-  })
-  const tickets = state.data?.ticketsToResolve
+  });
+  const tickets = state.data?.ticketsToResolve;
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -59,21 +58,21 @@ export const TicketsToSolve = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-    {tickets.length ? (
-        <TicketsToSolveTemplate
-          tickets={tickets}
-          title={'Příspěvky k vyřešení'}
-          isOwner={true}
-        />
-    ) : (
-       <div>   
-         <Alert variant={'success'}>
-         Máš vyřešené všechny příspěvky &#9745;
-       </Alert>     
-      </div>
-    )} 
+          {tickets.length ? (
+            <TicketsToSolveTemplate
+              tickets={tickets}
+              title={'Příspěvky k vyřešení'}
+              isOwner={true}
+            />
+          ) : (
+            <div>
+              <Alert variant={'success'}>
+                Máš vyřešené všechny příspěvky &#9745;
+              </Alert>
+            </div>
+          )}
         </>
       )}
     </div>
-  )
-}
+  );
+};

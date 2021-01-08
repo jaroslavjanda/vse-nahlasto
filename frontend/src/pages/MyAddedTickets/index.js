@@ -15,7 +15,7 @@ const USERS_TICKETS = gql`
       image
       content
       user_id
-      status{
+      status {
         status
         status_id
         code_class
@@ -24,10 +24,10 @@ const USERS_TICKETS = gql`
         comment_id
         content
       }
-      likes{
+      likes {
         ticket_id
         likes_count
-        likes_users{
+        likes_users {
           user_id
         }
       }
@@ -66,17 +66,17 @@ export const MyAddedTickets = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-         {tickets.length ? (
+          {tickets.length ? (
             <MyAddedTicketsTemplate
               tickets={tickets}
               title={'Vložené příspěvky'}
             />
-            ) : (
-              <div>   
-                <Alert variant={'success'}>
+          ) : (
+            <div>
+              <Alert variant={'success'}>
                 Zatím jsi nepřidal žádný příspěvek 💬
-              </Alert>     
-             </div>
+              </Alert>
+            </div>
           )}
         </>
       )}

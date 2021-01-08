@@ -6,7 +6,7 @@ export const TYPE = {
   JOIN_COMMUNITY_REQUEST: 'JOIN_COMMUNITY_REQUEST',
   JOIN_COMMUNITY_REQUEST_ADMIN: 'JOIN_COMMUNITY_REQUEST_ADMIN',
   JOIN_COMMUNITY_CONFIRM: 'JOIN_COMMUNITY_CONFIRM',
-  RESOLVE_TICKET: 'RESOLVE_TICKET'
+  RESOLVE_TICKET: 'RESOLVE_TICKET',
 };
 
 export function send(emailData) {
@@ -22,22 +22,29 @@ export function send(emailData) {
     JOIN_COMMUNITY_REQUEST: 'd-62001517260f44edb11df44033ef63b8',
     JOIN_COMMUNITY_REQUEST_ADMIN: 'd-c5f4c90180c146a8ba3b53c9e41516bc',
     JOIN_COMMUNITY_CONFIRM: 'd-f116656350a44091878c57cce7346de3',
-    RESOLVE_TICKET:'d-dd214182e74147e384cb27e6bc02d3be'
+    RESOLVE_TICKET: 'd-dd214182e74147e384cb27e6bc02d3be',
   };
-  console.log("receiverName: ", emailData.receiverName, "communityName", emailData.communityName, "link", emailData.link)
+  console.log(
+    'receiverName: ',
+    emailData.receiverName,
+    'communityName',
+    emailData.communityName,
+    'link',
+    emailData.link,
+  );
 
   const msg = {
     to: emailData.receiver.toString(),
-    from: "tym7nahlasto@gmail.com",
+    from: 'tym7nahlasto@gmail.com',
     templateId: templates[emailData.type],
     dynamic_template_data: {
       ticket_name: emailData.ticketTitle,
       community_name: emailData.communityName,
       receiver_name: emailData.receiverName,
       link: emailData.link,
-      applicant_email: emailData.applicantEmail
-    }
-  }
+      applicant_email: emailData.applicantEmail,
+    },
+  };
 
   //send the email
   sgMail
@@ -49,7 +56,7 @@ export function send(emailData) {
       //Log friendly error
       // TODO this alert causes crash
       // alert(error);
-      console.log('Submit failed', "receiver: ", emailData.receiverName);
+      console.log('Submit failed', 'receiver: ', emailData.receiverName);
       console.error(error.toString());
     });
 }

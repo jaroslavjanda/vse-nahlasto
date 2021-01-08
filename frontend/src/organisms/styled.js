@@ -4,8 +4,8 @@ import theme from './../common/theme';
 export const AdminWrapper = styled.div`
   padding-top: 4rem;
   padding-bottom: 60px;
-  padding-left:15px;
-  padding-right:15px;
+  padding-left: 15px;
+  padding-right: 15px;
 `;
 
 export const Wrapper = styled.div``;
