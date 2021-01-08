@@ -279,9 +279,7 @@ export const joinPrivateCommunityRequest = async (
 
   if (setResetCodeDbResponse.insertId) {
     const acceptance_link =
-      // TODO change localhost to dev.frontend
-      'http://localhost:3000/join_private_community_request/' +
-      //'http://frontend.team07.vse.handson.pro/join_private_community_request/' +
+      'http://dev.frontend.team07.vse.handson.pro/join_private_community_request/' +
       communityId + '/' +
       usersCredentials.email +
       '/' +
@@ -289,11 +287,14 @@ export const joinPrivateCommunityRequest = async (
 
     // ################### END OF THE LINK STUFF ###################
 
+    const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+
     const applicantEmailData = {
       type: TYPE.JOIN_COMMUNITY_REQUEST,
       receiver: usersCredentials.email,
       receiverName: usersCredentials.name,
       communityName: communityName.name,
+      communityLink: communityLink,
     };
 
     const communityOwnerEmailData = {
@@ -303,6 +304,7 @@ export const joinPrivateCommunityRequest = async (
       communityName: communityName.name,
       applicantEmail: usersCredentials.email,
       link: acceptance_link,
+      communityLink: communityLink,
     };
 
     //send emails
@@ -358,11 +360,14 @@ export const handleValidJoinPrivateCommunityRequest = async (
     [userEmail],
   );
 
+  const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+
   const emailData = {
     type: TYPE.JOIN_COMMUNITY_CONFIRM,
     receiver: userEmail,
     receiverName: userCredentials.name,
     communityName: communityCredentials.name,
+    communityLink: communityLink,
   };
 
   //send emails
