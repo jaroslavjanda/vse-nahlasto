@@ -1,7 +1,7 @@
-import { Col, Row } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
+import { Col, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 
 export const Comment = ({ comments }) => {
   return (
@@ -13,7 +13,7 @@ export const Comment = ({ comments }) => {
               <FontAwesomeIcon icon={faUserCircle} />
             </Col>
 
-            <Col className='ml-3' style={{ textAlign: 'left' }}>
+            <Col className="ml-3" style={{ textAlign: 'left' }}>
               <Row style={{ fontWeight: 'bold' }}>
                 {item.user[0].name} {item.user[0].surname} (správce komunity)
               </Row>
@@ -26,5 +26,5 @@ export const Comment = ({ comments }) => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};

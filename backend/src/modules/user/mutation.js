@@ -66,7 +66,6 @@ export const signup = async (
   );
 
   if (dbResponse.insertId) {
-
     console.log('receiver email: ', email);
 
     const emailData = {
@@ -76,7 +75,6 @@ export const signup = async (
     };
 
     send(emailData);
-
   }
 
   const token = createToken({ id: dbResponse.insertId });
@@ -113,7 +111,6 @@ export const resetUserPassword = async (
   );
 
   if (dbResponse) {
-
     const emailData = {
       type: TYPE.CHANGE_PASSWORD,
       receiver: email,
@@ -230,26 +227,33 @@ export const joinPrivateCommunityRequest = async (
   { userId, communityId },
   { dbConnection },
 ) => {
-  const usersCredentials = (await dbConnection.query(
-    'SELECT name, email FROM user WHERE user_id = ?',
-    [userId],
-  ))[0];
+  const usersCredentials = (
+    await dbConnection.query('SELECT name, email FROM user WHERE user_id = ?', [
+      userId,
+    ])
+  )[0];
 
-  const communityName = (await dbConnection.query(
-    'SELECT name FROM community WHERE community_id = ?',
-    [communityId],
-  ))[0];
+  const communityName = (
+    await dbConnection.query(
+      'SELECT name FROM community WHERE community_id = ?',
+      [communityId],
+    )
+  )[0];
 
   // TODO roles can be 1 and 2, but more than 1 email should be sent then - we do not use role 2 for now
-  const communityOwnerId = (await dbConnection.query(
-    'SELECT user_id FROM `membership` WHERE community_id = ? AND role_id = 1',
-    [communityId],
-  ))[0].user_id;
+  const communityOwnerId = (
+    await dbConnection.query(
+      'SELECT user_id FROM `membership` WHERE community_id = ? AND role_id = 1',
+      [communityId],
+    )
+  )[0].user_id;
 
-  const communityOwnerCredentials = (await dbConnection.query(
-    'SELECT name, email FROM `user` WHERE user_id = ?',
-    [communityOwnerId],
-  ))[0];
+  const communityOwnerCredentials = (
+    await dbConnection.query(
+      'SELECT name, email FROM `user` WHERE user_id = ?',
+      [communityOwnerId],
+    )
+  )[0];
 
   // ################### LINK STUFF ###################
   // 1. check if the request is first, if not, delete the previous one
@@ -279,8 +283,11 @@ export const joinPrivateCommunityRequest = async (
 
   if (setResetCodeDbResponse.insertId) {
     const acceptance_link =
-      'http://dev.frontend.team07.vse.handson.pro/join_private_community_request/' +
-      communityId + '/' +
+      // TODO change localhost to dev.frontend
+      'http://localhost:3000/join_private_community_request/' +
+      //'http://frontend.team07.vse.handson.pro/join_private_community_request/' +
+      communityId +
+      '/' +
       usersCredentials.email +
       '/' +
       code;
@@ -333,12 +340,10 @@ export const handleValidJoinPrivateCommunityRequest = async (
   { userEmail, communityId },
   { dbConnection },
 ) => {
-
   const userCredentials = (
-    await dbConnection.query(
-      `SELECT user_id, name FROM user WHERE email = ?`,
-      [userEmail],
-    )
+    await dbConnection.query(`SELECT user_id, name FROM user WHERE email = ?`, [
+      userEmail,
+    ])
   )[0];
 
   const communityCredentials = (

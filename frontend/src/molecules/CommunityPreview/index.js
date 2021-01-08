@@ -8,11 +8,7 @@ export const PreviewType = {
   Basic: 'Basic',
 };
 
-export const CommunityPreview = ({
-  communities,
-  previewType,
-  isPublic,
-}) => {
+export const CommunityPreview = ({ communities, previewType, isPublic }) => {
   return (
     <div className="news">
       <Row>

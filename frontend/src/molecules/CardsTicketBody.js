@@ -1,46 +1,51 @@
-import React, { useState } from 'react'
-import { Button, Card, Col } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom'
-import './styles.css'
-import { getDataFromLocalStorage } from '../utils/localStorage'
-import { imgPathForTicket } from 'src/utils/imgPathForTickets'
-import { CardsTicketHeader } from './CardsTicketHeader'
-import { LikeLogic } from './LikeLogic'
-import { TicketComment } from './TicketComment'
-
+import React, { useState } from 'react';
+import { Button, Card, Col } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import './styles.css';
+import { getDataFromLocalStorage } from '../utils/localStorage';
+import { imgPathForTicket } from 'src/utils/imgPathForTickets';
+import { CardsTicketHeader } from './CardsTicketHeader';
+import { LikeLogic } from './LikeLogic';
+import { TicketComment } from './TicketComment';
 
 export const CardsTicketBody = ({
-                                  item,
-                                  like,
-                                  requestSendLike,
-                                  requestDelete,
-                                  isOwner,
-                                  toCommunityButton,
-                                  handleResolveTicket,
-                                }) => {
+  item,
+  like,
+  requestSendLike,
+  requestDelete,
+  isOwner,
+  toCommunityButton,
+  handleResolveTicket,
+}) => {
+  //border of card
+  let cardBorder =
+    item.status[0].status_id === 1
+      ? '3px solid rgb(40 167 69)'
+      : '3px solid rgb(0 123 254)';
+  let cardHeader =
+    item.status[0].status_id === 1
+      ? 'ticketCardHeaderGreen'
+      : 'ticketCardHeaderBlue';
+  let user = getDataFromLocalStorage()?.user;
+  const history = useHistory();
+  const [liked, setliked] = useState(like);
+  const [enabled, setenabled] = useState(true);
 
-//border of card
-  let cardBorder = item.status[0].status_id === 1 ? '3px solid rgb(40 167 69)' : '3px solid rgb(0 123 254)'
-  let cardHeader = item.status[0].status_id === 1 ? 'ticketCardHeaderGreen' : 'ticketCardHeaderBlue'
-  let user = getDataFromLocalStorage()?.user
-  const history = useHistory()
-  const [liked, setliked] = useState(like)
-  const [enabled, setenabled] = useState(true)
-
-  const canUserResolveOrComment = (isOwner && item.status[0].status_id === 3)
+  const canUserResolveOrComment = isOwner && item.status[0].status_id === 3;
 
   return (
-
     <Card
       className="ticketCardMaxSize"
       style={{ width: '100%', border: cardBorder }}
       key={item.title}
     >
-      <Card.Img
-        style={{ width: '100%' }}
-        src={imgPathForTicket('tickets', item.image)}
-        className="ticketImageNoBorders"
-      />
+      <div className="image-overflow-wrapper">
+        <Card.Img
+          style={{ width: '100%' }}
+          src={imgPathForTicket('tickets', item.image)}
+          className="ticketImageNoBorders"
+        />
+      </div>
       <Card.Header className={cardHeader}>
         <CardsTicketHeader
           user={user}
@@ -87,9 +92,9 @@ export const CardsTicketBody = ({
             <Button
               className="resolveTicketButton"
               onClick={() => {
-              let ticket_id = item.ticket_id
-              handleResolveTicket({ variables: { ticket_id } })
-            }}
+                let ticket_id = item.ticket_id;
+                handleResolveTicket({ variables: { ticket_id } });
+              }}
             >
               VYŘEŠIT PROBLÉM
             </Button>
@@ -97,6 +102,5 @@ export const CardsTicketBody = ({
         )}
       </Card.Body>
     </Card>
-
-  )
-}
+  );
+};

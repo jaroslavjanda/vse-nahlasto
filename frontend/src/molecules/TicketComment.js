@@ -1,9 +1,8 @@
-import React from 'react'
-import { gql, useQuery } from '@apollo/client'
-import { Loading } from '../atoms'
-import { Comment } from './Comment'
-import { AddCommentForm } from './AddCommentForm'
-
+import React from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { Loading } from '../atoms';
+import { Comment } from './Comment';
+import { AddCommentForm } from './AddCommentForm';
 
 const COMMENT_QUERY = gql`
   query Comment($ticketId: Int!) {
@@ -17,14 +16,12 @@ const COMMENT_QUERY = gql`
       }
     }
   }
-`
+`;
 
 export const TicketComment = ({ ticket, canUserResolveOrComment }) => {
-
-  const ticketId = ticket.ticket_id
-  const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId } })
-  const comments = commentState.data?.ticketComment
-
+  const ticketId = ticket.ticket_id;
+  const commentState = useQuery(COMMENT_QUERY, { variables: { ticketId } });
+  const comments = commentState.data?.ticketComment;
 
   return (
     <>
@@ -41,5 +38,5 @@ export const TicketComment = ({ ticket, canUserResolveOrComment }) => {
         </>
       )}
     </>
-  )
-}
+  );
+};

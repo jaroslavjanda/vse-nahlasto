@@ -48,15 +48,15 @@ export const AddTicket = ({ match }) => {
 
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
-      console.log(oldVariables)
+      console.log(oldVariables);
       const variables = {
         user_id: user ? user.user_id : 25085,
         community_id: communityId,
         title: oldVariables.title,
         content: oldVariables.content,
-        image: oldVariables.file? oldVariables.file: null,
+        image: oldVariables.file ? oldVariables.file : null,
         status: 3,
-        email:oldVariables.email
+        email: oldVariables.email,
       };
       addTicketRequest({ variables });
     },

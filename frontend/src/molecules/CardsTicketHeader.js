@@ -1,14 +1,21 @@
-import { Badge, Button, Col, Row } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
+import { Badge, Button, Col, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 
-export const CardsTicketHeader = ({ user, isOwner, item, enabled, requestDelete, history }) => {
+export const CardsTicketHeader = ({
+  user,
+  isOwner,
+  item,
+  enabled,
+  requestDelete,
+  history,
+}) => {
   return (
     <>
       <Col align="left">
         <Row className="card-header-items">
-        {isOwner && (
+          {isOwner && (
             <Button variant="danger" className="btn-sm">
               <FontAwesomeIcon
                 icon={faTrashAlt}
@@ -21,8 +28,8 @@ export const CardsTicketHeader = ({ user, isOwner, item, enabled, requestDelete,
                         communityId: item.community_id,
                         userId: user.user_id,
                       },
-                    })
-                    history.go(0)
+                    });
+                    history.go(0);
                   }
                 }}
               />
@@ -41,5 +48,5 @@ export const CardsTicketHeader = ({ user, isOwner, item, enabled, requestDelete,
         </Row>
       </Col>
     </>
-  )
-}
+  );
+};

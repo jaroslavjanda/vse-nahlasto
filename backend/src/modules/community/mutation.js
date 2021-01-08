@@ -18,9 +18,8 @@ export const addCommunity = async (
   { name, description, image, code, closed, ownerId },
   { dbConnection },
 ) => {
-  
   // adds community to DB
-  var img = image=!null? image : null;
+  var img = (image = !null ? image : null);
   const imgPath = await singleUpload({
     file: img,
     type: DirType.COMMUNITY_UPLOAD_DIR,
@@ -71,7 +70,7 @@ export const addCommunity = async (
       receiverName: userName,
       communityLink: communityLink
     };
-    
+
     send(emailData);
 
     return community;

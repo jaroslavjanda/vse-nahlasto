@@ -38,7 +38,8 @@ export const route = {
   forgottenPassword: () => '/forgotten_password',
   addCommunity: () => '/add_community',
   communityDetail,
-  joinPrivateCommunityRequest: () => `/join_private_community_request/${joinPrivateCommunityRequest()}`,
+  joinPrivateCommunityRequest: () =>
+    `/join_private_community_request/${joinPrivateCommunityRequest()}`,
   communityDetailRaw: () => '/community-detail',
   addTicket: () => `${communityDetail()}/add`,
   editCommunity: () => `${communityDetail()}/edit_community`,

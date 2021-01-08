@@ -89,13 +89,13 @@ export const communityTicket = async (
  * Returns tickets from logged user.
  */
 export const usersTickets = async (_, { userId }, { dbConnection }) => {
-  
   return await dbConnection.query(
     ` SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
       FROM ticket 
       WHERE user_id = ?
       ORDER BY ticket.date desc`,
-  [userId]);
+    [userId],
+  );
 };
 
 /**

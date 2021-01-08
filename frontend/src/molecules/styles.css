@@ -31,7 +31,8 @@
 .heart {
   width: 100px;
   height: 100px;
-  background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat 0 0;
+  background: url(https://cssanimation.rocks/images/posts/steps/heart.png)
+    no-repeat 0 0;
   cursor: pointer;
 }
 .heart-activate {
@@ -46,4 +47,9 @@
   100% {
     background-position: -2800px 0;
   }
+}
+.image-overflow-wrapper {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
 }
