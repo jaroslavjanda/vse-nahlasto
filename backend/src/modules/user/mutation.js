@@ -169,7 +169,7 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
       code;
 
     const userName = await dbConnection.query(
-      'SELECT userName FROM user WhERE email = ?',
+      'SELECT name FROM user WHERE email = ?',
       [email],
     );
 

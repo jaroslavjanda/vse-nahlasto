@@ -136,19 +136,26 @@ a:hover {
 }
 
 /* START - Terms of service */
-ol {
+.termsOfService ol {
   counter-reset: item;
 }
-li {
+.termsOfService li {
   display: block;
 }
-li:before {
+.termsOfService li:before {
   content: counters(item, '.') '. ';
   counter-increment: item;
+  width: 1.5em;
+  margin-left: -30px;
 }
 /* END - Terms of service */
 
 @media screen and (max-width: 900px) {
+  .termsOfService{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
   .container-image {
     overflow: none;
     position: relative;

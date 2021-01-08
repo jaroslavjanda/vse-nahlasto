@@ -174,7 +174,7 @@ footer a {
 }
 
 li::before {
-  content: '•' !important;
+  content: '•';
   color: #76a8d3;
   display: inline-block;
   width: 1em;

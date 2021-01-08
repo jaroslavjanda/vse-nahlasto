@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { Container } from 'react-bootstrap';
 import { Heading, Link } from 'src/atoms/';
 import { SignInForm } from 'src/organisms/';
 import { route } from 'src/Routes';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
   return (
-    <div className="mw6 center">
+    <Container>
       <Heading>Přihlášení</Heading>
       <SignInForm
         isLoading={isLoading}
@@ -26,6 +27,6 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
           </Link>
         </div>
       </SignInForm>
-    </div>
+    </Container>
   );
 }
