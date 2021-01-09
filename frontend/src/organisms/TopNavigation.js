@@ -127,7 +127,7 @@ export const TopNavigation = ({ children }) => {
                   </Nav.Item>
                   <Nav.Item className={'top'}>
                     
-                    <a onClick={() => {
+                    <a href="/" onClick={() => {
                           signout();
                           history.push(route.home());
                           window.location.reload();
@@ -157,7 +157,7 @@ export const TopNavigation = ({ children }) => {
                     Přihlásit se
                   </NavLink>
                 </Nav.Item>
-                <Nav.Item style={{marginLeft:"15px"}}>
+                <Nav.Item style={{marginLeft:"15px",marginTop:"13px"}}>
                   <Button className="navButton" to={route.signUp()} as={Link}>
                     Registrovat se
                   </Button>
@@ -169,7 +169,7 @@ export const TopNavigation = ({ children }) => {
       </Navbar>
       {!isAuthenticated && (
         <div
-          //setisauthenticated={setisauthenticated}
+          setisauthenticated={setisauthenticated}
           className="startPageMarginTop"
         >
           {children}{' '}

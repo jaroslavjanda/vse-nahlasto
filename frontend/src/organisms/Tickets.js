@@ -43,7 +43,7 @@ const LIKED_TICKETS = gql`
  
 
 export function Tickets({ tickets, isOwner, toCommunityButton }) {
-  const [sortedTickets, setSortedTickets] = useState(
+  const [sortedTickets] = useState(
     tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id)
     )
   let user = getDataFromLocalStorage()?.user;
