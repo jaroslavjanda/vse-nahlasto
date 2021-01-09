@@ -21,6 +21,10 @@ a:hover {
 .col-lg-10{
   margin-left: -60px;
 }
+
+.btn{
+  margin:10px
+}
 /*START MENU*/
 .navbar-nav .col{
   padding-left: 0!important;

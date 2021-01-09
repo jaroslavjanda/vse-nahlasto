@@ -4,7 +4,6 @@ import { Heading } from 'src/atoms';
 import { PasswordResetForm } from '../organisms/PasswordResetForm';
 
 export function PasswordResetTemplate({ isDone, error, onSubmit, email }) {
-  // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
       case 'Cannot return null for non-nullable field Mutation.resetUserPassword.':

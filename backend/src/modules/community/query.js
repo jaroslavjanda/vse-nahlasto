@@ -130,7 +130,6 @@ export const communitiesAccessibleToUserIds = async (
   { dbConnection },
 ) => {
   const idsArrayObject = await dbConnection.query(
-    // TODO solve 'accepted'
     `SELECT community_id FROM membership WHERE user_id = ?`,
     [userId],
   );
@@ -158,7 +157,6 @@ export const communitiesAccessibleToUser = async (
   { dbConnection },
 ) => {
   return await dbConnection.query(
-    // TODO solve 'accepted'
     'SELECT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +
@@ -177,7 +175,6 @@ export const communitiesAccessibleToUser = async (
  */
 export const communitiesUserOwns = async (_, { userId }, { dbConnection }) => {
   return await dbConnection.query(
-    // TODO solve 'accepted'
     'SELECT community.community_id, name, description, image, code, closed ' +
       'FROM `community` ' +
       'JOIN membership ' +

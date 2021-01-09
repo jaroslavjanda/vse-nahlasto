@@ -240,7 +240,7 @@ export const joinPrivateCommunityRequest = async (
     )
   )[0];
 
-  // TODO roles can be 1 and 2, but more than 1 email should be sent then - we do not use role 2 for now
+  // roles can be 1 and 2, but more than 1 email should be sent then - we do not use role 2 for now
   const communityOwnerId = (
     await dbConnection.query(
       'SELECT user_id FROM `membership` WHERE community_id = ? AND role_id = 1',

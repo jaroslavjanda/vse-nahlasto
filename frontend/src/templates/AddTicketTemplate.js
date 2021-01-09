@@ -4,7 +4,6 @@ import { Heading } from 'src/atoms';
 import { AddTicketForm } from '../organisms/AddTicketForm';
 
 export function AddTicketTemplate({ isDone, error, onSubmit }) {
-  // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
       case 'Cannot return null for non-nullable field Mutation.resetUserPassword.':

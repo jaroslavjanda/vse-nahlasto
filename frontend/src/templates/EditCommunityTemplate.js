@@ -10,7 +10,6 @@ export function EditCommunityTemplate({
   community_id,
   currentDescription,
 }) {
-  // TODO we should unite this error handling (also present in [SignInTemplate.js])
   if (error) {
     switch (error.message) {
       default:

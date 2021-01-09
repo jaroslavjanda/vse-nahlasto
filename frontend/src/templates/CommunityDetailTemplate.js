@@ -77,13 +77,13 @@ export function CommunityDetailTemplate({
           )}
         </div>
       )}
-
+      
       {community.closed && !isMember && activeRequest && (
         <SuccessBanner title={'Požadavek byl potvrzen'} className="mb3">
           Váš požadavek o přijetí do této komunity byl již zaznamenán,
           vyčkejte prosím na jeho vyřízení. V případě dlouhé časové prodlevy či jakýchkoliv
-          {/*TODO tady je potreba naformatovat odkaz*/}
-          nesrovnalostí můžete kontaktovat administrátora komunity na <br/><br/><br/><a href={"mailto:"}>{ ownerEmail }</a>.
+          nesrovnalostí můžete kontaktovat administrátora komunity na {" "}
+          <a href={"mailto:"} style={{display: "contents", color: "white"}}>{ ownerEmail }</a>.
         </SuccessBanner>
       )}
 
