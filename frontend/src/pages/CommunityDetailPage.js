@@ -135,7 +135,7 @@ export const CommunityDetail = ({ match }) => {
   const [ ownerEmail, setOwnerEmail ] = useState(null)
 
   useEffect( () => {
-    setOwnerEmail(state.data?.communityOwner.email)
+    setOwnerEmail(state.data?.communityOwner?.email)
     if (state.data?.hasRequestBeenSent) {
       setActiveRequest(true)
       console.log("setting true")

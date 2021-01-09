@@ -103,9 +103,13 @@ export const hasRequestBeenSent = async (
   { dbConnection },
 ) => {
 
-  const userEmail = (
+  var userEmail = (
     await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [userId])
-  )[0].email;
+  )[0]?.email;
+
+  if (userEmail === undefined) {
+    userEmail = ""
+  }
 
   return (
     await dbConnection.query(
