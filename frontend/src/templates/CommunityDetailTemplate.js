@@ -66,7 +66,6 @@ export function CommunityDetailTemplate({
           {userId !== 0 && (
             <Button
               variant="danger"
-              // TODO tady je onclick
               onClick={() => {
                 handlePrivateCommunityJoinRequest({
                   variables: { userId, communityId },

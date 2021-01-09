@@ -170,11 +170,6 @@ a:hover {
   display: none !important;
 }
 
-#admin-menu {
-  position: inherit;
-  padding-top: 0;
-}
-
 /*END MENU*/
 
 /*LINK*/
@@ -197,6 +192,34 @@ a:hover {
 }
 /* END TERMS OF SERVICE */
 
+/*START COMMUNITY DETAIL TEMPLATE*/
+
+.container-image {
+  position: relative;
+  text-align: center;
+  color: white;
+  height: 300px;
+  overflow: hidden;
+  margin-bottom: 1em
+}
+
+.container-image img {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  width: 100%;
+}
+
+.centered-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*END COMMUNITY DETAIL TEMPLATE*/
+
 @media screen and (max-width: 1000px) {
   .container-header .row .col {
     text-align: center;
@@ -205,32 +228,7 @@ a:hover {
     margin-bottom: 5%;
   }
 
-  /*START COMMUNITY DETAIL TEMPLATE*/
-
-  .container-image {
-    position: relative;
-    text-align: center;
-    color: white;
-    height: 300px;
-    overflow: hidden;
-  }
-
-  .container-image img {
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
-    width: 100%;
-  }
-
-  .centered-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  /*END COMMUNITY DETAIL TEMPLATE*/
+  
 }
 @media screen and (max-width: 900px) {
   /*START HEADING WITH BUTTONS*/
