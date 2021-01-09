@@ -76,9 +76,11 @@ export const CommunityDetail = ({ match }) => {
   const [joinPublicCommunityRequest] = useMutation(JOIN_COMMUNITY_MUTATION, {
     onCompleted: () => {
       toast.success('Nyní jste součástí komunity!');
-      window.location.reload();
+      setIsMember(true)
     },
-    onError: () => {},
+    onError: (error) => {
+      console.error(error)
+    },
   });
 
   const [joinPrivateCommunityRequest] = useMutation(
@@ -125,22 +127,21 @@ export const CommunityDetail = ({ match }) => {
     variables: { communityId, userId },
   });
 
-  const { isMember, isOwner } = useMemo(() => {
-    const isMember = !!state.data?.communityMembersIds.includes(userId);
+  const { isOwner } = useMemo(() => {
     const isOwner = userId === state.data?.communityOwner.user_id;
-    return { isMember, isOwner };
+    return { isOwner };
   }, [state, userId]);
 
+  const [ isMember, setIsMember ] = useState(false)
   const [ isActiveRequest, setActiveRequest ] = useState(false)
   const [ ownerEmail, setOwnerEmail ] = useState(null)
 
   useEffect( () => {
+    setIsMember(state.data?.communityMembersIds?.includes(userId))
     setOwnerEmail(state.data?.communityOwner?.email)
     if (state.data?.hasRequestBeenSent) {
       setActiveRequest(true)
-      console.log("setting true")
     }
-    console.log("is active request:", isActiveRequest )
   }, [state, handlePrivateCommunityJoinRequest] )
 
   const community = state.data?.community;
