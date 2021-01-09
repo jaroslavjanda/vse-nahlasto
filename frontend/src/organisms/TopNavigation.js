@@ -118,7 +118,7 @@ export const TopNavigation = ({ children }) => {
       </Navbar>
       {!isAuthenticated && (
         <div
-          setisauthenticated={setisauthenticated}
+          //setisauthenticated={setisauthenticated}
           className="startPageMarginTop"
         >
           {children}{' '}

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Container } from 'react-bootstrap';
 import { Heading } from 'src/atoms';
 import { AddTicketForm } from '../organisms/AddTicketForm';
 
@@ -15,7 +15,7 @@ export function AddTicketTemplate({ isDone, error, onSubmit }) {
   }
 
   return (
-    <div className="mw6 center">
+    <Container className="mw6 center">
       <Heading>Přidat příspěvek</Heading>
       <AddTicketForm
         errorMessage={error && error.message}
@@ -23,6 +23,6 @@ export function AddTicketTemplate({ isDone, error, onSubmit }) {
         onSubmit={onSubmit}
         className="mt3"
       />
-    </div>
+    </Container>
   );
 }

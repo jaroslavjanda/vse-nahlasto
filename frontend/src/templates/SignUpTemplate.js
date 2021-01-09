@@ -6,7 +6,7 @@ import { route } from 'src/Routes';
 
 export function SignUpTemplate({ isLoading, error, onSubmit }) {
   return (
-    <Container>
+    <Container className="mw6 center">
       <Heading>Registrace</Heading>
 
       <SignUpForm

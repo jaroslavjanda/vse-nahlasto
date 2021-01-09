@@ -151,6 +151,9 @@ a:hover {
 /* END - Terms of service */
 
 @media screen and (max-width: 900px) {
+  .container-header div{
+    margin: auto;
+  }
   .termsOfService{
     margin-left: 10px;
     margin-right: 10px;
