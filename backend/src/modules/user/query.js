@@ -105,17 +105,15 @@ export const hasRequestBeenSent = async (
 
   var userEmail = (
     await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [userId])
-  )[0]?.email;
+  );
 
-  if (userEmail === undefined) {
-    userEmail = ""
-  }
+  var email = userEmail === undefined? userEmail : userEmail[0].email
 
   return (
     await dbConnection.query(
       `SELECT * FROM join_private_community_request 
     WHERE user_email = ?
     AND communityId = ?`,
-      [userEmail, communityId])
+      [email, communityId])
   )[0]
 };

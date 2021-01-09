@@ -9,10 +9,9 @@ import { AdminBackground, AdminWrapper } from './styled';
 import { SideMenu } from 'src/molecules';
 import { route } from 'src/Routes';
 import logo from 'src/images/logo.png';
-import './style.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faSignOutAlt, faBars, faHome, faBuilding, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
@@ -58,19 +57,31 @@ export const TopNavigation = ({ children }) => {
             {!isAuthenticated && (
               <>
                 <Nav.Item>
-                  <NavLink exact to={route.home()} className="pa3">
+                <NavLink exact to={route.home()} className="pa3">
+                  <FontAwesomeIcon
+                    className="top"
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faHome}
+                  />{' '}
+                  <span>
                     Domů
-                  </NavLink>
+                  </span>
+                </NavLink>
                 </Nav.Item>
                 <Nav.Item>
                   <NavLink exact to={route.communities()} className="pa3">
+                    <FontAwesomeIcon
+                      className="top"
+                      style={{ fontSize: '18px', width: '25px' }}
+                      icon={faBuilding}
+                    />{' '}
                     Komunity
                   </NavLink>
                 </Nav.Item>
               </>
             )}
             {isAuthenticated ? (
-              <>
+              <Col>
                 <Dropdown className={'side'}>
                   <Dropdown.Toggle id="dropdown-custom-1" className="navButton">
                     {' '}
@@ -98,46 +109,55 @@ export const TopNavigation = ({ children }) => {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-
-                <div className={`submenu top`} style={{color:"white"}}>
-                  {' '}{user.name}{' '}{user.surname}
-                </div>
-                <Nav.Item className={'top'}>
+                      
+                <Row>
+                  <Col style={{paddingLeft:0}}>
+                  <div className={`top navButton center name`}>
+                    {' '}{user.name}{' '}{user.surname}
+                  </div>
+                  <Nav.Item className={'top'}>
+                      
+                    <NavLink exact to={route.forgottenPassword()}>
+                      <FontAwesomeIcon
+                        style={{ fontSize: '18px', width: '25px' }}
+                        icon={faKey}
+                      />{' '}
+                      Změna hesla
+                    </NavLink>
+                  </Nav.Item>
+                  <Nav.Item className={'top'}>
                     
-                  <NavLink exact to={route.forgottenPassword()}>
-                    <FontAwesomeIcon
-                      style={{ fontSize: '18px', width: '25px' }}
-                      icon={faBuilding}
-                    />{' '}
-                    Změna hesla
-                  </NavLink>
-                </Nav.Item>
-                <Nav.Item className={'top'}>
-                  
-                  <a onClick={() => {
-                        signout();
-                        history.push(route.home());
-                        window.location.reload();
-                      }} 
-                      className={'link no-underline f6 dib'}
-                      >
-                        <FontAwesomeIcon
-                  style={{ fontSize: '18px', width: '25px' }}
-                  icon={faBuilding}
-                />{' '}
-                  Odhlásit se
-                  </a>
-                </Nav.Item>
+                    <a onClick={() => {
+                          signout();
+                          history.push(route.home());
+                          window.location.reload();
+                        }} 
+                        className={'link no-underline f6 dib'}
+                        >
+                          <FontAwesomeIcon
+                    style={{ fontSize: '18px', width: '25px' }}
+                    icon={faSignOutAlt}
+                  />{' '}
+                    Odhlásit se
+                    </a>
+                  </Nav.Item>
+                  </Col>
+                </Row>
                 <SideMenu classN={'top'} />
-              </>
+              </Col>
             ) : (
               <>
-                <Nav.Item>
+                <Nav.Item style={{marginBottom:"10px"}}>
                   <NavLink to={route.signIn()} className="pa3">
+                    <FontAwesomeIcon
+                      className="top"
+                      style={{ fontSize: '18px', width: '25px' }}
+                      icon={faSignInAlt}
+                    />{' '}
                     Přihlásit se
                   </NavLink>
                 </Nav.Item>
-                <Nav.Item>
+                <Nav.Item style={{marginLeft:"15px"}}>
                   <Button className="navButton" to={route.signUp()} as={Link}>
                     Registrovat se
                   </Button>
@@ -161,15 +181,14 @@ export const TopNavigation = ({ children }) => {
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
               <Col
-                style={{ paddingLeft: 0 }}
+                style={isShown ? {flexGrow:0} : {flexGrow:2}} 
                 justify="center"
-                lg={isShown ? 1 : 2} 
                 xs={0}
               >
                 <SideMenu isShown={isShown} classN={"side"}>
                   <Nav>
                     <Button
-                      className="navButton submenuButton"
+                      className="submenuButton"
                       onClick={() => setIsShown(!isShown)}
                     >
                       <FontAwesomeIcon
