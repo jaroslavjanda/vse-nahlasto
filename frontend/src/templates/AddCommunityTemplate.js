@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Container } from 'react-bootstrap';
 import { Heading } from 'src/atoms';
 import { AddCommunityForm } from '../organisms/AddCommunityForm';
 
@@ -12,7 +12,7 @@ export function AddCommunityTemplate({ isDone, error, onSubmit, user }) {
   }
 
   return (
-    <div className="mw6 center">
+    <Container className="mw6 center">
       <Heading>Přidat komunitu</Heading>
       <AddCommunityForm
         errorMessage={error && error.message}
@@ -21,6 +21,6 @@ export function AddCommunityTemplate({ isDone, error, onSubmit, user }) {
         className="mt3"
         user={user}
       />
-    </div>
+    </Container>
   );
 }
