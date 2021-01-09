@@ -1,3 +1,3 @@
 export const getDataFromLocalStorage = () => {
-  return JSON.parse(localStorage.getItem('quacker-auth'));
+  return JSON.parse(localStorage.getItem('auth'));
 };

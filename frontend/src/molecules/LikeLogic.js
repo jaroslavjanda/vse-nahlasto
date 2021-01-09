@@ -1,5 +1,7 @@
 import { HeartWithNumber } from '../atoms/HeartWithNumber';
-import React from 'react';
+import React, { useState } from 'react';
+
+
 
 export const LikeLogic = ({
   item,
@@ -9,14 +11,17 @@ export const LikeLogic = ({
   liked,
   setenabled,
   requestSendLike,
+  isLikedByUser,
 }) => {
+  const [isLikedByUserState,setIsLikedByUserState] = useState(isLikedByUser)
   return (
     <div
       onClick={() => {
         if (user) {
-          if (enabled) {
+          if (enabled && !isLikedByUserState) {
             setliked(liked + 1);
             setenabled(false);
+            setIsLikedByUserState(!isLikedByUserState)
             requestSendLike({
               variables: {
                 ownerId: user.user_id,
@@ -26,6 +31,7 @@ export const LikeLogic = ({
           } else {
             setliked(liked - 1);
             setenabled(true);
+            setIsLikedByUserState(!isLikedByUserState)
             requestSendLike({
               variables: {
                 ownerId: user.user_id,
@@ -37,7 +43,7 @@ export const LikeLogic = ({
       }}
       className="btn"
     >
-      <HeartWithNumber enabled={enabled} liked={liked} />
+      <HeartWithNumber enabled={enabled} liked={liked} isLikedByUser={isLikedByUserState} />
     </div>
   );
 };

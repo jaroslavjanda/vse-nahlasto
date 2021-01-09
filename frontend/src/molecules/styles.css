@@ -53,3 +53,8 @@
   height: 250px;
   overflow: hidden;
 }
+
+.heart-fill {
+  background-position: -2800px 0;
+  transition: background 0s steps(28);
+}

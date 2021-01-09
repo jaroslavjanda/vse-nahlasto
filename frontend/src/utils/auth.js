@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-const LOCAL_STORAGE_AUTH_KEY = 'quacker-auth';
+const LOCAL_STORAGE_AUTH_KEY = 'auth';
 
 const initialState = {
   token: null,
@@ -46,7 +46,7 @@ function createContextValue({ token, user, setState }) {
     signin: ({ token, user }) => {
       setState({ token, user });
     },
-    signout: () => localStorage.removeItem('quacker-auth'),
+    signout: () => localStorage.removeItem('auth'),
   };
 }
 
