@@ -64,19 +64,30 @@ export const community = async (_, { communityId }, { dbConnection }) => {
  * @param dbConnection
  * @returns {Promise<*>}
  */
-export const communityOwnerId = async (
+export const communityOwner = async (
   _,
   { communityId },
   { dbConnection },
 ) => {
-  const owner = (
+  const ownerId = (
     await dbConnection.query(
-      `SELECT * FROM membership WHERE role_id = ? AND community_id = ?`,
+      `SELECT user_id FROM membership WHERE role_id = ? AND community_id = ?`,
       [1, communityId],
     )
-  )[0];
+  )[0].user_id;
 
-  return owner.user_id;
+  console.log("owner id:", ownerId)
+
+  const owner = (
+    await dbConnection.query(
+      `SELECT * FROM user WHERE user_id = ?`,
+      [ownerId]
+    )
+  )[0]
+
+  console.log("owner data:", owner)
+
+  return owner
 };
 
 /**
