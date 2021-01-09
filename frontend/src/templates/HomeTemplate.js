@@ -25,8 +25,8 @@ import 'src/molecules/CommunityPreview/styles.css';
 
 export function HomeTemplate({ communitiesHomepage }) {
   return (
-    <>
-      <Jumbotron className="cover" style={{ marginTop: '-5rem' }}>
+    <Container>
+      <Jumbotron className="cover" style={{ marginTop: '-3rem' }}>
         <Container>
           <div className="cover-text">
             <h1>
@@ -289,6 +289,6 @@ export function HomeTemplate({ communitiesHomepage }) {
       </Jumbotron>
 
       <Footer />
-    </>
+    </Container>
   );
 }

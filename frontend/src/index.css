@@ -21,7 +21,9 @@ a:hover {
 .col-lg-10{
   margin-left: -60px;
 }
-
+.startPageMarginTop{
+  margin-top: 1rem;
+}
 .btn{
   margin:10px
 }
