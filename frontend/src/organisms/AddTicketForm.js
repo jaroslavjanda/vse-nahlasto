@@ -1,20 +1,20 @@
-import React from 'react'
-import { Form, Formik } from 'formik'
-import * as yup from 'yup'
-import { Col, Row } from 'react-bootstrap'
-import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/'
-import { FormikField } from 'src/molecules/FormikField'
-import { FormikTextArea } from '../molecules/FormikTextArea'
-import { FormikFile } from '../molecules/FormikFile'
-import { getDataFromLocalStorage } from '../utils/localStorage'
+import React from 'react';
+import { Form, Formik } from 'formik';
+import * as yup from 'yup';
+import { Col, Row } from 'react-bootstrap';
+import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
+import { FormikField } from 'src/molecules/FormikField';
+import { FormikTextArea } from '../molecules/FormikTextArea';
+import { FormikFile } from '../molecules/FormikFile';
+import { getDataFromLocalStorage } from '../utils/localStorage';
 
 export function AddTicketForm({
-                                errorMessage,
-                                successMessage,
-                                onSubmit,
-                                className,
-                              }) {
-  let user = getDataFromLocalStorage()?.user
+  errorMessage,
+  successMessage,
+  onSubmit,
+  className,
+}) {
+  let user = getDataFromLocalStorage()?.user;
 
   const initialValues = {
     title: '',
@@ -22,7 +22,7 @@ export function AddTicketForm({
     file: '',
     email: '',
     showEmail: !user,
-  }
+  };
   const schema = yup.object().shape({
     content: yup.string().required('Obsah je povinný.').label('Popis'),
     title: yup.string().required('Název je povinný.').label('Název'),
@@ -33,7 +33,7 @@ export function AddTicketForm({
         is: true,
         then: yup.string().required('Tohle není validní emailová adresa.'),
       }),
-  })
+  });
 
   return (
     <Formik
@@ -95,5 +95,5 @@ export function AddTicketForm({
         </Col>
       </Row>
     </Formik>
-  )
+  );
 }

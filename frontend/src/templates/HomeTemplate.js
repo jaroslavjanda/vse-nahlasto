@@ -129,7 +129,7 @@ export function HomeTemplate({ communitiesHomepage }) {
           </Row>
         </Container>
       </Jumbotron>
-      
+
       <Jumbotron className="jumbotronWhite">
         {communitiesHomepage && (
           <>
@@ -203,10 +203,10 @@ export function HomeTemplate({ communitiesHomepage }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                    <ul style={{ listStyle: 'none' }}>
-                      <li>5 uživatelů</li>
-                      <li>účet správce</li>
-                    </ul>
+                  <ul style={{ listStyle: 'none' }}>
+                    <li>5 uživatelů</li>
+                    <li>účet správce</li>
+                  </ul>
                   <div className="text-center">
                     <Card.Title>
                       <h3>0 €</h3>
@@ -230,10 +230,10 @@ export function HomeTemplate({ communitiesHomepage }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                    <ul className="list-unstyled">
-                      <li>25 uživatelů</li>
-                      <li>účet správce</li>
-                    </ul>
+                  <ul className="list-unstyled">
+                    <li>25 uživatelů</li>
+                    <li>účet správce</li>
+                  </ul>
                   <Card.Title>
                     <h3>8 €</h3>
                   </Card.Title>
@@ -255,9 +255,9 @@ export function HomeTemplate({ communitiesHomepage }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                    <ul className="list-unstyled">
-                      <li>dle domluvy</li>
-                    </ul>
+                  <ul className="list-unstyled">
+                    <li>dle domluvy</li>
+                  </ul>
                   <Card.Title>
                     <h3>20 €</h3>
                   </Card.Title>
@@ -274,7 +274,7 @@ export function HomeTemplate({ communitiesHomepage }) {
           </Card>
         </CardDeck>
       </Jumbotron>
-      
+
       <Jumbotron className="jumbotronBlue">
         <Container>
           <div className="text-center">

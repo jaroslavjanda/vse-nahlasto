@@ -3,7 +3,6 @@ import { Row } from 'react-bootstrap';
 import { PreviewType, CommunityPreview } from './CommunityPreview/index';
 
 export const CommunityCardsHomepage = ({ communitiesHomepage }) => {
-
   return (
     <Row>
       <CommunityPreview

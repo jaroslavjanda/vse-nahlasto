@@ -29,18 +29,6 @@ export const OwnerOfCommunities = () => {
   });
   const communities = state.data?.communitiesUserOwns;
 
-  //TODO delete
-  /*
-  const [communities, setCommunities] = useState(null);
-  useEffect(() => {
-    if (
-      !communitiesUserOwnsState.loading &&
-      communitiesUserOwnsState.data != undefined
-    ) {
-      const data = communitiesUserOwnsState.data.communitiesUserOwns;
-      setCommunities(data);
-    }
-  }, [communitiesUserOwnsState]);*/
   return (
     <div style={{ textAlign: 'center' }}>
       {state.loading && <Loading />}

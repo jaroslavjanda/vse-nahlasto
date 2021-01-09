@@ -96,7 +96,7 @@ export function SignUpForm({ errorMessage, className, onSubmit, children }) {
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <FormGroup style={{ textAlign: 'right' }}>
+        <FormGroup style={{ textAlign: 'right', paddingLeft: '30px' }}>
           <Field
             type="checkbox"
             id="checkboxAcceptTerms"

@@ -89,13 +89,13 @@ export const communityTicket = async (
  * Returns tickets from logged user.
  */
 export const usersTickets = async (_, { userId }, { dbConnection }) => {
-  
   return await dbConnection.query(
     ` SELECT ticket_id, title, image, ticket.content, ticket.date, ticket.status_id, ticket.user_id, community_id
       FROM ticket 
       WHERE user_id = ?
       ORDER BY ticket.date desc`,
-  [userId]);
+    [userId],
+  );
 };
 
 /**
@@ -129,6 +129,18 @@ export const ticketsToResolve = async (_, { userId }, { dbConnection }) => {
       LEFT JOIN membership ON ticket.community_id = membership.community_id  
       WHERE membership.user_id = ? AND (membership.role_id = 1 OR membership.role_id = 2) AND status_id = 3 
       ORDER BY ticket.date desc`,
+    [userId],
+  );
+  return ticketsToResolve;
+};
+
+/**
+ * Returns tickets which are liked by user.
+ */
+export const ticketsLiked = async (_, { userId }, { dbConnection }) => {
+  const ticketsToResolve = await dbConnection.query(
+    `SELECT ticket_id FROM  \`like\` 
+    WHERE user_id = ?`,
     [userId],
   );
   return ticketsToResolve;

@@ -79,9 +79,9 @@ export default {
           `,
         [parent.ticket_id],
       );
-    }
+    },
   },
-  Likes:{
+  Likes: {
     async likes_users(parent, _, { dbConnection }) {
       return await dbConnection.query(
         `SELECT user.user_id, name, surname, email FROM user 

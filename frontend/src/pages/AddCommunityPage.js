@@ -48,7 +48,7 @@ export const AddCommunityPage = () => {
       const variables = {
         name: oldVariables.name,
         description: oldVariables.description,
-        image: oldVariables.file? oldVariables.file: null,
+        image: oldVariables.file ? oldVariables.file : null,
         owner_id: oldVariables.owner_id,
         closed: oldVariables.closed,
       };
