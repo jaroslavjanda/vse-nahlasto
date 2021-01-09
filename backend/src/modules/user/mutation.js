@@ -160,7 +160,7 @@ export const setResetCode = async (_, { email }, { dbConnection }) => {
 
   if (setResetCodeDbResponse.insertId) {
     const link =
-      'http://dev.frontend.team07.vse.handson.pro/password_reset/' +
+      'http://frontend.team07.vse.handson.pro/password_reset/' +
       email +
       '/' +
       code;
@@ -283,9 +283,7 @@ export const joinPrivateCommunityRequest = async (
 
   if (setResetCodeDbResponse.insertId) {
     const acceptance_link =
-      // TODO change localhost to dev.frontend
-      'http://localhost:3000/join_private_community_request/' +
-      //'http://frontend.team07.vse.handson.pro/join_private_community_request/' +
+      'http://frontend.team07.vse.handson.pro/join_private_community_request/' +
       communityId +
       '/' +
       usersCredentials.email +
@@ -294,7 +292,7 @@ export const joinPrivateCommunityRequest = async (
 
     // ################### END OF THE LINK STUFF ###################
 
-    const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+    const communityLink = "http://frontend.team07.vse.handson.pro/community-detail/" + communityId
 
     const applicantEmailData = {
       type: TYPE.JOIN_COMMUNITY_REQUEST,
@@ -365,7 +363,7 @@ export const handleValidJoinPrivateCommunityRequest = async (
     [userEmail],
   );
 
-  const communityLink = "http://dev.frontend.team07.vse.handson.pro/community-detail/" + communityId
+  const communityLink = "http://frontend.team07.vse.handson.pro/community-detail/" + communityId
 
   const emailData = {
     type: TYPE.JOIN_COMMUNITY_CONFIRM,
