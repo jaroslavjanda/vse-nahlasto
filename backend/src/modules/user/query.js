@@ -88,3 +88,30 @@ export const validateJoinCommunityRequestCode = async (
   }
   return request;
 };
+
+/**
+ * Returns already sent request if exists.
+ * @param _
+ * @param userId
+ * @param communityId
+ * @param dbConnection
+ * @returns {Promise<*>}
+ */
+export const hasRequestBeenSent = async (
+  _,
+  { userId, communityId },
+  { dbConnection },
+) => {
+
+  const userEmail = (
+    await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [userId])
+  )[0].email;
+
+  return (
+    await dbConnection.query(
+      `SELECT * FROM join_private_community_request 
+    WHERE user_email = ?
+    AND communityId = ?`,
+      [userEmail, communityId])
+  )[0]
+};

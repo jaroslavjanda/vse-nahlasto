@@ -5,6 +5,7 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Tickets } from 'src/organisms';
 import { imgPath } from 'src/utils/imgPath';
 import React from 'react';
+import { SuccessBanner } from '../atoms';
 
 export function CommunityDetailTemplate({
   community,
@@ -14,6 +15,8 @@ export function CommunityDetailTemplate({
   handleJoinCommunity,
   handlePrivateCommunityJoinRequest,
   userId,
+  activeRequest,
+  ownerEmail,
 }) {
   return (
     <Container>
@@ -50,7 +53,7 @@ export function CommunityDetailTemplate({
         )}
       </div>
 
-      {community.closed && !isMember && (
+      {community.closed && !isMember && !activeRequest && (
         <div>
           <Alert variant={'danger'}>
             <div>
@@ -73,6 +76,15 @@ export function CommunityDetailTemplate({
             </Button>
           )}
         </div>
+      )}
+
+      {community.closed && !isMember && activeRequest && (
+        <SuccessBanner title={'Požadavek byl potvrzen'} className="mb3">
+          Váš požadavek o přijetí do této komunity byl již zaznamenán,
+          vyčkejte prosím na jeho vyřízení. V případě dlouhé časové prodlevy či jakýchkoliv
+          {/*TODO tady je potreba naformatovat odkaz*/}
+          nesrovnalostí můžete kontaktovat administrátora komunity na <br/><br/><br/><a href={"mailto:"}>{ ownerEmail }</a>.
+        </SuccessBanner>
       )}
 
       {(!community.closed || isMember) && (

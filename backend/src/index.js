@@ -119,7 +119,7 @@ const typeDefs = gql`
     ticketsToResolve(userId: Int!): [Ticket]
     communityTickets(communityId: Int!): [Ticket!]
     communityTicket(communityId: Int!, ticketId: Int!): Ticket
-    communityOwnerId(communityId: Int!): Int!
+    communityOwner(communityId: Int!): User!
     communityMembersIds(communityId: Int!): [Int]
     comments: [Comment!]
     comment(commentId: Int!): [Comment!]
@@ -129,6 +129,10 @@ const typeDefs = gql`
       communityId: Int!
       applicant_email: String!
       code: Int!
+    ): JoinPrivateCommunityRequest
+    hasRequestBeenSent(
+      communityId: Int!,
+      userId: Int!
     ): JoinPrivateCommunityRequest
     ticketsLiked(userId:Int!):[Ticket]
   }

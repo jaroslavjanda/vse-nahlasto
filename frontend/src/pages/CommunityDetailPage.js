@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { CommunityDetailTemplate } from '../templates/CommunityDetailTemplate';
 import { getDataFromLocalStorage } from '../utils/localStorage';
@@ -8,9 +8,12 @@ import { ErrorBannerWithRefreshButton } from '../atoms/ErrorBannerWithRefreshBut
 import { Loading } from '../atoms';
 
 const COMMUNITY_DETAIL_QUERY = gql`
-  query CommunityList($communityId: Int!) {
+  query CommunityList($communityId: Int!, $userId: Int!) {
     communityMembersIds(communityId: $communityId)
-    communityOwnerId(communityId: $communityId)
+    communityOwner(communityId: $communityId) {
+      user_id,
+      email
+    }
     community(communityId: $communityId) {
       name
       description
@@ -46,6 +49,9 @@ const COMMUNITY_DETAIL_QUERY = gql`
           }
         }
       }
+    }
+    hasRequestBeenSent(communityId: $communityId, userId: $userId) {
+      communityId
     }
   }
 `;
@@ -104,6 +110,7 @@ export const CommunityDetail = ({ match }) => {
         userId: oldVariables.variables.userId,
         communityId: oldVariables.variables.communityId,
       };
+      setActiveRequest(true)
       joinPrivateCommunityRequest({ variables });
     },
     [joinPrivateCommunityRequest],
@@ -115,14 +122,26 @@ export const CommunityDetail = ({ match }) => {
 
   const communityId = parseInt(match.params.communityId);
   const state = useQuery(COMMUNITY_DETAIL_QUERY, {
-    variables: { communityId },
+    variables: { communityId, userId },
   });
 
   const { isMember, isOwner } = useMemo(() => {
     const isMember = !!state.data?.communityMembersIds.includes(userId);
-    const isOwner = userId === state.data?.communityOwnerId;
+    const isOwner = userId === state.data?.communityOwner.user_id;
     return { isMember, isOwner };
   }, [state, userId]);
+
+  const [ isActiveRequest, setActiveRequest ] = useState(false)
+  const [ ownerEmail, setOwnerEmail ] = useState(null)
+
+  useEffect( () => {
+    setOwnerEmail(state.data?.communityOwner.email)
+    if (state.data?.hasRequestBeenSent) {
+      setActiveRequest(true)
+      console.log("setting true")
+    }
+    console.log("is active request:", isActiveRequest )
+  }, [state, handlePrivateCommunityJoinRequest] )
 
   const community = state.data?.community;
 
@@ -147,6 +166,8 @@ export const CommunityDetail = ({ match }) => {
               }
               communityId={communityId}
               userId={userId}
+              activeRequest={isActiveRequest}
+              ownerEmail={ownerEmail}
             />
           )}
         </div>
