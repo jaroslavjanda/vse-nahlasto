@@ -53,14 +53,18 @@ a:hover {
 }
 */
 /*START MENU*/
+.navbar-nav .col{
+  padding-left: 0!important;
+}
+
+/*menu top*/
 .nav-item a {
   font-size: 16px;
   color: white;
   cursor: pointer;
   text-decoration: none;
   border-top: 4px solid transparent;
-  margin-top: -10px;
-  padding-top: 21px;
+  margin-left: -15px !important
 }
 
 .nav-item a:hover {
@@ -68,19 +72,46 @@ a:hover {
   border-radius: 2px !important;
   color: #76a8d3 !important;
 }
+/*menu side*/
+.col .nav-item a{
+  border-top: 0!important;
+  border-left: 4px solid transparent;
+  margin-top: 2px !important;
+  margin-left: 0!important;
+  padding: 10px;
+}
+.col .nav-item a:hover {
+  border-left: 4px solid #76a8d3;
+  border-radius: 2px !important;
+  color: #76a8d3 !important;
+}
+
 .submenu {
   text-transform: uppercase;
-  padding-left: 36px;
-  margin-bottom: 16px;
-  border-left: 4px solid transparent;
+  border: 1px solid #76a8d3 !important;
+  border-radius: 5px;
+  padding: 6px 0 6px 36px ;
+  margin-left: 15px;
+}
+
+.name{
+  margin-left: 15px!important;
+  color: white;
 }
 .submenuButton {
   text-align: center;
-  margin-left: 25px !important;
+  left: 4px;
+  margin-top: 20px !important;
   background-color: #76a8d3;
   border-color: #76a8d3;
   z-index: 100;
   position: absolute;
+  border: 1px solid #76a8d3 !important;
+  border-radius: 5px;
+}
+.submenuButton:hover,  .submenuButton:active,.submenuButton:focus{
+  background-color: #343a40 !important;
+  color: #76a8d3 !important;
 }
 .active-admin {
   border-left: 4px solid #dfe2f1;
@@ -94,10 +125,9 @@ a:hover {
   letter-spacing: 0;
   min-height: 100vh;
   height: 100%;
-  padding-top: 4rem;
+  padding-top: 4rem !important;
   position: absolute;
 }
-/*START MENU*/
 .navButton {
   color: white;
   background-color: #76a8d3 !important;
@@ -106,17 +136,15 @@ a:hover {
   cursor: pointer;
   transition: all 0.3s ease 0s;
   text-transform: uppercase;
-  margin: 5px 3px 0 3px !important;
-  padding-top: 6px !important;
+  margin: 0 3px 0 3px !important;
 }
 
-.navButton:hover {
+.navButton:hover{
   background-color: #343a40 !important;
   border: 2px solid #76a8d3 !important;
   margin: 3px 1px 0 3px !important;
   color: #76a8d3 !important;
 }
-/*END MENU*/
 
 .active_link {
   border-top: 4px solid #76a8d3!important;
@@ -128,6 +156,8 @@ a:hover {
 
 .notVisible {
   visibility: collapse;
+  font-size: 0;
+  height: 38px
 }
 
 .notVisibleText {
@@ -143,10 +173,6 @@ a:hover {
 #admin-menu {
   position: inherit;
   padding-top: 0;
-}
-
-#admin-menu a {
-  padding-left: 15px;
 }
 
 /*END MENU*/
@@ -221,10 +247,17 @@ a:hover {
   /*END TERMS OF SERVICE*/
 
   /*START MENU*/
+  #admin-menu{
+    padding-top: 0 !important;
+  }
+  .navButton{
+    padding: 6px 36px;
+    margin-left: 15px !important
+  }
   .nav-item a{
     font-size: 16px;
     color: white;
-    padding: 10px 0 10px 36px;
+    padding: 10px 0 10px 15px;
     cursor: pointer;
     text-decoration: none;
     display: flow-root;
@@ -243,6 +276,9 @@ a:hover {
   }
   .top {
     display: block !important;
+  }
+  .nav-item .top{
+    display: inline !important;
   }
   /*END MENU*/
 
