@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from './../common/theme';
 
 export const AdminWrapper = styled.div`
-  padding-top: 4rem;
+  padding-top: 1rem;
   padding-bottom: 60px;
   padding-left: 15px;
   padding-right: 15px;

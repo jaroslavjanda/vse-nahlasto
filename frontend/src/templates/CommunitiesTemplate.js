@@ -13,12 +13,13 @@ export const CommunitiesTemplate = ({
   communities,
   title,
   isPublic,
+  addCommunity
 }) => {
   const history = useHistory();
   return (
     <Container>
       <HeadingWithButtons header={title ? title : ''}>
-        {!isPublic && (
+        {!isPublic && addCommunity && (
           <Button
             variant="success"
             onClick={() => history.push(route.addCommunity())}

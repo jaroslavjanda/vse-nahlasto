@@ -59,7 +59,7 @@ export const SideMenu = ({ isShown, classN, children }) => {
                 icon={faHouseUser}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                Členství v komunitách
+                Členství
               </span>
             </NavLink>
           </Nav.Item>
@@ -74,7 +74,7 @@ export const SideMenu = ({ isShown, classN, children }) => {
                 icon={faNewspaper}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                Vložené příspěvky
+                Moje příspěvky
               </span>
             </NavLink>
           </Nav.Item>
@@ -107,7 +107,7 @@ export const SideMenu = ({ isShown, classN, children }) => {
                 icon={faClipboardList}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                Příspěvky na vyřešení
+                Příspěvky
               </span>
             </NavLink>
           </Nav.Item>

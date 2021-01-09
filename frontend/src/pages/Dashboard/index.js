@@ -26,16 +26,16 @@ export const Dashboard = () => {
       <Col lg={4}>
         <Link to={route.adminMemberOfCommunities()}>
           <DashboardCardWrapper>
-            <img width="50%" src={servicesImage} alt="Členství v komunitách" />
-            <CardTitle>Členství v komunitách</CardTitle>
+            <img width="50%" src={servicesImage} alt="Členství" />
+            <CardTitle>Členství</CardTitle>
           </DashboardCardWrapper>
         </Link>
       </Col>
       <Col lg={4}>
         <Link to={route.myAddedTickets()}>
           <DashboardCardWrapper>
-            <img width="50%" src={messageImage} alt="Vložené příspěvky" />
-            <CardTitle>Vložené příspěvky</CardTitle>
+            <img width="50%" src={messageImage} alt="Moje příspěvky" />
+            <CardTitle>Moje příspěvky</CardTitle>
           </DashboardCardWrapper>
         </Link>
       </Col>
@@ -50,8 +50,8 @@ export const Dashboard = () => {
       <Col lg={4}>
         <Link to={route.ticketsToSolve()}>
           <DashboardCardWrapper>
-            <img width="50%" src={newsImage} alt="Příspěvky na vyřešení" />
-            <CardTitle>Příspěvky na vyřešení</CardTitle>
+            <img width="50%" src={newsImage} alt="Příspěvky" />
+            <CardTitle>Příspěvky</CardTitle>
           </DashboardCardWrapper>
         </Link>
       </Col>

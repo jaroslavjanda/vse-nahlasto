@@ -181,7 +181,7 @@ export const TopNavigation = ({ children }) => {
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
               <Col
-                style={isShown ? {flexGrow:0} : {flexGrow:2}} 
+                style={isShown ? {flexGrow:0} : {flexGrow:1}} 
                 justify="center"
                 xs={0}
               >
@@ -199,7 +199,7 @@ export const TopNavigation = ({ children }) => {
                   </Nav>
                 </SideMenu>
               </Col>
-              <Col lg={isShown ? 11 : 10} xs={0}>
+              <Col lg={isShown ? 12 : 11} xs={0}>
                 <AdminWrapper>{children}</AdminWrapper>
               </Col>
             </Row>
