@@ -7,7 +7,7 @@ import { route } from 'src/Routes';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
   return (
-    <Container>
+    <Container className="mw6 center">
       <Heading>Přihlášení</Heading>
       <SignInForm
         isLoading={isLoading}

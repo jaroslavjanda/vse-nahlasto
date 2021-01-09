@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Container } from 'react-bootstrap';
 import { Heading } from 'src/atoms';
 import { PasswordResetForm } from '../organisms/PasswordResetForm';
 
@@ -16,7 +16,7 @@ export function PasswordResetTemplate({ isDone, error, onSubmit, email }) {
   }
 
   return (
-    <div className="mw6 center">
+    <Container className="mw6 center">
       <Heading>Reset password</Heading>
       <PasswordResetForm
         email={email}
@@ -25,6 +25,6 @@ export function PasswordResetTemplate({ isDone, error, onSubmit, email }) {
         onSubmit={onSubmit}
         className="mt3"
       />
-    </div>
+    </Container>
   );
 }
