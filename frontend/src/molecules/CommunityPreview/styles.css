@@ -4,7 +4,7 @@ h2:after,
 .cards .card:after,
 .news .card figcaption,
 .news .card:after,
-.news .article figcaption {
+.news .community-card figcaption {
   position: absolute;
 }
 .rel,
@@ -12,7 +12,7 @@ h2,
 h2 strong,
 .cards .card,
 .news .card,
-.news .article {
+.news .community-card {
   position: relative;
 }
 .cards,
@@ -94,7 +94,7 @@ h2 strong,
   top: -40%;
   opacity: 0.15;
 }
-.news .article {
+.news .community-card {
   overflow: hidden;
   width: 350px;
   height: 235px;
@@ -102,18 +102,23 @@ h2 strong,
 }
 
 @media screen and (max-width: 900px) {
-  .news .article {
+  .news .community-card {
     width: auto;
     height: auto;
   }
 }
 
-.news .article img {
+.news .community-card img {
   width: 100%;
   min-height: 100%;
   transition: 0.2s;
 }
-.news .article figcaption {
+
+.news .community-card p {
+  color: #fff;
+}
+
+.news .community-card figcaption {
   font-size: 14px;
   text-shadow: 0 1px 0 rgba(51, 51, 51, 0.3);
   color: #fff;
@@ -128,21 +133,21 @@ h2 strong,
   transform: scale(1.15);
   transition: 0.2s;
 }
-.news .article figcaption h3 {
+.news .community-card figcaption h3 {
   color: #3792e3;
   font-size: 16px;
   margin-bottom: 0;
   font-weight: bold;
 }
-.news .article:hover img,
-.news .article:focus img,
-.news .article:active img {
+.news .community-card:hover img,
+.news .community-card:focus img,
+.news .community-card:active img {
   filter: blur(3px);
   transform: scale(0.97);
 }
-.news .article:hover figcaption,
-.news .article:focus figcaption,
-.news .article:active figcaption {
+.news .community-card:hover figcaption,
+.news .community-card:focus figcaption,
+.news .community-card:active figcaption {
   opacity: 1;
   transform: none;
 }

@@ -21,7 +21,7 @@ export const CommunityCard = ({ community, previewType }) => {
   return (
     <Link to={`${route.communityDetailRaw()}/${community.community_id}`}>
       <h4 className="header-card">{community.name}</h4>
-      <figure className="article">
+      <figure className="community-card">
         <img src={imgPath('communities', community.image)} alt="" />
         <figcaption>
           <h3>{community.name}</h3>

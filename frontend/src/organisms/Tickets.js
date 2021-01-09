@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CardColumns } from 'react-bootstrap';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { CardsTicketBody } from '../molecules';
+import { getDataFromLocalStorage } from 'src/utils/localStorage';
 
 const LIKE_MUTATION = gql`
   mutation addLike($ownerId: Int!, $ticketId: Int!) {
@@ -31,10 +32,31 @@ const RESOLVE_TICKET_MUTATION = gql`
   }
 `;
 
+
+const LIKED_TICKETS = gql`
+  query LikedTickets($userId: Int!) {
+    ticketsLiked(userId: $userId) {
+     ticket_id
+    }
+  }
+`;
+ 
+
 export function Tickets({ tickets, isOwner, toCommunityButton }) {
+  const [sortedTickets, setSortedTickets] = useState(
+    tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id)
+    )
+  let user = getDataFromLocalStorage()?.user;
+  var userId = user ? parseInt(user.user_id) : undefined;
+  if (userId === undefined) userId = 0;
+
+  const ticketsState = useQuery(LIKED_TICKETS, {
+    variables: { userId },
+  });
+  const ticketsLikedByUser = ticketsState.data?.ticketsLiked;
+
   const [likedRequest] = useMutation(LIKE_MUTATION);
   const [deleteRequest] = useMutation(DELETE_MUTATION);
-  let sortedTickets = tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id);
 
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
     onCompleted: () => {
@@ -57,13 +79,16 @@ export function Tickets({ tickets, isOwner, toCommunityButton }) {
 
   return (
     <div style={{ textAlign: 'center' }}>
+      {!ticketsState.loading && 
       <div>
+        {console.log("Sorted",sortedTickets)}
         <CardColumns style={{ columnCount: '1' }}>
           {sortedTickets.map((item) => (
             <CardsTicketBody
               key={item.ticket_id}
               item={item}
               like={item.likes[0].likes_count}
+              likedTickets={ticketsLikedByUser.map(likedTicket => likedTicket.ticket_id)}
               requestSendLike={likedRequest}
               requestDelete={deleteRequest}
               isOwner={isOwner}
@@ -73,6 +98,7 @@ export function Tickets({ tickets, isOwner, toCommunityButton }) {
           ))}
         </CardColumns>
       </div>
+}
     </div>
   );
 }

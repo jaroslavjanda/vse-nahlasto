@@ -19,7 +19,7 @@ export const TopNavigation = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
   const [isAuthenticated, setisauthenticated] = useState(
-    localStorage.getItem('quacker-auth'),
+    getDataFromLocalStorage()
   );
   const [isShown, setIsShown] = useState(true);
   const [expanded, setExpanded] = useState(false);
