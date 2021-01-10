@@ -203,7 +203,7 @@ export function HomeTemplate({ communitiesHomepage }) {
               </Card.Header>
               <div className="text-center">
                 <Card.Body>
-                  <ul style={{ listStyle: 'none' }}>
+                  <ul className="list-unstyled">
                     <li>5 uživatelů</li>
                     <li>účet správce</li>
                   </ul>
@@ -255,6 +255,7 @@ export function HomeTemplate({ communitiesHomepage }) {
                 <Card.Body>
                   <ul className="list-unstyled">
                     <li>dle domluvy</li>
+                    <li>možnost přizpůsobení dashboardu</li>
                   </ul>
                   <Card.Title>
                     <h3>20 €</h3>
