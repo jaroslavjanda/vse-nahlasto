@@ -37,7 +37,6 @@ export const AddTicket = ({ match }) => {
     ADD_TICKET_MUTATION,
     {
       onCompleted: ({ addTicket: { ticket_id } }) => {
-        console.log("Ticket was added to the DB, it's ID is " + ticket_id);
         history.replace('/community-detail/' + communityId);
       },
       onError: () => {

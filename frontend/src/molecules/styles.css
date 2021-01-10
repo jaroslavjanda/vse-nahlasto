@@ -9,12 +9,19 @@
 .ticketImageNoBorders {
   border-radius: 0 !important;
 }
-
+.badge{
+  margin: 1.5em 0
+}
 .ticketCardMaxSize {
   max-width: 600px;
+  width: 40vw !important;
   margin-bottom: 30px !important;
 }
-
+@media screen and (max-width: 900px) {
+  .ticketCardMaxSize {
+    width: 100% !important;
+  }
+}
 .greenBorder {
   border: 3px solid rgb(40 167 69);
 }
