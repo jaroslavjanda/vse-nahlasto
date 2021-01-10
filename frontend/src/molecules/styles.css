@@ -28,6 +28,14 @@
   width: 207px;
 }
 
+.addCommentButton {
+  color: white;
+  width: 207px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 3px !important;
+}
+
 .heart {
   width: 100px;
   height: 100px;
