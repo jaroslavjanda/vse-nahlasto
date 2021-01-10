@@ -104,15 +104,10 @@ export const hasRequestBeenSent = async (
 ) => {
 
   var userEmail = (
-    await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [userId])
+    await dbConnection.query(`SELECT email FROM user WHERE user_id = ?`, [userId],)
   );
-
-  var email = userEmail === undefined? userEmail : userEmail[0]?.email
-
-  // hotfix
-  if (email === undefined) {
-    email = ""
-  }
+  
+  var email = userEmail[0] ? userEmail[0].email : ""
 
   return (
     await dbConnection.query(
