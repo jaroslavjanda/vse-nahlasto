@@ -5,7 +5,7 @@ import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
 import { FormikField } from '../molecules';
 import * as yup from 'yup';
 import { errorMessage } from 'jest-validate';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 
 const PASSWORD_CHANGE_REQUEST_MUTATION = gql`
   mutation SetResetCode($email: String!) {
@@ -54,7 +54,13 @@ export function ForgottenPasswordPage() {
         <Form className={'mt3'}>
           {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
           {resetPasswordRequestState.data && (
-            <SuccessBanner title={'Email byl odeslán.'} className="mb3" />
+            <SuccessBanner
+              title={
+                'Email s instrukcemi pro obnovení hesla byl odeslán.'
+              }
+              className="mb3"
+            >
+            </SuccessBanner>
           )}
           <FormikField
             id="email"

@@ -4,6 +4,7 @@ import * as yup from 'yup';
 
 import { Button, ErrorBanner, SuccessBanner } from 'src/atoms';
 import { FormikTextArea } from '../molecules/FormikTextArea';
+import { Spinner } from 'react-bootstrap';
 
 const schema = yup.object().shape({
   description: yup
@@ -36,7 +37,16 @@ export function EditCommunityForm({
       <Form className={className}>
         {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
         {successMessage && (
-          <SuccessBanner title={'Popis komunity byl změněn.'} className="mb3" />
+          <SuccessBanner
+            title={
+              'Popis komunity byl upraven. Za 2 sekundy budete přesměrováni.'
+            }
+            className="mb3"
+          >
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Přesměrovávání...</span>
+            </Spinner>
+          </SuccessBanner>
         )}
         <FormikTextArea
           id="description"
