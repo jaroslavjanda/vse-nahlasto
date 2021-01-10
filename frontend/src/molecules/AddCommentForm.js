@@ -6,6 +6,7 @@ import { FormikTextArea } from './FormikTextArea';
 import * as yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import { getDataFromLocalStorage } from '../utils/localStorage';
+import { toast } from 'react-toastify';
 
 const ADD_COMMENT_MUTATION = gql`
   mutation AddComment($content: String!, $user_id: Int!, $ticket_id: Int!) {
@@ -21,13 +22,12 @@ export function AddCommentForm({ ticket, onCommentSuccess }) {
   const initialValues = { content: '' };
 
   const [resolveAddCommentRequest] = useMutation(ADD_COMMENT_MUTATION, {
-    onCompleted: ({ addComment: comment_id }) => {
+    onCompleted: () => {
       setFormKey(formKey + 1);
       onCommentSuccess();
-      console.log("Comment was added to the DB, it's ID is " + comment_id);
+      toast.success('Komentář byl přidán.');
     },
     onError: () => {
-      console.log('Error while adding the Comment to DB');
     },
   });
 

@@ -3,6 +3,7 @@ import { CardColumns } from 'react-bootstrap';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { CardsTicketBody } from '../molecules';
 import { getDataFromLocalStorage } from 'src/utils/localStorage';
+import { toast } from 'react-toastify';
 
 const LIKE_MUTATION = gql`
   mutation addLike($ownerId: Int!, $ticketId: Int!) {
@@ -61,9 +62,9 @@ export function Tickets({ tickets, isOwner, toCommunityButton }) {
   const [resolveTicketRequest] = useMutation(RESOLVE_TICKET_MUTATION, {
     onCompleted: () => {
       window.location.reload();
+      toast.success('Ticket byl vyřešen.');
     },
-    onError: ({ setTicketResolved: ticket_id }) => {
-      console.log('Error', ticket_id);
+    onError: () => {
     },
   });
 

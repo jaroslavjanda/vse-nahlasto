@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { AddTicketTemplate } from '../templates/AddTicketTemplate';
 import { useHistory } from 'react-router-dom';
 import { getDataFromLocalStorage } from '../utils/localStorage';
+import { toast } from 'react-toastify';
 
 const ADD_TICKET_MUTATION = gql`
   mutation AddTicket(
@@ -37,18 +38,16 @@ export const AddTicket = ({ match }) => {
     ADD_TICKET_MUTATION,
     {
       onCompleted: ({ addTicket: { ticket_id } }) => {
-        console.log("Ticket was added to the DB, it's ID is " + ticket_id);
+        toast.success('Příspěvek byl přidán.');
         history.replace('/community-detail/' + communityId);
       },
       onError: () => {
-        console.log('Error while adding the ticket to DB');
       },
     },
   );
 
   const handleAddTicketFormSubmit = useCallback(
     (oldVariables) => {
-      console.log(oldVariables);
       const variables = {
         user_id: user ? user.user_id : 25085,
         community_id: communityId,

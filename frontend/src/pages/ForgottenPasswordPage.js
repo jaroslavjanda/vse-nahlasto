@@ -6,6 +6,7 @@ import { FormikField } from '../molecules';
 import * as yup from 'yup';
 import { errorMessage } from 'jest-validate';
 import { Container } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const PASSWORD_CHANGE_REQUEST_MUTATION = gql`
   mutation SetResetCode($email: String!) {
@@ -19,7 +20,9 @@ export function ForgottenPasswordPage() {
   const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
     PASSWORD_CHANGE_REQUEST_MUTATION,
     {
-      onCompleted: () => {},
+      onCompleted: () => {
+        toast.success('Požadavek byl odeslán.');
+      },
       onError: () => {},
     },
   );
