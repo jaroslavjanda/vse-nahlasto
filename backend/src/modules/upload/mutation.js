@@ -1,4 +1,4 @@
-import fsPromises from 'fs';
+import fsPromises from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
 import { resolverDIR } from '../../constants';
