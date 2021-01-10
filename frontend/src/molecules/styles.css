@@ -33,6 +33,7 @@
 .resolveTicketButton {
   color: white;
   width: 207px;
+  margin:0 !important;
 }
 
 .addCommentButton {

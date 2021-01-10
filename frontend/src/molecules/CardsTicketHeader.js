@@ -35,7 +35,7 @@ export const CardsTicketHeader = ({
               />
             </Button>
           )}
-          <Col>
+          <Col style={{ padding: 0, margin: 0 }}>
             <div style={{ color: 'white' }} className="badge">
               {item.date}
             </div>
