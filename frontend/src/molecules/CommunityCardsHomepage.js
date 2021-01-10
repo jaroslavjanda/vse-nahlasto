@@ -4,12 +4,10 @@ import { PreviewType, CommunityPreview } from './CommunityPreview/index';
 
 export const CommunityCardsHomepage = ({ communitiesHomepage }) => {
   return (
-    <Row>
       <CommunityPreview
         communities={communitiesHomepage}
         previewType={PreviewType.Basic}
         isPublic={true}
       />
-    </Row>
   );
 };
