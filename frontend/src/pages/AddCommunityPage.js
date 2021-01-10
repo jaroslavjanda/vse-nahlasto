@@ -5,6 +5,7 @@ import { getDataFromLocalStorage } from '../utils/localStorage';
 import { useHistory } from 'react-router-dom';
 import { ErrorBanner } from '../atoms';
 import { route } from 'src/Routes';
+import { toast } from 'react-toastify';
 
 const ADD_COMMUNITY_MUTATION = gql`
   mutation AddCommunity(
@@ -33,12 +34,11 @@ export const AddCommunityPage = () => {
   const [addCommunityRequest, addCommunityRequestState] = useMutation(
     ADD_COMMUNITY_MUTATION,
     {
-      onCompleted: ({ addCommunity: { community_id } }) => {
-        console.log('Community was added to the DB, its ID is ' + community_id);
+      onCompleted: () => {
+        toast.success('Komunita byla přidána.');
         history.replace(route.adminAllCommunities());
       },
       onError: () => {
-        console.log('Error while adding the community to DB');
       },
     },
   );

@@ -67,7 +67,7 @@ export const TicketsToSolve = () => {
           ) : (
             <div style={{marginTop:"3rem"}}>
               <Alert variant={'success'}>
-                Máš vyřešené všechny příspěvky &#9745;
+                Všechny Vaše příspěvky byly vyřešeny. &#9745;
               </Alert>
             </div>
           )}

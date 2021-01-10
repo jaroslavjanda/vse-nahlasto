@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { EditCommunityTemplate } from '../templates/EditCommunityTemplate';
+import { toast } from 'react-toastify';
 
 const COMMUNITY_QUERY = gql`
   query Community($community_id: Int!) {
@@ -29,6 +30,7 @@ export const EditCommunityPage = ({ match }) => {
     EDIT_COMMUNITY_MUTATION,
     {
       onCompleted: () => setTimeout(() => {
+        toast.success('Popis komunity byl upraven.');
         window.location.replace(
           'http://frontend.team07.vse.handson.pro/community-detail/' + community_id,
         );
