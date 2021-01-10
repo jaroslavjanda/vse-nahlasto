@@ -109,7 +109,7 @@ export const resetUserPassword = async (
   );
 
   const userName = await dbConnection.query(
-    'SELECT userName FROM user WhERE email = ?',
+    'SELECT name FROM user WHERE email = ?',
     [email],
   );
 

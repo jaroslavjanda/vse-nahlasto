@@ -54,7 +54,7 @@ export function ForgottenPasswordPage() {
         validationSchema={schema}
         validateOnBlur={false}
       >
-        <Form className={'mt3'}>
+        <Form className={'mw6'} style={{margin: "auto"}}>
           {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
           {resetPasswordRequestState.data && (
             <SuccessBanner
