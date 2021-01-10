@@ -8,7 +8,6 @@ import testimonial from 'src/images/testimonial1.jpg';
 import testimonial2 from 'src/images/testimonial2.jpg';
 import { CommunityCardsHomepage } from 'src/molecules/';
 import { route } from 'src/Routes';
-
 import {
   Button,
   Card,

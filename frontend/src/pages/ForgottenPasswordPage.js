@@ -5,7 +5,7 @@ import { Button, ErrorBanner, SuccessBanner } from 'src/atoms/';
 import { FormikField } from '../molecules';
 import * as yup from 'yup';
 import { errorMessage } from 'jest-validate';
-import { Container, Spinner } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 const PASSWORD_CHANGE_REQUEST_MUTATION = gql`
   mutation SetResetCode($email: String!) {

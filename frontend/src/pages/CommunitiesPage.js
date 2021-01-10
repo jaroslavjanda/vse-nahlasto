@@ -37,7 +37,6 @@ export const Communities = () => {
               <CommunitiesTemplate
                 communities={communities}
                 title={'Komunity'}
-                isPublic={true}
               />
             </>
           )}

@@ -9,17 +9,15 @@ import { route } from '../Routes';
 import '../molecules/CommunityPreview/styles.css';
 
 export const CommunitiesTemplate = ({
-  previewType,
   communities,
   title,
-  isPublic,
   addCommunity
 }) => {
   const history = useHistory();
   return (
     <Container>
       <HeadingWithButtons header={title ? title : ''}>
-        {!isPublic && addCommunity && (
+        {addCommunity && (
           <Button
             variant="success"
             onClick={() => history.push(route.addCommunity())}
@@ -30,8 +28,6 @@ export const CommunitiesTemplate = ({
       </HeadingWithButtons>
       <CommunityPreview
         communities={communities}
-        previewType={previewType}
-        isPublic={isPublic}
       />
     </Container>
   );
