@@ -25,16 +25,15 @@ export const EditCommunityPage = ({ match }) => {
     variables: { community_id },
   }).data?.community?.description;
 
-  console.log('Community ID, currenDesc: ', community_id, currentDescription);
-
   const [editCommunityRequest, editCommunityRequestState] = useMutation(
     EDIT_COMMUNITY_MUTATION,
     {
-      onCompleted: () => {
-        console.log('Community was edited in the DB');
-      },
+      onCompleted: () => setTimeout(() => {
+        window.location.replace(
+          'http://frontend.team07.vse.handson.pro/community-detail/' + community_id,
+        );
+      }, 2000),
       onError: () => {
-        console.log('Error while editing the community');
       },
     },
   );
