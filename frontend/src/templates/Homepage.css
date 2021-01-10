@@ -1,5 +1,4 @@
 .jumbotron {
-  margin: -1rem;
   border-radius: 0;
   margin-bottom: 0 !important;
 }
@@ -8,8 +7,14 @@
   height: 2.5rem;
 }
 
+@media screen and (max-width: 900px) {
+  .h5 {
+    height: 2.5rem !important;
+  }
+}
+
+
 .cover {
-  margin: -1rem;
   background-image: url('src/images/background.png');
   background-size: cover !important;
   background-repeat: repeat;
@@ -154,7 +159,6 @@
 
 #footer {
   background-color: #343a40;
-  margin: -1rem;
   padding-top: 10px;
   padding-bottom: 10px;
 }

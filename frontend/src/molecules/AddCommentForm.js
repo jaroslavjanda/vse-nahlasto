@@ -65,7 +65,7 @@ export function AddCommentForm({ ticket, onCommentSuccess }) {
           autoCorrect="off"
           autoCapitalize="off"
         />
-        <Button style={{ float: 'middle' }} type="submit" className="mt2 mb3">
+        <Button style={{ float: 'middle' }} className="addCommentButton" type="submit" >
           PŘIDAT KOMENTÁŘ
         </Button>
       </Form>
