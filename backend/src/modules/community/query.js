@@ -29,7 +29,7 @@ export const communitiesHomepage = async (_, __, { dbConnection }) => {
     WHERE c.closed = '0'
     GROUP BY  c.community_id, c.name, c.description, c.closed
     ORDER BY countID DESC
-    LIMIT 3`,
+    LIMIT 4`,
   );
 
   return communitiesHomepage;

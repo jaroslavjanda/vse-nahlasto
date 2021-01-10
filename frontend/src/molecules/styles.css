@@ -1,9 +1,9 @@
 .ticketCardHeaderGreen {
-  background-color: #28a745 !important;
+  background-color: #61d17b !important;
 }
 
 .ticketCardHeaderBlue {
-  background-color: #007bff !important;
+  background-color: #9dbdd8 !important;
 }
 
 .ticketImageNoBorders {
@@ -26,6 +26,14 @@
 .resolveTicketButton {
   color: white;
   width: 207px;
+}
+
+.addCommentButton {
+  color: white;
+  width: 207px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 3px !important;
 }
 
 .heart {

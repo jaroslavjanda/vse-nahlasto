@@ -31,7 +31,6 @@ export function CommunityDetailTemplate({
       )}
 
       <div>
-        {console.log("is member:", isMember)}
         {!community.closed && !isMember && userId !== 0 && !isOwner && (
           <Button
             variant="primary"
