@@ -88,6 +88,7 @@ a:hover {
   position: absolute;
   border: 1px solid #76a8d3 !important;
   border-radius: 5px;
+  margin: 0;
 }
 .submenuButton:hover,  .submenuButton:active,.submenuButton:focus{
   background-color: #343a40 !important;

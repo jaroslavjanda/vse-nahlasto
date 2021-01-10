@@ -181,7 +181,7 @@ export const TopNavigation = ({ children }) => {
           <>
             <Row style={{ marginRight: 0, marginLeft: 0 }}>
               <Col
-                style={isShown ? {flexGrow:0} : {flexGrow:1}} 
+                style={isShown ? {flexGrow:0,zIndex:100} : {flexGrow:1,zIndex:100}} 
                 justify="center"
                 xs={0}
               >
