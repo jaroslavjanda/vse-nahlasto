@@ -16,6 +16,8 @@ const SIGNUP_MUTATION = gql`
       user {
         email
         user_id
+        name
+        surname
       }
       token
     }
@@ -27,6 +29,7 @@ export function SignUpPage() {
   const history = useHistory();
   const [signupRequest, signupRequestState] = useMutation(SIGNUP_MUTATION, {
     onCompleted: ({ signup: { user, token } }) => {
+      console.log(token,user)
       auth.signin({ token, user });
       history.replace('/');
     },

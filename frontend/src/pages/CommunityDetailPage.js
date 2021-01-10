@@ -142,7 +142,7 @@ export const CommunityDetail = ({ match }) => {
     if (state.data?.hasRequestBeenSent) {
       setActiveRequest(true)
     }
-  }, [state, handlePrivateCommunityJoinRequest] )
+  }, [state, handlePrivateCommunityJoinRequest, userId] )
 
   const community = state.data?.community;
 

@@ -65,7 +65,7 @@ export const TicketsToSolve = () => {
               isOwner={true}
             />
           ) : (
-            <div>
+            <div style={{marginTop:"3rem"}}>
               <Alert variant={'success'}>
                 Máš vyřešené všechny příspěvky &#9745;
               </Alert>

@@ -6,6 +6,7 @@ import { PreviewType } from '../../molecules/CommunityPreview';
 import { ErrorType } from '../../utils/Error';
 import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
 import { Loading } from '../../atoms';
+import { Alert } from 'react-bootstrap';
 
 const COMMUNITY_USER_OWNS = gql`
   query CommunitiesUserOwns($userId: Int!) {
@@ -39,12 +40,19 @@ export const OwnerOfCommunities = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {communities && (
+          {communities ?(
             <CommunitiesTemplate
               communities={communities}
               title={'Výpis mých komunit'}
               previewType={PreviewType.Owner}
+              addCommunity={true}
             />
+          ): (
+            <div style={{marginTop:"3rem"}}>
+              <Alert variant={'success'}>
+                Nemáš žádné komunity
+              </Alert>
+            </div>
           )}
         </>
       )}

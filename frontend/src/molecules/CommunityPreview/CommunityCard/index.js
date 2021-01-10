@@ -4,6 +4,11 @@ import { imgPath } from '../../../utils/imgPath';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { PreviewType } from './../index';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faLock,
+  faLockOpen
+} from '@fortawesome/free-solid-svg-icons';
 
 export const CommunityCard = ({ community, previewType }) => {
   const resolveType = () => {
@@ -20,7 +25,13 @@ export const CommunityCard = ({ community, previewType }) => {
   };
   return (
     <Link to={`${route.communityDetailRaw()}/${community.community_id}`}>
-      <h4 className="header-card">{community.name}</h4>
+      <h4 className="header-card">
+        <FontAwesomeIcon
+          style={{ fontSize: '18px', width: '25px' }}
+          icon={community.closed?faLock:faLockOpen}
+        /> {" "}
+        {community.name}
+        </h4>
       <figure className="community-card">
         <img src={imgPath('communities', community.image)} alt="" />
         <figcaption>

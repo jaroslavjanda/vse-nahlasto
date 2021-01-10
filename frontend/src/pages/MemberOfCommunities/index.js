@@ -6,6 +6,7 @@ import { PreviewType } from '../../molecules/CommunityPreview';
 import { ErrorType } from '../../utils/Error';
 import { ErrorBannerWithRefreshButton } from '../../atoms/ErrorBannerWithRefreshButton';
 import { Loading } from '../../atoms';
+import { Alert } from 'react-bootstrap';
 
 const USER_ACCESSIBLE_COMMUNITIES = gql`
   query UserAccessibleCommunities($userId: Int!) {
@@ -39,12 +40,18 @@ export const MemberOfCommunities = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {communities && (
+          {communities ? (
             <CommunitiesTemplate
               communities={communities}
               title={'Členství v komunitách'}
               previewType={PreviewType.Member}
             />
+          ) : (
+            <div>
+              <Alert variant={'success'}>
+                Zatím jsi se nepřidal do žádný komunity
+              </Alert>
+            </div>
           )}
         </>
       )}

@@ -1,34 +1,28 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useAuth } from 'src/utils/auth';
-import { getDataFromLocalStorage } from '../utils/localStorage';
-
+import React from 'react';
 import { NavLink } from 'src/atoms';
 import { Col, Nav, Row } from 'react-bootstrap';
-
 import { route } from 'src/Routes';
-import '../organisms/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faColumns,
   faBuilding,
   faClipboardList,
-  faFileAlt,
-  faFolderOpen,
+  faHouseUser,
   faNewspaper,
-  faTachometerAlt,
+  faHotel,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const SideMenu = ({ isShown, classN, children }) => {
   return (
     <div className={classN}>
       {children}
-      <Row id="admin-menu" className={'menuContent'}>
-        <Col>
+      <Row id="admin-menu">
+        <Col style={{paddingLeft:0}}>
           <Nav.Item>
             <NavLink exact activeClassName="active-admin" to={route.admin()}>
               <FontAwesomeIcon
                 style={{ fontSize: '18px', width: '25px' }}
-                icon={faTachometerAlt}
+                icon={faColumns}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
                 Nástěnka
@@ -37,7 +31,7 @@ export const SideMenu = ({ isShown, classN, children }) => {
           </Nav.Item>
 
           <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
-            Uživatel
+            Menu uživatele
           </div>
           <Nav.Item>
             <NavLink
@@ -62,10 +56,10 @@ export const SideMenu = ({ isShown, classN, children }) => {
             >
               <FontAwesomeIcon
                 style={{ fontSize: '18px', width: '25px' }}
-                icon={faFolderOpen}
+                icon={faHouseUser}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                Členství v komunitách
+                Členství
               </span>
             </NavLink>
           </Nav.Item>
@@ -80,12 +74,12 @@ export const SideMenu = ({ isShown, classN, children }) => {
                 icon={faNewspaper}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                Vložené příspěvky
+                Moje příspěvky
               </span>
             </NavLink>
           </Nav.Item>
           <div className={`submenu ${isShown ? 'notVisible' : ''}`}>
-            Správce
+            Menu správce
           </div>
           <Nav.Item>
             <NavLink
@@ -95,7 +89,7 @@ export const SideMenu = ({ isShown, classN, children }) => {
             >
               <FontAwesomeIcon
                 style={{ fontSize: '18px', width: '25px' }}
-                icon={faFileAlt}
+                icon={faHotel}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
                 Moje komunity
@@ -113,7 +107,7 @@ export const SideMenu = ({ isShown, classN, children }) => {
                 icon={faClipboardList}
               />{' '}
               <span className={`${isShown ? 'notVisibleText' : ''}`}>
-                Příspěvky na vyřešení
+                Příspěvky
               </span>
             </NavLink>
           </Nav.Item>

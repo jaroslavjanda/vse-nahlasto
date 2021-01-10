@@ -90,7 +90,6 @@ export const editCommunity = async (
   { community_id, description },
   { dbConnection },
 ) => {
-  //TODO check if user have role to edit
   await dbConnection.query(
     `UPDATE community SET description = ? WHERE community_id = ?`,
     [description, community_id],

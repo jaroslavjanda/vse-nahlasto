@@ -37,6 +37,7 @@ export const AdminAllCommunities = () => {
               communities={communities}
               title={'Výpis komunit'}
               previewType={PreviewType.Basic}
+              addCommunity={true}
             />
           )}
         </>

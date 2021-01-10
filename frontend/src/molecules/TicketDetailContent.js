@@ -7,7 +7,6 @@ export const TicketDetailContent = ({ ticket }) => {
     <Container fluid>
       <h1>{ticket.title}</h1>
       <p align="left">{ticket.content}</p>
-      {/*TODO ticket image placeholder*/}
       <Image src={imgPathForTicket('tickets', ticket.image)} />
     </Container>
   );

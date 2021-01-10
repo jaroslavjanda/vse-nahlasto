@@ -66,7 +66,6 @@ export function CommunityDetailTemplate({
           {userId !== 0 && (
             <Button
               variant="danger"
-              // TODO tady je onclick
               onClick={() => {
                 handlePrivateCommunityJoinRequest({
                   variables: { userId, communityId },
@@ -78,13 +77,13 @@ export function CommunityDetailTemplate({
           )}
         </div>
       )}
-
+      
       {community.closed && !isMember && activeRequest && (
-        <SuccessBanner title={'Požadavek byl potvrzen'} className="mb3">
+        <SuccessBanner title={'Požadavek byl potvrzen'} >
           Váš požadavek o přijetí do této komunity byl již zaznamenán,
           vyčkejte prosím na jeho vyřízení. V případě dlouhé časové prodlevy či jakýchkoliv
-          {/*TODO tady je potreba naformatovat odkaz*/}
-          nesrovnalostí můžete kontaktovat administrátora komunity na <br/><br/><br/><a href={"mailto:"}>{ ownerEmail }</a>.
+          nesrovnalostí můžete kontaktovat administrátora komunity na {" "}
+          <b><a href={"mailto:"} style={{ color: "white"}}>{ ownerEmail }</a></b>.
         </SuccessBanner>
       )}
 

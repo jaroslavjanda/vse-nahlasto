@@ -43,7 +43,7 @@ const LIKED_TICKETS = gql`
  
 
 export function Tickets({ tickets, isOwner, toCommunityButton }) {
-  const [sortedTickets, setSortedTickets] = useState(
+  const [sortedTickets] = useState(
     tickets.slice().sort((a, b) => b.ticket_id - a.ticket_id)
     )
   let user = getDataFromLocalStorage()?.user;
@@ -78,10 +78,8 @@ export function Tickets({ tickets, isOwner, toCommunityButton }) {
   );
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      {!ticketsState.loading && 
-      <div>
-        {console.log("Sorted",sortedTickets)}
+    <div style={{ textAlign: 'center',margin: "auto" }}>
+      {!ticketsState.loading && (
         <CardColumns style={{ columnCount: '1' }}>
           {sortedTickets.map((item) => (
             <CardsTicketBody
@@ -97,8 +95,6 @@ export function Tickets({ tickets, isOwner, toCommunityButton }) {
             />
           ))}
         </CardColumns>
-      </div>
-}
+      )}
     </div>
-  );
-}
+)}
