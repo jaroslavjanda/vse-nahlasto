@@ -7,6 +7,13 @@
   height: 2.5rem;
 }
 
+@media screen and (max-width: 900px) {
+  .h5 {
+    height: 2.5rem !important;
+  }
+}
+
+
 .cover {
   background-image: url('src/images/background.png');
   background-size: cover !important;
