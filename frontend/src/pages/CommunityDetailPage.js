@@ -87,7 +87,7 @@ export const CommunityDetail = ({ match }) => {
     JOIN_PRIVATE_COMMUNITY_MUTATION,
     {
       onCompleted: () => {
-        toast.info('Požadavek byl odeslán.');
+        toast.success('Požadavek byl odeslán.');
       },
       onError: () => {
         console.log('Error while performing request: ');
