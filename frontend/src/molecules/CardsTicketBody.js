@@ -16,6 +16,7 @@ export const CardsTicketBody = ({
   isOwner,
   toCommunityButton,
   handleResolveTicket,
+  likedTickets,
 }) => {
   //border of card
   let cardBorder =
@@ -62,6 +63,7 @@ export const CardsTicketBody = ({
         <Card.Text>{item.content}</Card.Text>
         <Col>
           <LikeLogic
+            isLikedByUser={likedTickets.includes(item.ticket_id)}
             item={item}
             user={user}
             enabled={enabled}

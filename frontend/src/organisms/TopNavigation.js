@@ -12,23 +12,24 @@ import logo from 'src/images/logo.png';
 import './style.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 export const TopNavigation = ({ children }) => {
   const { signout } = useAuth();
   const history = useHistory();
   const location = useLocation();
   const [isAuthenticated, setisauthenticated] = useState(
-    localStorage.getItem('quacker-auth'),
+    getDataFromLocalStorage()
   );
   const [isShown, setIsShown] = useState(true);
   const [expanded, setExpanded] = useState(false);
   let user = getDataFromLocalStorage()?.user;
-
+  
   useEffect(() => {
     setIsShown(false);
     setExpanded(false);
   }, [location]);
+
   return (
     <>
       <Navbar
@@ -70,7 +71,7 @@ export const TopNavigation = ({ children }) => {
             )}
             {isAuthenticated ? (
               <>
-                <Dropdown>
+                <Dropdown className={'side'}>
                   <Dropdown.Toggle id="dropdown-custom-1" className="navButton">
                     {' '}
                     {user.name}
@@ -97,6 +98,36 @@ export const TopNavigation = ({ children }) => {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+
+                <div className={`submenu top`} style={{color:"white"}}>
+                  {' '}{user.name}{' '}{user.surname}
+                </div>
+                <Nav.Item className={'top'}>
+                    
+                  <NavLink exact to={route.forgottenPassword()}>
+                    <FontAwesomeIcon
+                      style={{ fontSize: '18px', width: '25px' }}
+                      icon={faBuilding}
+                    />{' '}
+                    Změna hesla
+                  </NavLink>
+                </Nav.Item>
+                <Nav.Item className={'top'}>
+                  
+                  <a onClick={() => {
+                        signout();
+                        history.push(route.home());
+                        window.location.reload();
+                      }} 
+                      className={'link no-underline f6 dib'}
+                      >
+                        <FontAwesomeIcon
+                  style={{ fontSize: '18px', width: '25px' }}
+                  icon={faBuilding}
+                />{' '}
+                  Odhlásit se
+                  </a>
+                </Nav.Item>
                 <SideMenu classN={'top'} />
               </>
             ) : (
