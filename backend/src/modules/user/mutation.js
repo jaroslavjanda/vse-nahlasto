@@ -52,7 +52,7 @@ export const signup = async (
   )[0];
 
   if (userByEmail) {
-    throw new Error('Email has been already used for registration.');
+    throw new Error('Email je již registrovaný.');
   }
 
   //create hash
@@ -66,7 +66,6 @@ export const signup = async (
   );
 
   if (dbResponse.insertId) {
-    console.log('receiver email: ', email);
 
     const emailData = {
       type: TYPE.REGISTRATION,
@@ -75,16 +74,20 @@ export const signup = async (
     };
 
     send(emailData);
+
+    const dbUserResponse = await dbConnection.query(
+      `SELECT * FROM user WHERE email = ?`,
+      [email],
+    );
+    const user = dbUserResponse[0];
+
+    const token = createToken({ id: dbResponse.insertId });
+
+    return { user: user, token: token };
   }
-
-  const token = createToken({ id: dbResponse.insertId });
-
-  const userObject = {
-    user_id: dbResponse.insertId,
-    email,
-  };
-
-  return { user: userObject, token: token };
+  else{
+    throw new Error('Něco se nepovedlo, kontaktujte administrátora.');
+  }
 };
 
 /**

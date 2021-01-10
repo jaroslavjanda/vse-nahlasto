@@ -25,7 +25,7 @@ import 'src/molecules/CommunityPreview/styles.css';
 
 export function HomeTemplate({ communitiesHomepage }) {
   return (
-    <Container>
+    <>
       <Jumbotron className="cover" style={{ marginTop: '-3rem' }}>
         <Container>
           <div className="cover-text">
@@ -215,9 +215,7 @@ export function HomeTemplate({ communitiesHomepage }) {
                 </Card.Body>
               </div>
               <a
-                href="mailto:tym7nahlasto@gmail.com?subject=Chci Free verzi"
-                rel="noreferrer"
-                target="_blank"
+                href={route.signUp()}
               >
                 <Button className="homepageButton">Vybrat</Button>
               </a>
@@ -240,7 +238,7 @@ export function HomeTemplate({ communitiesHomepage }) {
                 </Card.Body>
               </div>
               <a
-                href="mailto:tym7nahlasto@gmail.com?subject=Chci Pro verzi"
+                href={route.signUp()}
                 rel="noreferrer"
                 target="_blank"
               >
@@ -264,9 +262,7 @@ export function HomeTemplate({ communitiesHomepage }) {
                 </Card.Body>
               </div>
               <a
-                href="mailto:tym7nahlasto@gmail.com?subject=Chci Ultimate verzi"
-                rel="noreferrer"
-                target="_blank"
+                href={route.signUp()}
               >
                 <Button className="homepageButton">Vybrat</Button>
               </a>
@@ -289,6 +285,6 @@ export function HomeTemplate({ communitiesHomepage }) {
       </Jumbotron>
 
       <Footer />
-    </Container>
+    </>
   );
 }

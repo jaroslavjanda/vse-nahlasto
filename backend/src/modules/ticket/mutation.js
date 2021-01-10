@@ -121,7 +121,6 @@ export const setTicketResolved = async (_, { ticketId }, { dbConnection }) => {
   await dbConnection.query(
     `UPDATE ticket SET status_id = 1 WHERE ticket_id = ?`,
     [ticketId],
-    console.log('UPDATE', ticketId),
   );
 
   const ticket = (

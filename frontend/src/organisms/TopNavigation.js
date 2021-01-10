@@ -157,7 +157,7 @@ export const TopNavigation = ({ children }) => {
                     Přihlásit se
                   </NavLink>
                 </Nav.Item>
-                <Nav.Item style={{marginLeft:"15px",marginTop:"13px"}}>
+                <Nav.Item style={{marginLeft:"15px",marginTop:"5px"}}>
                   <Button className="navButton" to={route.signUp()} as={Link}>
                     Registrovat se
                   </Button>

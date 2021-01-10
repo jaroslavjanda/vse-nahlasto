@@ -24,14 +24,6 @@ export function send(emailData) {
     JOIN_COMMUNITY_CONFIRM: 'd-f116656350a44091878c57cce7346de3',
     RESOLVE_TICKET: 'd-dd214182e74147e384cb27e6bc02d3be',
   };
-  console.log(
-    'receiverName: ',
-    emailData.receiverName,
-    'communityName',
-    emailData.communityName,
-    'link',
-    emailData.link,
-  );
 
   const msg = {
     to: emailData.receiver.toString(),

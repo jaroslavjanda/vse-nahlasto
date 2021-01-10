@@ -76,16 +76,12 @@ export const communityOwner = async (
     )
   )[0].user_id;
 
-  console.log("owner id:", ownerId)
-
   const owner = (
     await dbConnection.query(
       `SELECT * FROM user WHERE user_id = ?`,
       [ownerId]
     )
   )[0]
-
-  console.log("owner data:", owner)
 
   return owner
 };
