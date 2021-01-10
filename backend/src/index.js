@@ -37,6 +37,7 @@ const typeDefs = gql`
     owner: [User]
     users: [User!]!
     tickets: [Ticket!]
+    role_id: Int
   }
 
   type Comment {

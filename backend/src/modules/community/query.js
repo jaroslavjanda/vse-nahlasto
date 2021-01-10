@@ -153,7 +153,7 @@ export const communitiesAccessibleToUser = async (
   { dbConnection },
 ) => {
   return await dbConnection.query(
-    'SELECT community.community_id, name, description, image, code, closed ' +
+    'SELECT community.community_id, name, description, image, code, closed, membership.role_id ' +
       'FROM `community` ' +
       'JOIN membership ' +
       'ON community.community_id = membership.community_id ' +
