@@ -1,0 +1,8 @@
+PORT=4000
+JWT_SECRET=somesuperlongsecret
+DB_HOST=localhost
+DB_NAME=user_team07
+DB_USER=team07
+DB_PASSWORD=password
+DB_PORT=4242
+SENDGRID_API_KEY=insertCode
