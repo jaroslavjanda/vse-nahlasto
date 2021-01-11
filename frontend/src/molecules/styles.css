@@ -14,7 +14,7 @@
 }
 .ticketCardMaxSize {
   max-width: 600px;
-  width: 40vw !important;
+  width: 50vw !important;
   margin-bottom: 30px !important;
 }
 @media screen and (max-width: 900px) {
