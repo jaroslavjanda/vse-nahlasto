@@ -32,6 +32,7 @@ export function SignUpPage() {
       console.log(token,user)
       auth.signin({ token, user });
       history.replace('/');
+      window.location.reload();
     },
     onError: () => {},
   });
