@@ -238,8 +238,6 @@ export function HomeTemplate({ communitiesHomepage }) {
               </div>
               <a
                 href={route.signUp()}
-                rel="noreferrer"
-                target="_blank"
               >
                 <Button className="homepageButton">Vybrat</Button>
               </a>
