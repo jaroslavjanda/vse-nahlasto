@@ -22,7 +22,7 @@ export function CommunityDetailTemplate({
     <Container>
       {(!community.closed || isMember) && (
         <div className="container-image">
-          <img src={imgPath('tickets', community.image)} alt="ticket" />
+          <img src={imgPath('communities', community.image)} alt="komunita banner" />
           <div className="centered-image">
             <h1>{community.name}</h1>
             <div>{community.description}</div>

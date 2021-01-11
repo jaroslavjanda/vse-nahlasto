@@ -3,9 +3,8 @@ import React, {
   useCallback,
   useContext,
   useMemo,
-  useState,
+  useState
 } from 'react';
-
 const LOCAL_STORAGE_AUTH_KEY = 'auth';
 
 const initialState = {

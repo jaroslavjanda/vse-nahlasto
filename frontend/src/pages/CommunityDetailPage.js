@@ -18,6 +18,7 @@ const COMMUNITY_DETAIL_QUERY = gql`
       name
       description
       closed
+      image
       owner {
         user_id
       }

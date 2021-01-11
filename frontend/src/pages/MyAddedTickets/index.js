@@ -64,7 +64,7 @@ export const MyAddedTickets = () => {
               title={'Vložené příspěvky'}
             />
           ) : (
-            <div>
+            <div style={{marginTop:"3rem"}}>
               <Alert variant={'success'}>
                 Zatím jsi nepřidal žádný příspěvek 💬
               </Alert>

@@ -40,14 +40,14 @@ export const MemberOfCommunities = () => {
               errorType={ErrorType.LOAD_DATA_FAILED}
             />
           )}
-          {communities ? (
+          {communities.length ? (
             <CommunitiesTemplate
               communities={communities}
               title={'Členství v komunitách'}
               previewType={PreviewType.Member}
             />
           ) : (
-            <div>
+            <div style={{marginTop:"3rem"}}>
               <Alert variant={'success'}>
                 Zatím jsi se nepřidal do žádný komunity
               </Alert>
