@@ -11,7 +11,7 @@ export const AdminWrapper = styled.div`
 export const Wrapper = styled.div``;
 
 export const AdminBackground = styled.div`
-  min-height: calc(100vh - 4rem);
+  min-height: 100vh;
   z-index: 100;
   background: transparent
     linear-gradient(180deg, #fafafa 0%, #fafafa 50%, #dfe2f1 100%) 0% 0%
